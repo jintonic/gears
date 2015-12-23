@@ -1,0 +1,5 @@
+/geometry/textInput/file geo/hall.txt
+/run/initialize
+/vis/ASCIITree/verbose 13
+/vis/drawTree
+/geometry/test/run
