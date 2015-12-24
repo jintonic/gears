@@ -106,6 +106,7 @@ int main(int argc, char **argv)
       delete ui;
    }
 
+   delete vis;
    delete run;
    return 0;
 }
