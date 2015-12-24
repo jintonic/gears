@@ -1,3 +1,9 @@
+# visualization files
+*.heprep
+*.eps
+*.prim
+user.properties
+
 # Compiled Object files
 *.slo
 *.lo
