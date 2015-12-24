@@ -80,6 +80,26 @@ class Generator : public G4VUserPrimaryGeneratorAction
 //______________________________________________________________________________
 //
 
+#include "G4VModularPhysicsList.hh"
+#include "G4DecayPhysics.hh"
+#include "G4RadioactiveDecayPhysics.hh"
+#include "G4EmStandardPhysics.hh"
+
+class Physics: public G4VModularPhysicsList
+{
+   public:
+      Physics() : G4VModularPhysicsList() {
+         SetVerboseLevel(10);
+         RegisterPhysics(new G4DecayPhysics());
+         RegisterPhysics(new G4RadioactiveDecayPhysics());
+         RegisterPhysics(new G4EmStandardPhysics());
+      }
+      virtual ~Physics() {};
+};
+
+//______________________________________________________________________________
+//
+
 #include <G4RunManager.hh>
 #include <QBBC.hh>
 #include <G4VisExecutive.hh>
@@ -90,10 +110,11 @@ int main(int argc, char **argv)
    G4RunManager* run = new G4RunManager;
 
    run->SetUserInitialization(new Detector);
-   run->SetUserInitialization(new QBBC);
+   run->SetUserInitialization(new Physics);
    run->SetUserAction(new Generator);
 
    G4VisManager* vis = new G4VisExecutive;
+   vis->SetVerboseLevel(0);
    vis->Initialize();
 
    if (argc!=1)  {
