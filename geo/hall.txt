@@ -1,1 +1,0 @@
-:VOLU hall BOX 5*m 5*m 5*m G4_AIR
