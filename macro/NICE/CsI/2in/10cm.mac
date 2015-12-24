@@ -1,0 +1,13 @@
+/geometry/textInput/file geo/NICE/CsI/2in/10cm.tg
+/run/initialize
+/vis/ASCIITree/verbose 13
+/vis/drawTree
+/geometry/test/run
+
+/vis/open HepRepFile
+/vis/drawVolume
+/vis/scene/add/axes 0 0 0 10 cm
+/vis/viewer/flush
+
+/vis/scene/add/trajectories
+/vis/scene/endOfEventAction accumulate Nevt
