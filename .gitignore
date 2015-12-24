@@ -1,4 +1,5 @@
 # visualization files
+.DAWN*
 *.heprep
 *.eps
 *.prim
