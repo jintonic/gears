@@ -4,7 +4,7 @@
 /vis/drawTree
 /geometry/test/run
 
-/vis/viewer/set/background 255 255 255
+/vis/viewer/set/background ! ! ! 0
 
 /vis/open RayTracer
 /vis/drawVolume
