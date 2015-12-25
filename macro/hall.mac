@@ -10,4 +10,4 @@
 /vis/viewer/flush
 
 /vis/scene/add/trajectories
-/vis/scene/endOfEventAction accumulate Nevt
+/vis/scene/endOfEventAction accumulate 10
