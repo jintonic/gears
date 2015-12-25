@@ -3,6 +3,9 @@
 *.heprep
 *.eps
 *.prim
+*.jpeg
+*.jpg
+*.png
 user.properties
 
 # Compiled Object files
