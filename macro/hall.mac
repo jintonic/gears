@@ -4,7 +4,9 @@
 /vis/drawTree
 /geometry/test/run
 
-/vis/open HepRepFile
+/vis/viewer/set/background 255 255 255
+
+/vis/open RayTracer
 /vis/drawVolume
 /vis/scene/add/axes 0 0 0 10 m
 /vis/viewer/flush
