@@ -4,6 +4,7 @@
 /vis/ASCIITree/verbose 13
 /vis/drawTree
 /geometry/test/run
+/vis/geometry/list
 
 /vis/open RayTracer
 /vis/viewer/set/background ! ! ! 0
@@ -14,14 +15,14 @@
 /vis/viewer/refresh
 /vis/viewer/flush
 
-/vis/open DAWNFILE
-/vis/viewer/set/background ! ! ! 0
-/vis/viewer/set/upThetaPhi 0 0
-/vis/viewer/set/viewpointThetaPhi 60 0
-/vis/drawVolume
-/vis/scene/add/axes 0 0 0 10 cm
-/vis/viewer/refresh
-/vis/viewer/flush
+#/vis/open DAWNFILE
+#/vis/viewer/set/background ! ! ! 0
+#/vis/viewer/set/upThetaPhi 0 0
+#/vis/viewer/set/viewpointThetaPhi 60 0
+#/vis/drawVolume
+#/vis/scene/add/axes 0 0 0 10 cm
+#/vis/viewer/refresh
+#/vis/viewer/flush
 
 /vis/open HepRepFile
 /vis/heprep/setCullInvisibles true
