@@ -1,7 +1,7 @@
-:VOLU hall BOX 10*cm 10*cm 10*cm G4_AIR
-:VOLU CsI TUBS 0. 2.54*cm 5*cm 0 360 G4_CESIUM_IODIDE
-:ROTM r000 0 0 0
-:PLACE CsI -1 hall r000 0 0 0
+:volu hall BOX 10*cm 10*cm 10*cm G4_AIR
+:volu CsI TUBS 0. 2.54*cm 5*cm 0 360 G4_CESIUM_IODIDE
+:rotm r000 0 0 0
+:place CsI -1 hall r000 0 0 0
 
-:COLOR CsI 0.2 0.4 0.8
-:VIS hall OFF
+:color CsI 0.2 0.4 0.8
+:vis hall OFF
