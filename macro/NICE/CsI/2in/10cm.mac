@@ -4,9 +4,16 @@
 /vis/drawTree
 /geometry/test/run
 
+/vis/viewer/set/background ! ! ! 0
+/vis/open RayTracer
+/vis/drawVolume
+/vis/scene/add/axes 0 0 0 10 cm
+/vis/viewer/flush
+
 /vis/open HepRepFile
 /vis/drawVolume
 /vis/scene/add/axes 0 0 0 10 cm
+/vis/heprep/setCullInvisibles true
 /vis/viewer/flush
 
 /vis/scene/add/trajectories
@@ -16,4 +23,4 @@
 /gps/energy 1.2 MeV
 /gps/position 0 0 6 cm
 
-/run/beamOn 10
+/run/beamOn 50
