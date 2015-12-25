@@ -6,6 +6,7 @@
 *.jpeg
 *.jpg
 *.png
+*.pdf
 user.properties
 
 # Compiled Object files
