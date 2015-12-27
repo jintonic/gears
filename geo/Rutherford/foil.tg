@@ -1,0 +1,8 @@
+:mixt vacuum 1e-9 1 G4_AIR 1
+:volu hall BOX 10*cm 10*cm 10*cm vacuum
+:volu foil BOX 5*cm 5*cm 1*micrometer G4_Au
+:rotm r000 0 0 0
+:place foil 1 hall r000 0 0 0
+
+:color foil 0.5 0.5 0
+:vis hall OFF
