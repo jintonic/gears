@@ -5,11 +5,11 @@ class TextGeoInput : public G4UImessenger
 {
    public:
       TextGeoInput();
-      virtual ~TextGeoInput() { delete fFileCmd; }
+      ~TextGeoInput() { delete fFileCmd; }
 
       G4String FileName;
       void SetNewValue(G4UIcommand* cmd, G4String value)
-      { if (cmd=fFileCmd) FileName = value; }
+      { if (cmd==fFileCmd) FileName = value; }
 
    private:
       G4UIcmdWithAString* fFileCmd;
@@ -20,6 +20,58 @@ TextGeoInput::TextGeoInput() : G4UImessenger()
    fFileCmd = new G4UIcmdWithAString("/geometry/textInput/file",this);
    fFileCmd->SetGuidance("Set input text file name.");
    fFileCmd->SetParameterName("fin",false);
+   fFileCmd->AvailableForStates(G4State_PreInit);
+}
+
+//______________________________________________________________________________
+//
+
+#include <G4UIdirectory.hh>
+#include <G4UIcmdWith3VectorAndUnit.hh>
+#include <G4UniformMagField.hh>
+#include <G4FieldManager.hh>
+
+class MagneticField : public G4UImessenger
+{
+   public:
+      MagneticField(const G4ThreeVector& value = G4ThreeVector());
+      ~MagneticField() { delete fDir; delete fSetCmd; delete fField; }
+
+      void SetNewValue(G4UIcommand* cmd, G4String value)
+      {
+         if (cmd==fSetCmd) {
+            fField->SetFieldValue(fSetCmd->GetNew3VectorValue(value));
+            fFieldManager->SetDetectorField(fField);
+            fFieldManager->CreateChordFinder(fField);
+            G4cout<<"Magnetic field is set to "<<value<<G4endl;
+         }
+      }
+
+   private:
+      G4UIdirectory* fDir;
+      G4UIcmdWith3VectorAndUnit* fSetCmd;
+      G4UniformMagField* fField;
+      G4FieldManager* fFieldManager;
+};
+
+#include <G4TransportationManager.hh>
+
+MagneticField::MagneticField(const G4ThreeVector& value) : G4UImessenger()
+{
+   fDir = new G4UIdirectory("/field/");
+   fDir->SetGuidance("Global uniform field UI commands");
+
+   fSetCmd = new G4UIcmdWith3VectorAndUnit("/field/setM",this);
+   fSetCmd->SetGuidance("Set uniform magnetic field value.");
+   fSetCmd->SetParameterName("Bx", "By", "Bz", false);
+   fSetCmd->SetUnitCategory("Magnetic flux density");
+   fSetCmd->AvailableForStates(G4State_PreInit,G4State_Idle);
+
+   fFieldManager = 
+      G4TransportationManager::GetTransportationManager()->GetFieldManager();
+   fField = new G4UniformMagField(value);
+   fFieldManager->SetDetectorField(fField);
+   fFieldManager->CreateChordFinder(fField);
 }
 
 //______________________________________________________________________________
@@ -34,11 +86,12 @@ class Detector : public G4VUserDetectorConstruction
    public:
       Detector();
       virtual ~Detector()
-      { delete ftgrMessenger; delete fTextGeoInput; }
+      { delete ftgrMessenger; delete fTextGeoInput; delete fMagneticField; }
 
       G4VPhysicalVolume* Construct();
 
    private:
+      MagneticField* fMagneticField;
       G4tgrMessenger* ftgrMessenger;
       TextGeoInput* fTextGeoInput;
 };
@@ -47,14 +100,35 @@ Detector::Detector() : G4VUserDetectorConstruction()
 { 
    ftgrMessenger = new G4tgrMessenger;
    fTextGeoInput = new TextGeoInput;
+   fMagneticField = new MagneticField;
 }
 
 G4VPhysicalVolume* Detector::Construct()
 {
-  G4tgbVolumeMgr* mgr = G4tgbVolumeMgr::GetInstance();
-  mgr->AddTextFile(fTextGeoInput->FileName);
-  return mgr->ReadAndConstructDetector();
+   G4tgbVolumeMgr* mgr = G4tgbVolumeMgr::GetInstance();
+   mgr->AddTextFile(fTextGeoInput->FileName);
+   return mgr->ReadAndConstructDetector();
 }
+
+//______________________________________________________________________________
+//
+
+#include "G4VModularPhysicsList.hh"
+#include "G4DecayPhysics.hh"
+#include "G4RadioactiveDecayPhysics.hh"
+#include "G4EmStandardPhysics.hh"
+
+class Physics: public G4VModularPhysicsList
+{
+   public:
+      Physics() : G4VModularPhysicsList() {
+         SetVerboseLevel(10);
+         RegisterPhysics(new G4DecayPhysics());
+         RegisterPhysics(new G4RadioactiveDecayPhysics());
+         RegisterPhysics(new G4EmStandardPhysics());
+      }
+      virtual ~Physics() {};
+};
 
 //______________________________________________________________________________
 //
@@ -75,26 +149,6 @@ class Generator : public G4VUserPrimaryGeneratorAction
 
    private:
       G4GeneralParticleSource* fSource;
-};
-
-//______________________________________________________________________________
-//
-
-#include "G4VModularPhysicsList.hh"
-#include "G4DecayPhysics.hh"
-#include "G4RadioactiveDecayPhysics.hh"
-#include "G4EmStandardPhysics.hh"
-
-class Physics: public G4VModularPhysicsList
-{
-   public:
-      Physics() : G4VModularPhysicsList() {
-         SetVerboseLevel(10);
-         RegisterPhysics(new G4DecayPhysics());
-         RegisterPhysics(new G4RadioactiveDecayPhysics());
-         RegisterPhysics(new G4EmStandardPhysics());
-      }
-      virtual ~Physics() {};
 };
 
 //______________________________________________________________________________
