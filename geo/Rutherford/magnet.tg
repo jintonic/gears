@@ -1,0 +1,2 @@
+:mixt vacuum 1e-9 1 G4_AIR 1
+:volu hall BOX 10*cm 10*cm 10*cm vacuum
