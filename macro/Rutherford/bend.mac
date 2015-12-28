@@ -1,0 +1,26 @@
+/geometry/textInput/file geo/Rutherford/magnet.tg
+/field/setM 1 0 0 tesla
+
+/run/initialize
+
+/vis/ASCIITree/verbose 13
+/vis/drawTree
+/geometry/test/run
+
+/vis/open DAWNFILE
+/vis/viewer/set/background ! ! ! 0
+/vis/viewer/set/viewpointThetaPhi 90 0
+/vis/viewer/zoom 2
+/vis/drawVolume
+/vis/scene/add/trajectories
+/vis/scene/endOfEventAction accumulate 50
+
+/gps/particle alpha
+/gps/energy 5 MeV
+/gps/position 0 0 1 cm
+
+/gps/particle e-
+/gps/energy 50 keV
+/gps/position 0 0 1 cm
+
+/run/beamOn 50
