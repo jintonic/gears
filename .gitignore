@@ -8,6 +8,7 @@
 *.png
 *.pdf
 user.properties
+*.gif
 
 # Compiled Object files
 *.slo
