@@ -1,2 +1,6 @@
 :mixt vacuum 1e-9 1 G4_AIR 1
 :volu hall BOX 10*cm 10*cm 10*cm vacuum
+:volu tracker BOX 1*micrometer 6*cm 6*cm vacuum
+
+:rotm r000 0 0 0
+:place_param tracker 1 hall LINEAR_X r000 18 1*cm -8*cm
