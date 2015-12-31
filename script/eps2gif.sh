@@ -4,7 +4,7 @@
 # tailor mac file for animation
 G=$HOME/gears
 M=animate.mac
-sed -e 's|geo/|'$G'/geo/|' -e 's|mOn [0-9]*|mOn '$2'|' $1 > $M
+sed -e 's|geom/|'$G'/geom/|' -e 's|mOn [0-9]*|mOn '$2'|' $1 > $M
 
 # run geant4 to create eps files
 export DAWN_BATCH=1
