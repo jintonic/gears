@@ -1,4 +1,4 @@
-/geometry/textInput/file geo/NICE/CsI/2in/10cm.tg
+/geometry/textInput/file geom/NICE/CsI/2in/10cm.tg
 /run/initialize
 
 /vis/ASCIITree/verbose 13
