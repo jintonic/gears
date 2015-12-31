@@ -1,0 +1,10 @@
+:rotm r000 0 0 0
+
+:volu crystal SPHERE 0 20*mm 0 360 90 180 G4_Ge
+
+:volu hall BOX 60*mm 60*mm 60*mm G4_AIR
+
+:place crystal 1 hall r000 0 0 0
+
+:color crystal 0.4 0.4 0.4
+:vis hall OFF

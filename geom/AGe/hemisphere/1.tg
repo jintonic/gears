@@ -1,0 +1,12 @@
+:rotm r000 0 0 0
+
+:solid tube TUBE 0 20*mm 12*mm
+:solid saw TUBE 0 50.8*mm 1*mm
+:volu crystal SUBTRACTION tube saw r000 49*mm 0 11.1*mm G4_Ge
+
+:volu hall BOX 60*mm 60*mm 60*mm G4_AIR
+
+:place crystal 1 hall r000 0 0 0
+
+:color crystal 0.4 0.4 0.4
+:vis hall OFF

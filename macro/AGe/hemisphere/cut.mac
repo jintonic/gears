@@ -1,0 +1,13 @@
+/geometry/textInput/file geom/AGe/hemisphere/4.tg
+
+/run/initialize
+
+/vis/ASCIITree/verbose 13
+/vis/drawTree
+/geometry/test/run
+
+/vis/open RayTracer
+/vis/viewer/set/background white
+/vis/viewer/set/viewpointThetaPhi 80 0
+/vis/drawVolume
+/vis/viewer/flush

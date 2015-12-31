@@ -1,0 +1,15 @@
+:rotm r000 0 0 0
+
+:solid tube TUBE 17*mm 20*mm 1*mm
+:solid saw TUBE 0 50.8*mm 2*mm
+:solid tube_cut SUBTRACTION tube saw r000 49*mm 0 0
+:solid handle SUBTRACTION tube_cut saw r000 -49*mm 0 0
+:solid hemisphere SPHERE 0 20*mm 0 360 90 180
+:volu crystal UNION handle hemisphere r000 0 0 -1*mm G4_Ge
+
+:volu hall BOX 60*mm 60*mm 60*mm G4_AIR
+
+:place crystal 1 hall r000 0 0 0
+
+:color crystal 0.4 0.4 0.4
+:vis hall OFF
