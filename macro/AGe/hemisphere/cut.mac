@@ -6,8 +6,10 @@
 /vis/drawTree
 /geometry/test/run
 
-/vis/open RayTracer
+/vis/open DAWNFILE
 /vis/viewer/set/background white
 /vis/viewer/set/viewpointThetaPhi 80 0
+/vis/viewer/set/projection perspective
+/vis/viewer/set/lineSegmentsPerCircle 180
 /vis/drawVolume
 /vis/viewer/flush
