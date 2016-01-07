@@ -1,14 +1,14 @@
 #!/bin/sh
-# usage: ./eps2gif.sh /path/to/g4.mac 1000
+# usage: ./scatter.sh 1000
 
 # tailor mac file for animation
 G=$HOME/gears
 M=animate.mac
-sed -e 's|geom/|'$G'/geom/|' -e 's|mOn [0-9]*|mOn '$2'|' $1 > $M
+sed -e 's|geom/|'$G'/geom/|' -e 's|mOn [0-9]*|mOn '$1'|' scatter.mac > $M
 
 # run geant4 to create eps files
 export DAWN_BATCH=1
-export G4DAWNFILE_MAX_FILE_NUM=$2
+export G4DAWNFILE_MAX_FILE_NUM=$1
 $G/gears.exe $M
 
 # convert eps to png
