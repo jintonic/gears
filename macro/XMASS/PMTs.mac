@@ -1,0 +1,10 @@
+/geometry/textInput/file geom/XMASS/PMTs.tg
+/run/initialize
+
+/vis/ASCIITree/verbose 13
+/vis/drawTree
+/geometry/test/run
+
+/vis/open DAWNFILE
+#/vis/viewer/zoom 1.5
+/vis/drawVolume
