@@ -5,6 +5,8 @@
 /vis/drawTree
 /geometry/test/run
 
-/vis/open DAWNFILE
-#/vis/viewer/zoom 1.5
+#/vis/open DAWNFILE
+/vis/open HepRepFile
 /vis/drawVolume
+/vis/viewer/refresh
+/vis/viewer/flush

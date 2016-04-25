@@ -1,5 +1,5 @@
 /geometry/textInput/file geom/Rutherford/magnet.tg
-/field/setM 0 0 1e-3 tesla
+/field/setM 0 0 1e-1 tesla
 
 /run/initialize
 
@@ -8,20 +8,23 @@
 /geometry/test/run
 
 /vis/open DAWNFILE
+/vis/viewer/zoom 1.5
 /vis/drawVolume
 /vis/scene/add/trajectories
+/vis/scene/add/text -8 7 0 cm 20 0 0 red: 2 MeV electron; blue: 6.11 MeV alpha
+/vis/scene/add/text -6 -7 0 cm 20 0 0 Magnetic field: 0.1 Tesla
 
 /gps/source/multiplevertex true
 
 /gps/source/intensity 0.5
 /gps/particle alpha
-/gps/energy 5 MeV
+/gps/energy 6.11 MeV
 /gps/pos/centre -9 -0.1 0 cm
 /gps/direction 1 0 0
 
 /gps/source/add 0.5 
 /gps/particle e-
-/gps/energy 50 keV
+/gps/energy 2 MeV
 /gps/pos/centre -9 0.1 0 cm
 /gps/direction 1 0 0
 

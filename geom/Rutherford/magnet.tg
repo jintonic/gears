@@ -3,4 +3,5 @@
 :volu tracker BOX 1*micrometer 6*cm 6*cm vacuum
 
 :rotm r000 0 0 0
-:place_param tracker 1 hall LINEAR_X r000 18 1*cm -8*cm
+:place_param tracker 1 hall LINEAR_X r000 70 2*mm -8*cm
+:vis hall OFF

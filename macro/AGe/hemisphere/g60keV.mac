@@ -1,0 +1,22 @@
+/geometry/textInput/file geom/AGe/hemisphere/hemisphere.tg
+
+/run/initialize
+
+/vis/ASCIITree/verbose 13
+/vis/drawTree
+/geometry/test/run
+
+/vis/open HepRepFile
+/vis/viewer/set/background white
+/vis/drawVolume
+
+/vis/scene/add/axes 0 0 0 5 cm
+/vis/scene/add/trajectories
+/vis/scene/endOfEventAction accumulate 100
+
+/gps/particle gamma
+/gps/energy 60 keV
+/gps/pos/centre 0 2 2 cm
+/gps/direction 0 -1 -1 
+
+/run/beamOn 100

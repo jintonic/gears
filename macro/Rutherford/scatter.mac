@@ -6,12 +6,15 @@
 /geometry/test/run
 
 /vis/open DAWNFILE
+/vis/viewer/zoom 8
+/vis/viewer/set/style surface
 /vis/drawVolume
 /vis/scene/add/trajectories
+/vis/scene/endOfEventAction accumulate 1000000
 
 /gps/particle alpha
-/gps/energy 5.4 MeV
-/gps/pos/centre -3 0 0 cm
+/gps/energy 5.5 MeV
+/gps/pos/centre -0.1 0 0 cm
 /gps/direction 1 0 0
 
-/run/beamOn 1
+/run/beamOn 1000000

@@ -1,0 +1,28 @@
+/geometry/textInput/file geom/hall.tg
+
+/run/initialize
+
+/vis/ASCIITree/verbose 13
+/vis/drawTree
+/geometry/test/run
+
+/vis/open DAWNFILE
+/vis/viewer/zoom 5.5
+/vis/drawVolume
+/vis/scene/add/trajectories
+/vis/scene/add/text -3 -0.4 0 cm 20 0 0 0
+/vis/scene/add/text -2 -0.4 0 cm 20 0 0 1
+/vis/scene/add/text -1 -0.4 0 cm 20 0 0 2
+/vis/scene/add/text  0 -0.4 0 cm 20 0 0 3
+/vis/scene/add/text  1 -0.4 0 cm 20 0 0 4
+/vis/scene/add/text  2 -0.4 0 cm 20 0 0 5 cm
+/vis/scene/add/text -3  0.4 0 cm 20 0 0 6.11 MeV alpha particles fly in air
+/vis/scene/endOfEventAction accumulate 1000
+
+/gps/particle alpha
+/gps/energy 6.11 MeV
+/gps/pos/centre -3 0 0
+/gps/direction 1 0 0
+
+/random/setSeeds 12 43 1 523 51 132 56 75 498
+/run/beamOn 1000
