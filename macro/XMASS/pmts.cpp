@@ -26,7 +26,7 @@ int main()
 	}
 	for(int i=0;i<n;i++)
 	{
-		cout<<":rotm r"<<i+1<<" "<<out[i][4]<<" "<<out[i][5]<<" "<<out[i][6]<<endl;
+		cout<<":rotm r"<<i+1<<" "<<out[i][5]/3.1415*180<<" "<<out[i][4]/3.1415*180<<" "<<out[i][6]/3.1415*180<<endl;
 	}
 	for(int i=0;i<n;i++)
 	{
