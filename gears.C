@@ -158,6 +158,7 @@ class Generator : public G4VUserPrimaryGeneratorAction
 #include <QBBC.hh>
 #include <G4VisExecutive.hh>
 #include <G4UIExecutive.hh>
+#include <G4UImanager.hh> // needed for g4.10 and above
 
 int main(int argc, char **argv)
 {
@@ -176,6 +177,7 @@ int main(int argc, char **argv)
       G4String macro = argv[1];
       G4UImanager::GetUIpointer()->ApplyCommand(exe+macro);
    } else {
+      // check available UI automatically in the order of Qt, tsch, Xm
       G4UIExecutive *ui = new G4UIExecutive(argc,argv);
       ui->SessionStart();
       delete ui;
