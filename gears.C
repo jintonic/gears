@@ -117,15 +117,18 @@ G4VPhysicalVolume* Detector::Construct()
 #include "G4DecayPhysics.hh"
 #include "G4RadioactiveDecayPhysics.hh"
 #include "G4EmStandardPhysics.hh"
+#include "G4OpticalPhysics.hh"
 
 class Physics: public G4VModularPhysicsList
 {
    public:
       Physics() : G4VModularPhysicsList() {
          SetVerboseLevel(10);
+         // modular physics lists are definded in g4 source/physics_lists
          RegisterPhysics(new G4DecayPhysics());
          RegisterPhysics(new G4RadioactiveDecayPhysics());
          RegisterPhysics(new G4EmStandardPhysics());
+         RegisterPhysics(new G4OpticalPhysics());
       }
       virtual ~Physics() {};
 };
