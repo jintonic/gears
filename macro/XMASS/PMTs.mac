@@ -1,4 +1,5 @@
 /geometry/textInput/file geom/XMASS/PMTs.tg
+/output/setROOTfile newfile.root
 /run/initialize
 
 /vis/ASCIITree/verbose 13
@@ -10,3 +11,14 @@
 /vis/drawVolume
 /vis/viewer/refresh
 /vis/viewer/flush
+
+/vis/scene/add/axes 0 0 0 50 cm
+
+/vis/scene/add/trajectories
+#/vis/scene/endOfEventAction accumulate 50
+
+/gps/particle gamma
+/gps/energy 1.2 MeV
+/gps/position 0 0 400 mm
+
+/run/beamOn 10
