@@ -1,4 +1,4 @@
-/geometry/textInput/file geom/AGe/hemisphere/hemisphere.tg
+/geometry/source geom/AGe/hemisphere/hemisphere.tg
 
 /run/initialize
 

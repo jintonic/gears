@@ -1,4 +1,4 @@
-/geometry/textInput/file geom/hall.tg
+/geometry/source geom/hall.tg
 
 /run/initialize
 

@@ -1,4 +1,4 @@
-/geometry/textInput/file geom/XMASS/PMTs.tg
+/geometry/source geom/XMASS/PMTs.tg
 /output/setROOTfile newfile.root
 /run/initialize
 

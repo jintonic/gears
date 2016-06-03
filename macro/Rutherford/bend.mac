@@ -1,4 +1,4 @@
-/geometry/textInput/file geom/Rutherford/magnet.tg
+/geometry/source geom/Rutherford/magnet.tg
 /field/setM 0 0 1e-1 tesla
 
 /run/initialize

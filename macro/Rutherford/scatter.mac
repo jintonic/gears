@@ -1,4 +1,4 @@
-/geometry/textInput/file geom/Rutherford/foil.tg
+/geometry/source geom/Rutherford/foil.tg
 /run/initialize
 
 /vis/ASCIITree/verbose 13
