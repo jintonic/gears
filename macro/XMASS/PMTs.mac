@@ -1,5 +1,5 @@
 /geometry/source geom/XMASS/PMTs.tg
-/output/setROOTfile newfile.root
+/output/file newfile.root
 /run/initialize
 
 /vis/ASCIITree/verbose 13

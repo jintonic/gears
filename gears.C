@@ -67,7 +67,7 @@ void Output::Open()
    fTree->Branch("z",z,"z[nh]/D");//<- local z position of a hit [mm]
    fTree->Branch("det",det,"det[nh]/S");//<- detector Id
    fTree->Branch("pid",pid,"pid[nh]/I");//<- particle Id
-};
+}
 
 #include <CLHEP/Units/SystemOfUnits.h>
 
@@ -188,42 +188,42 @@ G4bool LineProcessor::ProcessLine(const std::vector< G4String > &words)
       // FIXME: new loop needed
       while(true)
       {
-	if(wl[i]=="property")break;
-	else if(wl[i]=="type")
+	if(words[i]=="property")break;
+	else if(words[i]=="type")
 	{
-	  if (wl[i+1]=="dielectric_metal")
+	  if (words[i+1]=="dielectric_metal")
 	    surf->optic->SetType(dielectric_metal);
-	  else if(wl[i+1]=="dielectric_dielectric")
+	  else if(words[i+1]=="dielectric_dielectric")
 	    surf->optic->SetType(dielectric_dielectric);
-	  else if(wl[i+1]=="firsov")
+	  else if(words[i+1]=="firsov")
 	    surf->optic->SetType(firsov);
-	  else if(wl[i+1]=="x_ray")
+	  else if(words[i+1]=="x_ray")
 	    surf->optic->SetType(x_ray);
 	}
-	else if(wl[i]=="model")
+	else if(words[i]=="model")
 	{
-	  if (wl[i+1]=="glisur")
+	  if (words[i+1]=="glisur")
 	    surf->optic->SetModel(glisur);
-	  else if(wl[i+1]=="unified")
+	  else if(words[i+1]=="unified")
 	    surf->optic->SetModel(unified);
 	}
-	else if(wl[i]=="finish")
+	else if(words[i]=="finish")
 	{
-	  else if(wl[i+1]=="polished")
+	  if(words[i+1]=="polished")
 	    surf->optic->SetFinish(polished);
-	  else if(wl[i+1]=="polishedfrontpainted")
-	    surf->optic->SetFinish(polishedfrontpaintd);
-	  else if(wl[i+1]=="polishedbackpainted")
+	  else if(words[i+1]=="polishedfrontpainted")
+	    surf->optic->SetFinish(polishedfrontpainted);
+	  else if(words[i+1]=="polishedbackpainted")
 	    surf->optic->SetFinish(polishedbackpainted);
-	  else if(wl[i+1]=="ground")
+	  else if(words[i+1]=="ground")
 	    surf->optic->SetFinish(ground);
-	  else if(wl[i+1]=="groundfrontpainted")
+	  else if(words[i+1]=="groundfrontpainted")
 	    surf->optic->SetFinish(groundfrontpainted);
-	  else if(wl[i+1]=="groundbackpainted")
+	  else if(words[i+1]=="groundbackpainted")
 	    surf->optic->SetFinish(groundbackpainted);
 	}
-	else if(wl[i]=="sigmaalpha") 
-	  surf->optic->SetSigmaAlpha(G4UIcommand::ConvertToInt(wl[i+1]));
+	else if(words[i]=="sigmaalpha") 
+	  surf->optic->SetSigmaAlpha(G4UIcommand::ConvertToInt(words[i+1]));
 	i+=2;
       }i++;
       surf->optic->SetMaterialPropertiesTable(CreateMaterialPropertiesTable(words,i));
@@ -393,7 +393,7 @@ void Detector::SetNewValue(G4UIcommand* cmd, G4String value)
       mgr->CreateChordFinder(fField);
       G4cout<<"Magnetic field is set to "<<value<<G4endl;
    } else if (cmd==fSrcCmd) fGeomSrcText = value;
-};
+}
 
 G4VPhysicalVolume* Detector::Construct()
 {
