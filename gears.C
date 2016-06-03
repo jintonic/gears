@@ -183,13 +183,50 @@ G4bool LineProcessor::ProcessLine(const std::vector< G4String > &words)
       surf->name=words[1];
       surf->v1=words[2];
       surf->v2=words[3];
-      // FIXME: new loop needed
       surf->optic = new G4OpticalSurface(words[4]);
-      surf->optic->SetType(dielectric_dielectric);
-      surf->optic->SetModel(unified);
-      surf->optic->SetFinish(groundbackpainted);
-      surf->optic->SetSigmaAlpha(0.1);
-      surf->optic->SetMaterialPropertiesTable(CreateMaterialPropertiesTable(words,5));
+      int i=5; 
+      // FIXME: new loop needed
+      while(true)
+      {
+	if(wl[i]=="property")break;
+	else if(wl[i]=="type")
+	{
+	  if (wl[i+1]=="dielectric_metal")
+	    surf->optic->SetType(dielectric_metal);
+	  else if(wl[i+1]=="dielectric_dielectric")
+	    surf->optic->SetType(dielectric_dielectric);
+	  else if(wl[i+1]=="firsov")
+	    surf->optic->SetType(firsov);
+	  else if(wl[i+1]=="x_ray")
+	    surf->optic->SetType(x_ray);
+	}
+	else if(wl[i]=="model")
+	{
+	  if (wl[i+1]=="glisur")
+	    surf->optic->SetModel(glisur);
+	  else if(wl[i+1]=="unified")
+	    surf->optic->SetModel(unified);
+	}
+	else if(wl[i]=="finish")
+	{
+	  else if(wl[i+1]=="polished")
+	    surf->optic->SetFinish(polished);
+	  else if(wl[i+1]=="polishedfrontpainted")
+	    surf->optic->SetFinish(polishedfrontpaintd);
+	  else if(wl[i+1]=="polishedbackpainted")
+	    surf->optic->SetFinish(polishedbackpainted);
+	  else if(wl[i+1]=="ground")
+	    surf->optic->SetFinish(ground);
+	  else if(wl[i+1]=="groundfrontpainted")
+	    surf->optic->SetFinish(groundfrontpainted);
+	  else if(wl[i+1]=="groundbackpainted")
+	    surf->optic->SetFinish(groundbackpainted);
+	}
+	else if(wl[i]=="sigmaalpha") 
+	  surf->optic->SetSigmaAlpha(G4UIcommand::ConvertToInt(wl[i+1]));
+	i+=2;
+      }i++;
+      surf->optic->SetMaterialPropertiesTable(CreateMaterialPropertiesTable(words,i));
       return true;
    } else return false;
 }
