@@ -185,12 +185,10 @@ G4bool LineProcessor::ProcessLine(const std::vector< G4String > &words)
       surf->v2=words[3];
       surf->optic = new G4OpticalSurface(words[4]);
       int i=5; 
-      // FIXME: new loop needed
-      while(true)
-      {
+      // loop over optical surface setup lines
+      while(true) {
 	if(words[i]=="property")break;
-	else if(words[i]=="type")
-	{
+	else if(words[i]=="type") {
 	  if (words[i+1]=="dielectric_metal")
 	    surf->optic->SetType(dielectric_metal);
 	  else if(words[i+1]=="dielectric_dielectric")
@@ -199,16 +197,12 @@ G4bool LineProcessor::ProcessLine(const std::vector< G4String > &words)
 	    surf->optic->SetType(firsov);
 	  else if(words[i+1]=="x_ray")
 	    surf->optic->SetType(x_ray);
-	}
-	else if(words[i]=="model")
-	{
+	} else if(words[i]=="model") {
 	  if (words[i+1]=="glisur")
 	    surf->optic->SetModel(glisur);
 	  else if(words[i+1]=="unified")
 	    surf->optic->SetModel(unified);
-	}
-	else if(words[i]=="finish")
-	{
+	} else if(words[i]=="finish") {
 	  if(words[i+1]=="polished")
 	    surf->optic->SetFinish(polished);
 	  else if(words[i+1]=="polishedfrontpainted")
@@ -221,12 +215,13 @@ G4bool LineProcessor::ProcessLine(const std::vector< G4String > &words)
 	    surf->optic->SetFinish(groundfrontpainted);
 	  else if(words[i+1]=="groundbackpainted")
 	    surf->optic->SetFinish(groundbackpainted);
-	}
-	else if(words[i]=="sigmaalpha") 
+	} else if(words[i]=="sigmaalpha") 
 	  surf->optic->SetSigmaAlpha(G4UIcommand::ConvertToInt(words[i+1]));
 	i+=2;
-      }i++;
-      surf->optic->SetMaterialPropertiesTable(CreateMaterialPropertiesTable(words,i));
+      }
+      i++;
+      surf->optic->SetMaterialPropertiesTable(
+	  CreateMaterialPropertiesTable(words,i));
       return true;
    } else return false;
 }
@@ -454,7 +449,7 @@ class Generator : public G4VUserPrimaryGeneratorAction
 class RunAction : public G4UserRunAction
 {
    public:
-      RunAction(Output *out=0) : fOut(out), G4UserRunAction() {};
+      RunAction(Output *out=0) : G4UserRunAction(), fOut(out) {};
       ~RunAction() {};
       void BeginOfRunAction (const G4Run*) { fOut->Open(); }
       void EndOfRunAction (const G4Run*) { fOut->Close(); }
@@ -469,9 +464,9 @@ class RunAction : public G4UserRunAction
 class EventAction : public G4UserEventAction
 {
    public:
-      EventAction(Output *out=0) : fOut(out), G4UserEventAction() {};
+      EventAction(Output *out=0) : G4UserEventAction(), fOut(out) {};
       ~EventAction() {};
-      void EndOfEventAction(const G4Event * anEvent) { fOut->Write(); }
+      void EndOfEventAction(const G4Event* ) { fOut->Write(); }
    private:
       Output* fOut;
 };
@@ -483,7 +478,7 @@ class EventAction : public G4UserEventAction
 class SteppingAction : public G4UserSteppingAction
 {
    public:
-      SteppingAction(Output *out=0) : fOut(out), G4UserSteppingAction() {};
+      SteppingAction(Output *out=0) : G4UserSteppingAction(), fOut(out) {};
       ~SteppingAction() {};
       void PostUserSteppingAction(const G4Step* step);
    private:
