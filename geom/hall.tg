@@ -1,2 +1,1 @@
-:volu hall BOX 10*m 10*m 10*m G4_AIR
-:vis hall OFF
+:volu hall(S) BOX 10*m 10*m 10*m G4_AIR

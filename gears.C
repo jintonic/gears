@@ -7,7 +7,14 @@
 #include <G4UIcmdWithAString.hh>
 #include <G4ParticleDefinition.hh>
 
+#include <CLHEP/Units/SystemOfUnits.h>
+#include <Randomize.hh>
+#include <G4VProcess.hh>
+
+#include <G4PrimaryVertex.hh>
+#include <G4PrimaryParticle.hh>
 const int MaxNhits=20000;
+const int MaxNSource=100;
 
 class Output: public G4UImessenger
 {
@@ -17,11 +24,14 @@ class Output: public G4UImessenger
 
       void Open();
       void Record(G4Track *track);
-      void Write() { fTree->Fill(); Reset(); }
-      void Close() { fFile->Close(); }
-
+      void RSource(G4PrimaryVertex* primaryVertex);
+      void Write() {  fTree->Fill(); Reset(); }
+      void Close() { fFile->Write(); fFile->Close(); }
+      
       void SetNewValue(G4UIcommand* cmd, G4String value)
       { if (cmd==fFileCmd) fFileName = value; }
+
+      G4String seed;
 
    private:
       void Reset(); ///< Reset track record
@@ -32,14 +42,24 @@ class Output: public G4UImessenger
       G4UIcmdWithAString* fFileCmd;
       G4UIdirectory* fDir;
 
-      short nh;
+      int nh;
+      int ns;
       short det[MaxNhits];
       int pid[MaxNhits];
+      int parent[MaxNhits];
+      int trk[MaxNhits];
+      int pro[MaxNhits];
       double e[MaxNhits];
       double t[MaxNhits];
       double x[MaxNhits];
       double y[MaxNhits];
       double z[MaxNhits];
+      double es[MaxNSource];
+      double ts[MaxNSource];
+      double xs[MaxNSource];
+      double ys[MaxNSource];
+      double zs[MaxNSource];
+
 };
 
 Output::Output(): G4UImessenger()
@@ -57,9 +77,11 @@ Output::Output(): G4UImessenger()
 
 void Output::Open()
 {
+   seed=std::to_string(CLHEP::HepRandom::getTheSeed());
    fFile=new TFile(fFileName.data(),"recreate","data");
-   fTree=new TTree("t","Geant4 Output Tree");
-   fTree->Branch("nh",nh,"nh/S"); //<- number of hits
+   fTree=new TTree("t",seed);
+   fTree->Branch("nh",&nh,"nh/S"); //<- number of hits
+   fTree->Branch("ns",&ns,"ns/S"); //<- number of source
    fTree->Branch("e",e,"e[nh]/D");//<- energy of a hit [keV]
    fTree->Branch("t",t,"t[nh]/D");//<- time of a hit [ns]
    fTree->Branch("x",x,"x[nh]/D");//<- local x position of a hit [mm]
@@ -67,10 +89,35 @@ void Output::Open()
    fTree->Branch("z",z,"z[nh]/D");//<- local z position of a hit [mm]
    fTree->Branch("det",det,"det[nh]/S");//<- detector Id
    fTree->Branch("pid",pid,"pid[nh]/I");//<- particle Id
+   fTree->Branch("pro",&pro,"pro[nh]/I");//<- process id + sub process Id *10
+   fTree->Branch("parent",parent,"parent[nh]/I");//<- parent track Id
+   fTree->Branch("trk",trk,"trk[nh]/I");//<- track Id
+   fTree->Branch("es",es,"es[ns]/D");//<- energy of a source [keV]
+   fTree->Branch("ts",ts,"ts[ns]/D");//<- time of a source [ns]
+   fTree->Branch("xs",xs,"xs[ns]/D");//<- local x position of a source [mm]
+   fTree->Branch("ys",ys,"ys[ns]/D");//<- local y position of a source [mm]
+   fTree->Branch("zs",zs,"zs[ns]/D");//<- local z position of a source [mm]
 }
 
-#include <CLHEP/Units/SystemOfUnits.h>
-
+void Output::RSource(G4PrimaryVertex* primaryVertex)
+{
+  G4PrimaryParticle * primaryParticle=primaryVertex->GetPrimary(0);
+  while (primaryParticle)
+  {
+    xs[ns] = primaryVertex->GetX0()/CLHEP::cm;
+    ys[ns] = primaryVertex->GetY0()/CLHEP::cm;
+    zs[ns] = primaryVertex->GetZ0()/CLHEP::cm;
+    ts[ns] = primaryVertex->GetT0()/CLHEP::ns;
+    G4ThreeVector P = primaryParticle->GetMomentum()/CLHEP::keV;
+    G4double M = primaryParticle->GetMass()/CLHEP::keV;
+    if (P.mag() < M/100)
+     es[ns] = P.mag2()/(2*M);
+    else
+     es[ns] = sqrt(P.mag2()+M*M)-M;
+    ns++;
+    primaryParticle=primaryParticle -> GetNext();
+  }
+}
 void Output::Record(G4Track *track)
 {
    if (nh>=MaxNhits) {
@@ -78,23 +125,34 @@ void Output::Record(G4Track *track)
          <<"Total number of hits >= max capacity "<<MaxNhits<<G4endl;
       G4cout<<"Output::Record: Hit "<<nh<<" won't be recorded"<<G4endl;
    } else {
-      det[nh]=(short) track->GetVolume()->GetCopyNo();
+      det[nh]= track->GetVolume()->GetCopyNo();
       pid[nh]=track->GetDefinition()->GetPDGEncoding();
       e[nh]=track->GetTotalEnergy()/CLHEP::keV;
       t[nh]=track->GetGlobalTime()/CLHEP::ns;
       x[nh]=track->GetPosition().x()/CLHEP::mm;
       y[nh]=track->GetPosition().y()/CLHEP::mm;
       z[nh]=track->GetPosition().z()/CLHEP::mm;
+      parent[nh]=track->GetParentID();
+      trk[nh]=track->GetTrackID();
+      if(track->GetCreatorProcess () ) 
+	pro[nh]=track->GetCreatorProcess ()->GetProcessType ()*100
+	  + track->GetCreatorProcess ()->GetProcessSubType();
    }
+   if(nh>=10000)track->SetTrackStatus(fKillTrackAndSecondaries);
+
    nh++;
 }
 
 void Output::Reset()
 {
    for(int i=0; i<MaxNhits; i++) {
-      e[i]=0; t[i]=0; x[i]=0; y[i]=0; z[i]=0; det[i]=0; pid[i]=0;
+      e[i]=0; t[i]=0; x[i]=0; y[i]=0; z[i]=0;
+      det[i]=0; pid[i]=0; parent[i]=0; trk[i]=0;
    }
-   nh=0;
+   for(int i=0;i<MaxNSource;i++){
+      es[i]=0; ts[i]=0; xs[i]=0; ys[i]=0; zs[i]=0;
+   }
+   nh=0;ns=0;
 }
 
 //______________________________________________________________________________
@@ -150,9 +208,10 @@ LineProcessor::~LineProcessor()
 
 /**
  * New tag ":PROP" (multiple property acceptable)
- * :prop <material with properties> <original material> 
+ * :prop <original material> 
  *    <new property> const <value> or
- *    <new property> <array size> <wavelength array> <property array>
+ *    (before none const property) energy <arraysize> <energies array> 
+ *    <new property> <property array>
  * 
  * new tag ":SURF" (multiple property acceptable)
  * :surf name [motherVol/]physVol1 [motherVol/]physVol2
@@ -162,7 +221,8 @@ LineProcessor::~LineProcessor()
  *    SigmaAlpha < >
  *    property
  *    <new property> const <value> or
- *    <new property> <array size> <wavelength array> <property array>
+ *   (before none const property) energy <arraysize> <energies array> 
+ *    <new property> <property array>
  */
 G4bool LineProcessor::ProcessLine(const std::vector< G4String > &words)
 {
@@ -173,8 +233,8 @@ G4bool LineProcessor::ProcessLine(const std::vector< G4String > &words)
    firstWord.toUpper();
    if (firstWord.substr(0,5)==":PROP") {
       G4NistManager* mgr = G4NistManager::Instance();
-      mgr->FindOrBuildMaterial(words[2])->
-         SetMaterialPropertiesTable(CreateMaterialPropertiesTable(words,3));
+      mgr->FindOrBuildMaterial(words[1])->
+         SetMaterialPropertiesTable(CreateMaterialPropertiesTable(words,2));
       return true;
    } else if (firstWord.substr(0,5)==":SURF") {
       SurfaceList *surf=new SurfaceList;
@@ -183,8 +243,8 @@ G4bool LineProcessor::ProcessLine(const std::vector< G4String > &words)
       surf->name=words[1];
       surf->v1=words[2];
       surf->v2=words[3];
-      surf->optic = new G4OpticalSurface(words[4]);
-      int i=5; 
+      surf->optic = new G4OpticalSurface(words[1]);
+      int i=4; 
       // loop over optical surface setup lines
       while(true) {
 	if(words[i]=="property")break;
@@ -217,6 +277,7 @@ G4bool LineProcessor::ProcessLine(const std::vector< G4String > &words)
 	    surf->optic->SetFinish(groundbackpainted);
 	} else if(words[i]=="sigmaalpha") 
 	  surf->optic->SetSigmaAlpha(G4UIcommand::ConvertToInt(words[i+1]));
+	else G4cout<<"op surface tag not find"<<G4endl;
 	i+=2;
       }
       i++;
@@ -226,36 +287,36 @@ G4bool LineProcessor::ProcessLine(const std::vector< G4String > &words)
    } else return false;
 }
 
-#include <CLHEP/Units/PhysicalConstants.h>
-
 #include <G4tgrUtils.hh>
 
 G4MaterialPropertiesTable* LineProcessor::CreateMaterialPropertiesTable(
       const std::vector<G4String> &words, int idx)
 {
+   bool en=false;
+   int cnt=0;
+   double *energies ;
    G4MaterialPropertiesTable *properties = new G4MaterialPropertiesTable();
    for (size_t i=idx; i<words.size(); i=i+1) {
       if (words[i+1]=="const") {
          properties->AddConstProperty(words[i], G4tgrUtils::GetDouble(words[i+2]));
-         i+=3;
-      } else {
+         i+=2;
+      } else if (words[i]=="energy"){
+	en=true;
+         cnt = G4UIcommand::ConvertToInt(words[++i]);
+         energies= new double[cnt];
+         for (int j=0; j<cnt; j++) {energies[j]=0;}
+	 for (int j=0; j<cnt; j++) { energies[j]=G4tgrUtils::GetDouble(words[++i]);}
+      }else{
+	if (!en){G4cout<<"no energies"<<G4endl;break;}
          G4String name = words[i];
-         int cnt = G4UIcommand::ConvertToInt(words[++i]);
-         double *energies = new double[cnt];
          double *propVals = new double[cnt];
-         for (int j=0; j<cnt; j++) {
-            energies[j]=0;
-            propVals[j]=0;
-         }
-         for (int j=0; j<cnt; j++) {
-            energies[j]=G4tgrUtils::GetDouble(words[++i]);
-            propVals[j]=G4tgrUtils::GetDouble(words[++i]);
-         }
+         for (int j=0; j<cnt; j++) { propVals[j]=0;}
+	 for (int j=0; j<cnt; j++) {propVals[j]=G4tgrUtils::GetDouble(words[++i]);}
          properties->AddProperty(name,energies,propVals,cnt)->SetSpline(true);
-         delete energies;
-         delete propVals;
+         delete [] propVals;
       }
    }
+   delete [] energies;
    return properties;
 }
 
@@ -466,11 +527,20 @@ class EventAction : public G4UserEventAction
    public:
       EventAction(Output *out=0) : G4UserEventAction(), fOut(out) {};
       ~EventAction() {};
+      void BeginOfEventAction(const G4Event* event);
       void EndOfEventAction(const G4Event* ) { fOut->Write(); }
    private:
       Output* fOut;
 };
-
+void EventAction::BeginOfEventAction(const G4Event* event)
+{
+  G4PrimaryVertex* primaryVertex = event->GetPrimaryVertex(0);
+  while (primaryVertex)
+  {
+    fOut->RSource(primaryVertex);
+    primaryVertex=primaryVertex->GetNext();
+  }
+}
 //______________________________________________________________________________
 //
 
@@ -480,18 +550,21 @@ class SteppingAction : public G4UserSteppingAction
    public:
       SteppingAction(Output *out=0) : G4UserSteppingAction(), fOut(out) {};
       ~SteppingAction() {};
-      void PostUserSteppingAction(const G4Step* step);
+      void UserSteppingAction(const G4Step* step);
    private:
       Output* fOut;
 };
 
-void SteppingAction::PostUserSteppingAction(const G4Step* step)
-{
+void SteppingAction::UserSteppingAction(const G4Step* step)
+{   
    G4String volume = step->GetPreStepPoint()->GetPhysicalVolume()->GetName();
-   if (volume.substr(volume.length()-4)=="(S)") {
+   if (volume.length()<3) return;
+   if (volume.substr(volume.length()-3)=="(S)") {
       fOut->Record(step->GetTrack());
-      step->GetTrack()->SetTrackStatus(fKillTrackAndSecondaries);
+      //step->GetTrack()->SetTrackStatus(fKillTrackAndSecondaries);
    }
+
+
 }
 
 //______________________________________________________________________________
@@ -501,11 +574,10 @@ void SteppingAction::PostUserSteppingAction(const G4Step* step)
 #include <G4VisExecutive.hh>
 #include <G4UIExecutive.hh>
 #include <G4UImanager.hh> // needed for g4.10 and above
-
 int main(int argc, char **argv)
 {
    Output *out = new Output; // ROOT output
-
+   
    G4RunManager* run = new G4RunManager;
    run->SetUserInitialization(new Detector);
    run->SetUserInitialization(new Physics);
