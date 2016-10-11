@@ -31,8 +31,6 @@ class Output: public G4UImessenger
       void SetNewValue(G4UIcommand* cmd, G4String value)
       { if (cmd==fFileCmd) fFileName = value; }
 
-      G4String seed;
-
    private:
       void Reset(); ///< Reset track record
 
@@ -75,11 +73,14 @@ Output::Output(): G4UImessenger()
    fFileCmd->AvailableForStates(G4State_PreInit);
 } 
 
+#include <sstream>
+
 void Output::Open()
 {
-   seed=std::to_string(CLHEP::HepRandom::getTheSeed());
    fFile=new TFile(fFileName.data(),"recreate","data");
-   fTree=new TTree("t",seed);
+   std::stringstream seed;
+   seed<<CLHEP::HepRandom::getTheSeed();
+   fTree=new TTree("t",seed.str().data());
    fTree->Branch("nh",&nh,"nh/S"); //<- number of hits
    fTree->Branch("ns",&ns,"ns/S"); //<- number of source
    fTree->Branch("e",e,"e[nh]/D");//<- energy of a hit [keV]
