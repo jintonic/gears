@@ -21,4 +21,4 @@ clean:
 	rm -f `cat .gitignore`
 
 docs:
-	doxygen doxyfile
+	doxygen Doxyfile
