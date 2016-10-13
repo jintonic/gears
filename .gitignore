@@ -5,7 +5,6 @@
 *.prim
 *.jpeg
 *.jpg
-*.png
 *.pdf
 user.properties
 *.gif
