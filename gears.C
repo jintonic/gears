@@ -48,6 +48,7 @@ class Output: public G4UImessenger
       int trk[MaxNhits];
       int pro[MaxNhits];
       double e[MaxNhits];
+      double et; //< total energy deposited
       double t[MaxNhits];
       double x[MaxNhits];
       double y[MaxNhits];
@@ -83,6 +84,7 @@ void Output::Open()
    fTree=new TTree("t",seed.str().data());
    fTree->Branch("nh",&nh,"nh/S"); //<- number of hits
    fTree->Branch("ns",&ns,"ns/S"); //<- number of source
+   fTree->Branch("et",&et,"et/D");//< total energy deposited
    fTree->Branch("e",e,"e[nh]/D");//<- energy of a hit [keV]
    fTree->Branch("t",t,"t[nh]/D");//<- time of a hit [ns]
    fTree->Branch("x",x,"x[nh]/D");//<- local x position of a hit [mm]
@@ -128,7 +130,7 @@ void Output::Record(G4Track *track)
    } else {
       det[nh]= track->GetVolume()->GetCopyNo();
       pid[nh]=track->GetDefinition()->GetPDGEncoding();
-      e[nh]=track->GetTotalEnergy()/CLHEP::keV;
+      e[nh]=track->GetStep()->GetTotalEnergyDeposit()/CLHEP::keV;
       t[nh]=track->GetGlobalTime()/CLHEP::ns;
       x[nh]=track->GetPosition().x()/CLHEP::mm;
       y[nh]=track->GetPosition().y()/CLHEP::mm;
@@ -138,6 +140,7 @@ void Output::Record(G4Track *track)
       if(track->GetCreatorProcess () ) 
 	pro[nh]=track->GetCreatorProcess ()->GetProcessType ()*100
 	  + track->GetCreatorProcess ()->GetProcessSubType();
+      et+=e[nh];
    }
    if(nh>=10000)track->SetTrackStatus(fKillTrackAndSecondaries);
 
@@ -153,7 +156,7 @@ void Output::Reset()
    for(int i=0;i<MaxNSource;i++){
       es[i]=0; ts[i]=0; xs[i]=0; ys[i]=0; zs[i]=0;
    }
-   nh=0;ns=0;
+   nh=0; ns=0; et=0;
 }
 
 //______________________________________________________________________________
