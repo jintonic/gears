@@ -10,7 +10,7 @@ FLAG+= $(ROOTCFLAGS)
 SRC=$(wildcard *.C)
 TGT=$(SRC:.C=.exe)
 
-.PHONY: all clean
+.PHONY: all clean html
 
 all: $(TGT)
 
@@ -19,3 +19,6 @@ all: $(TGT)
 
 clean:
 	rm -f `cat .gitignore`
+
+html:
+	doxygen dox/Doxyfile
