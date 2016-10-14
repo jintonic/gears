@@ -1,4 +1,5 @@
 var searchData=
 [
-  ['textdetectorbuilder',['TextDetectorBuilder',['../classTextDetectorBuilder.html',1,'']]]
+  ['steppingaction',['SteppingAction',['../classSteppingAction.html',1,'']]],
+  ['surfacelist',['SurfaceList',['../structSurfaceList.html',1,'']]]
 ];
