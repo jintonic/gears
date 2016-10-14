@@ -1,3 +1,11 @@
+/**
+ * \file gears.C
+ *
+ * The only c++ file in this project.
+ *
+ * Everything is placed inside this file intentionally to simplify the
+ * makefile.
+ */
 #include <TFile.h>
 #include <TTree.h>
 
@@ -578,6 +586,11 @@ void SteppingAction::UserSteppingAction(const G4Step* step)
 #include <G4VisExecutive.hh>
 #include <G4UIExecutive.hh>
 #include <G4UImanager.hh> // needed for g4.10 and above
+/**
+ * \fn int main(int argc, char **argv)
+ *
+ * The main function that calls individual components.
+ */
 int main(int argc, char **argv)
 {
    Output *out = new Output; // ROOT output
