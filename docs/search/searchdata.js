@@ -1,24 +1,27 @@
 var indexSectionsWithContent =
 {
-  0: "degloprst",
+  0: "deglmoprst",
   1: "degloprst",
-  2: "pr",
-  3: "g"
+  2: "g",
+  3: "mpr",
+  4: "g"
 };
 
 var indexSectionNames =
 {
   0: "all",
   1: "classes",
-  2: "functions",
-  3: "pages"
+  2: "files",
+  3: "functions",
+  4: "pages"
 };
 
 var indexSectionLabels =
 {
   0: "All",
   1: "Classes",
-  2: "Functions",
-  3: "Pages"
+  2: "Files",
+  3: "Functions",
+  4: "Pages"
 };
 

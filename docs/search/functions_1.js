@@ -1,4 +1,4 @@
 var searchData=
 [
-  ['readdetector',['ReadDetector',['../classTextDetectorBuilder.html#ad930f807c16f7cf01dd202c0ff9dd8bd',1,'TextDetectorBuilder']]]
+  ['processline',['ProcessLine',['../classLineProcessor.html#a8517841ba15bc4b76287cf47a0f86f90',1,'LineProcessor']]]
 ];
