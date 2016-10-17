@@ -183,6 +183,11 @@ const int&#160;</td><td class="memItemRight" valign="bottom"><b>MaxNSource</b> =
       </table>
 </div><div class="memdoc">
 <p>The main function that calls individual components. </p>
+<p><a class="el" href="classOutput.html">Output</a> is a class which inherits from the Geant4 class 'G4UImessenger'. According to the Geant4 User's Guide, all input and output should be handled through Geant4's intercom category of classes, in which G4UImessenger is included. As the name implies, all real data entry and file writing is handled by <a class="el" href="classOutput.html">Output</a>.</p>
+<p>G4RunManager is sort of the 'master' class of a Geant4 simulation. When G4RunManager is created, the other major G4Managers (like G4UIManager) are also created. G4RunManager must be created and initialized in the <a class="el" href="gears_8C.html#a3c04138a5bfe5d72780bb7e82a18e627">main()</a> method of every simulation.</p>
+<p>The manager for visualization procedures in Geant4. Processes all visualization requests from users or functions and decided what to do with them. G4VisExecutive is the default visualization manager, and is good enough for most purposes.</p>
+<pre class="fragment">    I'm not 100% on this, but it looks to me like the 'if' case runs a Geant4 command denoted by some option defined by the character 'argv' accepted as a parameter in main - but only IF the other parameter, an integer value 'argc', is not 1.
+</pre><p> I believe this command with argument argv modifies the ouput of the program, since it operates on the UI pointer. I don't know what the different options are for various argv, though. If argc is 1, it looks to me like a different intercom is called.</p>
 
 </div>
 </div>
