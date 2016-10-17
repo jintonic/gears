@@ -577,8 +577,21 @@ void SteppingAction::UserSteppingAction(const G4Step* step)
 #include <G4UImanager.hh> // needed for g4.10 and above
 int main(int argc, char **argv)
 {
+
+  /**
+  Output is a class which inherits from the Geant4 class 'G4UImessenger'.
+  According to the Geant4 User's Guide, all input and output should be handled through Geant4's intercom category of classes, in which G4UImessenger is included.
+  As the name implies, all real data entry and file writing is handled by Output.
+  */
+  
    Output *out = new Output; // ROOT output
-   
+
+
+   /**
+   G4RunManager is sort of the 'master' class of a Geant4 simulation.
+   When G4RunManager is created, the other major G4Managers (like G4UIManager) are also created.
+   G4RunManager must be created and initialized in the main() method of every simulation.
+    */
    G4RunManager* run = new G4RunManager;
    run->SetUserInitialization(new Detector);
    run->SetUserInitialization(new Physics);
@@ -587,11 +600,23 @@ int main(int argc, char **argv)
    run->SetUserAction(new EventAction(out));
    run->SetUserAction(new SteppingAction(out));
 
+   /**
+   The manager for visualization procedures in Geant4. Processes all visualization requests from users or functions and decided what to do with them.
+   G4VisExecutive is the default visualization manager, and is good enough for most purposes.
+   */
+   
    G4VisManager* vis = new G4VisExecutive;
    vis->SetVerboseLevel(0);
    vis->Initialize();
 
-   if (argc!=1)  {
+    if (argc!=1)  {
+
+        /**
+        I'm not 100% on this, but it looks to me like the 'if' case runs a Geant4 command denoted by some option defined by the character 'argv' accepted as a parameter in main - but only IF the other parameter, an integer value 'argc', is not 1.
+I believe this command with argument argv modifies the ouput of the program, since it operates on the UI pointer. I don't know what the different options are for various argv, though.
+If argc is 1, it looks to me like a different intercom is called.
+         */
+      
       G4String exe = "/control/execute ";
       G4String macro = argv[1];
       G4UImanager::GetUIpointer()->ApplyCommand(exe+macro);
