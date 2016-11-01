@@ -1,0 +1,20 @@
+:MIXT steel 8.06*g/cm3 6
+G4_C 0.001
+G4_Si 0.007
+G4_Cr 0.18
+G4_Mn 0.01
+G4_Fe 0.712
+G4_Ni 0.09
+
+:VOLU world BOX 50*cm 50*cm 50*cm
+:VOLU base TUBE 0*cm 10*cm 1.5*cm steel
+:VOLU center TUBE 3*cm 5*cm 7.5*cm steel
+:VOLU window TUBE 0*cm 3*cm 1*cm G4_SILICON_DIOXIDE
+
+:ROTM r000 0 0 0
+
+:PLACE base 1 world r000 0. 0. 0.
+:PLACE center 1 world r000 0. 0. 9*cm
+:PLACE window 1 world r000 16.5*cm
+
+:vis hall OFF
