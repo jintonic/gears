@@ -7,5 +7,6 @@ It makes full use of Geant4 [plain-text geometry definition](http://geant4.web.c
 ~~~shell
 cd gears
 make
-./macro/Rutherford/scatter.sh 100
+cd macro/Rutherford/
+./scatter.sh 100
 ~~~
