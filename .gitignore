@@ -37,3 +37,6 @@ user.properties
 *.exe
 *.out
 *.app
+
+# backup files
+\#*
