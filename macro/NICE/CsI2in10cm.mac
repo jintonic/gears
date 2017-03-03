@@ -1,4 +1,4 @@
-/geometry/source geom/NICE/CsI/2in/10cm.tg
+/geometry/source geom/NICE/CsI2in10cm.tg
 /output/file nice.root
 /run/initialize
 
