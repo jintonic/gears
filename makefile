@@ -15,7 +15,7 @@ TGT=$(SRC:.C=.exe)
 all: $(TGT)
 
 %.exe: %.C
-	g++ $(FLAG) $(LIBS) $^ -o $@
+	$(CXX) $(FLAG) $(LIBS) $^ -o $@
 
 clean:
 	rm -f `cat .gitignore`
