@@ -1,7 +1,7 @@
 /**
  * \file gears.C
  *
- * The only c++ file in this project.
+ * The only C++ file in this project.
  *
  * Everything is placed inside this file intentionally to simplify the
  * makefile.
@@ -21,9 +21,13 @@
 
 #include <G4PrimaryVertex.hh>
 #include <G4PrimaryParticle.hh>
-const int MaxNhits=20000;
-const int MaxNSource=100;
 
+const int MaxNhits=20000; ///< Max number of hits that can be recorded
+const int MaxNSource=100; ///< Max number of sources that can be handled
+
+/**
+ * Save hits in sensitive volumes to a ROOT file.
+ */
 class Output: public G4UImessenger
 {
    public:
@@ -35,7 +39,7 @@ class Output: public G4UImessenger
       void RSource(G4PrimaryVertex* primaryVertex);
       void Write() {  fTree->Fill(); Reset(); }
       void Close() { fFile->Write(); fFile->Close(); }
-      
+
       void SetNewValue(G4UIcommand* cmd, G4String value)
       { if (cmd==fFileCmd) fFileName = value; }
 
@@ -56,7 +60,7 @@ class Output: public G4UImessenger
       int trk[MaxNhits];
       int pro[MaxNhits];
       double e[MaxNhits];
-      double et; //< total energy deposited
+      double et; ///< total energy deposited
       double t[MaxNhits];
       double x[MaxNhits];
       double y[MaxNhits];
@@ -66,9 +70,9 @@ class Output: public G4UImessenger
       double xs[MaxNSource];
       double ys[MaxNSource];
       double zs[MaxNSource];
-
 };
-
+//______________________________________________________________________________
+//
 Output::Output(): G4UImessenger()
 {
    Reset();
@@ -81,7 +85,8 @@ Output::Output(): G4UImessenger()
    fFileCmd->SetParameterName("fout",false);
    fFileCmd->AvailableForStates(G4State_PreInit);
 } 
-
+//______________________________________________________________________________
+//
 #include <sstream>
 
 void Output::Open()
@@ -109,26 +114,29 @@ void Output::Open()
    fTree->Branch("ys",ys,"ys[ns]/D");//<- local y position of a source [mm]
    fTree->Branch("zs",zs,"zs[ns]/D");//<- local z position of a source [mm]
 }
-
+//______________________________________________________________________________
+//
 void Output::RSource(G4PrimaryVertex* primaryVertex)
 {
-  G4PrimaryParticle * primaryParticle=primaryVertex->GetPrimary(0);
-  while (primaryParticle)
-  {
-    xs[ns] = primaryVertex->GetX0()/CLHEP::cm;
-    ys[ns] = primaryVertex->GetY0()/CLHEP::cm;
-    zs[ns] = primaryVertex->GetZ0()/CLHEP::cm;
-    ts[ns] = primaryVertex->GetT0()/CLHEP::ns;
-    G4ThreeVector P = primaryParticle->GetMomentum()/CLHEP::keV;
-    G4double M = primaryParticle->GetMass()/CLHEP::keV;
-    if (P.mag() < M/100)
-     es[ns] = P.mag2()/(2*M);
-    else
-     es[ns] = sqrt(P.mag2()+M*M)-M;
-    ns++;
-    primaryParticle=primaryParticle -> GetNext();
-  }
+   G4PrimaryParticle * primaryParticle=primaryVertex->GetPrimary(0);
+   while (primaryParticle)
+   {
+      xs[ns] = primaryVertex->GetX0()/CLHEP::cm;
+      ys[ns] = primaryVertex->GetY0()/CLHEP::cm;
+      zs[ns] = primaryVertex->GetZ0()/CLHEP::cm;
+      ts[ns] = primaryVertex->GetT0()/CLHEP::ns;
+      G4ThreeVector P = primaryParticle->GetMomentum()/CLHEP::keV;
+      G4double M = primaryParticle->GetMass()/CLHEP::keV;
+      if (P.mag() < M/100)
+         es[ns] = P.mag2()/(2*M);
+      else
+         es[ns] = sqrt(P.mag2()+M*M)-M;
+      ns++;
+      primaryParticle=primaryParticle -> GetNext();
+   }
 }
+//______________________________________________________________________________
+//
 void Output::Record(G4Track *track)
 {
    if (nh>=MaxNhits) {
@@ -146,15 +154,16 @@ void Output::Record(G4Track *track)
       parent[nh]=track->GetParentID();
       trk[nh]=track->GetTrackID();
       if(track->GetCreatorProcess () ) 
-	pro[nh]=track->GetCreatorProcess ()->GetProcessType ()*100
-	  + track->GetCreatorProcess ()->GetProcessSubType();
+         pro[nh]=track->GetCreatorProcess ()->GetProcessType ()*100
+            + track->GetCreatorProcess ()->GetProcessSubType();
       et+=e[nh];
    }
    if(nh>=10000)track->SetTrackStatus(fKillTrackAndSecondaries);
 
    nh++;
 }
-
+//______________________________________________________________________________
+//
 void Output::Reset()
 {
    for(int i=0; i<MaxNhits; i++) {
@@ -166,10 +175,8 @@ void Output::Reset()
    }
    nh=0; ns=0; et=0;
 }
-
 //______________________________________________________________________________
 //
-
 #include <G4tgrLineProcessor.hh>
 #include <G4tgrVolumeMgr.hh>
 #include <G4tgrFileReader.hh>
@@ -206,7 +213,8 @@ class LineProcessor: public G4tgrLineProcessor
       G4MaterialPropertiesTable* CreateMaterialPropertiesTable(
             const std::vector<G4String> &words, int idx);
 };
-
+//______________________________________________________________________________
+//
 LineProcessor::~LineProcessor()
 {
    while(Surface) {
@@ -215,9 +223,9 @@ LineProcessor::~LineProcessor()
       Surface=next;
    }
 }
-
+//______________________________________________________________________________
+//
 #include <G4NistManager.hh>
-
 /**
  * New tag ":PROP" (multiple property acceptable)
  * :prop <original material> 
@@ -259,46 +267,47 @@ G4bool LineProcessor::ProcessLine(const std::vector< G4String > &words)
       int i=4; 
       // loop over optical surface setup lines
       while(true) {
-	if(words[i]=="property")break;
-	else if(words[i]=="type") {
-	  if (words[i+1]=="dielectric_metal")
-	    surf->optic->SetType(dielectric_metal);
-	  else if(words[i+1]=="dielectric_dielectric")
-	    surf->optic->SetType(dielectric_dielectric);
-	  else if(words[i+1]=="firsov")
-	    surf->optic->SetType(firsov);
-	  else if(words[i+1]=="x_ray")
-	    surf->optic->SetType(x_ray);
-	} else if(words[i]=="model") {
-	  if (words[i+1]=="glisur")
-	    surf->optic->SetModel(glisur);
-	  else if(words[i+1]=="unified")
-	    surf->optic->SetModel(unified);
-	} else if(words[i]=="finish") {
-	  if(words[i+1]=="polished")
-	    surf->optic->SetFinish(polished);
-	  else if(words[i+1]=="polishedfrontpainted")
-	    surf->optic->SetFinish(polishedfrontpainted);
-	  else if(words[i+1]=="polishedbackpainted")
-	    surf->optic->SetFinish(polishedbackpainted);
-	  else if(words[i+1]=="ground")
-	    surf->optic->SetFinish(ground);
-	  else if(words[i+1]=="groundfrontpainted")
-	    surf->optic->SetFinish(groundfrontpainted);
-	  else if(words[i+1]=="groundbackpainted")
-	    surf->optic->SetFinish(groundbackpainted);
-	} else if(words[i]=="sigmaalpha") 
-	  surf->optic->SetSigmaAlpha(G4UIcommand::ConvertToInt(words[i+1]));
-	else G4cout<<"op surface tag not find"<<G4endl;
-	i+=2;
+         if(words[i]=="property")break;
+         else if(words[i]=="type") {
+            if (words[i+1]=="dielectric_metal")
+               surf->optic->SetType(dielectric_metal);
+            else if(words[i+1]=="dielectric_dielectric")
+               surf->optic->SetType(dielectric_dielectric);
+            else if(words[i+1]=="firsov")
+               surf->optic->SetType(firsov);
+            else if(words[i+1]=="x_ray")
+               surf->optic->SetType(x_ray);
+         } else if(words[i]=="model") {
+            if (words[i+1]=="glisur")
+               surf->optic->SetModel(glisur);
+            else if(words[i+1]=="unified")
+               surf->optic->SetModel(unified);
+         } else if(words[i]=="finish") {
+            if(words[i+1]=="polished")
+               surf->optic->SetFinish(polished);
+            else if(words[i+1]=="polishedfrontpainted")
+               surf->optic->SetFinish(polishedfrontpainted);
+            else if(words[i+1]=="polishedbackpainted")
+               surf->optic->SetFinish(polishedbackpainted);
+            else if(words[i+1]=="ground")
+               surf->optic->SetFinish(ground);
+            else if(words[i+1]=="groundfrontpainted")
+               surf->optic->SetFinish(groundfrontpainted);
+            else if(words[i+1]=="groundbackpainted")
+               surf->optic->SetFinish(groundbackpainted);
+         } else if(words[i]=="sigmaalpha") 
+            surf->optic->SetSigmaAlpha(G4UIcommand::ConvertToInt(words[i+1]));
+         else G4cout<<"op surface tag not find"<<G4endl;
+         i+=2;
       }
       i++;
       surf->optic->SetMaterialPropertiesTable(
-	  CreateMaterialPropertiesTable(words,i));
+            CreateMaterialPropertiesTable(words,i));
       return true;
    } else return false;
 }
-
+//______________________________________________________________________________
+//
 #include <G4tgrUtils.hh>
 
 G4MaterialPropertiesTable* LineProcessor::CreateMaterialPropertiesTable(
@@ -313,17 +322,17 @@ G4MaterialPropertiesTable* LineProcessor::CreateMaterialPropertiesTable(
          properties->AddConstProperty(words[i], G4tgrUtils::GetDouble(words[i+2]));
          i+=2;
       } else if (words[i]=="energy"){
-	en=true;
+         en=true;
          cnt = G4UIcommand::ConvertToInt(words[++i]);
          energies= new double[cnt];
          for (int j=0; j<cnt; j++) {energies[j]=0;}
-	 for (int j=0; j<cnt; j++) { energies[j]=G4tgrUtils::GetDouble(words[++i]);}
+         for (int j=0; j<cnt; j++) { energies[j]=G4tgrUtils::GetDouble(words[++i]);}
       }else{
-	if (!en){G4cout<<"no energies"<<G4endl;break;}
+         if (!en){G4cout<<"no energies"<<G4endl;break;}
          G4String name = words[i];
          double *propVals = new double[cnt];
          for (int j=0; j<cnt; j++) { propVals[j]=0;}
-	 for (int j=0; j<cnt; j++) {propVals[j]=G4tgrUtils::GetDouble(words[++i]);}
+         for (int j=0; j<cnt; j++) {propVals[j]=G4tgrUtils::GetDouble(words[++i]);}
          properties->AddProperty(name,energies,propVals,cnt)->SetSpline(true);
          delete [] propVals;
       }
@@ -331,10 +340,8 @@ G4MaterialPropertiesTable* LineProcessor::CreateMaterialPropertiesTable(
    delete [] energies;
    return properties;
 }
-
 //______________________________________________________________________________
 //
-
 #include <G4tgbDetectorBuilder.hh>
 #include <G4LogicalBorderSurface.hh>
 
@@ -350,7 +357,8 @@ class TextDetectorBuilder : public G4tgbDetectorBuilder
       LineProcessor* fLineProcessor;
       void AddSurface(G4VPhysicalVolume* v1, SurfaceList* surface);
 };
-
+//______________________________________________________________________________
+//
 const G4tgrVolume * TextDetectorBuilder::ReadDetector()
 {
    G4tgrFileReader* fileReader = G4tgrFileReader::GetInstance();
@@ -360,6 +368,7 @@ const G4tgrVolume * TextDetectorBuilder::ReadDetector()
    const G4tgrVolume* world = mgr->GetTopVolume();
    return world;
 }
+//______________________________________________________________________________
 // FIXME: may need reconsider the logic
 void TextDetectorBuilder::AddSurface(G4VPhysicalVolume* v1, SurfaceList* surface)
 {
@@ -376,7 +385,8 @@ void TextDetectorBuilder::AddSurface(G4VPhysicalVolume* v1, SurfaceList* surface
    } else 
       new G4LogicalBorderSurface(surface->name,v1,mgr->GetTopPhysVol(),surface->optic);
 }
-
+//______________________________________________________________________________
+//
 #include <G4tgrMessenger.hh>
 
 G4VPhysicalVolume* TextDetectorBuilder::ConstructDetector(
@@ -402,16 +412,24 @@ G4VPhysicalVolume* TextDetectorBuilder::ConstructDetector(
    }
    return world;
 }
-
 //______________________________________________________________________________
 //
-
 #include <G4VUserDetectorConstruction.hh>
 #include <G4TransportationManager.hh>
 #include <G4UIcmdWith3VectorAndUnit.hh>
 #include <G4UniformMagField.hh>
 #include <G4FieldManager.hh>
 
+/**
+ * Construct detector geometry.
+ *
+ * This uses Geant4 text geometry to construct a detector: 
+ * http://geant4.cern.ch/geant4/collaboration/working_groups/geometry/docs/textgeom/textgeom.pdf
+ *
+ * It won't work together with HP neutron simulation if Geant4 version is lower
+ * than 10 because of this bug:
+ * http://hypernews.slac.stanford.edu/HyperNews/geant4/get/hadronprocess/1242.html?inline=-1
+ */
 class Detector : public G4VUserDetectorConstruction, public G4UImessenger
 {
    public:
@@ -431,7 +449,8 @@ class Detector : public G4VUserDetectorConstruction, public G4UImessenger
       G4UIcmdWithAString* fSrcCmd;
       G4UniformMagField* fField;
 };
-
+//______________________________________________________________________________
+//
 Detector::Detector(): G4UImessenger()
 {
    fSrcCmd = new G4UIcmdWithAString("/geometry/source",this);
@@ -450,7 +469,8 @@ Detector::Detector(): G4UImessenger()
 
    fField = new G4UniformMagField(0,0,0);
 }
-
+//______________________________________________________________________________
+//
 void Detector::SetNewValue(G4UIcommand* cmd, G4String value)
 {
    if (cmd==fSetMCmd) {
@@ -462,7 +482,8 @@ void Detector::SetNewValue(G4UIcommand* cmd, G4String value)
       G4cout<<"Magnetic field is set to "<<value<<G4endl;
    } else if (cmd==fSrcCmd) fGeomSrcText = value;
 }
-
+//______________________________________________________________________________
+//
 G4VPhysicalVolume* Detector::Construct()
 {
    G4tgbVolumeMgr* mgr = G4tgbVolumeMgr::GetInstance();
@@ -472,15 +493,15 @@ G4VPhysicalVolume* Detector::Construct()
    G4VPhysicalVolume* world = mgr->ReadAndConstructDetector();
    return world;
 }
-
 //______________________________________________________________________________
 //
-
 #include "G4VModularPhysicsList.hh"
 #include "G4DecayPhysics.hh"
 #include "G4RadioactiveDecayPhysics.hh"
 #include "G4EmStandardPhysics.hh"
 #include "G4OpticalPhysics.hh"
+#include "G4HadronPhysicsQGSP_BERT_HP.hh" // won't work for Geant4 version<10
+#include "G4HadronElasticPhysicsHP.hh"
 
 class Physics: public G4VModularPhysicsList
 {
@@ -489,16 +510,16 @@ class Physics: public G4VModularPhysicsList
          SetVerboseLevel(10);
          // modular physics lists are definded in g4/source/physics_lists
          RegisterPhysics(new G4DecayPhysics());
-         RegisterPhysics(new G4RadioactiveDecayPhysics());
+         RegisterPhysics(new G4RadioactiveDecayPhysics()); // weak force
          RegisterPhysics(new G4EmStandardPhysics());
          RegisterPhysics(new G4OpticalPhysics());
+         RegisterPhysics(new G4HadronPhysicsQGSP_BERT_HP(2)); // inelastic
+         RegisterPhysics(new G4HadronElasticPhysicsHP(2)); // elastic
       }
       virtual ~Physics() {};
 };
-
 //______________________________________________________________________________
 //
-
 #include <G4VUserPrimaryGeneratorAction.hh>
 #include <G4GeneralParticleSource.hh>
 
@@ -514,10 +535,8 @@ class Generator : public G4VUserPrimaryGeneratorAction
    private:
       G4GeneralParticleSource* fSource;
 };
-
 //______________________________________________________________________________
 //
-
 #include <G4UserRunAction.hh>
 class RunAction : public G4UserRunAction
 {
@@ -529,10 +548,8 @@ class RunAction : public G4UserRunAction
    private:
       Output* fOut;
 };
-
 //______________________________________________________________________________
 //
-
 #include <G4UserEventAction.hh>
 class EventAction : public G4UserEventAction
 {
@@ -544,18 +561,19 @@ class EventAction : public G4UserEventAction
    private:
       Output* fOut;
 };
+//______________________________________________________________________________
+//
 void EventAction::BeginOfEventAction(const G4Event* event)
 {
-  G4PrimaryVertex* primaryVertex = event->GetPrimaryVertex(0);
-  while (primaryVertex)
-  {
-    fOut->RSource(primaryVertex);
-    primaryVertex=primaryVertex->GetNext();
-  }
+   G4PrimaryVertex* primaryVertex = event->GetPrimaryVertex(0);
+   while (primaryVertex)
+   {
+      fOut->RSource(primaryVertex);
+      primaryVertex=primaryVertex->GetNext();
+   }
 }
 //______________________________________________________________________________
 //
-
 #include <G4UserSteppingAction.hh>
 class SteppingAction : public G4UserSteppingAction
 {
@@ -566,7 +584,8 @@ class SteppingAction : public G4UserSteppingAction
    private:
       Output* fOut;
 };
-
+//______________________________________________________________________________
+//
 void SteppingAction::UserSteppingAction(const G4Step* step)
 {   
    G4String volume = step->GetPreStepPoint()->GetPhysicalVolume()->GetName();
@@ -575,13 +594,9 @@ void SteppingAction::UserSteppingAction(const G4Step* step)
       fOut->Record(step->GetTrack());
       //step->GetTrack()->SetTrackStatus(fKillTrackAndSecondaries);
    }
-
-
 }
-
 //______________________________________________________________________________
 //
-
 #include <G4RunManager.hh>
 #include <G4VisExecutive.hh>
 #include <G4UIExecutive.hh>
@@ -593,21 +608,8 @@ void SteppingAction::UserSteppingAction(const G4Step* step)
  */
 int main(int argc, char **argv)
 {
-
-  /**
-  Output is a class which inherits from the Geant4 class 'G4UImessenger'.
-  According to the Geant4 User's Guide, all input and output should be handled through Geant4's intercom category of classes, in which G4UImessenger is included.
-  As the name implies, all real data entry and file writing is handled by Output.
-  */
-  
    Output *out = new Output; // ROOT output
 
-
-   /**
-   G4RunManager is sort of the 'master' class of a Geant4 simulation.
-   When G4RunManager is created, the other major G4Managers (like G4UIManager) are also created.
-   G4RunManager must be created and initialized in the main() method of every simulation.
-    */
    G4RunManager* run = new G4RunManager;
    run->SetUserInitialization(new Detector);
    run->SetUserInitialization(new Physics);
@@ -616,23 +618,11 @@ int main(int argc, char **argv)
    run->SetUserAction(new EventAction(out));
    run->SetUserAction(new SteppingAction(out));
 
-   /**
-   The manager for visualization procedures in Geant4. Processes all visualization requests from users or functions and decided what to do with them.
-   G4VisExecutive is the default visualization manager, and is good enough for most purposes.
-   */
-   
    G4VisManager* vis = new G4VisExecutive;
    vis->SetVerboseLevel(0);
    vis->Initialize();
 
-    if (argc!=1)  {
-
-        /**
-        I'm not 100% on this, but it looks to me like the 'if' case runs a Geant4 command denoted by some option defined by the character 'argv' accepted as a parameter in main - but only IF the other parameter, an integer value 'argc', is not 1.
-I believe this command with argument argv modifies the ouput of the program, since it operates on the UI pointer. I don't know what the different options are for various argv, though.
-If argc is 1, it looks to me like a different intercom is called.
-         */
-      
+   if (argc!=1)  {
       G4String exe = "/control/execute ";
       G4String macro = argv[1];
       G4UImanager::GetUIpointer()->ApplyCommand(exe+macro);
