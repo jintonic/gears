@@ -1,0 +1,30 @@
+:volu cleanroom BOX 30*cm 30*cm 30*cm G4_AIR
+:vis cleanroom OFF
+
+:mixt steel 8.06*g/cm3 6
+G4_C  0.001
+G4_Si 0.007
+G4_Cr 0.180
+G4_Mn 0.010
+G4_Fe 0.712
+G4_Ni 0.090
+
+:rotm r000 0 0 0
+
+:solid base TUBE 0*cm 7.62*cm 22.3*cm
+:solid skin TUBE 5.08*cm 9.0*cm 18.34*cm
+:solid cylinder SUBTRACTION base skin r000 0 0 0
+
+:volu chamber cylinder steel
+
+:place chamber 1 cleanroom r000 0. 0. 0.
+
+:volu N2 TUBS 0*cm 4.88*cm 20.32*cm 0 360 G4_N
+:place N2 1 chamber r000 0. 0. 0.
+
+:volu CsI(S) TUBS 0. 2.54*cm 5*cm 0 360 G4_CESIUM_IODIDE
+:place CsI(S) 1 N2 r000 0 0 -15.32*cm
+
+:color CsI(S) 0.2 0.4 0.8
+:color N2 0.8 0.4 0.2
+:color chamber 0.4 0.4 0.4
