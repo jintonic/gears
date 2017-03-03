@@ -1,10 +1,11 @@
-/geometry/source geom/hall.tg
-/output/file AmBe.root
-/run/initialize
-
 /gps/particle neutron
-/gps/pos/type Point
-/gps/pos/centre 0 0 0
+
+/gps/pos/type Plane
+/gps/pos/shape Circle
+/gps/pos/radius 1. cm
+
+/gps/pos/centre 0. 0. 0. cm
+
 /gps/ang/type iso
 /gps/ene/type User
 /gps/hist/type energy
@@ -164,5 +165,3 @@
 /gps/hist/point 10.650600 0.006155
 /gps/hist/point 10.720200 0.002072
 /gps/hist/point 10.789800 0.004184
-
-/run/beamOn 5000
