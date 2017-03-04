@@ -496,33 +496,70 @@ G4VPhysicalVolume* Detector::Construct()
 //______________________________________________________________________________
 //
 #include "G4VModularPhysicsList.hh"
+#include "G4UIcmdWithABool.hh"
+/**
+ * Enable physics lists.
+ * Physics lists have to be enabled when Geant4 is at PreInit state. All UI
+ * commands defined here have to be put before /run/Initialize in a mac file.
+ */
+class Physics: public G4VModularPhysicsList, public G4UImessenger
+{
+   public:
+      Physics();
+      ~Physics() { delete fDir; delete fElasticCmd; delete fInelasticCmd; }
+      void SetNewValue(G4UIcommand* cmd, G4String value);
+   private:
+      G4UIdirectory* fDir;
+      G4UIcmdWithABool* fElasticCmd;
+      G4UIcmdWithABool* fInelasticCmd;
+};
+//______________________________________________________________________________
+//
 #include "G4DecayPhysics.hh"
 #include "G4RadioactiveDecayPhysics.hh"
 #include "G4EmStandardPhysics.hh"
 #include "G4OpticalPhysics.hh"
-#include "G4HadronPhysicsQGSP_BERT_HP.hh" // won't work for Geant4 version<10
-#include "G4HadronElasticPhysicsHP.hh"
-
-class Physics: public G4VModularPhysicsList
+Physics::Physics() : G4VModularPhysicsList(), G4UImessenger()
 {
-   public:
-      Physics() : G4VModularPhysicsList() {
-         SetVerboseLevel(10);
-         // modular physics lists are definded in g4/source/physics_lists
-         RegisterPhysics(new G4DecayPhysics());
-         RegisterPhysics(new G4RadioactiveDecayPhysics()); // weak force
-         RegisterPhysics(new G4EmStandardPhysics());
-         RegisterPhysics(new G4OpticalPhysics());
-         RegisterPhysics(new G4HadronPhysicsQGSP_BERT_HP(2)); // inelastic
-         RegisterPhysics(new G4HadronElasticPhysicsHP(2)); // elastic
-      }
-      virtual ~Physics() {};
-};
+   fDir = new G4UIdirectory("/physics_lists/hadron/");
+   fDir->SetGuidance("Configure hadronic physics lists");
+
+   fElasticCmd = new G4UIcmdWithABool("/physics_lists/hadron/elastic",this);
+   fElasticCmd->SetGuidance("Switch hadron elastic physics on/off");
+   fElasticCmd->SetParameterName("flag",false);
+   fElasticCmd->AvailableForStates(G4State_PreInit);
+
+   fInelasticCmd = new G4UIcmdWithABool("/physics_lists/hadron/inelastic",this);
+   fInelasticCmd->SetGuidance("Switch hadron inelastic physics on/off");
+   fInelasticCmd->SetParameterName("flag",false);
+   fInelasticCmd->AvailableForStates(G4State_PreInit);
+
+   RegisterPhysics(new G4DecayPhysics());
+   RegisterPhysics(new G4RadioactiveDecayPhysics()); // weak force
+   RegisterPhysics(new G4EmStandardPhysics());
+   RegisterPhysics(new G4OpticalPhysics());
+}
+//______________________________________________________________________________
+//
+#include "G4HadronPhysicsFTFP_BERT_HP.hh" // won't work for Geant4 version<10
+#include "G4HadronElasticPhysicsHP.hh"
+void Physics::SetNewValue(G4UIcommand* cmd, G4String value)
+{
+   if (cmd==fElasticCmd) {
+      if (fElasticCmd->GetNewBoolValue(value))
+         RegisterPhysics(new G4HadronElasticPhysicsHP());
+   } else {
+      if (fInelasticCmd->GetNewBoolValue(value))
+         RegisterPhysics(new G4HadronPhysicsFTFP_BERT_HP());
+   }
+}
 //______________________________________________________________________________
 //
 #include <G4VUserPrimaryGeneratorAction.hh>
 #include <G4GeneralParticleSource.hh>
-
+/**
+ * Call Geant4 General Particle Source to generate particles.
+ */
 class Generator : public G4VUserPrimaryGeneratorAction
 {
    public:
@@ -619,7 +656,7 @@ int main(int argc, char **argv)
    run->SetUserAction(new SteppingAction(out));
 
    G4VisManager* vis = new G4VisExecutive;
-   vis->SetVerboseLevel(0);
+   //vis->SetVerboseLevel(0); // suppress list of vis engines
    vis->Initialize();
 
    if (argc!=1)  {
