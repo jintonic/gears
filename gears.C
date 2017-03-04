@@ -595,7 +595,7 @@ class EventAction : public G4UserEventAction, public G4UImessenger
       EventAction(Output *out=0);
       ~EventAction() { delete fReportCmd; }
       void BeginOfEventAction(const G4Event* event);
-      void EndOfEventAction(const G4Event* ) { fOut->Write(); }
+      void EndOfEventAction(const G4Event* event);
       void SetNewValue(G4UIcommand* cmd, G4String value)
       { if (cmd==fReportCmd) fNevt4report=atoi(value); }
    private:
@@ -627,6 +627,15 @@ void EventAction::BeginOfEventAction(const G4Event* event)
 }
 //______________________________________________________________________________
 //
+void EventAction::EndOfEventAction(const G4Event* event)
+{
+   fOut->Write();
+   if (event->GetEventID()%fNevt4report==0)
+      G4cout<<fNevt4report<<" events simulated"<<G4endl;
+}
+//______________________________________________________________________________
+//
+      void EndOfEventAction(const G4Event* ) { fOut->Write(); }
 #include <G4UserSteppingAction.hh>
 class SteppingAction : public G4UserSteppingAction
 {
