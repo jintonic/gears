@@ -7,7 +7,8 @@
  * makefile.
  */
 const int MaxNhit=20000; ///< Max number of hits that can be recorded
-const int MaxNsrc=100; ///< Max number of sources that can be handled
+const int MaxNsrc=1000; ///< Max number of sources that can be handled
+const int MaxNdet=100; ///< Max number of detectors that can be handled
 
 #include <TFile.h>
 #include <TTree.h>
@@ -35,6 +36,26 @@ class Output: public G4UImessenger
       void SetNewValue(G4UIcommand* cmd, G4String value) ///< for G4UI
       { if (cmd==fCmdFile) fFileName = value; }
 
+      int nh; ///< number of hits
+      int ns; ///< number of primary particles (source)
+      int nd; ///< number of detectors (sensitive volumes)
+      short det[MaxNhit]; ///< detector id
+      int pid[MaxNhit]; ///< particle id
+      int par[MaxNhit]; ///< parent id
+      int trk[MaxNhit]; ///< track id
+      int pro[MaxNhit]; ///< process id * 100 + sub-process id
+      double e[MaxNhit]; ///< energy deposited [keV]
+      double et[MaxNdet]; ///< total energy deposited in each detector [keV]
+      double t[MaxNhit]; ///< time of hit [ns]
+      double x[MaxNhit]; ///< x of hit [mm]
+      double y[MaxNhit]; ///< y of hit [mm]
+      double z[MaxNhit]; ///< z of hit [mm]
+      double es[MaxNsrc]; ///< initial energy of primary particle [keV]
+      double ts[MaxNsrc]; ///< time of primary particle emitted [ns]
+      double xs[MaxNsrc]; ///< x of primary particle emitting point [mm]
+      double ys[MaxNsrc]; ///< y of primary particle emitting point [mm]
+      double zs[MaxNsrc]; ///< z of primary particle emitting point [mm]
+
    private:
       void Reset(); ///< Reset track record
 
@@ -44,25 +65,6 @@ class Output: public G4UImessenger
 
       G4UIdirectory* fDir;
       G4UIcmdWithAString* fCmdFile;
-
-      int nh; ///< number of hits
-      int ns; ///< number of primary particles (source)
-      short det[MaxNhit]; ///< detector id
-      int pid[MaxNhit]; ///< particle id
-      int parent[MaxNhit]; ///< parent id
-      int trk[MaxNhit]; ///< track id
-      int pro[MaxNhit]; ///< process id
-      double e[MaxNhit]; ///< energy deposited
-      double et; ///< total energy deposited
-      double t[MaxNhit]; ///< time of hit
-      double x[MaxNhit]; ///< x of hit
-      double y[MaxNhit]; ///< y of hit
-      double z[MaxNhit]; ///< z of hit
-      double es[MaxNsrc]; ///< initial energy of primary particle
-      double ts[MaxNsrc]; ///< time of primary particle emitted
-      double xs[MaxNsrc]; ///< x of primary particle emitting point
-      double ys[MaxNsrc]; ///< y of primary particle emitting point
-      double zs[MaxNsrc]; ///< z of primary particle emitting point
 };
 //______________________________________________________________________________
 //
@@ -79,30 +81,30 @@ Output::Output(): G4UImessenger()
 } 
 //______________________________________________________________________________
 //
-#include <sstream>
-#include <Randomize.hh>
 void Output::Open()
 {
    fFile=new TFile(fFileName.data(),"recreate","data");
    fTree=new TTree("t","simulated samples");
-   fTree->Branch("nh",&nh,"nh/S"); //<- number of hits
-   fTree->Branch("ns",&ns,"ns/S"); //<- number of source
-   fTree->Branch("et",&et,"et/D");//< total energy deposited
-   fTree->Branch("e",e,"e[nh]/D");//<- energy of a hit [keV]
-   fTree->Branch("t",t,"t[nh]/D");//<- time of a hit [ns]
-   fTree->Branch("x",x,"x[nh]/D");//<- local x position of a hit [mm]
-   fTree->Branch("y",y,"y[nh]/D");//<- local y position of a hit [mm]
-   fTree->Branch("z",z,"z[nh]/D");//<- local z position of a hit [mm]
-   fTree->Branch("det",det,"det[nh]/S");//<- detector Id
-   fTree->Branch("pid",pid,"pid[nh]/I");//<- particle Id
-   fTree->Branch("pro",&pro,"pro[nh]/I");//<- process id + sub process Id *10
-   fTree->Branch("parent",parent,"parent[nh]/I");//<- parent track Id
-   fTree->Branch("trk",trk,"trk[nh]/I");//<- track Id
-   fTree->Branch("es",es,"es[ns]/D");//<- energy of a source [keV]
-   fTree->Branch("ts",ts,"ts[ns]/D");//<- time of a source [ns]
-   fTree->Branch("xs",xs,"xs[ns]/D");//<- local x position of a source [mm]
-   fTree->Branch("ys",ys,"ys[ns]/D");//<- local y position of a source [mm]
-   fTree->Branch("zs",zs,"zs[ns]/D");//<- local z position of a source [mm]
+
+   fTree->Branch("nh",&nh,"nh/S");
+   fTree->Branch("ns",&ns,"ns/S");
+   fTree->Branch("nd",&nd,"nd/S");
+   fTree->Branch("et",&et,"et/D");
+   fTree->Branch("e",e,"e[nh]/D");
+   fTree->Branch("t",t,"t[nh]/D");
+   fTree->Branch("x",x,"x[nh]/D");
+   fTree->Branch("y",y,"y[nh]/D");
+   fTree->Branch("z",z,"z[nh]/D");
+   fTree->Branch("det",det,"det[nh]/S");
+   fTree->Branch("pid",pid,"pid[nh]/I");
+   fTree->Branch("pro",&pro,"pro[nh]/I");
+   fTree->Branch("par",par,"par[nh]/I");
+   fTree->Branch("trk",trk,"trk[nh]/I");
+   fTree->Branch("es",es,"es[ns]/D");
+   fTree->Branch("ts",ts,"ts[ns]/D");
+   fTree->Branch("xs",xs,"xs[ns]/D");
+   fTree->Branch("ys",ys,"ys[ns]/D");
+   fTree->Branch("zs",zs,"zs[ns]/D");
 }
 //______________________________________________________________________________
 //
@@ -110,7 +112,7 @@ void Output::Open()
 #include <CLHEP/Units/SystemOfUnits.h>
 void Output::Record(G4PrimaryVertex* vtx)
 {
-   G4PrimaryParticle * particle=vtx->GetPrimary(0);
+   G4PrimaryParticle * particle = vtx->GetPrimary(0);
    while (particle) {
       xs[ns] = vtx->GetX0()/CLHEP::cm;
       ys[ns] = vtx->GetY0()/CLHEP::cm;
@@ -119,7 +121,7 @@ void Output::Record(G4PrimaryVertex* vtx)
       G4ThreeVector P = particle->GetMomentum()/CLHEP::keV;
       G4double M = particle->GetMass()/CLHEP::keV;
       if (P.mag() < M/100) es[ns] = P.mag2()/(2*M);
-      else es[ns] = sqrt(P.mag2()+M*M)-M;
+      else es[ns] = sqrt(P.mag2()+M*M)-M; // relativistic
       ns++;
       particle = particle->GetNext();
    }
@@ -141,29 +143,30 @@ void Output::Record(G4Track *track)
       x[nh]=track->GetPosition().x()/CLHEP::mm;
       y[nh]=track->GetPosition().y()/CLHEP::mm;
       z[nh]=track->GetPosition().z()/CLHEP::mm;
-      parent[nh]=track->GetParentID();
+      par[nh]=track->GetParentID();
       trk[nh]=track->GetTrackID();
-      if(track->GetCreatorProcess () ) 
-         pro[nh]=track->GetCreatorProcess ()->GetProcessType ()*100
-            + track->GetCreatorProcess ()->GetProcessSubType();
-      et+=e[nh];
+      if (track->GetCreatorProcess()) 
+         pro[nh]=track->GetCreatorProcess()->GetProcessType()*100
+            + track->GetCreatorProcess()->GetProcessSubType();
+      et[det[nh]]+=e[nh];
+      if (det[nh]>=nd) nd = det[nh]+1;
    }
    if(nh>=10000)track->SetTrackStatus(fKillTrackAndSecondaries);
-
    nh++;
 }
 //______________________________________________________________________________
 //
 void Output::Reset()
 {
-   for(int i=0; i<MaxNhit; i++) {
+   for (int i=0; i<MaxNhit; i++) {
       e[i]=0; t[i]=0; x[i]=0; y[i]=0; z[i]=0;
-      det[i]=0; pid[i]=0; parent[i]=0; trk[i]=0;
+      det[i]=0; pid[i]=0; par[i]=0; trk[i]=0;
    }
-   for(int i=0;i<MaxNsrc;i++){
+   for (int i=0;i<MaxNsrc;i++) {
       es[i]=0; ts[i]=0; xs[i]=0; ys[i]=0; zs[i]=0;
    }
-   nh=0; ns=0; et=0;
+   for (int i=0;i<MaxNdet;i++) et[i]=0;
+   nh=0; ns=0; nd=0;
 }
 //______________________________________________________________________________
 //
@@ -654,10 +657,7 @@ void SteppingAction::UserSteppingAction(const G4Step* step)
 {   
    G4String volume = step->GetPreStepPoint()->GetPhysicalVolume()->GetName();
    if (volume.length()<3) return;
-   if (volume.substr(volume.length()-3)=="(S)") {
-      fOut->Record(step->GetTrack());
-      //step->GetTrack()->SetTrackStatus(fKillTrackAndSecondaries);
-   }
+   if (volume.substr(volume.length()-3)=="(S)") fOut->Record(step->GetTrack());
 }
 //______________________________________________________________________________
 //
