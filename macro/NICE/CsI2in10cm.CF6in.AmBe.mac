@@ -1,23 +1,19 @@
-/geometry/source geom/NICE/CsI2in10cm.CF6in.tg
+/random/setSeeds 2412 79628
 /output/file AmBe.root
+
+# must be set before /run/initialize
+/geometry/source geom/NICE/CsI2in10cm.CF6in.tg
+/physics_lists/hadron/elastic true
+/physics_lists/hadron/inelastic true
 /run/initialize
 
+# print volume list
 /vis/ASCIITree/verbose 13
 /vis/drawTree
 /geometry/test/run
 
-/vis/open HepRepFile
-#/vis/drawVolume
-/vis/scene/add/axes 0 0 0 15 cm
-
-/vis/scene/add/trajectories
-/vis/scene/endOfEventAction accumulate 50
-/vis/viewer/refresh
-/vis/viewer/flush
-
+# AmBe neutron spectrum
 /control/execute macro/src/AmBe.mac
 /gps/pos/centre 0 0 -22.5 cm
 
-/tracking/verbose 2
-
-/run/beamOn 50
+/run/beamOn 10
