@@ -1,10 +1,8 @@
-/random/setSeeds 2412 79628
-/output/file AmBe.root
-
 # must be set before /run/initialize
 /geometry/source geom/NICE/CsI2in10cm.CF6in.tg
-/physics_lists/hadron/elastic true
-/physics_lists/hadron/inelastic true
+/physics_lists/hadron/elasticOn
+/physics_lists/hadron/inelasticOn
+
 /run/initialize
 
 # print volume list
@@ -16,4 +14,8 @@
 /control/execute macro/src/AmBe.mac
 /gps/pos/centre 0 0 -22.5 cm
 
-/run/beamOn 10
+/random/setSeeds 2412 79628
+/output/file AmBe.root
+
+/run/statusReport 100
+/run/beamOn 500

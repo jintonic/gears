@@ -6,27 +6,19 @@
  * Everything is placed inside this file intentionally to simplify the
  * makefile.
  */
+const int MaxNhit=20000; ///< Max number of hits that can be recorded
+const int MaxNsrc=100; ///< Max number of sources that can be handled
+
 #include <TFile.h>
 #include <TTree.h>
 
+#include <G4PrimaryVertex.hh>
 #include <G4Track.hh>
 #include <G4UImessenger.hh>
 #include <G4UIdirectory.hh>
 #include <G4UIcmdWithAString.hh>
-#include <G4ParticleDefinition.hh>
-
-#include <CLHEP/Units/SystemOfUnits.h>
-#include <Randomize.hh>
-#include <G4VProcess.hh>
-
-#include <G4PrimaryVertex.hh>
-#include <G4PrimaryParticle.hh>
-
-const int MaxNhits=20000; ///< Max number of hits that can be recorded
-const int MaxNSource=100; ///< Max number of sources that can be handled
-
 /**
- * Save hits in sensitive volumes to a ROOT file.
+ * Save simulation results to a file.
  */
 class Output: public G4UImessenger
 {
@@ -34,13 +26,13 @@ class Output: public G4UImessenger
       Output();
       ~Output() { delete fCmdFile; delete fDir; delete fFile; }
 
-      void Open();
-      void Record(G4Track *track);
-      void RSource(G4PrimaryVertex* primaryVertex);
-      void Write() {  fTree->Fill(); Reset(); }
+      void Open(); ///< Open output file and define data structure
+      void Record(G4PrimaryVertex* vtx); ///< Record source info
+      void Record(G4Track *track); ///< Record track info
+      void Write() { fTree->Fill(); Reset(); }
       void Close() { fFile->Write(); fFile->Close(); }
 
-      void SetNewValue(G4UIcommand* cmd, G4String value)
+      void SetNewValue(G4UIcommand* cmd, G4String value) ///< for G4UI
       { if (cmd==fCmdFile) fFileName = value; }
 
    private:
@@ -48,53 +40,51 @@ class Output: public G4UImessenger
 
       TTree* fTree;
       TFile* fFile;
-      G4String fFileName;
-      G4UIcmdWithAString* fCmdFile;
-      G4UIdirectory* fDir;
+      G4String fFileName; ///< output file name
 
-      int nh;
-      int ns;
-      short det[MaxNhits];
-      int pid[MaxNhits];
-      int parent[MaxNhits];
-      int trk[MaxNhits];
-      int pro[MaxNhits];
-      double e[MaxNhits];
+      G4UIdirectory* fDir;
+      G4UIcmdWithAString* fCmdFile;
+
+      int nh; ///< number of hits
+      int ns; ///< number of primary particles (source)
+      short det[MaxNhit]; ///< detector id
+      int pid[MaxNhit]; ///< particle id
+      int parent[MaxNhit]; ///< parent id
+      int trk[MaxNhit]; ///< track id
+      int pro[MaxNhit]; ///< process id
+      double e[MaxNhit]; ///< energy deposited
       double et; ///< total energy deposited
-      double t[MaxNhits];
-      double x[MaxNhits];
-      double y[MaxNhits];
-      double z[MaxNhits];
-      double es[MaxNSource];
-      double ts[MaxNSource];
-      double xs[MaxNSource];
-      double ys[MaxNSource];
-      double zs[MaxNSource];
+      double t[MaxNhit]; ///< time of hit
+      double x[MaxNhit]; ///< x of hit
+      double y[MaxNhit]; ///< y of hit
+      double z[MaxNhit]; ///< z of hit
+      double es[MaxNsrc]; ///< initial energy of primary particle
+      double ts[MaxNsrc]; ///< time of primary particle emitted
+      double xs[MaxNsrc]; ///< x of primary particle emitting point
+      double ys[MaxNsrc]; ///< y of primary particle emitting point
+      double zs[MaxNsrc]; ///< z of primary particle emitting point
 };
 //______________________________________________________________________________
 //
 Output::Output(): G4UImessenger()
 {
-   Reset();
+   Reset(); // reset track record
 
    fDir = new G4UIdirectory("/output/");
    fDir->SetGuidance("Configure output");
 
    fCmdFile = new G4UIcmdWithAString("/output/file",this);
    fCmdFile->SetGuidance("Set output file name");
-   fCmdFile->SetParameterName("fout",false);
-   fCmdFile->AvailableForStates(G4State_PreInit);
+   fCmdFile->SetParameterName("output file name",false);
 } 
 //______________________________________________________________________________
 //
 #include <sstream>
-
+#include <Randomize.hh>
 void Output::Open()
 {
    fFile=new TFile(fFileName.data(),"recreate","data");
-   std::stringstream seed;
-   seed<<CLHEP::HepRandom::getTheSeed();
-   fTree=new TTree("t",seed.str().data());
+   fTree=new TTree("t","simulated samples");
    fTree->Branch("nh",&nh,"nh/S"); //<- number of hits
    fTree->Branch("ns",&ns,"ns/S"); //<- number of source
    fTree->Branch("et",&et,"et/D");//< total energy deposited
@@ -116,32 +106,32 @@ void Output::Open()
 }
 //______________________________________________________________________________
 //
-void Output::RSource(G4PrimaryVertex* primaryVertex)
+#include <G4PrimaryParticle.hh>
+#include <CLHEP/Units/SystemOfUnits.h>
+void Output::Record(G4PrimaryVertex* vtx)
 {
-   G4PrimaryParticle * primaryParticle=primaryVertex->GetPrimary(0);
-   while (primaryParticle)
-   {
-      xs[ns] = primaryVertex->GetX0()/CLHEP::cm;
-      ys[ns] = primaryVertex->GetY0()/CLHEP::cm;
-      zs[ns] = primaryVertex->GetZ0()/CLHEP::cm;
-      ts[ns] = primaryVertex->GetT0()/CLHEP::ns;
-      G4ThreeVector P = primaryParticle->GetMomentum()/CLHEP::keV;
-      G4double M = primaryParticle->GetMass()/CLHEP::keV;
-      if (P.mag() < M/100)
-         es[ns] = P.mag2()/(2*M);
-      else
-         es[ns] = sqrt(P.mag2()+M*M)-M;
+   G4PrimaryParticle * particle=vtx->GetPrimary(0);
+   while (particle) {
+      xs[ns] = vtx->GetX0()/CLHEP::cm;
+      ys[ns] = vtx->GetY0()/CLHEP::cm;
+      zs[ns] = vtx->GetZ0()/CLHEP::cm;
+      ts[ns] = vtx->GetT0()/CLHEP::ns;
+      G4ThreeVector P = particle->GetMomentum()/CLHEP::keV;
+      G4double M = particle->GetMass()/CLHEP::keV;
+      if (P.mag() < M/100) es[ns] = P.mag2()/(2*M);
+      else es[ns] = sqrt(P.mag2()+M*M)-M;
       ns++;
-      primaryParticle=primaryParticle -> GetNext();
+      particle = particle->GetNext();
    }
 }
 //______________________________________________________________________________
 //
+#include <G4VProcess.hh>
 void Output::Record(G4Track *track)
 {
-   if (nh>=MaxNhits) {
+   if (nh>=MaxNhit) {
       G4cout<<"Output::Record: "
-         <<"Total number of hits >= max capacity "<<MaxNhits<<G4endl;
+         <<"Total number of hits >= max capacity "<<MaxNhit<<G4endl;
       G4cout<<"Output::Record: Hit "<<nh<<" won't be recorded"<<G4endl;
    } else {
       det[nh]= track->GetVolume()->GetCopyNo();
@@ -166,11 +156,11 @@ void Output::Record(G4Track *track)
 //
 void Output::Reset()
 {
-   for(int i=0; i<MaxNhits; i++) {
+   for(int i=0; i<MaxNhit; i++) {
       e[i]=0; t[i]=0; x[i]=0; y[i]=0; z[i]=0;
       det[i]=0; pid[i]=0; parent[i]=0; trk[i]=0;
    }
-   for(int i=0;i<MaxNSource;i++){
+   for(int i=0;i<MaxNsrc;i++){
       es[i]=0; ts[i]=0; xs[i]=0; ys[i]=0; zs[i]=0;
    }
    nh=0; ns=0; et=0;
@@ -419,7 +409,6 @@ G4VPhysicalVolume* TextDetectorBuilder::ConstructDetector(
 #include <G4UIcmdWith3VectorAndUnit.hh>
 #include <G4UniformMagField.hh>
 #include <G4FieldManager.hh>
-
 /**
  * Construct detector geometry.
  *
@@ -434,14 +423,15 @@ class Detector : public G4VUserDetectorConstruction, public G4UImessenger
 {
    public:
       Detector();
-      ~Detector();
+      ~Detector()
+      { delete fDirField; delete fCmdSetM; delete fCmdSrc; delete fField; }
       G4VPhysicalVolume* Construct();
       void SetNewValue(G4UIcommand* cmd, G4String value);
 
    private:
       G4String fGeomSrcText;
 
-      G4UIdirectory *fDirField, *fDirSrc;
+      G4UIdirectory *fDirField;
       G4UIcmdWith3VectorAndUnit* fCmdSetM;
       G4UIcmdWithAString* fCmdSrc;
       G4UniformMagField* fField;
@@ -464,13 +454,6 @@ Detector::Detector(): G4UImessenger()
    fCmdSetM->SetUnitCategory("Magnetic flux density");
 
    fField = new G4UniformMagField(0,0,0);
-}
-//______________________________________________________________________________
-//
-Detector::~Detector()
-{
-   delete fDirField; delete fDirSrc;
-   delete fCmdSetM; delete fCmdSrc; delete fField;
 }
 //______________________________________________________________________________
 //
@@ -527,14 +510,16 @@ Physics::Physics() : G4VModularPhysicsList(), G4UImessenger()
    fDir = new G4UIdirectory("/physics_lists/hadron/");
    fDir->SetGuidance("Configure hadronic physics lists");
 
-   fCmdElastic = new G4UIcmdWithABool("/physics_lists/hadron/elastic",this);
-   fCmdElastic->SetGuidance("Switch hadron elastic physics on/off");
-   fCmdElastic->SetParameterName("flag",false);
+   fCmdElastic=new G4UIcmdWithABool("/physics_lists/hadron/elasticOn",this);
+   fCmdElastic->SetGuidance("Enable hadron elastic physics");
+   fCmdElastic->SetParameterName("flag",true);
+   fCmdElastic->SetDefaultValue(true);
    fCmdElastic->AvailableForStates(G4State_PreInit);
 
-   fCmdInelastic = new G4UIcmdWithABool("/physics_lists/hadron/inelastic",this);
-   fCmdInelastic->SetGuidance("Switch hadron inelastic physics on/off");
-   fCmdInelastic->SetParameterName("flag",false);
+   fCmdInelastic=new G4UIcmdWithABool("/physics_lists/hadron/inelasticOn",this);
+   fCmdInelastic->SetGuidance("Enable hadron inelastic physics");
+   fCmdInelastic->SetParameterName("flag",true);
+   fCmdInelastic->SetDefaultValue(true);
    fCmdInelastic->AvailableForStates(G4State_PreInit);
 
    RegisterPhysics(new G4DecayPhysics());
@@ -637,17 +622,17 @@ EventAction::EventAction(Output *out)
 //
 void EventAction::BeginOfEventAction(const G4Event* event)
 {
-   G4PrimaryVertex* primaryVertex = event->GetPrimaryVertex(0);
-   while (primaryVertex)
-   {
-      fOut->RSource(primaryVertex);
-      primaryVertex=primaryVertex->GetNext();
+   G4PrimaryVertex* vtx = event->GetPrimaryVertex(0);
+   while (vtx) {
+      fOut->Record(vtx);
+      vtx = vtx->GetNext();
    }
 }
 //______________________________________________________________________________
 //
 void EventAction::EndOfEventAction(const G4Event* event)
 {
+   fOut->Write();
    int id=event->GetEventID();
    if (id%fN2report==0 && id!=0) G4cout<<id<<" events simulated"<<G4endl;
 }
