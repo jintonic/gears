@@ -588,16 +588,32 @@ class RunAction : public G4UserRunAction
 //______________________________________________________________________________
 //
 #include <G4UserEventAction.hh>
-class EventAction : public G4UserEventAction
+#include "G4UIcmdWithAnInteger.hh"
+class EventAction : public G4UserEventAction, public G4UImessenger
 {
    public:
-      EventAction(Output *out=0) : G4UserEventAction(), fOut(out) {};
-      ~EventAction() {};
+      EventAction(Output *out=0);
+      ~EventAction() { delete fReportCmd; }
       void BeginOfEventAction(const G4Event* event);
       void EndOfEventAction(const G4Event* ) { fOut->Write(); }
+      void SetNewValue(G4UIcommand* cmd, G4String value)
+      { if (cmd==fReportCmd) fNevt4report=atoi(value); }
    private:
       Output* fOut;
+      int fNevt4report;
+      G4UIcmdWithAnInteger* fReportCmd;
 };
+//______________________________________________________________________________
+//
+EventAction::EventAction(Output *out)
+   : G4UserEventAction(), G4UImessenger(), fOut(out), fNevt4report(1000)
+{
+   fReportCmd = new G4UIcmdWithAnInteger("/run/statusReport",this);
+   fReportCmd->SetGuidance("enable status report after [number of events]");
+   fReportCmd->SetParameterName("number of events",false);
+   fReportCmd->SetDefaultValue(fNevt4report);
+   fReportCmd->AvailableForStates(G4State_Idle);
+}
 //______________________________________________________________________________
 //
 void EventAction::BeginOfEventAction(const G4Event* event)
