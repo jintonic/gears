@@ -32,7 +32,7 @@ class Output: public G4UImessenger
 {
    public:
       Output();
-      ~Output() { delete fFileCmd; delete fDir; delete fFile; }
+      ~Output() { delete fCmdFile; delete fDir; delete fFile; }
 
       void Open();
       void Record(G4Track *track);
@@ -41,7 +41,7 @@ class Output: public G4UImessenger
       void Close() { fFile->Write(); fFile->Close(); }
 
       void SetNewValue(G4UIcommand* cmd, G4String value)
-      { if (cmd==fFileCmd) fFileName = value; }
+      { if (cmd==fCmdFile) fFileName = value; }
 
    private:
       void Reset(); ///< Reset track record
@@ -49,7 +49,7 @@ class Output: public G4UImessenger
       TTree* fTree;
       TFile* fFile;
       G4String fFileName;
-      G4UIcmdWithAString* fFileCmd;
+      G4UIcmdWithAString* fCmdFile;
       G4UIdirectory* fDir;
 
       int nh;
@@ -80,10 +80,10 @@ Output::Output(): G4UImessenger()
    fDir = new G4UIdirectory("/output/");
    fDir->SetGuidance("Configure output");
 
-   fFileCmd = new G4UIcmdWithAString("/output/file",this);
-   fFileCmd->SetGuidance("Set output file name");
-   fFileCmd->SetParameterName("fout",false);
-   fFileCmd->AvailableForStates(G4State_PreInit);
+   fCmdFile = new G4UIcmdWithAString("/output/file",this);
+   fCmdFile->SetGuidance("Set output file name");
+   fCmdFile->SetParameterName("fout",false);
+   fCmdFile->AvailableForStates(G4State_PreInit);
 } 
 //______________________________________________________________________________
 //
@@ -434,53 +434,56 @@ class Detector : public G4VUserDetectorConstruction, public G4UImessenger
 {
    public:
       Detector();
-      ~Detector()
-      { delete fFieldDir; delete fSrcCmd; delete fSetMCmd; delete fField; }
-
+      ~Detector();
       G4VPhysicalVolume* Construct();
-
       void SetNewValue(G4UIcommand* cmd, G4String value);
 
    private:
       G4String fGeomSrcText;
 
-      G4UIdirectory *fFieldDir, *fSrcDir;
-      G4UIcmdWith3VectorAndUnit* fSetMCmd;
-      G4UIcmdWithAString* fSrcCmd;
+      G4UIdirectory *fDirField, *fDirSrc;
+      G4UIcmdWith3VectorAndUnit* fCmdSetM;
+      G4UIcmdWithAString* fCmdSrc;
       G4UniformMagField* fField;
 };
 //______________________________________________________________________________
 //
 Detector::Detector(): G4UImessenger()
 {
-   fSrcCmd = new G4UIcmdWithAString("/geometry/source",this);
-   fSrcCmd->SetGuidance("Set geometry source file name");
-   fSrcCmd->SetParameterName("fin",false);
-   fSrcCmd->AvailableForStates(G4State_PreInit);
+   fCmdSrc = new G4UIcmdWithAString("/geometry/source",this);
+   fCmdSrc->SetGuidance("Set geometry source file name");
+   fCmdSrc->SetParameterName("text geometry input",false);
+   fCmdSrc->AvailableForStates(G4State_PreInit);
 
-   fFieldDir = new G4UIdirectory("/field/");
-   fFieldDir->SetGuidance("Global uniform field UI commands");
+   fDirField = new G4UIdirectory("/field/");
+   fDirField->SetGuidance("Global uniform field UI commands");
 
-   fSetMCmd = new G4UIcmdWith3VectorAndUnit("/field/setM",this);
-   fSetMCmd->SetGuidance("Set uniform magnetic field value.");
-   fSetMCmd->SetParameterName("Bx", "By", "Bz", false);
-   fSetMCmd->SetUnitCategory("Magnetic flux density");
-   fSetMCmd->AvailableForStates(G4State_PreInit,G4State_Idle);
+   fCmdSetM = new G4UIcmdWith3VectorAndUnit("/field/setM",this);
+   fCmdSetM->SetGuidance("Set uniform magnetic field value.");
+   fCmdSetM->SetParameterName("Bx", "By", "Bz", false);
+   fCmdSetM->SetUnitCategory("Magnetic flux density");
 
    fField = new G4UniformMagField(0,0,0);
 }
 //______________________________________________________________________________
 //
+Detector::~Detector()
+{
+   delete fDirField; delete fDirSrc;
+   delete fCmdSetM; delete fCmdSrc; delete fField;
+}
+//______________________________________________________________________________
+//
 void Detector::SetNewValue(G4UIcommand* cmd, G4String value)
 {
-   if (cmd==fSetMCmd) {
-      fField->SetFieldValue(fSetMCmd->GetNew3VectorValue(value));
+   if (cmd==fCmdSetM) {
+      fField->SetFieldValue(fCmdSetM->GetNew3VectorValue(value));
       G4FieldManager* mgr = 
          G4TransportationManager::GetTransportationManager()->GetFieldManager();
       mgr->SetDetectorField(fField);
       mgr->CreateChordFinder(fField);
       G4cout<<"Magnetic field is set to "<<value<<G4endl;
-   } else if (cmd==fSrcCmd) fGeomSrcText = value;
+   } else if (cmd==fCmdSrc) fGeomSrcText = value;
 }
 //______________________________________________________________________________
 //
@@ -506,12 +509,12 @@ class Physics: public G4VModularPhysicsList, public G4UImessenger
 {
    public:
       Physics();
-      ~Physics() { delete fDir; delete fElasticCmd; delete fInelasticCmd; }
+      ~Physics() { delete fDir; delete fCmdElastic; delete fCmdInelastic; }
       void SetNewValue(G4UIcommand* cmd, G4String value);
    private:
       G4UIdirectory* fDir;
-      G4UIcmdWithABool* fElasticCmd;
-      G4UIcmdWithABool* fInelasticCmd;
+      G4UIcmdWithABool* fCmdElastic;
+      G4UIcmdWithABool* fCmdInelastic;
 };
 //______________________________________________________________________________
 //
@@ -524,15 +527,15 @@ Physics::Physics() : G4VModularPhysicsList(), G4UImessenger()
    fDir = new G4UIdirectory("/physics_lists/hadron/");
    fDir->SetGuidance("Configure hadronic physics lists");
 
-   fElasticCmd = new G4UIcmdWithABool("/physics_lists/hadron/elastic",this);
-   fElasticCmd->SetGuidance("Switch hadron elastic physics on/off");
-   fElasticCmd->SetParameterName("flag",false);
-   fElasticCmd->AvailableForStates(G4State_PreInit);
+   fCmdElastic = new G4UIcmdWithABool("/physics_lists/hadron/elastic",this);
+   fCmdElastic->SetGuidance("Switch hadron elastic physics on/off");
+   fCmdElastic->SetParameterName("flag",false);
+   fCmdElastic->AvailableForStates(G4State_PreInit);
 
-   fInelasticCmd = new G4UIcmdWithABool("/physics_lists/hadron/inelastic",this);
-   fInelasticCmd->SetGuidance("Switch hadron inelastic physics on/off");
-   fInelasticCmd->SetParameterName("flag",false);
-   fInelasticCmd->AvailableForStates(G4State_PreInit);
+   fCmdInelastic = new G4UIcmdWithABool("/physics_lists/hadron/inelastic",this);
+   fCmdInelastic->SetGuidance("Switch hadron inelastic physics on/off");
+   fCmdInelastic->SetParameterName("flag",false);
+   fCmdInelastic->AvailableForStates(G4State_PreInit);
 
    RegisterPhysics(new G4DecayPhysics());
    RegisterPhysics(new G4RadioactiveDecayPhysics()); // weak force
@@ -545,11 +548,11 @@ Physics::Physics() : G4VModularPhysicsList(), G4UImessenger()
 #include "G4HadronElasticPhysicsHP.hh"
 void Physics::SetNewValue(G4UIcommand* cmd, G4String value)
 {
-   if (cmd==fElasticCmd) {
-      if (fElasticCmd->GetNewBoolValue(value))
+   if (cmd==fCmdElastic) {
+      if (fCmdElastic->GetNewBoolValue(value))
          RegisterPhysics(new G4HadronElasticPhysicsHP());
    } else {
-      if (fInelasticCmd->GetNewBoolValue(value))
+      if (fCmdInelastic->GetNewBoolValue(value))
          RegisterPhysics(new G4HadronPhysicsFTFP_BERT_HP());
    }
 }
@@ -580,11 +583,28 @@ class RunAction : public G4UserRunAction
    public:
       RunAction(Output *out=0) : G4UserRunAction(), fOut(out) {};
       ~RunAction() {};
-      void BeginOfRunAction (const G4Run*) { fOut->Open(); }
-      void EndOfRunAction (const G4Run*) { fOut->Close(); }
+      void BeginOfRunAction (const G4Run* run);
+      void EndOfRunAction (const G4Run* run);
    private:
       Output* fOut;
 };
+//______________________________________________________________________________
+//
+#include <G4Run.hh>
+void RunAction::BeginOfRunAction (const G4Run* run)
+{ 
+   fOut->Open(); 
+   G4cout<<run->GetNumberOfEventToBeProcessed()
+      <<" events to be processed"<<G4endl;
+}
+//______________________________________________________________________________
+//
+void RunAction::EndOfRunAction (const G4Run* run)
+{
+   G4cout<<run->GetNumberOfEvent()<<" events simulated"<<G4endl;
+   fOut->Write();
+   fOut->Close();
+}
 //______________________________________________________________________________
 //
 #include <G4UserEventAction.hh>
@@ -593,26 +613,25 @@ class EventAction : public G4UserEventAction, public G4UImessenger
 {
    public:
       EventAction(Output *out=0);
-      ~EventAction() { delete fReportCmd; }
+      ~EventAction() { delete fCmdReport; }
       void BeginOfEventAction(const G4Event* event);
       void EndOfEventAction(const G4Event* event);
       void SetNewValue(G4UIcommand* cmd, G4String value)
-      { if (cmd==fReportCmd) fNevt4report=atoi(value); }
+      { if (cmd==fCmdReport) fN2report=atoi(value); }
    private:
       Output* fOut;
-      int fNevt4report;
-      G4UIcmdWithAnInteger* fReportCmd;
+      int fN2report;
+      G4UIcmdWithAnInteger* fCmdReport;
 };
 //______________________________________________________________________________
 //
 EventAction::EventAction(Output *out)
-   : G4UserEventAction(), G4UImessenger(), fOut(out), fNevt4report(1000)
+   : G4UserEventAction(), G4UImessenger(), fOut(out), fN2report(1000)
 {
-   fReportCmd = new G4UIcmdWithAnInteger("/run/statusReport",this);
-   fReportCmd->SetGuidance("enable status report after [number of events]");
-   fReportCmd->SetParameterName("number of events",false);
-   fReportCmd->SetDefaultValue(fNevt4report);
-   fReportCmd->AvailableForStates(G4State_Idle);
+   fCmdReport = new G4UIcmdWithAnInteger("/run/statusReport",this);
+   fCmdReport->SetGuidance("enable status report after [number of events]");
+   fCmdReport->SetParameterName("number of events",true);
+   fCmdReport->SetDefaultValue(fN2report);
 }
 //______________________________________________________________________________
 //
@@ -629,13 +648,11 @@ void EventAction::BeginOfEventAction(const G4Event* event)
 //
 void EventAction::EndOfEventAction(const G4Event* event)
 {
-   fOut->Write();
-   if (event->GetEventID()%fNevt4report==0)
-      G4cout<<fNevt4report<<" events simulated"<<G4endl;
+   int id=event->GetEventID();
+   if (id%fN2report==0 && id!=0) G4cout<<id<<" events simulated"<<G4endl;
 }
 //______________________________________________________________________________
 //
-      void EndOfEventAction(const G4Event* ) { fOut->Write(); }
 #include <G4UserSteppingAction.hh>
 class SteppingAction : public G4UserSteppingAction
 {
