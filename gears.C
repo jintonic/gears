@@ -25,7 +25,7 @@ class Output: public G4UImessenger
 {
    public:
       Output();
-      ~Output() { delete fCmdFile; delete fDir; delete fFile; }
+      ~Output() { delete fCmd; delete fDir; delete fFile; }
 
       void Open(); ///< Open output file and define data structure
       void Record(G4PrimaryVertex* vtx); ///< Record source info
@@ -34,14 +34,15 @@ class Output: public G4UImessenger
        * Process types are defined in G4ProcessType.hh, sub types are defined
        * in G4HadronicProcessType.hh, G4DecayProcessType.hh,
        * G4EmProcessSubType.hh.  G4TransportationProcessType.hh,
-       * G4FastSimulationProcessType.hh,
+       * G4FastSimulationProcessType.hh, G4OpProcessSubType.hh, etc. They can
+       * be found at http://www-geant4.kek.jp/lxr/find?string=Type.hh
        */
       void Record(G4Track *track);
       void Write() { fTree->Fill(); Reset(); }
       void Close() { fFile->Write(); fFile->Close(); }
 
       void SetNewValue(G4UIcommand* cmd, G4String value) ///< for G4UI
-      { if (cmd==fCmdFile) fFileName = value; }
+      { if (cmd==fCmd) fFileName = value; }
 
       int nh; ///< number of hits
       int ns; ///< number of primary particles (source)
@@ -71,7 +72,7 @@ class Output: public G4UImessenger
       G4String fFileName; ///< output file name
 
       G4UIdirectory* fDir;
-      G4UIcmdWithAString* fCmdFile;
+      G4UIcmdWithAString* fCmd;
 };
 //______________________________________________________________________________
 //
@@ -82,9 +83,9 @@ Output::Output(): G4UImessenger()
    fDir = new G4UIdirectory("/output/");
    fDir->SetGuidance("Configure output");
 
-   fCmdFile = new G4UIcmdWithAString("/output/file",this);
-   fCmdFile->SetGuidance("Set output file name");
-   fCmdFile->SetParameterName("output file name",false);
+   fCmd = new G4UIcmdWithAString("/output/file",this);
+   fCmd->SetGuidance("Set output file name");
+   fCmd->SetParameterName("output file name",false);
 } 
 //______________________________________________________________________________
 //
@@ -434,14 +435,14 @@ class Detector : public G4VUserDetectorConstruction, public G4UImessenger
    public:
       Detector();
       ~Detector()
-      { delete fDirField; delete fCmdSetM; delete fCmdSrc; delete fField; }
+      { delete fDir; delete fCmdSetM; delete fCmdSrc; delete fField; }
       G4VPhysicalVolume* Construct();
       void SetNewValue(G4UIcommand* cmd, G4String value);
 
    private:
       G4String fGeomSrcText;
 
-      G4UIdirectory *fDirField;
+      G4UIdirectory *fDir;
       G4UIcmdWith3VectorAndUnit* fCmdSetM;
       G4UIcmdWithAString* fCmdSrc;
       G4UniformMagField* fField;
@@ -455,8 +456,8 @@ Detector::Detector(): G4UImessenger()
    fCmdSrc->SetParameterName("text geometry input",false);
    fCmdSrc->AvailableForStates(G4State_PreInit);
 
-   fDirField = new G4UIdirectory("/field/");
-   fDirField->SetGuidance("Global uniform field UI commands");
+   fDir = new G4UIdirectory("/field/");
+   fDir->SetGuidance("Global uniform field UI commands");
 
    fCmdSetM = new G4UIcmdWith3VectorAndUnit("/field/setM",this);
    fCmdSetM->SetGuidance("Set uniform magnetic field value.");
@@ -492,7 +493,6 @@ G4VPhysicalVolume* Detector::Construct()
 //______________________________________________________________________________
 //
 #include "G4VModularPhysicsList.hh"
-#include "G4UIcmdWithABool.hh"
 /**
  * Enable physics lists.
  * Physics lists have to be enabled when Geant4 is at PreInit state. All UI
@@ -502,53 +502,50 @@ class Physics: public G4VModularPhysicsList, public G4UImessenger
 {
    public:
       Physics();
-      ~Physics() { delete fDir; delete fCmdElastic; delete fCmdInelastic; }
+      ~Physics() { delete fCmd; }
       void SetNewValue(G4UIcommand* cmd, G4String value);
    private:
-      G4UIdirectory* fDir;
-      G4UIcmdWithABool* fCmdElastic;
-      G4UIcmdWithABool* fCmdInelastic;
+      G4UIcmdWithAString* fCmd;
 };
 //______________________________________________________________________________
 //
-#include "G4DecayPhysics.hh"
-#include "G4RadioactiveDecayPhysics.hh"
 #include "G4EmStandardPhysics.hh"
-#include "G4OpticalPhysics.hh"
 Physics::Physics() : G4VModularPhysicsList(), G4UImessenger()
 {
-   fDir = new G4UIdirectory("/physics_lists/hadron/");
-   fDir->SetGuidance("Configure hadronic physics lists");
+   fCmd = new G4UIcmdWithAString("/physics_lists/enable",this);
+   fCmd->SetGuidance("Enable a certain physics list");
+   fCmd->SetParameterName("name of a physics list", false);
+   fCmd->SetCandidates("Decay RadioactiveDecay Optical HadronElasticHP FTFP_BERT_HP QGSP_BERT_HP QGSP_BIC_HP");
+   fCmd->AvailableForStates(G4State_PreInit);
 
-   fCmdElastic=new G4UIcmdWithABool("/physics_lists/hadron/elasticOn",this);
-   fCmdElastic->SetGuidance("Enable hadron elastic physics");
-   fCmdElastic->SetParameterName("flag",true);
-   fCmdElastic->SetDefaultValue(true);
-   fCmdElastic->AvailableForStates(G4State_PreInit);
-
-   fCmdInelastic=new G4UIcmdWithABool("/physics_lists/hadron/inelasticOn",this);
-   fCmdInelastic->SetGuidance("Enable hadron inelastic physics");
-   fCmdInelastic->SetParameterName("flag",true);
-   fCmdInelastic->SetDefaultValue(true);
-   fCmdInelastic->AvailableForStates(G4State_PreInit);
-
-   RegisterPhysics(new G4DecayPhysics());
-   RegisterPhysics(new G4RadioactiveDecayPhysics()); // weak force
    RegisterPhysics(new G4EmStandardPhysics());
-   RegisterPhysics(new G4OpticalPhysics());
 }
 //______________________________________________________________________________
 //
+#include "G4DecayPhysics.hh"
+#include "G4OpticalPhysics.hh"
+#include "G4RadioactiveDecayPhysics.hh"
 #include "G4HadronPhysicsFTFP_BERT_HP.hh" // won't work for Geant4 version<10
+#include "G4HadronPhysicsQGSP_BERT_HP.hh" // won't work for Geant4 version<10
+#include "G4HadronPhysicsQGSP_BIC_HP.hh" // won't work for Geant4 version<10
 #include "G4HadronElasticPhysicsHP.hh"
 void Physics::SetNewValue(G4UIcommand* cmd, G4String value)
 {
-   if (cmd==fCmdElastic) {
-      if (fCmdElastic->GetNewBoolValue(value))
+   if (cmd==fCmd) {
+      if (value=="Decay") // muon, pion, kaon etc.
+         RegisterPhysics(new G4DecayPhysics());
+      else if (value=="RadioactiveDecay") // alpha, beta, gamma, etc.
+         RegisterPhysics(new G4RadioactiveDecayPhysics());
+      else if (value=="Optical")
+         RegisterPhysics(new G4OpticalPhysics());
+      else if (value=="HadronElasticHP")
          RegisterPhysics(new G4HadronElasticPhysicsHP());
-   } else {
-      if (fCmdInelastic->GetNewBoolValue(value))
+      else if (value=="FTFP_BERT_HP") // for low energy neutrons
          RegisterPhysics(new G4HadronPhysicsFTFP_BERT_HP());
+      else if (value=="QGSP_BERT_HP")
+         RegisterPhysics(new G4HadronPhysicsQGSP_BERT_HP());
+      else if (value=="QGSP_BIC_HP")
+         RegisterPhysics(new G4HadronPhysicsQGSP_BIC_HP());
    }
 }
 //______________________________________________________________________________
@@ -608,25 +605,25 @@ class EventAction : public G4UserEventAction, public G4UImessenger
 {
    public:
       EventAction(Output *out=0);
-      ~EventAction() { delete fCmdReport; }
+      ~EventAction() { delete fCmd; }
       void BeginOfEventAction(const G4Event* event);
       void EndOfEventAction(const G4Event* event);
       void SetNewValue(G4UIcommand* cmd, G4String value)
-      { if (cmd==fCmdReport) fN2report=atoi(value); }
+      { if (cmd==fCmd) fN2report=atoi(value); }
    private:
       Output* fOut;
       int fN2report;
-      G4UIcmdWithAnInteger* fCmdReport;
+      G4UIcmdWithAnInteger* fCmd;
 };
 //______________________________________________________________________________
 //
 EventAction::EventAction(Output *out)
    : G4UserEventAction(), G4UImessenger(), fOut(out), fN2report(1000)
 {
-   fCmdReport = new G4UIcmdWithAnInteger("/run/statusReport",this);
-   fCmdReport->SetGuidance("enable status report after [number of events]");
-   fCmdReport->SetParameterName("number of events",true);
-   fCmdReport->SetDefaultValue(fN2report);
+   fCmd = new G4UIcmdWithAnInteger("/run/statusReport",this);
+   fCmd->SetGuidance("enable status report after [number of events]");
+   fCmd->SetParameterName("number of events",true);
+   fCmd->SetDefaultValue(fN2report);
 }
 //______________________________________________________________________________
 //

@@ -1,7 +1,8 @@
 # must be set before /run/initialize
 /geometry/source geom/NICE/CsI2in10cm.CF6in.tg
-/physics_lists/hadron/elasticOn
-/physics_lists/hadron/inelasticOn
+
+/physics_lists/enable FTFP_BERT_HP
+/physics_lists/enable HadronElasticHP
 
 /run/initialize
 
@@ -17,5 +18,5 @@
 /random/setSeeds 2412 79628
 /output/file AmBe.root
 
-/run/statusReport 100
-/run/beamOn 500
+/run/statusReport 100000
+/run/beamOn 5000000
