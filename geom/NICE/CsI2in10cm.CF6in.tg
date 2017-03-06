@@ -23,7 +23,7 @@ G4_Ni 0.090
 :place N2 1 chamber r000 0. 0. 0.
 
 :volu CsI(S) TUBS 0. 2.54*cm 5*cm 0 360 G4_CESIUM_IODIDE
-:place CsI(S) 1 N2 r000 0 0 -15.32*cm
+:place CsI(S) 0 N2 r000 0 0 -15.32*cm
 
 :color CsI(S) 0.2 0.4 0.8
 :color N2 0.8 0.4 0.2
