@@ -510,31 +510,29 @@ class Physics: public G4VModularPhysicsList, public G4UImessenger
 //______________________________________________________________________________
 //
 #include "G4EmStandardPhysics.hh"
+#include "G4DecayPhysics.hh"
 Physics::Physics() : G4VModularPhysicsList(), G4UImessenger()
 {
    fCmd = new G4UIcmdWithAString("/physics_lists/enable",this);
    fCmd->SetGuidance("Enable a certain physics list");
    fCmd->SetParameterName("name of a physics list", false);
-   fCmd->SetCandidates("Decay RadioactiveDecay Optical HadronElasticHP FTFP_BERT_HP QGSP_BERT_HP QGSP_BIC_HP");
+   fCmd->SetCandidates("RadioactiveDecay Optical HadronElastic HadronInelastic");
    fCmd->AvailableForStates(G4State_PreInit);
 
    RegisterPhysics(new G4EmStandardPhysics());
+   // has to be loaded to define some particles for hadron processes:
+   RegisterPhysics(new G4DecayPhysics()); // muon, pion, kaon etc.
 }
 //______________________________________________________________________________
 //
-#include "G4DecayPhysics.hh"
 #include "G4OpticalPhysics.hh"
 #include "G4RadioactiveDecayPhysics.hh"
-#include "G4HadronPhysicsFTFP_BERT_HP.hh" // won't work for Geant4 version<10
-#include "G4HadronPhysicsQGSP_BERT_HP.hh" // won't work for Geant4 version<10
-#include "G4HadronPhysicsQGSP_BIC_HP.hh" // won't work for Geant4 version<10
 #include "G4HadronElasticPhysicsHP.hh"
+#include "G4HadronPhysicsFTFP_BERT_HP.hh" // won't work for Geant4 version<10
 void Physics::SetNewValue(G4UIcommand* cmd, G4String value)
 {
    if (cmd==fCmd) {
-      if (value=="Decay") // muon, pion, kaon etc.
-         RegisterPhysics(new G4DecayPhysics());
-      else if (value=="RadioactiveDecay") // alpha, beta, gamma, etc.
+      if (value=="RadioactiveDecay") // alpha, beta, gamma, etc.
          RegisterPhysics(new G4RadioactiveDecayPhysics());
       else if (value=="Optical")
          RegisterPhysics(new G4OpticalPhysics());
@@ -542,10 +540,6 @@ void Physics::SetNewValue(G4UIcommand* cmd, G4String value)
          RegisterPhysics(new G4HadronElasticPhysicsHP());
       else if (value=="FTFP_BERT_HP") // for low energy neutrons
          RegisterPhysics(new G4HadronPhysicsFTFP_BERT_HP());
-      else if (value=="QGSP_BERT_HP")
-         RegisterPhysics(new G4HadronPhysicsQGSP_BERT_HP());
-      else if (value=="QGSP_BIC_HP")
-         RegisterPhysics(new G4HadronPhysicsQGSP_BIC_HP());
    }
 }
 //______________________________________________________________________________
