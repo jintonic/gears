@@ -16,6 +16,12 @@ cd macro/Rutherford/
 ./scatter.sh 100
 ~~~
 
+# Detector
+
+## Sensitive detector
+
+Sensitive detectors are specified by simply add "(S)" at the end of their volume names. The copy numbers of their volumes must be continuous integers starting from 0.
+
 # Physics
 
 ## Physics processes
