@@ -29,7 +29,14 @@ class Output: public G4UImessenger
 
       void Open(); ///< Open output file and define data structure
       void Record(G4PrimaryVertex* vtx); ///< Record source info
-      void Record(G4Track *track); ///< Record track info
+      /**
+       * Record track info.
+       * Process types are defined in G4ProcessType.hh, sub types are defined
+       * in G4HadronicProcessType.hh, G4DecayProcessType.hh,
+       * G4EmProcessSubType.hh.  G4TransportationProcessType.hh,
+       * G4FastSimulationProcessType.hh,
+       */
+      void Record(G4Track *track);
       void Write() { fTree->Fill(); Reset(); }
       void Close() { fFile->Write(); fFile->Close(); }
 
@@ -146,7 +153,7 @@ void Output::Record(G4Track *track)
       par[nh]=track->GetParentID();
       trk[nh]=track->GetTrackID();
       if (track->GetCreatorProcess()) 
-         pro[nh]=track->GetCreatorProcess()->GetProcessType()*100
+         pro[nh]=track->GetCreatorProcess()->GetProcessType()*1000
             + track->GetCreatorProcess()->GetProcessSubType();
       et[det[nh]]+=e[nh];
       if (det[nh]>=nd) nd = det[nh]+1;
