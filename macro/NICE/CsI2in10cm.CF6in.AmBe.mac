@@ -1,4 +1,3 @@
-# must be set before /run/initialize
 /geometry/source geom/NICE/CsI2in10cm.CF6in.tg
 
 /physics_lists/enable RadioactiveDecay
@@ -6,26 +5,20 @@
 /physics_lists/enable HadronElastic
 
 /run/initialize
-# print volume list
+
 /vis/ASCIITree/verbose 13
 /vis/drawTree
 /geometry/test/run
 
-
+/process/list
 
 # AmBe neutron spectrum
-#/control/execute macro/src/AmBe.mac
-/gps/pos/centre 0 0 10 cm
-/gps/particle gamma 
-/gps/energy 50 MeV
+/control/execute macro/src/AmBe.mac
+/gps/pos/centre 0 0 -22.5 cm
+
 /random/setSeeds 2412 79628
+
 /output/file AmBe.root
-/vis/open HepRepFile
-/vis/viewer/set/background white
-/vis/drawVolume
-/vis/scene/add/trajectories
-
-
 
 /run/statusReport 100000
-/run/beamOn 50
+/run/beamOn 500000
