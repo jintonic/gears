@@ -1,5 +1,5 @@
 :volu cleanroom BOX 30*cm 30*cm 30*cm G4_AIR
-:vis cleanroom ON
+:vis cleanroom OFF
 
 :mixt steel 8.06*g/cm3 6
 G4_C  0.001
@@ -9,10 +9,6 @@ G4_Mn 0.010
 G4_Fe 0.712
 G4_Ni 0.090
 
-:prop G4_CESIUM_IODIDE 
-SCINTILLATIONYIELD 100
-YIELDRATIO 0.8
-RINDEX 2 2.038*eV 4.144*eV 1.35 1.4
 :rotm r000 0 0 0
 
 :solid base TUBE 0*cm 7.62*cm 22.3*cm
