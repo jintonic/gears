@@ -1,6 +1,4 @@
-# GEARS - Geant4 Example Application made Really Simple
-
-[GEARS][] is a Geant4 Example Application that is made Really Simple by utilizing Geant4 [plain text geometry description][tg] and [build-in UI commands][TUI] (macros) to reduce C++ coding down to a single file (less than 600 [SLOC][]). It is ideal for student training and fast implementation of small experiments.
+[GEARS][] is a [Geant4][] Example Application that is made Really Simple by utilizing [Geant4][] plain [text geometry description][tg] and [build-in UI commands][TUI] (macros) to reduce C++ coding down to a single file (less than 600 [SLOC][]). It is ideal for student training and fast implementation of small experiments.
 
 # Prerequisites
 
@@ -18,6 +16,21 @@ cd macro/Rutherford/
 ~~~
 
 # Detector
+
+## Geometry
+[Geant4][] provides a simple way to describe the geometry of a detector in a plain text file. For example, the following line in such a file defines an experimental hall filled with air, the dimension of which is 20 x 20 x 30 meters:
+
+~~~
+:volume hall BOX 10*m 10*m 10*m G4_AIR
+~~~
+
+More examples can be found in the [geom/](geom/) directory, such as [geom/hall.tg][]. Files in this directory have a suffix of *.tg*, indicating that they are [text geometry][tg] description files. A [Geant4 macro command][TUI] is added to load one of the geometry files:
+
+~~~
+/geometry/source geom/Rutherford/foil.tg
+~~~
+
+The command must be used before [/run/initialize][run], otherwise [Geant4][] does not have a detector to initialize.
 
 ## Material
 
@@ -120,3 +133,4 @@ While optical processes can be toggled by the following commands:
 [ROOT]: https://root.cern.ch
 [Geant4]: http://geant4.cern.ch
 [NIST]: http://geant4.web.cern.ch/geant4/workAreaUserDocKA/Backup/Docbook_UsersGuides_beta/ForApplicationDeveloper/html/apas08.html
+[run]: http://geant4.cern.ch/G4UsersDocuments/UsersGuides/ForApplicationDeveloper/html/Control/UIcommands/_run_.html
