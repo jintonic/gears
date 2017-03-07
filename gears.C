@@ -235,11 +235,8 @@ G4bool LineProcessor::ProcessLine(const std::vector<G4String> &words)
    G4String tag = words[0];
    tag.toLower();
    if (tag.substr(0,5)==":prop") {
-     //:prop usage:
-     //:prop [target material name,e.g.  G4_H ]
-     //[const property name e.g.   RINDEX] [value]
-     //[not const property name]  [array length] [array1 value1] [array1 value2...etc] ...
       G4NistManager* mgr = G4NistManager::Instance();
+      G4cout<<"Set optical properties of "<<words[1]<<":"<<G4endl;
       mgr->FindOrBuildMaterial(words[1])
          ->SetMaterialPropertiesTable(CreateMaterialPropertiesTable(words,2));
       return true;
@@ -290,6 +287,7 @@ G4bool LineProcessor::ProcessLine(const std::vector<G4String> &words)
          i+=2;
       }
       i++;
+      G4cout<<"Set optical properties of "<<surf->name<<":"<<G4endl;
       surf->optic->SetMaterialPropertiesTable(
             CreateMaterialPropertiesTable(words,i));
       return true;
@@ -312,6 +310,7 @@ G4MaterialPropertiesTable* LineProcessor::CreateMaterialPropertiesTable(
             || property=="FASTTIMECONSTANT" || property=="SLOWTIMECONSTANT"
             || property=="YIELDRATIO" || property=="WLSTIMECONSTANT") {
          table->AddConstProperty(property, G4tgrUtils::GetDouble(words[i+1]));
+         G4cout<<property<<"="<<words[i+1]<<G4endl;
          i++; // property value has been used
       } else if (property.substr(0,12)=="PHOTON_ENERG") {
          photonEnergyUnDefined=false;
@@ -329,12 +328,13 @@ G4MaterialPropertiesTable* LineProcessor::CreateMaterialPropertiesTable(
          double *values = new double[cnt];
          for (int j=0; j<cnt; j++) 
             values[j]=G4tgrUtils::GetDouble(words[i+1+j]);
+         G4cout<<property<<"="<<values[0]<<", "<<values[1]<<"..."<<G4endl;
          table->AddProperty(property, energies, values, cnt);
          delete[] values;
-	 delete[] energies;
          i=i+cnt;
       }
    }
+   delete[] energies;
    return table;
 }
 //______________________________________________________________________________
