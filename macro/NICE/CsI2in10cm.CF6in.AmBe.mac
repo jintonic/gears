@@ -16,8 +16,8 @@
 # AmBe neutron spectrum
 #/control/execute macro/src/AmBe.mac
 /gps/pos/centre 0 0 10 cm
-/gps/particle neutron
-/gps/energy 50 eV
+/gps/particle gamma 
+/gps/energy 50 MeV
 /random/setSeeds 2412 79628
 /output/file AmBe.root
 /vis/open HepRepFile

@@ -235,6 +235,10 @@ G4bool LineProcessor::ProcessLine(const std::vector<G4String> &words)
    G4String tag = words[0];
    tag.toLower();
    if (tag.substr(0,5)==":prop") {
+     //:prop usage:
+     //:prop [target material name,e.g.  G4_H ]
+     //[const property name e.g.   RINDEX] [value]
+     //[not const property name]  [array length] [array1 value1] [array1 value2...etc] ...
       G4NistManager* mgr = G4NistManager::Instance();
       mgr->FindOrBuildMaterial(words[1])
          ->SetMaterialPropertiesTable(CreateMaterialPropertiesTable(words,2));
