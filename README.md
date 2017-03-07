@@ -24,17 +24,17 @@ cd macro/Rutherford/
 :volume hall BOX 10*m 10*m 10*m G4_AIR
 ~~~
 
-More examples can be found in the [geom/](geom/) directory, such as [geom/hall.tg][]. Files in this directory have a suffix of *.tg*, indicating that they are [text geometry][tg] description files. A [Geant4 macro command][TUI] is added to load one of the geometry files:
+More examples can be found in the [geom/](geom/) directory, such as ./geom/hall.tg. Files in this directory have a suffix of *.tg*, indicating that they are [text geometry][tg] description files. A [Geant4][] macro command is added to load one of the geometry files:
 
 ~~~
-/geometry/source geom/Rutherford/foil.tg
+/geometry/source [geom/Rutherford/foil.tg](geom/Rutherford/foil.tg)
 ~~~
 
 The command must be used before [/run/initialize][run], otherwise [Geant4][] does not have a detector to initialize.
 
 ## Material
 
-The [NIST][] material table provided by Geant4 contains a lot of commonly used materials. One can run `/material/nist/listMaterials` at any Geant4 state to print the list locally. These materials can be used directly in a text geometry description, for example
+The [NIST][] material table provided by Geant4 contains a lot of commonly used materials. One can run `/material/nist/[listMaterials][]` at any Geant4 state to print the list locally. These materials can be used directly in a text geometry description, for example
 
 ~~~
 // use NIST material G4_AIR to define vacuum
@@ -134,3 +134,4 @@ While optical processes can be toggled by the following commands:
 [Geant4]: http://geant4.cern.ch
 [NIST]: http://geant4.web.cern.ch/geant4/workAreaUserDocKA/Backup/Docbook_UsersGuides_beta/ForApplicationDeveloper/html/apas08.html
 [run]: http://geant4.cern.ch/G4UsersDocuments/UsersGuides/ForApplicationDeveloper/html/Control/UIcommands/_run_.html
+[listMaterials]: https://geant4.web.cern.ch/geant4/UserDocumentation/UsersGuides/ForApplicationDeveloper/html/AllResources/Control/UIcommands/_material_nist_.html
