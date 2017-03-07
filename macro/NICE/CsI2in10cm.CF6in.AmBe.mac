@@ -6,18 +6,26 @@
 /physics_lists/enable HadronElastic
 
 /run/initialize
-
 # print volume list
 /vis/ASCIITree/verbose 13
 /vis/drawTree
 /geometry/test/run
 
-# AmBe neutron spectrum
-/control/execute macro/src/AmBe.mac
-/gps/pos/centre 0 0 -22.5 cm
 
+
+# AmBe neutron spectrum
+#/control/execute macro/src/AmBe.mac
+/gps/pos/centre 0 0 10 cm
+/gps/particle neutron
+/gps/energy 50 eV
 /random/setSeeds 2412 79628
 /output/file AmBe.root
+/vis/open HepRepFile
+/vis/viewer/set/background white
+/vis/drawVolume
+/vis/scene/add/trajectories
+
+
 
 /run/statusReport 100000
-/run/beamOn 5000000
+/run/beamOn 50

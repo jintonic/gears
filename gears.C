@@ -327,10 +327,10 @@ G4MaterialPropertiesTable* LineProcessor::CreateMaterialPropertiesTable(
             values[j]=G4tgrUtils::GetDouble(words[i+1+j]);
          table->AddProperty(property, energies, values, cnt);
          delete[] values;
+	 delete[] energies;
          i=i+cnt;
       }
    }
-   delete[] energies;
    return table;
 }
 //______________________________________________________________________________
