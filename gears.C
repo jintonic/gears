@@ -178,33 +178,30 @@ void Output::Reset()
 }
 //______________________________________________________________________________
 //
-#include <G4tgrLineProcessor.hh>
-#include <G4tgrVolumeMgr.hh>
-#include <G4tgrFileReader.hh>
-#include <G4tgrMaterialSimple.hh>
-
-#include <G4tgbVolumeMgr.hh>
-#include <G4tgbVolume.hh>
-
 #include <G4OpticalSurface.hh>
-
-struct SurfaceList // Link list of all G4LogicalBorderSurface
+struct SurfaceList ///< Link list of all G4LogicalBorderSurface
 {
-   G4String name,v1,v2; // name of the surface, volume 1 and volume 2
+   G4String name; ///< name of the surface
+   G4String v1;   ///< name of volume 1
+   G4String v2;   ///< name of volume 2
    G4OpticalSurface* optic;
    SurfaceList* next;
 }; 
-
+//______________________________________________________________________________
+//
+#include <G4tgrLineProcessor.hh>
+#include <G4tgrMaterialSimple.hh>
 /**
- * Geant4 text geometry file line processor.
+ * Extension to default text geometry file line processor.
  */
 class LineProcessor: public G4tgrLineProcessor
 {
    public:
-      LineProcessor(): Surface(0) {};
+      LineProcessor(): G4tgrLineProcessor(), Surface(0) {};
       ~LineProcessor();
-      /*
+      /**
        * Overwrite G4tgrLineProcessor::ProcessLine to add new tags.
+       * Two new tags are added: ":PROP" and ":SURF".
        */
       G4bool ProcessLine(const std::vector<G4String> &words);
 
@@ -212,14 +209,15 @@ class LineProcessor: public G4tgrLineProcessor
 
    private:
       G4MaterialPropertiesTable* CreateMaterialPropertiesTable(
-            const std::vector<G4String> &words, int idx);
+            const std::vector<G4String> &words, size_t idxOfWords);
 };
 //______________________________________________________________________________
 //
 LineProcessor::~LineProcessor()
 {
-   while(Surface) {
+   while (Surface) {
       SurfaceList *next=Surface->next;
+      delete Surface->optic;
       delete Surface;
       Surface=next;
    }
@@ -227,38 +225,22 @@ LineProcessor::~LineProcessor()
 //______________________________________________________________________________
 //
 #include <G4NistManager.hh>
-/**
- * New tag ":PROP" (multiple property acceptable)
- * :prop <original material> 
- *    <new property> const <value> or
- *    (before none const property) energy <arraysize> <energies array> 
- *    <new property> <property array>
- * 
- * new tag ":SURF" (multiple property acceptable)
- * :surf name [motherVol/]physVol1 [motherVol/]physVol2
- *    type <dielectric_dielectric|dielectric_metal>
- *    model <unified|..>
- *    finish < ..|..>
- *    SigmaAlpha < >
- *    property
- *    <new property> const <value> or
- *   (before none const property) energy <arraysize> <energies array> 
- *    <new property> <property array>
- */
-G4bool LineProcessor::ProcessLine(const std::vector< G4String > &words)
+G4bool LineProcessor::ProcessLine(const std::vector<G4String> &words)
 {
+   // process default text geometry tags
    G4bool processed = G4tgrLineProcessor::ProcessLine(words);
    if (processed) return true;
 
-   G4String firstWord = words[0];
-   firstWord.toUpper();
-   if (firstWord.substr(0,5)==":PROP") {
+   // process added tags
+   G4String tag = words[0];
+   tag.toLower();
+   if (tag.substr(0,5)==":prop") {
       G4NistManager* mgr = G4NistManager::Instance();
-      mgr->FindOrBuildMaterial(words[1])->
-         SetMaterialPropertiesTable(CreateMaterialPropertiesTable(words,2));
+      mgr->FindOrBuildMaterial(words[1])
+         ->SetMaterialPropertiesTable(CreateMaterialPropertiesTable(words,2));
       return true;
-   } else if (firstWord.substr(0,5)==":SURF") {
-      SurfaceList *surf=new SurfaceList;
+   } else if (tag.substr(0,5)==":surf") {
+      SurfaceList *surf = new SurfaceList;
       surf->next=Surface;
       Surface=surf;
       surf->name=words[1];
@@ -267,85 +249,93 @@ G4bool LineProcessor::ProcessLine(const std::vector< G4String > &words)
       surf->optic = new G4OpticalSurface(words[1]);
       int i=4; 
       // loop over optical surface setup lines
-      while(true) {
-         if(words[i]=="property")break;
-         else if(words[i]=="type") {
-            if (words[i+1]=="dielectric_metal")
+      while (true) {
+         G4String setting = words[i], value = words[i+1];
+         setting.toLower(); value.toLower();
+         if (setting=="property") {
+            break;
+         } else if(setting="type") {
+            if (value=="dielectric_metal")
                surf->optic->SetType(dielectric_metal);
-            else if(words[i+1]=="dielectric_dielectric")
+            else if(value=="dielectric_dielectric")
                surf->optic->SetType(dielectric_dielectric);
-            else if(words[i+1]=="firsov")
-               surf->optic->SetType(firsov);
-            else if(words[i+1]=="x_ray")
-               surf->optic->SetType(x_ray);
-         } else if(words[i]=="model") {
-            if (words[i+1]=="glisur")
-               surf->optic->SetModel(glisur);
-            else if(words[i+1]=="unified")
-               surf->optic->SetModel(unified);
-         } else if(words[i]=="finish") {
-            if(words[i+1]=="polished")
-               surf->optic->SetFinish(polished);
-            else if(words[i+1]=="polishedfrontpainted")
+            else if(value=="firsov") surf->optic->SetType(firsov);
+            else if(value=="x_ray") surf->optic->SetType(x_ray);
+            else G4cout<<"Unknown surface type "<<value<<", ignored!"<<G4endl;
+         } else if(setting=="model") {
+            if (value=="glisur") surf->optic->SetModel(glisur);
+            else if(value=="unified") surf->optic->SetModel(unified);
+            else G4cout<<"Unknown surface model "<<value<<", ignored!"<<G4endl;
+         } else if(setting=="finish") {
+            if(value=="polished") surf->optic->SetFinish(polished);
+            else if(value=="polishedfrontpainted")
                surf->optic->SetFinish(polishedfrontpainted);
-            else if(words[i+1]=="polishedbackpainted")
+            else if(value=="polishedbackpainted")
                surf->optic->SetFinish(polishedbackpainted);
-            else if(words[i+1]=="ground")
-               surf->optic->SetFinish(ground);
-            else if(words[i+1]=="groundfrontpainted")
+            else if(value=="ground") surf->optic->SetFinish(ground);
+            else if(value=="groundfrontpainted")
                surf->optic->SetFinish(groundfrontpainted);
-            else if(words[i+1]=="groundbackpainted")
+            else if(value=="groundbackpainted")
                surf->optic->SetFinish(groundbackpainted);
-         } else if(words[i]=="sigmaalpha") 
-            surf->optic->SetSigmaAlpha(G4UIcommand::ConvertToInt(words[i+1]));
-         else G4cout<<"op surface tag not find"<<G4endl;
+            else
+               G4cout<<"Unknown surface finish "<<value<<", ignored!"<<G4endl;
+         } else if(setting=="sigmaalpha") {
+            surf->optic->SetSigmaAlpha(G4UIcommand::ConvertToInt(value));
+         } else
+            G4cout<<"Unknown surface setting "<<setting<<", ignored!"<<G4endl;
          i+=2;
       }
       i++;
       surf->optic->SetMaterialPropertiesTable(
             CreateMaterialPropertiesTable(words,i));
       return true;
-   } else return false;
+   } else
+      return false;
 }
 //______________________________________________________________________________
 //
 #include <G4tgrUtils.hh>
-
 G4MaterialPropertiesTable* LineProcessor::CreateMaterialPropertiesTable(
-      const std::vector<G4String> &words, int idx)
+      const std::vector<G4String> &words, size_t idxOfWords)
 {
-   bool en=false;
-   int cnt=0;
-   double *energies ;
-   G4MaterialPropertiesTable *properties = new G4MaterialPropertiesTable();
-   for (size_t i=idx; i<words.size(); i=i+1) {
-      if (words[i+1]=="const") {
-         properties->AddConstProperty(words[i], G4tgrUtils::GetDouble(words[i+2]));
-         i+=2;
-      } else if (words[i]=="energy"){
-         en=true;
-         cnt = G4UIcommand::ConvertToInt(words[++i]);
-         energies= new double[cnt];
-         for (int j=0; j<cnt; j++) {energies[j]=0;}
-         for (int j=0; j<cnt; j++) { energies[j]=G4tgrUtils::GetDouble(words[++i]);}
-      }else{
-         if (!en){G4cout<<"no energies"<<G4endl;break;}
-         G4String name = words[i];
-         double *propVals = new double[cnt];
-         for (int j=0; j<cnt; j++) { propVals[j]=0;}
-         for (int j=0; j<cnt; j++) {propVals[j]=G4tgrUtils::GetDouble(words[++i]);}
-         properties->AddProperty(name,energies,propVals,cnt)->SetSpline(true);
-         delete [] propVals;
+   bool photonEnergyUnDefined=true;
+   int cnt=0; // number of photon energy values
+   double *energies; // photon energy values
+   G4MaterialPropertiesTable *table = new G4MaterialPropertiesTable();
+   for (size_t i=idxOfWords; i<words.size(); i++) {
+      G4String property = words[i]; property.toUpper();
+      if (property=="SCINTILLATIONYIELD" || property=="RESOLUTIONSCALE"
+            || property=="FASTTIMECONSTANT" || property=="SLOWTIMECONSTANT"
+            || property=="YIELDRATIO" || property=="WLSTIMECONSTANT") {
+         table->AddConstProperty(property, G4tgrUtils::GetDouble(words[i+1]));
+         i++; // property value has been used
+      } else if (property.substr(0,12)=="PHOTON_ENERG") {
+         photonEnergyUnDefined=false;
+         cnt = G4UIcommand::ConvertToInt(words[i+1]); // get array size
+         energies = new double[cnt]; // create energy array
+         for (int j=0; j<cnt; j++)
+            energies[j]=G4tgrUtils::GetDouble(words[i+2+j]);
+         i=i+1+cnt; // array has been used
+      } else { // wavelength-dependent properties
+         if (photonEnergyUnDefined) {
+            G4cout<<"photon energies undefined, "
+              <<"ignore all wavelength-dependent properties!"<<G4endl;
+            break;
+         }
+         double *values = new double[cnt];
+         for (int j=0; j<cnt; j++) 
+            values[j]=G4tgrUtils::GetDouble(words[i+1+j]);
+         table->AddProperty(property, energies, values, cnt);
+         delete[] values;
+         i=i+cnt;
       }
    }
-   delete [] energies;
-   return properties;
+   delete[] energies;
+   return table;
 }
 //______________________________________________________________________________
 //
 #include <G4tgbDetectorBuilder.hh>
-#include <G4LogicalBorderSurface.hh>
-
 class TextDetectorBuilder : public G4tgbDetectorBuilder
 {
    public :
@@ -360,6 +350,9 @@ class TextDetectorBuilder : public G4tgbDetectorBuilder
 };
 //______________________________________________________________________________
 //
+#include <G4tgrVolumeMgr.hh>
+#include <G4tgrFileReader.hh>
+#include <G4tgbVolumeMgr.hh>
 const G4tgrVolume * TextDetectorBuilder::ReadDetector()
 {
    G4tgrFileReader* fileReader = G4tgrFileReader::GetInstance();
@@ -371,6 +364,7 @@ const G4tgrVolume * TextDetectorBuilder::ReadDetector()
 }
 //______________________________________________________________________________
 // FIXME: may need reconsider the logic
+#include <G4LogicalBorderSurface.hh>
 void TextDetectorBuilder::AddSurface(G4VPhysicalVolume* v1, SurfaceList* surface)
 {
    G4tgbVolumeMgr* mgr = G4tgbVolumeMgr::GetInstance();
