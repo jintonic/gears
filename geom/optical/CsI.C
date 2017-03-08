@@ -56,7 +56,7 @@
    tg<<"  SLOWTIMECONSTANT 1*us"<<endl;
    tg<<"  YIELDRATIO 0.05"<<endl;
    tg<<"  photon_energies "<<N;
-   for (int i=0; i<N; i++) tg<<" "<<e[i]; tg<<endl;
+   for (int i=0; i<N; i++) tg<<" "<<e[i]<<"*eV"; tg<<endl;
    tg<<"  FASTCOMPONENT";
    for (int i=0; i<N; i++) tg<<" "<<fast[i]; tg<<endl;
    tg<<"  SLOWCOMPONENT";

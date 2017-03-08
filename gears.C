@@ -190,7 +190,6 @@ struct SurfaceList ///< Link list of all G4LogicalBorderSurface
 //______________________________________________________________________________
 //
 #include <G4tgrLineProcessor.hh>
-#include <G4tgrMaterialSimple.hh>
 /**
  * Extension to default text geometry file line processor.
  */
@@ -255,7 +254,7 @@ G4bool LineProcessor::ProcessLine(const std::vector<G4String> &words)
          setting.toLower(); value.toLower();
          if (setting=="property") {
             break;
-         } else if(setting="type") {
+         } else if(setting=="type") {
             if (value=="dielectric_metal")
                surf->optic->SetType(dielectric_metal);
             else if(value=="dielectric_dielectric")
@@ -280,7 +279,7 @@ G4bool LineProcessor::ProcessLine(const std::vector<G4String> &words)
                surf->optic->SetFinish(groundbackpainted);
             else
                G4cout<<"Unknown surface finish "<<value<<", ignored!"<<G4endl;
-         } else if(setting=="sigmaalpha") {
+         } else if(setting=="sigma_alpha") {
             surf->optic->SetSigmaAlpha(G4UIcommand::ConvertToInt(value));
          } else
             G4cout<<"Unknown surface setting "<<setting<<", ignored!"<<G4endl;
@@ -350,7 +349,7 @@ class TextDetectorBuilder : public G4tgbDetectorBuilder
 
    private :
       LineProcessor* fLineProcessor;
-      void AddSurface(G4VPhysicalVolume* v1, SurfaceList* surface);
+      void AddSurface(G4VPhysicalVolume* v1, SurfaceList* surf);
 };
 //______________________________________________________________________________
 //
@@ -369,32 +368,30 @@ const G4tgrVolume * TextDetectorBuilder::ReadDetector()
 //______________________________________________________________________________
 // FIXME: may need reconsider the logic
 #include <G4LogicalBorderSurface.hh>
-void TextDetectorBuilder::AddSurface(G4VPhysicalVolume* v1, SurfaceList* surface)
+void TextDetectorBuilder::AddSurface(G4VPhysicalVolume* v1, SurfaceList* surf)
 {
    G4tgbVolumeMgr* mgr = G4tgbVolumeMgr::GetInstance();
-   if(mgr->GetTopPhysVol()->GetName()!=surface->v2) {
+   if(mgr->GetTopPhysVol()->GetName()!=surf->v2) {
       G4LogicalVolume *parent=mgr->FindG4LogVol(
-            surface->v2.substr(0, surface->v2.find("/")) );
-      G4String target=surface->v2.substr(surface->v2.find("/")+1);
+            surf->v2.substr(0, surf->v2.find("/")) );
+      G4String target=surf->v2.substr(surf->v2.find("/")+1);
       for (int i=0; i<parent->GetNoDaughters(); i++) {
          G4VPhysicalVolume * now=parent->GetDaughter(i);
          if (now->GetName()==target)
-            new G4LogicalBorderSurface(surface->name,v1,now,surface->optic); 
+            new G4LogicalBorderSurface(surf->name,v1,now,surf->optic); 
       }
    } else 
-      new G4LogicalBorderSurface(surface->name,v1,mgr->GetTopPhysVol(),surface->optic);
+      new G4LogicalBorderSurface(surf->name,v1,mgr->GetTopPhysVol(),surf->optic);
 }
 //______________________________________________________________________________
 //
-#include <G4tgrMessenger.hh>
-
 G4VPhysicalVolume* TextDetectorBuilder::ConstructDetector(
       const G4tgrVolume* topVol)
 {
    G4VPhysicalVolume *world = G4tgbDetectorBuilder::ConstructDetector(topVol);
-   if(!fLineProcessor->Surface) return world; 
-
    SurfaceList* surface = fLineProcessor->Surface;
+   if(!surface) return world; 
+
    G4tgbVolumeMgr* tgbVolmgr = G4tgbVolumeMgr::GetInstance();
    while (surface) {
       if(tgbVolmgr->GetTopPhysVol()->GetName()!=surface->v1) {
