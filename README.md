@@ -24,17 +24,17 @@ cd macro/Rutherford/
 :volume hall BOX 10*m 10*m 10*m G4_AIR
 ~~~
 
-More examples can be found in the [geom/](geom/) directory, such as ./geom/hall.tg. Files in this directory have a suffix of *.tg*, indicating that they are [text geometry][tg] description files. A [Geant4][] macro command is added to load one of the geometry files:
+More examples can be found in the [geom/](geom/) directory, such as [geom/hall.tg](geom/hall.tg). Files in this directory have a suffix of *.tg*, indicating that they are [text geometry][tg] description files. A [Geant4][] macro command is added to load [one of the geometry files](geom/Rutherford/foil.tg):
 
 ~~~
-/geometry/source [geom/Rutherford/foil.tg](geom/Rutherford/foil.tg)
+/geometry/source geom/Rutherford/foil.tg
 ~~~
 
 The command must be used before [/run/initialize][run], otherwise [Geant4][] does not have a detector to initialize.
 
 ## Material
 
-The [NIST][] material table provided by Geant4 contains a lot of commonly used materials. One can run `/material/nist/[listMaterials][]` at any Geant4 state to print the list locally. These materials can be used directly in a text geometry description, for example
+The [NIST][] material table provided by Geant4 contains a lot of commonly used materials. One can run /material/nist/[listMaterials][] at any Geant4 state to print the list locally. These materials can be used directly in a [text geometry description][tg], for example
 
 ~~~
 // use NIST material G4_AIR to define vacuum
