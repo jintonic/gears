@@ -179,13 +179,18 @@ void Output::Reset()
 //______________________________________________________________________________
 //
 #include <G4OpticalSurface.hh>
-struct SurfaceList ///< Link list of all G4LogicalBorderSurface
+/**
+ * A link list of G4LogicalBorderSurface.
+ * It is used to save information provided by the :surf tag in the text
+ * geometry description, for constructing a G4LogicalBorderSurface later.
+ */
+struct BorderSurface
 {
    G4String name; ///< name of the surface
    G4String v1;   ///< name of volume 1
    G4String v2;   ///< name of volume 2
    G4OpticalSurface* optic;
-   SurfaceList* next;
+   BorderSurface* next;
 }; 
 //______________________________________________________________________________
 //
@@ -196,7 +201,7 @@ struct SurfaceList ///< Link list of all G4LogicalBorderSurface
 class LineProcessor: public G4tgrLineProcessor
 {
    public:
-      LineProcessor(): G4tgrLineProcessor(), Surface(0) {};
+      LineProcessor(): G4tgrLineProcessor(), Border(0) {};
       ~LineProcessor();
       /**
        * Overwrite G4tgrLineProcessor::ProcessLine to add new tags.
@@ -204,7 +209,7 @@ class LineProcessor: public G4tgrLineProcessor
        */
       G4bool ProcessLine(const std::vector<G4String> &words);
 
-      SurfaceList* Surface;
+      BorderSurface* Border;
 
    private:
       G4MaterialPropertiesTable* CreateMaterialPropertiesTable(
@@ -214,11 +219,10 @@ class LineProcessor: public G4tgrLineProcessor
 //
 LineProcessor::~LineProcessor()
 {
-   while (Surface) {
-      SurfaceList *next=Surface->next;
-      delete Surface->optic;
-      delete Surface;
-      Surface=next;
+   while (Border) { // the G4OpticalSurface should be taken care by Geant4
+      BorderSurface *next=Border->next;
+      delete Border;
+      Border=next;
    }
 }
 //______________________________________________________________________________
@@ -240,55 +244,57 @@ G4bool LineProcessor::ProcessLine(const std::vector<G4String> &words)
          ->SetMaterialPropertiesTable(CreateMaterialPropertiesTable(words,2));
       return true;
    } else if (tag.substr(0,5)==":surf") {
-      SurfaceList *surf = new SurfaceList;
-      surf->next=Surface;
-      Surface=surf;
-      surf->name=words[1];
-      surf->v1=words[2];
-      surf->v2=words[3];
-      surf->optic = new G4OpticalSurface(words[1]);
-      int i=4; 
+      BorderSurface *bdr = new BorderSurface;
+      bdr->next=Border;
+      Border=bdr;
+      bdr->name=words[1];
+      bdr->v1=words[2];
+      bdr->v2=words[3];
+      bdr->optic = new G4OpticalSurface(words[1]);
+      size_t i=4; 
       // loop over optical surface setup lines
-      while (true) {
+      while (i<words.size()) {
          G4String setting = words[i], value = words[i+1];
          setting.toLower(); value.toLower();
          if (setting=="property") {
+            i++;
             break;
          } else if(setting=="type") {
             if (value=="dielectric_metal")
-               surf->optic->SetType(dielectric_metal);
+               bdr->optic->SetType(dielectric_metal);
             else if(value=="dielectric_dielectric")
-               surf->optic->SetType(dielectric_dielectric);
-            else if(value=="firsov") surf->optic->SetType(firsov);
-            else if(value=="x_ray") surf->optic->SetType(x_ray);
+               bdr->optic->SetType(dielectric_dielectric);
+            else if(value=="firsov") bdr->optic->SetType(firsov);
+            else if(value=="x_ray") bdr->optic->SetType(x_ray);
             else G4cout<<"Unknown surface type "<<value<<", ignored!"<<G4endl;
          } else if(setting=="model") {
-            if (value=="glisur") surf->optic->SetModel(glisur);
-            else if(value=="unified") surf->optic->SetModel(unified);
+            if (value=="glisur") bdr->optic->SetModel(glisur);
+            else if(value=="unified") bdr->optic->SetModel(unified);
             else G4cout<<"Unknown surface model "<<value<<", ignored!"<<G4endl;
          } else if(setting=="finish") {
-            if(value=="polished") surf->optic->SetFinish(polished);
+            if(value=="polished") bdr->optic->SetFinish(polished);
             else if(value=="polishedfrontpainted")
-               surf->optic->SetFinish(polishedfrontpainted);
+               bdr->optic->SetFinish(polishedfrontpainted);
             else if(value=="polishedbackpainted")
-               surf->optic->SetFinish(polishedbackpainted);
-            else if(value=="ground") surf->optic->SetFinish(ground);
+               bdr->optic->SetFinish(polishedbackpainted);
+            else if(value=="ground") bdr->optic->SetFinish(ground);
             else if(value=="groundfrontpainted")
-               surf->optic->SetFinish(groundfrontpainted);
+               bdr->optic->SetFinish(groundfrontpainted);
             else if(value=="groundbackpainted")
-               surf->optic->SetFinish(groundbackpainted);
+               bdr->optic->SetFinish(groundbackpainted);
             else
                G4cout<<"Unknown surface finish "<<value<<", ignored!"<<G4endl;
          } else if(setting=="sigma_alpha") {
-            surf->optic->SetSigmaAlpha(G4UIcommand::ConvertToInt(value));
+            bdr->optic->SetSigmaAlpha(G4UIcommand::ConvertToInt(value));
          } else
             G4cout<<"Unknown surface setting "<<setting<<", ignored!"<<G4endl;
          i+=2;
       }
-      i++;
-      G4cout<<"Set optical properties of "<<surf->name<<":"<<G4endl;
-      surf->optic->SetMaterialPropertiesTable(
-            CreateMaterialPropertiesTable(words,i));
+      if (i<words.size()) { // break while loop because of "property"
+         G4cout<<"Set optical properties of "<<bdr->name<<":"<<G4endl;
+         bdr->optic->SetMaterialPropertiesTable(
+               CreateMaterialPropertiesTable(words,i));
+      }
       return true;
    } else
       return false;
@@ -349,7 +355,6 @@ class TextDetectorBuilder : public G4tgbDetectorBuilder
 
    private :
       LineProcessor* fLineProcessor;
-      void AddSurface(G4VPhysicalVolume* v1, SurfaceList* surf);
 };
 //______________________________________________________________________________
 //
@@ -366,45 +371,39 @@ const G4tgrVolume * TextDetectorBuilder::ReadDetector()
    return world;
 }
 //______________________________________________________________________________
-// FIXME: may need reconsider the logic
-#include <G4LogicalBorderSurface.hh>
-void TextDetectorBuilder::AddSurface(G4VPhysicalVolume* v1, SurfaceList* surf)
-{
-   G4tgbVolumeMgr* mgr = G4tgbVolumeMgr::GetInstance();
-   if(mgr->GetTopPhysVol()->GetName()!=surf->v2) {
-      G4LogicalVolume *parent=mgr->FindG4LogVol(
-            surf->v2.substr(0, surf->v2.find("/")) );
-      G4String target=surf->v2.substr(surf->v2.find("/")+1);
-      for (int i=0; i<parent->GetNoDaughters(); i++) {
-         G4VPhysicalVolume * now=parent->GetDaughter(i);
-         if (now->GetName()==target)
-            new G4LogicalBorderSurface(surf->name,v1,now,surf->optic); 
-      }
-   } else 
-      new G4LogicalBorderSurface(surf->name,v1,mgr->GetTopPhysVol(),surf->optic);
-}
-//______________________________________________________________________________
 //
+#include <G4LogicalBorderSurface.hh>
 G4VPhysicalVolume* TextDetectorBuilder::ConstructDetector(
       const G4tgrVolume* topVol)
 {
    G4VPhysicalVolume *world = G4tgbDetectorBuilder::ConstructDetector(topVol);
-   SurfaceList* surface = fLineProcessor->Surface;
-   if(!surface) return world; 
 
    G4tgbVolumeMgr* tgbVolmgr = G4tgbVolumeMgr::GetInstance();
-   while (surface) {
-      if(tgbVolmgr->GetTopPhysVol()->GetName()!=surface->v1) {
-         G4LogicalVolume *parent=tgbVolmgr->FindG4LogVol(
-               surface->v1.substr(0, surface->v1.find("/")) );
-         G4String target=surface->v1.substr(surface->v1.find("/")+1);
-         for (int i=0; i<parent->GetNoDaughters(); i++) {
-            G4VPhysicalVolume * now=parent->GetDaughter(i);
-            if (now->GetName()==target) AddSurface(now,surface);
-         }
-      } else
-         AddSurface(world,surface);
-      surface=surface->next;
+   BorderSurface* border = fLineProcessor->Border;
+   while (border) {
+      G4String physV1 = border->v1.substr(0,border->v1.find(":"));
+      G4String physV2 = border->v2.substr(0,border->v2.find(":"));
+      int copyNo1 = atoi(border->v1.substr(border->v1.find(":")+1).data());
+      int copyNo2 = atoi(border->v2.substr(border->v2.find(":")+1).data());
+      G4LogicalVolume *m1=tgbVolmgr->FindG4PhysVol(physV1)->GetMotherLogical();
+      G4LogicalVolume *m2=tgbVolmgr->FindG4PhysVol(physV2)->GetMotherLogical();
+      // search for phyiscs volumes on the sides of the border
+      G4VPhysicalVolume *v1=0, *v2=0;
+      for (int i=0; i<m1->GetNoDaughters(); i++) {
+         v1 = m1->GetDaughter(i);
+         if (v1->GetCopyNo()==copyNo1) break;
+      }
+      for (int i=0; i<m2->GetNoDaughters(); i++) {
+         v2 = m2->GetDaughter(i);
+         if (v2->GetCopyNo()==copyNo2) break;
+      }
+      if (v1 && v2) {
+         new G4LogicalBorderSurface(border->name,v1,v2,border->optic);
+         G4cout<<"Border surface "<<border->name<<" in between "
+            <<physV1<<":"<<copyNo1<<" and "<<physV2<<":"<<copyNo2
+            <<" added"<<G4endl;
+      }
+      border=border->next;
    }
    return world;
 }
