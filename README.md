@@ -73,7 +73,6 @@ One can use the following syntax to define a [G4LogicalBorderSurface][] in case 
 
 ~~~
 //:surf v12v2 v1:copyNo1 v2:copyNo2
-//  property must be the last setting due to the current coding method 
 :surf CsI2Teflon CsI:1 Teflon:1
   type dielectric_dielectric
   model unified
@@ -81,7 +80,10 @@ One can use the following syntax to define a [G4LogicalBorderSurface][] in case 
   sigma_alpha 0.1
   property photon_energies 2 2.5*eV 5.0*eV
     REFLECTIVITY 0.9 0.9
+//property must be the last setting due to the current coding method
 ~~~
+
+Note that physics volumes from the same logical volume created by the text geometry processor share the same name as their logical volume. Since [G4LogicalBorderSurface][] requires pointers to the two physical volumes beside, a unique copy number has to be attached to the volume name to uniquely identify the physics volume.
 
 ## Sensitive detector
 
