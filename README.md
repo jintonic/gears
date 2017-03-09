@@ -67,24 +67,20 @@ There is no tag to define the optical properties of a material or a surface in t
 
 ### Define optical properties of a surface
 
+First of all, there is no need to define a *surface* for polished interfaces between two media. As long as the two media have an index of refraction stored in their respective G4MaterialPropertiesTable, the [G4OpBoundaryProcess][]::PostStepDoIt will handle the refraction and reflection correctly.
+
+One can use the following syntax to define a [G4LogicalBorderSurface][] in case that there is a real need to specify the optical properties of the interface:
+
 ~~~
-//:surf name [motherVol/]physVol1 [motherVol/]physVol2
-//  type <dielectric_dielectric|dielectric_metal|firsov|x_ray>
-//  model <unified|glisur>
-//  finish <polished|ground|...>
-//  sigma_alpha <float>
-//  property
-//    <wavelength-independent_property> <value>
-//    photon_energies <int(array size)> <energy array>
-//    <wavelength-dependent_property> <property values>
-:surf reflector CsI PTFE
+//:surf v12v2 v1:copyNo1 v2:copyNo2
+//  property must be the last setting due to the current coding method 
+:surf CsI2Teflon CsI:1 Teflon:1
   type dielectric_dielectric
   model unified
-  finish polished
+  finish ground
   sigma_alpha 0.1
-  property photon_energies 2 2.038*eV, 4.144*eV
-    REFLECTIVITY 0.3, 0.5
-    EFFICIENCY 0.8, 0.1
+  property photon_energies 2 2.5*eV 5.0*eV
+    REFLECTIVITY 0.9 0.9
 ~~~
 
 ## Sensitive detector
@@ -135,3 +131,5 @@ While optical processes can be toggled by the following commands:
 [NIST]: http://geant4.web.cern.ch/geant4/workAreaUserDocKA/Backup/Docbook_UsersGuides_beta/ForApplicationDeveloper/html/apas08.html
 [run]: http://geant4.cern.ch/G4UsersDocuments/UsersGuides/ForApplicationDeveloper/html/Control/UIcommands/_run_.html
 [listMaterials]: https://geant4.web.cern.ch/geant4/UserDocumentation/UsersGuides/ForApplicationDeveloper/html/AllResources/Control/UIcommands/_material_nist_.html
+[G4OpBoundaryProcess]: http://www-geant4.kek.jp/lxr/source/processes/optical/src/G4OpBoundaryProcess.cc
+[G4LogicalBorderSurface]: http://www-geant4.kek.jp/lxr/source/processes/optical/src/G4LogicalBorderSurface.cc
