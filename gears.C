@@ -40,11 +40,12 @@ class Output: public G4UImessenger
       int ns; ///< number of primary particles (source)
       int nd; ///< number of detectors (sensitive volumes)
       short det[MaxNhit]; ///< detector id
-      int pid[MaxNhit]; ///< particle id
-      int par[MaxNhit]; ///< parent id
+      int pdg[MaxNhit]; ///< PDG encoding
+      int mom[MaxNhit]; ///< parent's PDG encoding
       int trk[MaxNhit]; ///< track id
       int pro[MaxNhit]; ///< process id * 100 + sub-process id
       double e[MaxNhit]; ///< energy deposited [keV]
+      double k[MaxNhit]; ///< kinetic energy of the track [keV]
       double et[MaxNdet]; ///< total energy deposited in each detector [keV]
       double t[MaxNhit]; ///< time of hit [ns]
       double x[MaxNhit]; ///< x of hit [mm]
@@ -91,14 +92,15 @@ void Output::Open()
    fTree->Branch("nd",&nd,"nd/S");
    fTree->Branch("et",&et,"et/D");
    fTree->Branch("e",e,"e[nh]/D");
+   fTree->Branch("k",k,"k[nh]/D");
    fTree->Branch("t",t,"t[nh]/D");
    fTree->Branch("x",x,"x[nh]/D");
    fTree->Branch("y",y,"y[nh]/D");
    fTree->Branch("z",z,"z[nh]/D");
    fTree->Branch("det",det,"det[nh]/S");
-   fTree->Branch("pid",pid,"pid[nh]/I");
+   fTree->Branch("pdg",pdg,"pdg[nh]/I");
    fTree->Branch("pro",&pro,"pro[nh]/I");
-   fTree->Branch("par",par,"par[nh]/I");
+   fTree->Branch("mom",mom,"mom[nh]/I");
    fTree->Branch("trk",trk,"trk[nh]/I");
    fTree->Branch("es",es,"es[ns]/D");
    fTree->Branch("ts",ts,"ts[ns]/D");
@@ -137,13 +139,14 @@ void Output::Record(G4Track *track)
       G4cout<<"Output::Record: Hit "<<nh<<" won't be recorded"<<G4endl;
    } else {
       det[nh]= track->GetVolume()->GetCopyNo();
-      pid[nh]=track->GetDefinition()->GetPDGEncoding();
+      pdg[nh]=track->GetDefinition()->GetPDGEncoding();
+      k[nh]=track->GetKineticEnergy()/CLHEP::keV;
       e[nh]=track->GetStep()->GetTotalEnergyDeposit()/CLHEP::keV;
       t[nh]=track->GetGlobalTime()/CLHEP::ns;
       x[nh]=track->GetPosition().x()/CLHEP::mm;
       y[nh]=track->GetPosition().y()/CLHEP::mm;
       z[nh]=track->GetPosition().z()/CLHEP::mm;
-      par[nh]=track->GetParentID();
+      mom[nh]=track->GetParentID();
       trk[nh]=track->GetTrackID();
       if (track->GetCreatorProcess()) 
          pro[nh]=track->GetCreatorProcess()->GetProcessType()*1000
@@ -159,8 +162,8 @@ void Output::Record(G4Track *track)
 void Output::Reset()
 {
    for (int i=0; i<MaxNhit; i++) {
-      e[i]=0; t[i]=0; x[i]=0; y[i]=0; z[i]=0;
-      det[i]=0; pid[i]=0; par[i]=0; trk[i]=0;
+      e[i]=0; k[i]=0; t[i]=0; x[i]=0; y[i]=0; z[i]=0;
+      det[i]=0; pdg[i]=0; mom[i]=0; trk[i]=0;
    }
    for (int i=0;i<MaxNsrc;i++) {
       es[i]=0; ts[i]=0; xs[i]=0; ys[i]=0; zs[i]=0;
