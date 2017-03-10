@@ -29,15 +29,7 @@ class Output: public G4UImessenger
 
       void Open(); ///< Open output file and define data structure
       void Record(G4PrimaryVertex* vtx); ///< Record source info
-      /**
-       * Record track info.
-       * Process types are defined in G4ProcessType.hh, sub types are defined
-       * in G4HadronicProcessType.hh, G4DecayProcessType.hh,
-       * G4EmProcessSubType.hh.  G4TransportationProcessType.hh,
-       * G4FastSimulationProcessType.hh, G4OpProcessSubType.hh, etc. They can
-       * be found at http://www-geant4.kek.jp/lxr/find?string=Type.hh
-       */
-      void Record(G4Track *track);
+      void Record(G4Track *track); ///< Record track info.
       void Write() { fTree->Fill(); Reset(); }
       void Close() { fFile->Write(); fFile->Close(); }
 
