@@ -530,9 +530,9 @@ void Physics::SetNewValue(G4UIcommand* cmd, G4String value)
          RegisterPhysics(new G4RadioactiveDecayPhysics());
       else if (value=="Optical")
          RegisterPhysics(new G4OpticalPhysics());
-      else if (value=="HadronElasticHP")
+      else if (value=="HadronElastic")
          RegisterPhysics(new G4HadronElasticPhysicsHP());
-      else if (value=="FTFP_BERT_HP") // for low energy neutrons
+      else if (value=="HadronInelastic")
          RegisterPhysics(new G4HadronPhysicsFTFP_BERT_HP());
    }
 }
