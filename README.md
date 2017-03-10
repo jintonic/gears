@@ -128,11 +128,11 @@ While optical processes can be toggled by the following commands:
 
 ## process id
 
-The physics process related to each hit is saved in a variable `pro[nh]`, where `nh` is the number of hits. It equals to (process type)*1000 + (sub type). The Process types are defined in G4ProcessType.hh, sub types are defined in G4HadronicProcessType.hh, G4DecayProcessType.hh, G4EmProcessSubType.hh.  G4TransportationProcessType.hh, G4FastSimulationProcessType.hh, G4OpProcessSubType.hh, etc. They can be found at http://www-geant4.kek.jp/lxr/find?string=Type.hh
+The physics process leading to each hit is saved in a variable `pro[nh]`, where `nh` is the number of hits. It equals to (process type)*1000 + (sub type). The Process types are defined in G4ProcessType.hh, sub types are defined in G4HadronicProcessType.hh, G4DecayProcessType.hh, G4EmProcessSubType.hh.  G4TransportationProcessType.hh, G4FastSimulationProcessType.hh, G4OpProcessSubType.hh, etc. They can be found at http://www-geant4.kek.jp/lxr/find?string=Type.hh
 
 ## particle id
 
-The type of particle related to a hit is saved in a variable `pid[nh]`, where `nh` is the number of hits. It is the same as the `PDG encoding` of the particle. A Google search will give more information about it.
+The type of particle related to a hit is saved in a variable `pdg[nh]`, where `nh` is the number of hits. It is the same as the `PDG encoding` of the particle. A Google search will give more information about it.
 
 [GEARS]: https://github.com/jintonic/gears
 [tg]: http://geant4.web.cern.ch/geant4/collaboration/working_groups/geometry/docs/textgeom/textgeom.pdf
