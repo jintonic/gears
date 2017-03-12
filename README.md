@@ -102,10 +102,10 @@ Since it requires a lot of knowledge to set up a correct physics list, [Geant4][
 Three optional lists (G4OpticalPhysics, G4HadronElasticPhysicsHP, G4HadronPhysicsFTFP_BERT_HP) can be enabled using [Geant4][] macros:
 
 ~~~
-# has to be called before /run/initialize
-/physics_lists/enable Optical
-/physics_lists/enable HadronElastic
-/physics_lists/enable HadronInelastic
+  # has to be called before /run/initialize
+  /physics_lists/enable Optical
+  /physics_lists/enable HadronElastic
+  /physics_lists/enable HadronInelastic
 ~~~
 
 ### Physics processes
@@ -157,6 +157,12 @@ The physics process leading to each hit is saved in a variable `pro[nh]`, where 
 ## particle id
 
 The type of particle related to a hit is saved in a variable `pdg[nh]`, where `nh` is the number of hits. It is the same as the `PDG encoding` of the particle. A Google search will give more information about it.
+
+# Coding convention
+
+## G4cout VS std::cout
+
+`G4cout` and `G4endl` is preferred over `std:cout` and `std:endl` because the former handle the output in [Geant4][] GUI correctly, while the later can only output to terminal.
 
 [GEARS]: https://github.com/jintonic/gears
 [tg]: http://geant4.web.cern.ch/geant4/collaboration/working_groups/geometry/docs/textgeom/textgeom.pdf
