@@ -102,6 +102,7 @@ Since it requires a lot of knowledge to set up a correct physics list, [Geant4][
 Three optional lists (G4OpticalPhysics, G4HadronElasticPhysicsHP, G4HadronPhysicsFTFP_BERT_HP) can be enabled using [Geant4][] macros:
 
 ~~~
+# has to be called before /run/initialize
 /physics_lists/enable Optical
 /physics_lists/enable HadronElastic
 /physics_lists/enable HadronInelastic
