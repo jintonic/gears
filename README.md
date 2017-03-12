@@ -108,7 +108,7 @@ Three optional lists (G4OpticalPhysics, G4HadronElasticPhysicsHP, G4HadronPhysic
 /physics_lists/enable HadronInelastic
 ~~~
 
-## Physics processes
+### Physics processes
 
 Run `/process/list` after `/run/initialize`, and you will get
 
@@ -141,6 +141,12 @@ Individual optical processes can be toggled by the following commands:
 /process/optical/processActivation OpWLS true/false
 ~~~
 
+Detailed control of radioactive decay is provided by the /[grdm]/ command, for example,
+
+~~~
+/grdm/deselectVolume chamber # disabled radioactive decay in volume "chamber"
+~~~
+
 # Output
 
 ## process id
@@ -162,3 +168,4 @@ The type of particle related to a hit is saved in a variable `pdg[nh]`, where `n
 [listMaterials]: https://geant4.web.cern.ch/geant4/UserDocumentation/UsersGuides/ForApplicationDeveloper/html/AllResources/Control/UIcommands/_material_nist_.html
 [G4OpBoundaryProcess]: http://www-geant4.kek.jp/lxr/source/processes/optical/src/G4OpBoundaryProcess.cc
 [G4LogicalBorderSurface]: http://www-geant4.kek.jp/lxr/source/processes/optical/src/G4LogicalBorderSurface.cc
+[grdm]:http://geant4.cern.ch/UserDocumentation/UsersGuides/ForApplicationDeveloper/html/AllResources/Control/UIcommands/_grdm_.html
