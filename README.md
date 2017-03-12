@@ -127,7 +127,7 @@ anti_omega-Inelastic,anti_protonInelastic,anti_neutronInelastic,anti_deuteronIne
 anti_tritonInelastic,  anti_He3Inelastic,anti_alphaInelastic
 ~~~
 
-Now you can use, for example, `/process/inactivate nCapture` to disable neutron capture process in your simulation. And you can use, for example, `/process/setVerbose 20 RadioactiveDecay` to change the verbosity of the RadioactiveDecay process.
+Now you can use, for example, `/process/inactivate nCapture` to disable neutron capture process in your simulation. And you can use, for example, `/process/setVerbose 20 RadioactiveDecay` to change the verbosity of the radioactive decay process.
 
 Individual optical processes can be toggled by the following commands:
 
@@ -145,6 +145,7 @@ Detailed control of radioactive decay is provided by the /[grdm]/ command, for e
 
 ~~~
 /grdm/deselectVolume chamber # disabled radioactive decay in volume "chamber"
+/grdm/nucleusLimits 1 80 # enabled radioactive decay only when z in [1, 80]
 ~~~
 
 # Output
