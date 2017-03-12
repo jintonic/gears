@@ -1,8 +1,7 @@
 /geometry/source geom/NICE/CsI2in10cm.CF6in.tg
 
-/physics_lists/enable RadioactiveDecay
-/physics_lists/enable HadronInelastic
 /physics_lists/enable HadronElastic
+/physics_lists/enable HadronInelastic
 
 /run/initialize
 
@@ -11,6 +10,8 @@
 /geometry/test/run
 
 /process/list
+#/grdm/deselectVolume chamber
+#/grdm/nucleusLimits 1 293 40 50
 
 # AmBe neutron spectrum
 /control/execute macro/src/AmBe.mac
@@ -20,5 +21,6 @@
 
 /output/file AmBe.root
 
+#/tracking/verbose 2
 /run/statusReport 100000
 /run/beamOn 500000
