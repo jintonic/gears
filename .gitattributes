@@ -1,2 +1,2 @@
-*.C linguish-language=c++
+*.C linguish-language=C++
 docs/* linguish-vendored
