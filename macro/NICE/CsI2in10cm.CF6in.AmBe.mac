@@ -19,8 +19,8 @@
 
 /random/setSeeds 2412 79628
 
-/output/file AmBe.root
-
 #/tracking/verbose 2
+
+/run/output AmBe.root
 /run/statusReport 100000
 /run/beamOn 500000
