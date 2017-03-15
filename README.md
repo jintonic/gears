@@ -1,4 +1,27 @@
-[GEARS][] is a [Geant4][] Example Application that is made feature Rich yet extremely Small by utilizing [Geant4][] plain [text geometry description][tg] and [build-in UI commands][TUI] (macros) to reduce C++ coding down to a single file (less than 500 [SLOC][]). It is ideal for student training and fast implementation of small experiments.
+[GEARS][] is a [Geant4][] Example Application with Rich features yet Small footprint. The entire C++ coding is minimized down to a single file with less than 500 [SLOC][]. This is achieved mainly by utilizing [Geant4][] plain [text geometry description][tg], [build-in UI commands][TUI] (macros), and C++ inheritance. It is ideal for student training and fast implementation of small to medium-sized experiments.
+
+# Features
+
+* Single small C++ file
+  * Easy code browsing
+  * Easy management and compiling
+* Fast compilation
+  * a few second on a regular PC
+* Output in ROOT TTree format
+  * Build-in data compression
+  * Fast access to independent data members
+  * Flat tree (no nested branches or arrays)
+    * Easy to use in TTree::Draw
+    * No need to load extra library to open
+* Record information of step 0 (initStep)
+  * This is not available from G4UserSteppingAction
+* Create/Change geometry without re-compilation
+* Turn any volume to a sensitive detector by adding "(S)" in its name
+* Assign optical properties in [Geant4][] plain [text geometry description][tg]
+* Optional optical and hadronic physics
+* Periodic status report in a long run
+* Frequently used source spectra (AmBe, Am-241, etc.)
+* Doxygen documentation
 
 # Prerequisites
 
