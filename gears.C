@@ -21,8 +21,8 @@ class Output : public G4SteppingVerbose, public G4UImessenger
       Output();
       ~Output() { delete fCmd; }
       void TrackingStarted(); ///< Infomation of step 0 (initStep)
-      void StepInfo() ///< Infomation of step 1 and afterward
-      { G4SteppingVerbose::StepInfo(); Record(); }
+      void StepInfo()
+      { G4SteppingVerbose::StepInfo(); Record(); } ///< Infomation of step > 0 
       void Reset(); ///< Reset record variables
       void SetNewValue(G4UIcommand* cmd, G4String value); ///< for G4UI
 
@@ -149,8 +149,8 @@ struct BorderSurface
    G4String name; ///< name of the surface
    G4String v1;   ///< name of volume 1
    G4String v2;   ///< name of volume 2
-   G4OpticalSurface* optic;
-   BorderSurface* next;
+   G4OpticalSurface* optic; ///< point to G4OpticalSurface object
+   BorderSurface* next; ///< link to next border surface
 }; 
 //______________________________________________________________________________
 //
@@ -169,7 +169,7 @@ class LineProcessor: public G4tgrLineProcessor
        */
       G4bool ProcessLine(const std::vector<G4String> &words);
 
-      BorderSurface* Border;
+      BorderSurface* Border; ///< pointer to a BorderSurface object
 
    private:
       G4MaterialPropertiesTable* CreateMaterialPropertiesTable(
@@ -305,12 +305,18 @@ G4MaterialPropertiesTable* LineProcessor::CreateMaterialPropertiesTable(
 //______________________________________________________________________________
 //
 #include <G4tgbDetectorBuilder.hh>
+/**
+ * Construct detector based on text geometry description.
+ */
 class TextDetectorBuilder : public G4tgbDetectorBuilder
 {
    public :
       TextDetectorBuilder() { fLineProcessor = new LineProcessor(); }
       ~TextDetectorBuilder() { delete fLineProcessor; }
       const G4tgrVolume* ReadDetector(); ///< Read text geometry input
+      /**
+       * Construct detector based on text geometry description.
+       */
       G4VPhysicalVolume* ConstructDetector(const G4tgrVolume* topVol);
 
    private :
@@ -391,8 +397,8 @@ class Detector : public G4VUserDetectorConstruction, public G4UImessenger
       Detector();
       ~Detector()
       { delete fDir; delete fCmdSetM; delete fCmdSrc; delete fField; }
-      G4VPhysicalVolume* Construct();
-      void SetNewValue(G4UIcommand* cmd, G4String value);
+      G4VPhysicalVolume* Construct(); ///< Construct detector
+      void SetNewValue(G4UIcommand* cmd, G4String value); ///< for G4UI
 
    private:
       G4String fGeomSrcText;
@@ -458,7 +464,7 @@ class Physics: public G4VModularPhysicsList, public G4UImessenger
    public:
       Physics();
       ~Physics() { delete fCmd; }
-      void SetNewValue(G4UIcommand* cmd, G4String value);
+      void SetNewValue(G4UIcommand* cmd, G4String value); ///< for G4UI
    private:
       G4UIcmdWithAString* fCmd;
 };
@@ -496,7 +502,6 @@ void Physics::SetNewValue(G4UIcommand* cmd, G4String value)
 }
 //______________________________________________________________________________
 //
-const int MaxNsrc=1000; ///< Max number of sources that can be handled
 #include <G4VUserPrimaryGeneratorAction.hh>
 #include <G4GeneralParticleSource.hh>
 /**
@@ -510,7 +515,7 @@ class Generator : public G4VUserPrimaryGeneratorAction
       { fSource = new G4GeneralParticleSource; }
       virtual ~Generator() { delete fSource; }
       virtual void GeneratePrimaries(G4Event* evt)
-      { fSource->GeneratePrimaryVertex(evt); }
+      { fSource->GeneratePrimaryVertex(evt); } ///< add sources to an event
    private:
       G4GeneralParticleSource* fSource;
 };
@@ -524,7 +529,7 @@ class RunAction : public G4UserRunAction
 {
    public:
       RunAction() : G4UserRunAction() {};
-      void BeginOfRunAction (const G4Run* run);
+      void BeginOfRunAction (const G4Run* run);///< Print # of evts
       void EndOfRunAction (const G4Run* run); ///< Close output file
 };
 //______________________________________________________________________________
@@ -556,11 +561,14 @@ class EventAction : public G4UserEventAction, public G4UImessenger
    public:
       EventAction();
       ~EventAction() { delete fCmd; }
+      /**
+       * Reset data recorder
+       */
       void BeginOfEventAction(const G4Event*)
       { ((Output*) G4VSteppingVerbose::GetInstance())->Reset(); }
-      void EndOfEventAction(const G4Event* event);
+      void EndOfEventAction(const G4Event* event); ///< fill tree
       void SetNewValue(G4UIcommand* cmd, G4String value)
-      { if (cmd==fCmd) fN2report=atoi(value); }
+      { if (cmd==fCmd) fN2report=atoi(value); } ///< for G4UI
    private:
       int fN2report;///< Number of events to report
       G4UIcmdWithAnInteger* fCmd;
