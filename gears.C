@@ -3,173 +3,138 @@
  *
  * The only C++ file in this project.
  *
- * Everything is placed inside this file intentionally to simplify the
- * makefile.
+ * Everything is placed in one file intentionally to simplify management.
  */
-const int MaxNhit=20000; ///< Max number of hits that can be recorded
-const int MaxNsrc=1000; ///< Max number of sources that can be handled
+const int MaxNpnt=20000; ///< Max number of track points that can be recorded
 const int MaxNdet=100; ///< Max number of detectors that can be handled
-
 #include <TFile.h>
 #include <TTree.h>
-
-#include <G4PrimaryVertex.hh>
-#include <G4Track.hh>
+#include <G4SteppingVerbose.hh>
 #include <G4UImessenger.hh>
-#include <G4UIdirectory.hh>
 #include <G4UIcmdWithAString.hh>
 /**
- * Save simulation results to a file.
+ * Output simulation results to screen or a file.
  */
-class Output: public G4UImessenger
+class Output : public G4SteppingVerbose, public G4UImessenger
 {
    public:
       Output();
-      ~Output() { delete fCmd; delete fDir; delete fFile; }
+      ~Output() { delete fCmd; }
+      void TrackingStarted(); ///< Infomation of step 0 (initStep)
+      void StepInfo() ///< Infomation of step 1 and afterward
+      { G4SteppingVerbose::StepInfo(); Record(); }
+      void Reset(); ///< Reset record variables
+      void SetNewValue(G4UIcommand* cmd, G4String value); ///< for G4UI
 
-      void Open(); ///< Open output file and define data structure
-      void Record(G4PrimaryVertex* vtx); ///< Record source info
-      void Record(G4Track *track); ///< Record track info.
-      void Write() { fTree->Fill(); Reset(); }
-      void Close() { fFile->Write(); fFile->Close(); }
+      short n; ///< Number of track points
+      short trk[MaxNpnt]; ///< track id
+      short stp[MaxNpnt]; ///< step number
+      short det[MaxNpnt]; ///< detector volume copy number
+      short pro[MaxNpnt]; ///< process id * 100 + sub-process id
+      int pdg[MaxNpnt]; ///< particle PDG encoding
+      int mom[MaxNpnt]; ///< parent particle's PDG encoding
+      double e[MaxNpnt]; ///< energy deposited [keV]
+      double k[MaxNpnt]; ///< kinetic energy of the track [keV]
+      double t[MaxNpnt]; ///< time [ns]
+      double x[MaxNpnt]; ///< x [mm]
+      double y[MaxNpnt]; ///< y [mm]
+      double z[MaxNpnt]; ///< z [mm]
 
-      void SetNewValue(G4UIcommand* cmd, G4String value) ///< for G4UI
-      { if (cmd==fCmd) fFileName = value; }
+      short nd; ///< Number of detectors
+      double ed[MaxNdet]; ///< Total energy deposited in each detector [keV]
 
-      int nh; ///< number of hits
-      int ns; ///< number of primary particles (source)
-      int nd; ///< number of detectors (sensitive volumes)
-      short det[MaxNhit]; ///< detector id
-      int pdg[MaxNhit]; ///< PDG encoding
-      int mom[MaxNhit]; ///< parent's PDG encoding
-      int trk[MaxNhit]; ///< track id
-      int pro[MaxNhit]; ///< process id * 100 + sub-process id
-      double e[MaxNhit]; ///< energy deposited [keV]
-      double k[MaxNhit]; ///< kinetic energy of the track [keV]
-      double et[MaxNdet]; ///< total energy deposited in each detector [keV]
-      double t[MaxNhit]; ///< time of hit [ns]
-      double x[MaxNhit]; ///< x of hit [mm]
-      double y[MaxNhit]; ///< y of hit [mm]
-      double z[MaxNhit]; ///< z of hit [mm]
-      double es[MaxNsrc]; ///< initial energy of primary particle [keV]
-      double ts[MaxNsrc]; ///< time of primary particle emitted [ns]
-      double xs[MaxNsrc]; ///< x of primary particle emitting point [mm]
-      double ys[MaxNsrc]; ///< y of primary particle emitting point [mm]
-      double zs[MaxNsrc]; ///< z of primary particle emitting point [mm]
+      TFile* File; ///< ROOT output file
+      TTree* Tree; ///< ROOT tree to save output
 
    private:
-      void Reset(); ///< Reset track record
-
-      TTree* fTree;
-      TFile* fFile;
-      G4String fFileName; ///< output file name
-
-      G4UIdirectory* fDir;
-      G4UIcmdWithAString* fCmd;
+      void Record(); ///< Record simulated data
+      G4UIcmdWithAString* fCmd; ///< UI command to set output file name
 };
 //______________________________________________________________________________
 //
-Output::Output(): G4UImessenger()
+Output::Output(): G4SteppingVerbose(), G4UImessenger(), File(0), Tree(0)
 {
-   Reset(); // reset track record
-
-   fDir = new G4UIdirectory("/output/");
-   fDir->SetGuidance("Configure output");
-
-   fCmd = new G4UIcmdWithAString("/output/file",this);
+   fCmd = new G4UIcmdWithAString("/run/output",this);
    fCmd->SetGuidance("Set output file name");
    fCmd->SetParameterName("output file name",false);
-} 
-//______________________________________________________________________________
-//
-void Output::Open()
-{
-   fFile=new TFile(fFileName.data(),"recreate","data");
-   fTree=new TTree("t","simulated samples");
-
-   fTree->Branch("nh",&nh,"nh/S");
-   fTree->Branch("ns",&ns,"ns/S");
-   fTree->Branch("nd",&nd,"nd/S");
-   fTree->Branch("et",&et,"et/D");
-   fTree->Branch("e",e,"e[nh]/D");
-   fTree->Branch("k",k,"k[nh]/D");
-   fTree->Branch("t",t,"t[nh]/D");
-   fTree->Branch("x",x,"x[nh]/D");
-   fTree->Branch("y",y,"y[nh]/D");
-   fTree->Branch("z",z,"z[nh]/D");
-   fTree->Branch("det",det,"det[nh]/S");
-   fTree->Branch("pdg",pdg,"pdg[nh]/I");
-   fTree->Branch("pro",&pro,"pro[nh]/I");
-   fTree->Branch("mom",mom,"mom[nh]/I");
-   fTree->Branch("trk",trk,"trk[nh]/I");
-   fTree->Branch("es",es,"es[ns]/D");
-   fTree->Branch("ts",ts,"ts[ns]/D");
-   fTree->Branch("xs",xs,"xs[ns]/D");
-   fTree->Branch("ys",ys,"ys[ns]/D");
-   fTree->Branch("zs",zs,"zs[ns]/D");
 }
 //______________________________________________________________________________
 //
-#include <G4PrimaryParticle.hh>
-#include <CLHEP/Units/SystemOfUnits.h>
-void Output::Record(G4PrimaryVertex* vtx)
+void Output::TrackingStarted()
 {
-   G4PrimaryParticle * particle = vtx->GetPrimary(0);
-   while (particle) {
-      xs[ns] = vtx->GetX0()/CLHEP::cm;
-      ys[ns] = vtx->GetY0()/CLHEP::cm;
-      zs[ns] = vtx->GetZ0()/CLHEP::cm;
-      ts[ns] = vtx->GetT0()/CLHEP::ns;
-      G4ThreeVector P = particle->GetMomentum()/CLHEP::keV;
-      G4double M = particle->GetMass()/CLHEP::keV;
-      if (P.mag() < M/100) es[ns] = P.mag2()/(2*M);
-      else es[ns] = sqrt(P.mag2()+M*M)-M; // relativistic
-      ns++;
-      particle = particle->GetNext();
+   // print to screen
+   G4SteppingVerbose::TrackingStarted(); // fulfill its designed functionality
+   // save to file
+   if(n>=MaxNpnt) {
+      G4cout<<"Number of records >= "<<MaxNpnt<<", stop recording."<<G4endl;
+      fTrack->SetTrackStatus(fKillTrackAndSecondaries);
+      return;
    }
+   Record();
 }
 //______________________________________________________________________________
 //
-#include <G4VProcess.hh>
-void Output::Record(G4Track *track)
+void Output::Record()
 {
-   if (nh>=MaxNhit) {
-      G4cout<<"Output::Record: "
-         <<"Total number of hits >= max capacity "<<MaxNhit<<G4endl;
-      G4cout<<"Output::Record: Hit "<<nh<<" won't be recorded"<<G4endl;
+   trk[n] = fTrack->GetTrackID();
+   stp[n] = fTrack->GetCurrentStepNumber();
+   det[n] = fTrack->GetVolume()->GetCopyNo();
+   pdg[n] = fTrack->GetDefinition()->GetPDGEncoding();
+   mom[n] = fTrack->GetParentID();
+   if (stp[n]==0) {
+      if (mom[n]!=0)
+         pro[n] = fTrack->GetCreatorProcess()->GetProcessType()*1000
+            + fTrack->GetCreatorProcess()->GetProcessSubType();
    } else {
-      det[nh]= track->GetVolume()->GetCopyNo();
-      pdg[nh]=track->GetDefinition()->GetPDGEncoding();
-      k[nh]=track->GetKineticEnergy()/CLHEP::keV;
-      e[nh]=track->GetStep()->GetTotalEnergyDeposit()/CLHEP::keV;
-      t[nh]=track->GetGlobalTime()/CLHEP::ns;
-      x[nh]=track->GetPosition().x()/CLHEP::mm;
-      y[nh]=track->GetPosition().y()/CLHEP::mm;
-      z[nh]=track->GetPosition().z()/CLHEP::mm;
-      mom[nh]=track->GetParentID();
-      trk[nh]=track->GetTrackID();
-      if (track->GetCreatorProcess()) 
-         pro[nh]=track->GetCreatorProcess()->GetProcessType()*1000
-            + track->GetCreatorProcess()->GetProcessSubType();
-      et[det[nh]]+=e[nh];
-      if (det[nh]>=nd) nd = det[nh]+1;
+      const G4VProcess *p = fStep->GetPostStepPoint()->GetProcessDefinedStep();
+      pro[n] = p->GetProcessType()*1000 + p->GetProcessSubType();
    }
-   if(nh>=10000)track->SetTrackStatus(fKillTrackAndSecondaries);
-   nh++;
+   e[n] = fStep->GetTotalEnergyDeposit()/CLHEP::keV;
+   k[n] = fTrack->GetKineticEnergy()/CLHEP::keV;
+   t[n] = fTrack->GetGlobalTime()/CLHEP::ns;
+   x[n] = fTrack->GetPosition().x()/CLHEP::mm;
+   y[n] = fTrack->GetPosition().y()/CLHEP::mm;
+   z[n] = fTrack->GetPosition().z()/CLHEP::mm;
+   if (e[n]>0 && fTrack->GetVolume()->GetName().contains("(S)")) {
+      ed[det[n]]+=e[n];
+      if (det[n]>=nd) nd=det[n]+1;
+   }
+   n++;
 }
 //______________________________________________________________________________
 //
 void Output::Reset()
 {
-   for (int i=0; i<MaxNhit; i++) {
-      e[i]=0; k[i]=0; t[i]=0; x[i]=0; y[i]=0; z[i]=0;
-      det[i]=0; pdg[i]=0; mom[i]=0; trk[i]=0;
+   n=nd=0;
+   for (int i=0; i<MaxNpnt; i++) {
+      trk[i]=stp[i]=det[i]=pro[i]=pdg[i]=mom[i]=-1;
+      e[i]=k[i]=t[i]=x[i]=y[i]=z[i]=0.;
    }
-   for (int i=0;i<MaxNsrc;i++) {
-      es[i]=0; ts[i]=0; xs[i]=0; ys[i]=0; zs[i]=0;
+   for (int i=0; i<MaxNdet; i++) ed[i]=0;
+}
+//______________________________________________________________________________
+//
+void Output::SetNewValue(G4UIcommand* cmd, G4String value)
+{
+   if (cmd==fCmd && File==0) {
+      File = new TFile(value.data(),"recreate");
+      Tree = new TTree("t","simulated samples");
+      Tree->Branch("n",&n,"n/S");
+      Tree->Branch("trk",trk,"trk[n]/S");
+      Tree->Branch("stp",stp,"stp[n]/S");
+      Tree->Branch("det",det,"det[n]/S");
+      Tree->Branch("pro",pro,"pro[n]/S");
+      Tree->Branch("pdg",pdg,"pdg[n]/I");
+      Tree->Branch("mom",mom,"mom[n]/I");
+      Tree->Branch("e",e,"e[n]/D");
+      Tree->Branch("k",k,"k[n]/D");
+      Tree->Branch("t",t,"t[n]/D");
+      Tree->Branch("x",x,"x[n]/D");
+      Tree->Branch("y",y,"y[n]/D");
+      Tree->Branch("z",z,"z[n]/D");
+      Tree->Branch("nd",&nd,"nd/S");
+      Tree->Branch("ed",ed,"ed[nd]/D");
    }
-   for (int i=0;i<MaxNdet;i++) et[i]=0;
-   nh=0; ns=0; nd=0;
 }
 //______________________________________________________________________________
 //
@@ -322,7 +287,7 @@ G4MaterialPropertiesTable* LineProcessor::CreateMaterialPropertiesTable(
       } else { // wavelength-dependent properties
          if (photonEnergyUnDefined) {
             G4cout<<"photon energies undefined, "
-              <<"ignore all wavelength-dependent properties!"<<G4endl;
+               <<"ignore all wavelength-dependent properties!"<<G4endl;
             break;
          }
          double *values = new double[cnt];
@@ -407,6 +372,7 @@ G4VPhysicalVolume* TextDetectorBuilder::ConstructDetector(
 #include <G4VUserDetectorConstruction.hh>
 #include <G4TransportationManager.hh>
 #include <G4UIcmdWith3VectorAndUnit.hh>
+#include <G4UIdirectory.hh>
 #include <G4UniformMagField.hh>
 #include <G4FieldManager.hh>
 /**
@@ -530,6 +496,7 @@ void Physics::SetNewValue(G4UIcommand* cmd, G4String value)
 }
 //______________________________________________________________________________
 //
+const int MaxNsrc=1000; ///< Max number of sources that can be handled
 #include <G4VUserPrimaryGeneratorAction.hh>
 #include <G4GeneralParticleSource.hh>
 /**
@@ -550,22 +517,21 @@ class Generator : public G4VUserPrimaryGeneratorAction
 //______________________________________________________________________________
 //
 #include <G4UserRunAction.hh>
+/**
+ * Book keeping before and after a run.
+ */
 class RunAction : public G4UserRunAction
 {
    public:
-      RunAction(Output *out=0) : G4UserRunAction(), fOut(out) {};
-      ~RunAction() {};
+      RunAction() : G4UserRunAction() {};
       void BeginOfRunAction (const G4Run* run);
-      void EndOfRunAction (const G4Run* run);
-   private:
-      Output* fOut;
+      void EndOfRunAction (const G4Run* run); ///< Close output file
 };
 //______________________________________________________________________________
 //
 #include <G4Run.hh>
 void RunAction::BeginOfRunAction (const G4Run* run)
 { 
-   fOut->Open(); 
    G4cout<<run->GetNumberOfEventToBeProcessed()
       <<" events to be processed"<<G4endl;
 }
@@ -574,31 +540,35 @@ void RunAction::BeginOfRunAction (const G4Run* run)
 void RunAction::EndOfRunAction (const G4Run* run)
 {
    G4cout<<run->GetNumberOfEvent()<<" events simulated"<<G4endl;
-   fOut->Write();
-   fOut->Close();
+   Output *o = (Output*) G4VSteppingVerbose::GetInstance();
+   o->File->Write("", TObject::kOverwrite);
+   o->File->Close();
 }
 //______________________________________________________________________________
 //
 #include <G4UserEventAction.hh>
 #include "G4UIcmdWithAnInteger.hh"
+/**
+ * Book keeping before and after an event.
+ */
 class EventAction : public G4UserEventAction, public G4UImessenger
 {
    public:
-      EventAction(Output *out=0);
+      EventAction();
       ~EventAction() { delete fCmd; }
-      void BeginOfEventAction(const G4Event* event);
+      void BeginOfEventAction(const G4Event*)
+      { ((Output*) G4VSteppingVerbose::GetInstance())->Reset(); }
       void EndOfEventAction(const G4Event* event);
       void SetNewValue(G4UIcommand* cmd, G4String value)
       { if (cmd==fCmd) fN2report=atoi(value); }
    private:
-      Output* fOut;
-      int fN2report;
+      int fN2report;///< Number of events to report
       G4UIcmdWithAnInteger* fCmd;
 };
 //______________________________________________________________________________
 //
-EventAction::EventAction(Output *out)
-   : G4UserEventAction(), G4UImessenger(), fOut(out), fN2report(1000)
+EventAction::EventAction()
+   : G4UserEventAction(), G4UImessenger(), fN2report(1000)
 {
    fCmd = new G4UIcmdWithAnInteger("/run/statusReport",this);
    fCmd->SetGuidance("enable status report after [number of events]");
@@ -607,41 +577,12 @@ EventAction::EventAction(Output *out)
 }
 //______________________________________________________________________________
 //
-void EventAction::BeginOfEventAction(const G4Event* event)
-{
-   G4PrimaryVertex* vtx = event->GetPrimaryVertex(0);
-   while (vtx) {
-      fOut->Record(vtx);
-      vtx = vtx->GetNext();
-   }
-}
-//______________________________________________________________________________
-//
 void EventAction::EndOfEventAction(const G4Event* event)
 {
-   fOut->Write();
+   Output *o = (Output*) G4VSteppingVerbose::GetInstance();
+   o->Tree->Fill();
    int id=event->GetEventID();
    if (id%fN2report==0 && id!=0) G4cout<<id<<" events simulated"<<G4endl;
-}
-//______________________________________________________________________________
-//
-#include <G4UserSteppingAction.hh>
-class SteppingAction : public G4UserSteppingAction
-{
-   public:
-      SteppingAction(Output *out=0) : G4UserSteppingAction(), fOut(out) {};
-      ~SteppingAction() {};
-      void UserSteppingAction(const G4Step* step);
-   private:
-      Output* fOut;
-};
-//______________________________________________________________________________
-//
-void SteppingAction::UserSteppingAction(const G4Step* step)
-{   
-   G4String volume = step->GetPreStepPoint()->GetPhysicalVolume()->GetName();
-   if (volume.length()<3) return;
-   if (volume.substr(volume.length()-3)=="(S)") fOut->Record(step->GetTrack());
 }
 //______________________________________________________________________________
 //
@@ -650,40 +591,36 @@ void SteppingAction::UserSteppingAction(const G4Step* step)
 #include <G4UIExecutive.hh>
 #include <G4UImanager.hh> // needed for g4.10 and above
 /**
- * \fn int main(int argc, char **argv)
- *
  * The main function that calls individual components.
  */
 int main(int argc, char **argv)
 {
-   Output *out = new Output; // ROOT output
-
+   // inherit G4SteppingVerbose instead of G4UserSteppingAction to record data
+   G4VSteppingVerbose::SetInstance(new Output); // must be before run manager
+   // initialize necessary components for simulation
    G4RunManager* run = new G4RunManager;
    run->SetUserInitialization(new Detector);
    run->SetUserInitialization(new Physics);
    run->SetUserAction(new Generator);
-   run->SetUserAction(new RunAction(out));
-   run->SetUserAction(new EventAction(out));
-   run->SetUserAction(new SteppingAction(out));
-
+   run->SetUserAction(new RunAction);
+   run->SetUserAction(new EventAction);
+   // enable visualization of detector and tracks
    G4VisManager* vis = new G4VisExecutive;
    //vis->SetVerboseLevel(0); // suppress list of vis engines
    vis->Initialize();
-
-   if (argc!=1)  {
+   // run simulation
+   if (argc!=1)  { // run from command line
       G4String exe = "/control/execute ";
       G4String macro = argv[1];
       G4UImanager::GetUIpointer()->ApplyCommand(exe+macro);
-   } else {
+   } else { // run with an UI
       // check available UI automatically in the order of Qt, tsch, Xm
       G4UIExecutive *ui = new G4UIExecutive(argc,argv);
       ui->SessionStart();
       delete ui;
    }
-
+   // clean up
    delete vis;
    delete run;
-   delete out;
-
    return 0;
 }
