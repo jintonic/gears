@@ -1,5 +1,4 @@
 /geometry/source geom/XMASS/PMTs.tg
-/output/file newfile.root
 /run/initialize
 
 /vis/ASCIITree/verbose 13
@@ -21,4 +20,5 @@
 /gps/energy 1.2 MeV
 /gps/position 0 0 400 mm
 
+/run/output xmass.root
 /run/beamOn 10

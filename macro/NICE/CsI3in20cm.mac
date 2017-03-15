@@ -28,7 +28,6 @@
 
 /tracking/verbose 2
 
-/output/file nice.root
-
+/run/output nice.root
 /run/statusReport
 /run/beamOn 1
