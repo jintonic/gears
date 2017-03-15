@@ -173,13 +173,30 @@ Detailed control of radioactive decay is provided by the /[grdm]/ command, for e
 
 # Output
 
-## process id
+## Track point
 
-The physics process leading to each hit is saved in a variable `pro[nh]`, where `nh` is the number of hits. It equals to (process type)*1000 + (sub type). The Process types are defined in G4ProcessType.hh, sub types are defined in G4HadronicProcessType.hh, G4DecayProcessType.hh, G4EmProcessSubType.hh.  G4TransportationProcessType.hh, G4FastSimulationProcessType.hh, G4OpProcessSubType.hh, etc. They can be found at http://www-geant4.kek.jp/lxr/find?string=Type.hh
+A track point is a concept introduced in [GEARS][]. It is a point where a track is generated or changed. It records the following information:
 
-## particle id
+* Track id
+* Step number, starting from 0
+* Detector volume copy number
+* [Process id](#process-id)
+* [Particle id](#particle-id)
+* Parent id
+* Energy deposited [keV]
+* Kinetic energy of the track [keV]
+* global time [ns]
+* x [mm]
+* y [mm]
+* z [mm]
 
-The type of particle related to a hit is saved in a variable `pdg[nh]`, where `nh` is the number of hits. It is the same as the `PDG encoding` of the particle. A Google search will give more information about it.
+## Process id
+
+The physics process generating each track point is saved in a variable `pro[n]`, where `n` is the index of the track point. It equals to (process type)*1000 + (sub type). The Process types are defined in G4ProcessType.hh, sub types are defined in G4HadronicProcessType.hh, G4DecayProcessType.hh, G4EmProcessSubType.hh,  G4TransportationProcessType.hh, G4FastSimulationProcessType.hh, G4OpProcessSubType.hh, etc. They can be found at http://www-geant4.kek.jp/lxr/find?string=Type.hh
+
+## Particle id
+
+The type of particle related to a track point is saved in a variable `pdg[n]`. It is the same as the `PDG encoding` of the particle. A Google search will give more information about it.
 
 # Coding convention
 
@@ -199,3 +216,4 @@ The type of particle related to a hit is saved in a variable `pdg[nh]`, where `n
 [G4OpBoundaryProcess]: http://www-geant4.kek.jp/lxr/source/processes/optical/src/G4OpBoundaryProcess.cc
 [G4LogicalBorderSurface]: http://www-geant4.kek.jp/lxr/source/processes/optical/src/G4LogicalBorderSurface.cc
 [grdm]:http://geant4.cern.ch/UserDocumentation/UsersGuides/ForApplicationDeveloper/html/AllResources/Control/UIcommands/_grdm_.html
+[G4Track]: http://www-geant4.kek.jp/lxr/source//track/include/G4Track.hh
