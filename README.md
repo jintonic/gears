@@ -7,13 +7,13 @@
   * Easy management and compiling
 * Fast compilation
   * a few second on a regular PC
-* [Output](#Output) in ROOT TTree format
+* [Output](#output) in ROOT TTree format
   * Build-in data compression
   * Fast access to independent data members
   * Flat tree (no nested branches or arrays)
     * Easy to use in TTree::Draw
     * No need to load extra library to open
-* [Record information of step 0](#Record-information-of-step-0) (initStep)
+* [Record information of step 0](#record-information-of-step-0) (initStep)
   * This is not available from G4UserSteppingAction
 * Create/Change geometry without re-compilation
 * Turn any volume to a sensitive detector by adding "(S)" in its name
@@ -202,23 +202,23 @@ The type of particle related to a track point is saved in a variable `pdg[n]`. I
 
 One cannot get access to step 0 (initStep printed on screen if `/tracking/verbose` is set to be more than 0) through [G4UserSteppingAction][], which only provides access to step 1 and afterwards. However, step 0 contains some very important information that is constantly requested by the user. For example, the energy of a gamma ray from a radioactive decay is only available from step 0. Such information can be easily displayed using the following ROOT command with the Output ROOT tree, `t`:
 
-~~~
+~~~cpp
   // draw kinetic energy, "k", of a gamma (pdg==22)
   // created by radioactive decay process (pro==6210)
   t->Draw("k","pro==6210 && pdg==22")
 ~~~
 
-This is achieved by using [G4SteppingVerbose][] instead of [G4UserSteppingAction][] for data recording. The former provides a function called TrackingStarted() to print verbose information about step 0 on screen if `/tracking/verbose` is set to be more than 0. It also provides a function called StepInfo() to print verbose information about steps after step 0 on screen if `/tracking/verbose` is more than 0. [G4SteppingVerbose][]::StepInfo() is called right before [G4UserSteppingAction][]::UserSteppingAction(G4Step*) is called in [G4SteppingManager][]::Stepping(), it hence can be used to replace the functionality of [G4UserSteppingAction][]::UserSteppingAction(G4Step*).
+This is achieved by using [G4SteppingVerbose][] instead of [G4UserSteppingAction][] for data recording. The former provides a function called `TrackingStarted()` to print verbose information about step 0 on screen if `/tracking/verbose` is set to be more than 0. It also provides a function called `StepInfo()` to print verbose information about steps after step 0 on screen if `/tracking/verbose` is more than 0. [G4SteppingVerbose][]::StepInfo() is called right before [G4UserSteppingAction][]::UserSteppingAction(G4Step*) is called in [G4SteppingManager][]::Stepping(), it hence can be used to fully replace the functionality of [G4UserSteppingAction][]::UserSteppingAction(G4Step*).
 
-In fact, [G4UserSteppingAction][]::UserSteppingAction(G4Step*) is not used at all in [GEARS][]. The Output class inherits TrackingStarted() and StepInfo() from [G4SteppingVerbose][] to record data from all steps. There is another advantage of using [G4SteppingVerbose][] instead of [G4UserSteppingAction][] for recording, that is, [G4SteppingVerbose][] is provided as a globally available singleton, which can be easily accessed at different places in the codes using:
+In fact, [G4UserSteppingAction][]::UserSteppingAction(G4Step*) is not used at all in [GEARS][]. The Output class inherits `TrackingStarted()` and `StepInfo()` from [G4SteppingVerbose][] to record data from all steps. There is another advantage of using [G4SteppingVerbose][] instead of [G4UserSteppingAction][] for recording, that is, [G4SteppingVerbose][] is provided as a globally available singleton, which can be easily accessed at different places in the codes using:
 
-~~~
-  G4VSteppingVerbose::GetInstance()
+~~~cpp
+  G4VSteppingVerbose::GetInstance();
 ~~~
 
 This is used in [G4UserRunAction][] to open and close a TFile, in [G4UserEventAction][] to fill a TTree.
 
-The catch is that functions in [G4SteppingVerbose][] will not be called in [G4SteppingManager][] unless `/tracking/verbose` is set, which will print too much information on screen for a long run. This is solved in EventAction::BeginOfEventAction by turning on tracking verbose all the time so that all functions in [G4SteppingVerbose][] will be called, while at the same time, turning on [G4SteppingVerbose][] local verbose flag [Silent][] to run them in silent mode.
+The catch is that functions in [G4SteppingVerbose][] will not be called in [G4SteppingManager][] unless `/tracking/verbose` is set, which will print too much information on screen for a long run. This is solved in [EventAction][]::BeginOfEventAction by turning on tracking verbose all the time so that all functions in [G4SteppingVerbose][] will be called, while at the same time, turning on [G4SteppingVerbose][] local verbose flag [Silent][] to run them in silent mode.
 
 # Coding convention
 
@@ -241,6 +241,8 @@ The catch is that functions in [G4SteppingVerbose][] will not be called in [G4St
 [G4Track]: http://www-geant4.kek.jp/lxr/source/track/include/G4Track.hh
 [G4UserSteppingAction]:http://www-geant4.kek.jp/lxr/source/tracking/include/G4UserSteppingAction.hh
 [G4SteppingVerbose]: http://www-geant4.kek.jp/lxr/source/tracking/include/G4SteppingVerbose.hh
+[G4SteppingManager]: http://www-geant4.kek.jp/lxr/source/tracking/include/G4SteppingManager.hh
 [G4UserRunAction]: http://www-geant4.kek.jp/lxr/source/run/include/G4UserRunAction.hh
 [G4UserEventAction]: http://www-geant4.kek.jp/lxr/source/event/include/G4UserEventAction.hh
 [Silent]: http://www-geant4.kek.jp/lxr/source/tracking/src/G4VSteppingVerbose.cc#L50
+[EventAction]: http://www.physino.xyz/gears/classEventAction.html
