@@ -1,4 +1,5 @@
 var searchData=
 [
-  ['main',['main',['../gears_8C.html#a3c04138a5bfe5d72780bb7e82a18e627',1,'gears.C']]]
+  ['generateprimaries',['GeneratePrimaries',['../classGenerator.html#ab6b5cd74074e80f0895ff75aae3e1716',1,'Generator']]],
+  ['generator',['Generator',['../classGenerator.html#aaaf1e5f3a47ede3ef8a96a301ee04a10',1,'Generator']]]
 ];

@@ -79,13 +79,15 @@ Collaboration diagram for Detector:</div>
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-methods"></a>
 Public Member Functions</h2></td></tr>
-<tr class="memitem:aa94039cc2c70c0f9dbaf03f1070599f6"><td class="memItemLeft" align="right" valign="top"><a id="aa94039cc2c70c0f9dbaf03f1070599f6"></a>
-G4VPhysicalVolume *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classDetector.html#aa94039cc2c70c0f9dbaf03f1070599f6">Construct</a> ()</td></tr>
-<tr class="memdesc:aa94039cc2c70c0f9dbaf03f1070599f6"><td class="mdescLeft">&#160;</td><td class="mdescRight">Construct detector. <br /></td></tr>
+<tr class="memitem:aa43b3d7bbd4b225855b4bcc93f70b225"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classDetector.html#aa43b3d7bbd4b225855b4bcc93f70b225">Detector</a> ()</td></tr>
+<tr class="separator:aa43b3d7bbd4b225855b4bcc93f70b225"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ae16b7bf62f39cb287927d56ca17663d7"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classDetector.html#ae16b7bf62f39cb287927d56ca17663d7">~Detector</a> ()</td></tr>
+<tr class="separator:ae16b7bf62f39cb287927d56ca17663d7"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aa94039cc2c70c0f9dbaf03f1070599f6"><td class="memItemLeft" align="right" valign="top">G4VPhysicalVolume *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classDetector.html#aa94039cc2c70c0f9dbaf03f1070599f6">Construct</a> ()</td></tr>
+<tr class="memdesc:aa94039cc2c70c0f9dbaf03f1070599f6"><td class="mdescLeft">&#160;</td><td class="mdescRight">Construct detector.  <a href="#aa94039cc2c70c0f9dbaf03f1070599f6">More...</a><br /></td></tr>
 <tr class="separator:aa94039cc2c70c0f9dbaf03f1070599f6"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a2faa7c7dda09ce4085e621f0183ce81a"><td class="memItemLeft" align="right" valign="top"><a id="a2faa7c7dda09ce4085e621f0183ce81a"></a>
-void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classDetector.html#a2faa7c7dda09ce4085e621f0183ce81a">SetNewValue</a> (G4UIcommand *cmd, G4String value)</td></tr>
-<tr class="memdesc:a2faa7c7dda09ce4085e621f0183ce81a"><td class="mdescLeft">&#160;</td><td class="mdescRight">for G4UI <br /></td></tr>
+<tr class="memitem:a2faa7c7dda09ce4085e621f0183ce81a"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classDetector.html#a2faa7c7dda09ce4085e621f0183ce81a">SetNewValue</a> (G4UIcommand *cmd, G4String value)</td></tr>
+<tr class="memdesc:a2faa7c7dda09ce4085e621f0183ce81a"><td class="mdescLeft">&#160;</td><td class="mdescRight">for G4UI  <a href="#a2faa7c7dda09ce4085e621f0183ce81a">More...</a><br /></td></tr>
 <tr class="separator:a2faa7c7dda09ce4085e621f0183ce81a"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
@@ -94,7 +96,109 @@ void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="clas
 <p>It won't work together with HP neutron simulation if Geant4 version is lower than 10 because of this bug: <a href="http://hypernews.slac.stanford.edu/HyperNews/geant4/get/hadronprocess/1242.html?inline=-1">http://hypernews.slac.stanford.edu/HyperNews/geant4/get/hadronprocess/1242.html?inline=-1</a> </p>
 
 <p class="definition">Definition at line <a class="el" href="gears_8C_source.html#l00395">395</a> of file <a class="el" href="gears_8C_source.html">gears.C</a>.</p>
-</div><hr/>The documentation for this class was generated from the following file:<ul>
+</div><h2 class="groupheader">Constructor &amp; Destructor Documentation</h2>
+<a id="aa43b3d7bbd4b225855b4bcc93f70b225"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aa43b3d7bbd4b225855b4bcc93f70b225">&#9670;&nbsp;</a></span>Detector()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">Detector::Detector </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p class="definition">Definition at line <a class="el" href="gears_8C_source.html#l00414">414</a> of file <a class="el" href="gears_8C_source.html">gears.C</a>.</p>
+<div class="fragment"><div class="line"><a name="l00414"></a><span class="lineno">  414</span>&#160;                  : G4UImessenger()</div><div class="line"><a name="l00415"></a><span class="lineno">  415</span>&#160;{</div><div class="line"><a name="l00416"></a><span class="lineno">  416</span>&#160;   fCmdSrc = <span class="keyword">new</span> G4UIcmdWithAString(<span class="stringliteral">&quot;/geometry/source&quot;</span>,<span class="keyword">this</span>);</div><div class="line"><a name="l00417"></a><span class="lineno">  417</span>&#160;   fCmdSrc-&gt;SetGuidance(<span class="stringliteral">&quot;Set geometry source file name&quot;</span>);</div><div class="line"><a name="l00418"></a><span class="lineno">  418</span>&#160;   fCmdSrc-&gt;SetParameterName(<span class="stringliteral">&quot;text geometry input&quot;</span>,<span class="keyword">false</span>);</div><div class="line"><a name="l00419"></a><span class="lineno">  419</span>&#160;   fCmdSrc-&gt;AvailableForStates(G4State_PreInit);</div><div class="line"><a name="l00420"></a><span class="lineno">  420</span>&#160;</div><div class="line"><a name="l00421"></a><span class="lineno">  421</span>&#160;   fDir = <span class="keyword">new</span> G4UIdirectory(<span class="stringliteral">&quot;/field/&quot;</span>);</div><div class="line"><a name="l00422"></a><span class="lineno">  422</span>&#160;   fDir-&gt;SetGuidance(<span class="stringliteral">&quot;Global uniform field UI commands&quot;</span>);</div><div class="line"><a name="l00423"></a><span class="lineno">  423</span>&#160;</div><div class="line"><a name="l00424"></a><span class="lineno">  424</span>&#160;   fCmdSetM = <span class="keyword">new</span> G4UIcmdWith3VectorAndUnit(<span class="stringliteral">&quot;/field/setM&quot;</span>,<span class="keyword">this</span>);</div><div class="line"><a name="l00425"></a><span class="lineno">  425</span>&#160;   fCmdSetM-&gt;SetGuidance(<span class="stringliteral">&quot;Set uniform magnetic field value.&quot;</span>);</div><div class="line"><a name="l00426"></a><span class="lineno">  426</span>&#160;   fCmdSetM-&gt;SetParameterName(<span class="stringliteral">&quot;Bx&quot;</span>, <span class="stringliteral">&quot;By&quot;</span>, <span class="stringliteral">&quot;Bz&quot;</span>, <span class="keyword">false</span>);</div><div class="line"><a name="l00427"></a><span class="lineno">  427</span>&#160;   fCmdSetM-&gt;SetUnitCategory(<span class="stringliteral">&quot;Magnetic flux density&quot;</span>);</div><div class="line"><a name="l00428"></a><span class="lineno">  428</span>&#160;</div><div class="line"><a name="l00429"></a><span class="lineno">  429</span>&#160;   fField = <span class="keyword">new</span> G4UniformMagField(0,0,0);</div><div class="line"><a name="l00430"></a><span class="lineno">  430</span>&#160;}</div></div><!-- fragment -->
+</div>
+</div>
+<a id="ae16b7bf62f39cb287927d56ca17663d7"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ae16b7bf62f39cb287927d56ca17663d7">&#9670;&nbsp;</a></span>~Detector()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">Detector::~Detector </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p class="definition">Definition at line <a class="el" href="gears_8C_source.html#l00399">399</a> of file <a class="el" href="gears_8C_source.html">gears.C</a>.</p>
+<div class="fragment"><div class="line"><a name="l00400"></a><span class="lineno">  400</span>&#160;      { <span class="keyword">delete</span> fDir; <span class="keyword">delete</span> fCmdSetM; <span class="keyword">delete</span> fCmdSrc; <span class="keyword">delete</span> fField; }</div></div><!-- fragment -->
+</div>
+</div>
+<h2 class="groupheader">Member Function Documentation</h2>
+<a id="aa94039cc2c70c0f9dbaf03f1070599f6"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aa94039cc2c70c0f9dbaf03f1070599f6">&#9670;&nbsp;</a></span>Construct()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">G4VPhysicalVolume * Detector::Construct </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Construct detector. </p>
+
+<p class="definition">Definition at line <a class="el" href="gears_8C_source.html#l00446">446</a> of file <a class="el" href="gears_8C_source.html">gears.C</a>.</p>
+<div class="fragment"><div class="line"><a name="l00447"></a><span class="lineno">  447</span>&#160;{</div><div class="line"><a name="l00448"></a><span class="lineno">  448</span>&#160;   G4tgbVolumeMgr* mgr = G4tgbVolumeMgr::GetInstance();</div><div class="line"><a name="l00449"></a><span class="lineno">  449</span>&#160;   mgr-&gt;AddTextFile(fGeomSrcText);</div><div class="line"><a name="l00450"></a><span class="lineno">  450</span>&#160;   <a class="code" href="classTextDetectorBuilder.html">TextDetectorBuilder</a> * gtb = <span class="keyword">new</span> <a class="code" href="classTextDetectorBuilder.html">TextDetectorBuilder</a>;</div><div class="line"><a name="l00451"></a><span class="lineno">  451</span>&#160;   mgr-&gt;SetDetectorBuilder(gtb); </div><div class="line"><a name="l00452"></a><span class="lineno">  452</span>&#160;   G4VPhysicalVolume* world = mgr-&gt;ReadAndConstructDetector();</div><div class="line"><a name="l00453"></a><span class="lineno">  453</span>&#160;   <span class="keywordflow">return</span> world;</div><div class="line"><a name="l00454"></a><span class="lineno">  454</span>&#160;}</div><div class="ttc" id="classTextDetectorBuilder_html"><div class="ttname"><a href="classTextDetectorBuilder.html">TextDetectorBuilder</a></div><div class="ttdef"><b>Definition:</b> <a href="gears_8C_source.html#l00312">gears.C:312</a></div></div>
+</div><!-- fragment -->
+</div>
+</div>
+<a id="a2faa7c7dda09ce4085e621f0183ce81a"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a2faa7c7dda09ce4085e621f0183ce81a">&#9670;&nbsp;</a></span>SetNewValue()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void Detector::SetNewValue </td>
+          <td>(</td>
+          <td class="paramtype">G4UIcommand *&#160;</td>
+          <td class="paramname"><em>cmd</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">G4String&#160;</td>
+          <td class="paramname"><em>value</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>for G4UI </p>
+
+<p class="definition">Definition at line <a class="el" href="gears_8C_source.html#l00433">433</a> of file <a class="el" href="gears_8C_source.html">gears.C</a>.</p>
+<div class="fragment"><div class="line"><a name="l00434"></a><span class="lineno">  434</span>&#160;{</div><div class="line"><a name="l00435"></a><span class="lineno">  435</span>&#160;   <span class="keywordflow">if</span> (cmd==fCmdSetM) {</div><div class="line"><a name="l00436"></a><span class="lineno">  436</span>&#160;      fField-&gt;SetFieldValue(fCmdSetM-&gt;GetNew3VectorValue(value));</div><div class="line"><a name="l00437"></a><span class="lineno">  437</span>&#160;      G4FieldManager* mgr = </div><div class="line"><a name="l00438"></a><span class="lineno">  438</span>&#160;         G4TransportationManager::GetTransportationManager()-&gt;GetFieldManager();</div><div class="line"><a name="l00439"></a><span class="lineno">  439</span>&#160;      mgr-&gt;SetDetectorField(fField);</div><div class="line"><a name="l00440"></a><span class="lineno">  440</span>&#160;      mgr-&gt;CreateChordFinder(fField);</div><div class="line"><a name="l00441"></a><span class="lineno">  441</span>&#160;      G4cout&lt;&lt;<span class="stringliteral">&quot;Magnetic field is set to &quot;</span>&lt;&lt;value&lt;&lt;G4endl;</div><div class="line"><a name="l00442"></a><span class="lineno">  442</span>&#160;   } <span class="keywordflow">else</span> <span class="keywordflow">if</span> (cmd==fCmdSrc) fGeomSrcText = value;</div><div class="line"><a name="l00443"></a><span class="lineno">  443</span>&#160;}</div></div><!-- fragment -->
+</div>
+</div>
+<hr/>The documentation for this class was generated from the following file:<ul>
 <li><a class="el" href="gears_8C_source.html">gears.C</a></li>
 </ul>
 </div><!-- contents -->

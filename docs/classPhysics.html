@@ -79,16 +79,99 @@ Collaboration diagram for Physics:</div>
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-methods"></a>
 Public Member Functions</h2></td></tr>
-<tr class="memitem:a114f19a134371af7ce8fcb93b2450df9"><td class="memItemLeft" align="right" valign="top"><a id="a114f19a134371af7ce8fcb93b2450df9"></a>
-void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classPhysics.html#a114f19a134371af7ce8fcb93b2450df9">SetNewValue</a> (G4UIcommand *cmd, G4String value)</td></tr>
-<tr class="memdesc:a114f19a134371af7ce8fcb93b2450df9"><td class="mdescLeft">&#160;</td><td class="mdescRight">for G4UI <br /></td></tr>
+<tr class="memitem:a4b2ebc0a344f04f48d227c72f0d0fbda"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classPhysics.html#a4b2ebc0a344f04f48d227c72f0d0fbda">Physics</a> ()</td></tr>
+<tr class="separator:a4b2ebc0a344f04f48d227c72f0d0fbda"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a045c3788e28059d3920136499942490f"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classPhysics.html#a045c3788e28059d3920136499942490f">~Physics</a> ()</td></tr>
+<tr class="separator:a045c3788e28059d3920136499942490f"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a114f19a134371af7ce8fcb93b2450df9"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classPhysics.html#a114f19a134371af7ce8fcb93b2450df9">SetNewValue</a> (G4UIcommand *cmd, G4String value)</td></tr>
+<tr class="memdesc:a114f19a134371af7ce8fcb93b2450df9"><td class="mdescLeft">&#160;</td><td class="mdescRight">for G4UI  <a href="#a114f19a134371af7ce8fcb93b2450df9">More...</a><br /></td></tr>
 <tr class="separator:a114f19a134371af7ce8fcb93b2450df9"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
 <div class="textblock"><p>Enable physics lists. <a class="el" href="classPhysics.html">Physics</a> lists have to be enabled when Geant4 is at PreInit state. All UI commands defined here have to be put before /run/Initialize in a mac file. </p>
 
 <p class="definition">Definition at line <a class="el" href="gears_8C_source.html#l00463">463</a> of file <a class="el" href="gears_8C_source.html">gears.C</a>.</p>
-</div><hr/>The documentation for this class was generated from the following file:<ul>
+</div><h2 class="groupheader">Constructor &amp; Destructor Documentation</h2>
+<a id="a4b2ebc0a344f04f48d227c72f0d0fbda"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a4b2ebc0a344f04f48d227c72f0d0fbda">&#9670;&nbsp;</a></span>Physics()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">Physics::Physics </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p class="definition">Definition at line <a class="el" href="gears_8C_source.html#l00477">477</a> of file <a class="el" href="gears_8C_source.html">gears.C</a>.</p>
+<div class="fragment"><div class="line"><a name="l00477"></a><span class="lineno">  477</span>&#160;                 : G4VModularPhysicsList(), G4UImessenger()</div><div class="line"><a name="l00478"></a><span class="lineno">  478</span>&#160;{</div><div class="line"><a name="l00479"></a><span class="lineno">  479</span>&#160;   fCmd = <span class="keyword">new</span> G4UIcmdWithAString(<span class="stringliteral">&quot;/physics_lists/enable&quot;</span>,<span class="keyword">this</span>);</div><div class="line"><a name="l00480"></a><span class="lineno">  480</span>&#160;   fCmd-&gt;SetGuidance(<span class="stringliteral">&quot;Enable a certain physics list&quot;</span>);</div><div class="line"><a name="l00481"></a><span class="lineno">  481</span>&#160;   fCmd-&gt;SetParameterName(<span class="stringliteral">&quot;name of a physics list&quot;</span>, <span class="keyword">false</span>);</div><div class="line"><a name="l00482"></a><span class="lineno">  482</span>&#160;   fCmd-&gt;SetCandidates(<span class="stringliteral">&quot;Optical HadronElastic HadronInelastic&quot;</span>);</div><div class="line"><a name="l00483"></a><span class="lineno">  483</span>&#160;   fCmd-&gt;AvailableForStates(G4State_PreInit);</div><div class="line"><a name="l00484"></a><span class="lineno">  484</span>&#160;</div><div class="line"><a name="l00485"></a><span class="lineno">  485</span>&#160;   RegisterPhysics(<span class="keyword">new</span> G4DecayPhysics()); <span class="comment">// defined many particles</span></div><div class="line"><a name="l00486"></a><span class="lineno">  486</span>&#160;   RegisterPhysics(<span class="keyword">new</span> G4RadioactiveDecayPhysics());</div><div class="line"><a name="l00487"></a><span class="lineno">  487</span>&#160;   RegisterPhysics(<span class="keyword">new</span> G4EmStandardPhysics()); <span class="comment">// must be after RadioactiveDecay</span></div><div class="line"><a name="l00488"></a><span class="lineno">  488</span>&#160;}</div></div><!-- fragment -->
+</div>
+</div>
+<a id="a045c3788e28059d3920136499942490f"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a045c3788e28059d3920136499942490f">&#9670;&nbsp;</a></span>~Physics()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">Physics::~Physics </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p class="definition">Definition at line <a class="el" href="gears_8C_source.html#l00467">467</a> of file <a class="el" href="gears_8C_source.html">gears.C</a>.</p>
+<div class="fragment"><div class="line"><a name="l00467"></a><span class="lineno">  467</span>&#160;{ <span class="keyword">delete</span> fCmd; }</div></div><!-- fragment -->
+</div>
+</div>
+<h2 class="groupheader">Member Function Documentation</h2>
+<a id="a114f19a134371af7ce8fcb93b2450df9"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a114f19a134371af7ce8fcb93b2450df9">&#9670;&nbsp;</a></span>SetNewValue()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void Physics::SetNewValue </td>
+          <td>(</td>
+          <td class="paramtype">G4UIcommand *&#160;</td>
+          <td class="paramname"><em>cmd</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">G4String&#160;</td>
+          <td class="paramname"><em>value</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>for G4UI </p>
+
+<p class="definition">Definition at line <a class="el" href="gears_8C_source.html#l00494">494</a> of file <a class="el" href="gears_8C_source.html">gears.C</a>.</p>
+<div class="fragment"><div class="line"><a name="l00495"></a><span class="lineno">  495</span>&#160;{</div><div class="line"><a name="l00496"></a><span class="lineno">  496</span>&#160;   <span class="keywordflow">if</span> (cmd==fCmd) {</div><div class="line"><a name="l00497"></a><span class="lineno">  497</span>&#160;      <span class="keywordflow">if</span> (value==<span class="stringliteral">&quot;Optical&quot;</span>) RegisterPhysics(<span class="keyword">new</span> G4OpticalPhysics());</div><div class="line"><a name="l00498"></a><span class="lineno">  498</span>&#160;      <span class="keywordflow">else</span> <span class="keywordflow">if</span> (value==<span class="stringliteral">&quot;HadronElastic&quot;</span>)</div><div class="line"><a name="l00499"></a><span class="lineno">  499</span>&#160;         RegisterPhysics(<span class="keyword">new</span> G4HadronElasticPhysicsHP());</div><div class="line"><a name="l00500"></a><span class="lineno">  500</span>&#160;      <span class="keywordflow">else</span> <span class="keywordflow">if</span> (value==<span class="stringliteral">&quot;HadronInelastic&quot;</span>)</div><div class="line"><a name="l00501"></a><span class="lineno">  501</span>&#160;         RegisterPhysics(<span class="keyword">new</span> G4HadronPhysicsFTFP_BERT_HP());</div><div class="line"><a name="l00502"></a><span class="lineno">  502</span>&#160;   }</div><div class="line"><a name="l00503"></a><span class="lineno">  503</span>&#160;}</div></div><!-- fragment -->
+</div>
+</div>
+<hr/>The documentation for this class was generated from the following file:<ul>
 <li><a class="el" href="gears_8C_source.html">gears.C</a></li>
 </ul>
 </div><!-- contents -->

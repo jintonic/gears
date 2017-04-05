@@ -79,16 +79,105 @@ Collaboration diagram for Generator:</div>
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-methods"></a>
 Public Member Functions</h2></td></tr>
-<tr class="memitem:ab6b5cd74074e80f0895ff75aae3e1716"><td class="memItemLeft" align="right" valign="top"><a id="ab6b5cd74074e80f0895ff75aae3e1716"></a>
-virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classGenerator.html#ab6b5cd74074e80f0895ff75aae3e1716">GeneratePrimaries</a> (G4Event *evt)</td></tr>
-<tr class="memdesc:ab6b5cd74074e80f0895ff75aae3e1716"><td class="mdescLeft">&#160;</td><td class="mdescRight">add sources to an event <br /></td></tr>
+<tr class="memitem:aaaf1e5f3a47ede3ef8a96a301ee04a10"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classGenerator.html#aaaf1e5f3a47ede3ef8a96a301ee04a10">Generator</a> ()</td></tr>
+<tr class="separator:aaaf1e5f3a47ede3ef8a96a301ee04a10"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aeb355d65ed59bc5738a5b3e9637186e1"><td class="memItemLeft" align="right" valign="top">virtual&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classGenerator.html#aeb355d65ed59bc5738a5b3e9637186e1">~Generator</a> ()</td></tr>
+<tr class="separator:aeb355d65ed59bc5738a5b3e9637186e1"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ab6b5cd74074e80f0895ff75aae3e1716"><td class="memItemLeft" align="right" valign="top">virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classGenerator.html#ab6b5cd74074e80f0895ff75aae3e1716">GeneratePrimaries</a> (G4Event *evt)</td></tr>
+<tr class="memdesc:ab6b5cd74074e80f0895ff75aae3e1716"><td class="mdescLeft">&#160;</td><td class="mdescRight">add sources to an event  <a href="#ab6b5cd74074e80f0895ff75aae3e1716">More...</a><br /></td></tr>
 <tr class="separator:ab6b5cd74074e80f0895ff75aae3e1716"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
 <div class="textblock"><p>Call Geant4 General Particle Source to generate particles. </p>
 
 <p class="definition">Definition at line <a class="el" href="gears_8C_source.html#l00511">511</a> of file <a class="el" href="gears_8C_source.html">gears.C</a>.</p>
-</div><hr/>The documentation for this class was generated from the following file:<ul>
+</div><h2 class="groupheader">Constructor &amp; Destructor Documentation</h2>
+<a id="aaaf1e5f3a47ede3ef8a96a301ee04a10"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aaaf1e5f3a47ede3ef8a96a301ee04a10">&#9670;&nbsp;</a></span>Generator()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">Generator::Generator </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p class="definition">Definition at line <a class="el" href="gears_8C_source.html#l00514">514</a> of file <a class="el" href="gears_8C_source.html">gears.C</a>.</p>
+<div class="fragment"><div class="line"><a name="l00515"></a><span class="lineno">  515</span>&#160;         : G4VUserPrimaryGeneratorAction(), fSource(0)</div><div class="line"><a name="l00516"></a><span class="lineno">  516</span>&#160;      { fSource = <span class="keyword">new</span> G4GeneralParticleSource; }</div></div><!-- fragment -->
+</div>
+</div>
+<a id="aeb355d65ed59bc5738a5b3e9637186e1"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aeb355d65ed59bc5738a5b3e9637186e1">&#9670;&nbsp;</a></span>~Generator()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">virtual Generator::~Generator </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span><span class="mlabel">virtual</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p class="definition">Definition at line <a class="el" href="gears_8C_source.html#l00517">517</a> of file <a class="el" href="gears_8C_source.html">gears.C</a>.</p>
+<div class="fragment"><div class="line"><a name="l00517"></a><span class="lineno">  517</span>&#160;{ <span class="keyword">delete</span> fSource; }</div></div><!-- fragment -->
+</div>
+</div>
+<h2 class="groupheader">Member Function Documentation</h2>
+<a id="ab6b5cd74074e80f0895ff75aae3e1716"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ab6b5cd74074e80f0895ff75aae3e1716">&#9670;&nbsp;</a></span>GeneratePrimaries()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">virtual void Generator::GeneratePrimaries </td>
+          <td>(</td>
+          <td class="paramtype">G4Event *&#160;</td>
+          <td class="paramname"><em>evt</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span><span class="mlabel">virtual</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>add sources to an event </p>
+
+<p class="definition">Definition at line <a class="el" href="gears_8C_source.html#l00518">518</a> of file <a class="el" href="gears_8C_source.html">gears.C</a>.</p>
+
+</div>
+</div>
+<hr/>The documentation for this class was generated from the following file:<ul>
 <li><a class="el" href="gears_8C_source.html">gears.C</a></li>
 </ul>
 </div><!-- contents -->

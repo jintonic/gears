@@ -79,20 +79,95 @@ Collaboration diagram for RunAction:</div>
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-methods"></a>
 Public Member Functions</h2></td></tr>
-<tr class="memitem:a40026727cd17429e25d28a2910aa6083"><td class="memItemLeft" align="right" valign="top"><a id="a40026727cd17429e25d28a2910aa6083"></a>
-void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classRunAction.html#a40026727cd17429e25d28a2910aa6083">BeginOfRunAction</a> (const G4Run *run)</td></tr>
-<tr class="memdesc:a40026727cd17429e25d28a2910aa6083"><td class="mdescLeft">&#160;</td><td class="mdescRight">Print # of evts. <br /></td></tr>
+<tr class="memitem:a535a70dd2811b2212753372dcb5a2f50"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classRunAction.html#a535a70dd2811b2212753372dcb5a2f50">RunAction</a> ()</td></tr>
+<tr class="separator:a535a70dd2811b2212753372dcb5a2f50"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a40026727cd17429e25d28a2910aa6083"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classRunAction.html#a40026727cd17429e25d28a2910aa6083">BeginOfRunAction</a> (const G4Run *run)</td></tr>
+<tr class="memdesc:a40026727cd17429e25d28a2910aa6083"><td class="mdescLeft">&#160;</td><td class="mdescRight">Print # of evts.  <a href="#a40026727cd17429e25d28a2910aa6083">More...</a><br /></td></tr>
 <tr class="separator:a40026727cd17429e25d28a2910aa6083"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a70c999b4d496cd85116b67c68b7d6ce0"><td class="memItemLeft" align="right" valign="top"><a id="a70c999b4d496cd85116b67c68b7d6ce0"></a>
-void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classRunAction.html#a70c999b4d496cd85116b67c68b7d6ce0">EndOfRunAction</a> (const G4Run *run)</td></tr>
-<tr class="memdesc:a70c999b4d496cd85116b67c68b7d6ce0"><td class="mdescLeft">&#160;</td><td class="mdescRight">Close output file. <br /></td></tr>
+<tr class="memitem:a70c999b4d496cd85116b67c68b7d6ce0"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classRunAction.html#a70c999b4d496cd85116b67c68b7d6ce0">EndOfRunAction</a> (const G4Run *run)</td></tr>
+<tr class="memdesc:a70c999b4d496cd85116b67c68b7d6ce0"><td class="mdescLeft">&#160;</td><td class="mdescRight">Close output file.  <a href="#a70c999b4d496cd85116b67c68b7d6ce0">More...</a><br /></td></tr>
 <tr class="separator:a70c999b4d496cd85116b67c68b7d6ce0"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
 <div class="textblock"><p>Book keeping before and after a run. </p>
 
 <p class="definition">Definition at line <a class="el" href="gears_8C_source.html#l00529">529</a> of file <a class="el" href="gears_8C_source.html">gears.C</a>.</p>
-</div><hr/>The documentation for this class was generated from the following file:<ul>
+</div><h2 class="groupheader">Constructor &amp; Destructor Documentation</h2>
+<a id="a535a70dd2811b2212753372dcb5a2f50"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a535a70dd2811b2212753372dcb5a2f50">&#9670;&nbsp;</a></span>RunAction()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">RunAction::RunAction </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p class="definition">Definition at line <a class="el" href="gears_8C_source.html#l00532">532</a> of file <a class="el" href="gears_8C_source.html">gears.C</a>.</p>
+<div class="fragment"><div class="line"><a name="l00532"></a><span class="lineno">  532</span>&#160;: G4UserRunAction() {};</div></div><!-- fragment -->
+</div>
+</div>
+<h2 class="groupheader">Member Function Documentation</h2>
+<a id="a40026727cd17429e25d28a2910aa6083"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a40026727cd17429e25d28a2910aa6083">&#9670;&nbsp;</a></span>BeginOfRunAction()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void RunAction::BeginOfRunAction </td>
+          <td>(</td>
+          <td class="paramtype">const G4Run *&#160;</td>
+          <td class="paramname"><em>run</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Print # of evts. </p>
+
+<p class="definition">Definition at line <a class="el" href="gears_8C_source.html#l00539">539</a> of file <a class="el" href="gears_8C_source.html">gears.C</a>.</p>
+<div class="fragment"><div class="line"><a name="l00540"></a><span class="lineno">  540</span>&#160;{ </div><div class="line"><a name="l00541"></a><span class="lineno">  541</span>&#160;   G4cout&lt;&lt;run-&gt;GetNumberOfEventToBeProcessed()</div><div class="line"><a name="l00542"></a><span class="lineno">  542</span>&#160;      &lt;&lt;<span class="stringliteral">&quot; events to be processed&quot;</span>&lt;&lt;G4endl;</div><div class="line"><a name="l00543"></a><span class="lineno">  543</span>&#160;}</div></div><!-- fragment -->
+</div>
+</div>
+<a id="a70c999b4d496cd85116b67c68b7d6ce0"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a70c999b4d496cd85116b67c68b7d6ce0">&#9670;&nbsp;</a></span>EndOfRunAction()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void RunAction::EndOfRunAction </td>
+          <td>(</td>
+          <td class="paramtype">const G4Run *&#160;</td>
+          <td class="paramname"><em>run</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Close output file. </p>
+
+<p class="definition">Definition at line <a class="el" href="gears_8C_source.html#l00546">546</a> of file <a class="el" href="gears_8C_source.html">gears.C</a>.</p>
+<div class="fragment"><div class="line"><a name="l00547"></a><span class="lineno">  547</span>&#160;{</div><div class="line"><a name="l00548"></a><span class="lineno">  548</span>&#160;   G4cout&lt;&lt;<span class="stringliteral">&quot;In total, &quot;</span>&lt;&lt;run-&gt;GetNumberOfEvent()&lt;&lt;<span class="stringliteral">&quot; events simulated&quot;</span>&lt;&lt;G4endl;</div><div class="line"><a name="l00549"></a><span class="lineno">  549</span>&#160;   <a class="code" href="classOutput.html">Output</a> *o = (<a class="code" href="classOutput.html">Output</a>*) G4VSteppingVerbose::GetInstance();</div><div class="line"><a name="l00550"></a><span class="lineno">  550</span>&#160;   o-&gt;<a class="code" href="classOutput.html#af8475365629be7bd2837dbc0b6a1442b">File</a>-&gt;Write(<span class="stringliteral">&quot;&quot;</span>, TObject::kOverwrite);</div><div class="line"><a name="l00551"></a><span class="lineno">  551</span>&#160;   o-&gt;<a class="code" href="classOutput.html#af8475365629be7bd2837dbc0b6a1442b">File</a>-&gt;Close();</div><div class="line"><a name="l00552"></a><span class="lineno">  552</span>&#160;}</div><div class="ttc" id="classOutput_html_af8475365629be7bd2837dbc0b6a1442b"><div class="ttname"><a href="classOutput.html#af8475365629be7bd2837dbc0b6a1442b">Output::File</a></div><div class="ttdeci">TFile * File</div><div class="ttdoc">ROOT output file. </div><div class="ttdef"><b>Definition:</b> <a href="gears_8C_source.html#l00046">gears.C:46</a></div></div>
+<div class="ttc" id="classOutput_html"><div class="ttname"><a href="classOutput.html">Output</a></div><div class="ttdef"><b>Definition:</b> <a href="gears_8C_source.html#l00018">gears.C:18</a></div></div>
+</div><!-- fragment -->
+</div>
+</div>
+<hr/>The documentation for this class was generated from the following file:<ul>
 <li><a class="el" href="gears_8C_source.html">gears.C</a></li>
 </ul>
 </div><!-- contents -->

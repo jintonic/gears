@@ -1,5 +1,4 @@
 var searchData=
 [
-  ['readdetector',['ReadDetector',['../classTextDetectorBuilder.html#ad930f807c16f7cf01dd202c0ff9dd8bd',1,'TextDetectorBuilder']]],
-  ['reset',['Reset',['../classOutput.html#abbf68b6b530c12370c9823792423264a',1,'Output']]]
+  ['main',['main',['../gears_8C.html#a3c04138a5bfe5d72780bb7e82a18e627',1,'gears.C']]]
 ];
