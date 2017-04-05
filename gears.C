@@ -76,6 +76,7 @@ void Output::TrackingStarted()
 //
 void Output::Record()
 {
+   if (Silent==1) CopyState(); // point fTrack, fStep, etc. to right places
    trk[n] = fTrack->GetTrackID();
    stp[n] = fTrack->GetCurrentStepNumber();
    det[n] = fTrack->GetVolume()->GetCopyNo();
@@ -544,7 +545,7 @@ void RunAction::BeginOfRunAction (const G4Run* run)
 //
 void RunAction::EndOfRunAction (const G4Run* run)
 {
-   G4cout<<run->GetNumberOfEvent()<<" events simulated"<<G4endl;
+   G4cout<<"In total, "<<run->GetNumberOfEvent()<<" events simulated"<<G4endl;
    Output *o = (Output*) G4VSteppingVerbose::GetInstance();
    o->File->Write("", TObject::kOverwrite);
    o->File->Close();
@@ -561,12 +562,8 @@ class EventAction : public G4UserEventAction, public G4UImessenger
    public:
       EventAction();
       ~EventAction() { delete fCmd; }
-      /**
-       * Reset data recorder
-       */
-      void BeginOfEventAction(const G4Event*)
-      { ((Output*) G4VSteppingVerbose::GetInstance())->Reset(); }
-      void EndOfEventAction(const G4Event* event); ///< fill tree
+      void BeginOfEventAction(const G4Event*); ///< Prepare for recording
+      void EndOfEventAction(const G4Event* event); ///< Fill tree
       void SetNewValue(G4UIcommand* cmd, G4String value)
       { if (cmd==fCmd) fN2report=atoi(value); } ///< for G4UI
    private:
@@ -585,12 +582,25 @@ EventAction::EventAction()
 }
 //______________________________________________________________________________
 //
+#include <G4EventManager.hh>
+void EventAction::BeginOfEventAction(const G4Event*)
+{
+   // turn on the use of G4SteppingVerbose for recording, but silently
+   if (fpEventManager->GetTrackingManager()->GetVerboseLevel()==0) {
+      fpEventManager->GetTrackingManager()->SetVerboseLevel(1);
+      G4VSteppingVerbose::GetInstance()->SetSilent(1);
+   }
+   // reset Output member variables for new record
+   ((Output*) G4VSteppingVerbose::GetInstance())->Reset(); 
+}
+//______________________________________________________________________________
+//
 void EventAction::EndOfEventAction(const G4Event* event)
 {
    Output *o = (Output*) G4VSteppingVerbose::GetInstance();
    o->Tree->Fill();
-   int id=event->GetEventID();
-   if (id%fN2report==0 && id!=0) G4cout<<id<<" events simulated"<<G4endl;
+   int id=event->GetEventID()+1;
+   if (id%fN2report==0) G4cout<<id<<" events simulated"<<G4endl;
 }
 //______________________________________________________________________________
 //
