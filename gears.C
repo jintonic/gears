@@ -642,3 +642,5 @@ int main(int argc, char **argv)
    delete run;
    return 0;
 }
+// -*- C++ -*-
+// vim: set ft=cpp
