@@ -1,0 +1,23 @@
+/geometry/source CsI2in10cm.CF6in.NaI(Tl).tg
+
+/physics_lists/enable HadronElastic
+/physics_lists/enable HadronInelastic
+
+/run/initialize
+
+/vis/ASCIITree/verbose 13
+/vis/drawTree
+/geometry/test/run
+
+/process/list
+
+/control/execute AmBe.mac
+/gps/pos/centre 0 0 -22.5 cm
+
+/random/setSeeds 2412 79628
+
+#/tracking/verbose 2
+
+/run/output AmBe.root
+/run/statusReport 10000
+/run/beamOn 500000
