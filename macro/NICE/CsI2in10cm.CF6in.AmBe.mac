@@ -1,4 +1,4 @@
-/geometry/source geom/NICE/CsI2in10cm.CF6in.tg
+/geometry/source CsI2in10cm.CF6in.NaI(Tl).tg
 
 /physics_lists/enable HadronElastic
 /physics_lists/enable HadronInelastic
@@ -13,14 +13,21 @@
 #/grdm/deselectVolume chamber
 #/grdm/nucleusLimits 1 293 40 50
 
+/vis/open HepRepFile
+/vis/heprep/setCullInvisibles true
+/vis/drawVolume
+/vis/scene/add/axes 0 0 0 10 cm
+/vis/scene/add/trajectories
+/vis/scene/endOfEventAction accumulate 50
+
 # AmBe neutron spectrum
-/control/execute macro/src/AmBe.mac
+/control/execute AmBe.mac
 /gps/pos/centre 0 0 -22.5 cm
 
 /random/setSeeds 2412 79628
 
-#/tracking/verbose 2
+/tracking/verbose 2
 
-/run/output AmBe.root
-/run/statusReport 100000
-/run/beamOn 500000
+/run/output AmBe0.root
+/run/statusReport 1
+/run/beamOn 50
