@@ -1,4 +1,4 @@
-/geometry/source CsI2in10cm.CF6in.NaI(Tl).tg
+/geometry/source CsI2in10cmInCF6inWithNaI(Tl).tg
 
 /physics_lists/enable HadronElastic
 /physics_lists/enable HadronInelastic
