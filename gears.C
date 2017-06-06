@@ -547,8 +547,10 @@ void RunAction::EndOfRunAction (const G4Run* run)
 {
    G4cout<<"In total, "<<run->GetNumberOfEvent()<<" events simulated"<<G4endl;
    Output *o = (Output*) G4VSteppingVerbose::GetInstance();
-   o->File->Write("", TObject::kOverwrite);
-   o->File->Close();
+   if (o->File) { // if file exists
+      o->File->Write("", TObject::kOverwrite);
+      o->File->Close();
+   }
 }
 //______________________________________________________________________________
 //
@@ -598,7 +600,7 @@ void EventAction::BeginOfEventAction(const G4Event*)
 void EventAction::EndOfEventAction(const G4Event* event)
 {
    Output *o = (Output*) G4VSteppingVerbose::GetInstance();
-   o->Tree->Fill();
+   if (o->Tree) o->Tree->Fill();
    int id=event->GetEventID()+1;
    if (id%fN2report==0) G4cout<<id<<" events simulated"<<G4endl;
 }
