@@ -1,8 +1,5 @@
 /geometry/source CsI2in10cmInCF6inWithNaI(Tl).tg
 
-/physics_lists/enable HadronElastic
-/physics_lists/enable HadronInelastic
-
 /run/initialize
 
 /vis/ASCIITree/verbose 13
@@ -11,13 +8,25 @@
 
 /process/list
 
-/control/execute AmBe.mac
+/gps/particle gamma
+
+/gps/pos/type Plane
+/gps/pos/shape Circle
+/gps/pos/radius 1. cm
 /gps/pos/centre 0 0 -22.5 cm
+
+# shoot downward only
+/gps/ang/type iso
+/gps/ang/mintheta 90 degree
+
+/gps/ene/type Gauss
+/gps/ene/mono 4.43803 MeV
+/gps/ene/sigma 0.0467 MeV
 
 /random/setSeeds 2412 79628
 
-/tracking/verbose 2
+/tracking/verbose 0
 
-/run/output AmBe.root
-/run/statusReport 1
-/run/beamOn 1
+/run/output 4438MeV.root
+/run/statusReport 10000
+/run/beamOn 1000000
