@@ -1,6 +1,6 @@
 #!/bin/sh
 
-if [ $# -ne 2 ]; then 
+if [ $# -ne 1 ]; then 
   echo "usage: ./scatter.sh 1000"
   echo "since no number of simulations is specified, 100 is used by default"
   num=100; 
@@ -8,20 +8,14 @@ else
   num=$1; 
 fi
 
-# get path to GEARS directory
-src="${BASH_SOURCE[0]}"
-while [ -h "$src" ] ; do src="$(readlink "$src")"; done
-G="$(cd -P "$(dirname "$src")/../.." && pwd)"
-echo $G
-
 # tailor mac file for animation
 M=animate.mac
-sed -e 's|geom/|'$G'/geom/|' -e 's|mOn [0-9]*|mOn '$num'|' scatter.mac > $M
+sed 's|mOn [0-9]*|mOn '$num'|' scatter.mac > $M
 
 # run geant4 to create eps files
 export DAWN_BATCH=1
 export G4DAWNFILE_MAX_FILE_NUM=$num
-$G/gears.exe $M
+../../gears.exe $M
 
 # convert eps to png
 # eps cannot have transparent background, png can
