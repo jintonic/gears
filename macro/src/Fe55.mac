@@ -1,0 +1,103 @@
+/geometry/source geom/hall.tg
+/run/initialize
+
+# https://indico.in2p3.fr/event/443/session/11/contribution/15/material/slides/0.ppt
+# All energy and branching ratio is based on Isotope handbook (11th edition)
+
+/control/alias srcpos "0 0 0"
+
+# alpha ray
+## alpha1
+/gps/source/intensity 0.8445 # 84.45%
+/gps/particle alpha
+/gps/pos/type Point
+/gps/pos/centre {srcpos}
+/gps/ang/type iso
+/gps/ene/type Mono
+/gps/ene/mono  5.48556 MeV
+
+##alpha2
+/gps/source/add  0.1323 # 13.23%
+/gps/particle alpha
+/gps/pos/type Point
+/gps/pos/centre {srcpos}
+/gps/ang/type iso
+/gps/ene/type Mono
+/gps/ene/mono  5.44286 MeV
+
+# gamma ray
+## gamma 1
+/gps/source/add 0.0240 # 2.40%
+/gps/particle gamma
+/gps/pos/type Point
+/gps/pos/centre {srcpos}
+/gps/ang/type iso
+/gps/ene/type Mono
+/gps/ene/mono 5.888 keV
+
+## gamma 2
+/gps/source/add 0.00121 # 0.121%
+/gps/particle gamma
+/gps/pos/type Point
+/gps/pos/centre {srcpos}
+/gps/ang/type iso
+/gps/ene/type Mono
+/gps/ene/mono 5.899 keV
+
+## gamma 3
+/gps/source/add 0.3578 # 35.78%
+/gps/particle gamma
+/gps/pos/type Point
+/gps/pos/centre {srcpos}
+/gps/ang/type iso
+/gps/ene/type Mono
+/gps/ene/mono 6.490 keV
+
+## gamma 4
+/gps/source/add 0.3578 # 35.78%
+/gps/particle gamma
+/gps/pos/type Point
+/gps/pos/centre {srcpos}
+/gps/ang/type iso
+/gps/ene/type Mono
+/gps/ene/mono 6.490 keV
+
+# Np X-ray ray
+## Np-L_l 
+/gps/source/add 0.00848 # 0.848%
+/gps/particle gamma
+/gps/pos/type Point
+/gps/pos/centre {srcpos}
+/gps/ang/type iso
+/gps/ene/type Mono
+/gps/ene/mono 11.89 keV
+
+## Np-L_alpha
+/gps/source/add 0.1303 # 13.03 %
+/gps/particle gamma
+/gps/pos/type Point
+/gps/pos/centre {srcpos}
+/gps/ang/type iso
+/gps/ene/type Mono
+/gps/ene/mono 13.90 keV
+
+## Np-L_beta_eta 
+/gps/source/add 0.1886 # 18.86 %
+/gps/particle gamma
+/gps/pos/type Point
+/gps/pos/centre {srcpos}
+/gps/ang/type iso
+/gps/ene/type Mono
+/gps/ene/mono 17.81 keV
+
+## Np-L_beta_eta 
+/gps/source/add 0.0481 # 4.81 %
+/gps/particle gamma
+/gps/pos/type Point
+/gps/pos/centre {srcpos}
+/gps/ang/type iso
+/gps/ene/type Mono
+/gps/ene/mono 20.82 keV
+
+# list all sources
+/gps/source/list
