@@ -1,4 +1,4 @@
-/geometry/source geom/hall.tg
+/geometry/source hall.tg
 
 /run/initialize
 
