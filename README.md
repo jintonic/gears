@@ -1,4 +1,4 @@
-[GEARS][] is a [Geant4][] Example Application with Rich features yet Small footprint. The entire C++ coding is minimized down to a single file with less than 500 [SLOC][]. This is achieved mainly by utilizing [Geant4][] plain [text geometry description][tg], [build-in UI commands][TUI] (macros), and C++ inheritance. It is ideal for student training and fast implementation of small to medium-sized experiments.
+[GEARS][] is a [Geant4][] Example Application with Rich features yet Small footprint. The entire C++ coding is minimized down to a single file with about 600 [SLOC][]. This is achieved mainly by utilizing [Geant4][] plain [text geometry description][tg], [build-in UI commands][TUI] (macros), and C++ inheritance. It is ideal for student training and fast implementation of small to medium-sized experiments.
 
 # Features
 
