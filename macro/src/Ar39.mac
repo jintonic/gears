@@ -1,0 +1,50 @@
+/gps/particle beta
+
+/gps/pos/type Plane
+/gps/pos/shape Circle
+/gps/pos/radius 1. cm
+
+/gps/pos/centre 0. 0. 0. cm
+
+/gps/ang/type iso
+/gps/ene/type User
+/gps/hist/type energy
+
+/gps/hist/point 20       0.002
+/gps/hist/point 32       0.00205     
+/gps/hist/point 50       0.00216
+/gps/hist/point 70       0.00225
+/gps/hist/point 80       0.0023
+/gps/hist/point 100      0.00239
+/gps/hist/point 110      0.00241
+/gps/hist/point 120      0.00243
+/gps/hist/point 130      0.00246
+/gps/hist/point 140      0.00248
+/gps/hist/point 150      0.00250
+/gps/hist/point 160      0.00252
+/gps/hist/point 170      0.00254
+/gps/hist/point 180      0.00254
+/gps/hist/point 200      0.00253
+/gps/hist/point 220      0.00252
+/gps/hist/point 240      0.00250
+/gps/hist/point 260      0.002435
+/gps/hist/point 280      0.00239
+/gps/hist/point 300      0.00226
+/gps/hist/point 320      0.00218
+/gps/hist/point 340      0.00186
+/gps/hist/point 360      0.00180
+/gps/hist/point 380      0.00169
+/gps/hist/point 400      0.00150
+/gps/hist/point 420      0.00129
+/gps/hist/point 440      0.00106
+/gps/hist/point 460      0.000825
+/gps/hist/point 480      0.00059
+/gps/hist/point 500      0.00036
+/gps/hist/point 520      0.00015
+/gps/hist/point 540      0.00004
+/gps/hist/point 560      0.00001
+/gps/hist/point 580      0
+/gps/hist/point 600      0
+/gps/hist/point 620      0
+/gps/hist/point 640      0
+/gps/hist/point 660      0
