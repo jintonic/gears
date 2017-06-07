@@ -1,0 +1,42 @@
+# http://www.spectrumtechniques.com/products/sources/cobalt-57/
+
+/control/alias srcpos "0 0 0"
+
+# gamma 1
+/gps/source/add 0.0916 # 9.16%
+/gps/particle gamma
+/gps/pos/type Point
+/gps/pos/centre {srcpos}
+/gps/ang/type iso
+/gps/ene/type Mono
+/gps/ene/mono 14.4 keV
+
+# gamma 2
+/gps/source/add 0.856 # 85.6%
+/gps/particle gamma
+/gps/pos/type Point
+/gps/pos/centre {srcpos}
+/gps/ang/type iso
+/gps/ene/type Mono
+/gps/ene/mono 122.06 keV
+
+# gamma 3
+/gps/source/add 0.1068 # 10.68%
+/gps/particle gamma
+/gps/pos/type Point
+/gps/pos/centre {srcpos}
+/gps/ang/type iso
+/gps/ene/type Mono
+/gps/ene/mono 136.5 keV
+
+# gamma 4
+/gps/source/add 0.00157 # 0.157%
+/gps/particle gamma
+/gps/pos/type Point
+/gps/pos/centre {srcpos}
+/gps/ang/type iso
+/gps/ene/type Mono
+/gps/ene/mono 692 keV
+
+# list all sources
+/gps/source/list
