@@ -1,0 +1,11 @@
+// volumes
+:volu cleanroom TUBE 0 8*cm 32*cm G4_AIR
+:volu CsI(S) TUBE 0. 3.81*cm 2.5*cm G4_CESIUM_IODIDE
+
+// placement
+:rotm r000 0 0 0
+:place CsI(S) 0 cleanroom r000 0. 0. 0.
+
+// visualization
+:color CsI(S) 0.2 0.4 0.8
+:vis cleanroom OFF
