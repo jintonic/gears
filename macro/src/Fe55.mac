@@ -1,13 +1,8 @@
-/geometry/source geom/hall.tg
-/run/initialize
-
-# https://indico.in2p3.fr/event/443/session/11/contribution/15/material/slides/0.ppt
-# All energy and branching ratio is based on Isotope handbook (11th edition)
-# http://nucleardata.nuclear.lu.se/toi/nuclide.asp?iZA=260055
 /control/alias srcpos "0 0 0"
 
-# gamma ray
-## gamma 1
+# http://nucleardata.nuclear.lu.se/toi/nuclide.asp?iZA=260055
+
+# X-ray 1
 /gps/source/add 0.0854 # 8.54%
 /gps/particle gamma
 /gps/pos/type Point
@@ -16,7 +11,7 @@
 /gps/ene/type Mono
 /gps/ene/mono 5.888 keV
 
-## gamma 2
+# X-ray 2
 /gps/source/add 0.1698 # 16.98%
 /gps/particle gamma
 /gps/pos/type Point
@@ -25,7 +20,7 @@
 /gps/ene/type Mono
 /gps/ene/mono 5.899 keV
 
-## gamma 3
+# X-ray 3
 /gps/source/add 0.0101 # 1.01%
 /gps/particle gamma
 /gps/pos/type Point
@@ -34,7 +29,7 @@
 /gps/ene/type Mono
 /gps/ene/mono 6.490 keV
 
-## gamma 4
+# X-ray 4
 /gps/source/add 0.0198 # 1.98%
 /gps/particle gamma
 /gps/pos/type Point
