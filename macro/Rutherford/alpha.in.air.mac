@@ -7,7 +7,7 @@
 /geometry/test/run
 
 /vis/open DAWNFILE
-/vis/viewer/zoom 5.5
+/vis/viewer/zoom 400
 /vis/drawVolume
 /vis/scene/add/trajectories
 /vis/scene/add/text -3 -0.4 0 cm 20 0 0 0
@@ -17,7 +17,7 @@
 /vis/scene/add/text  1 -0.4 0 cm 20 0 0 4
 /vis/scene/add/text  2 -0.4 0 cm 20 0 0 5 cm
 /vis/scene/add/text -3  0.4 0 cm 20 0 0 6.11 MeV alpha particles fly in air
-/vis/scene/endOfEventAction accumulate 1000
+/vis/scene/endOfEventAction accumulate 100
 
 /gps/particle alpha
 /gps/energy 6.11 MeV
@@ -25,4 +25,4 @@
 /gps/direction 1 0 0
 
 /random/setSeeds 12 43
-/run/beamOn 1000
+/run/beamOn 100
