@@ -27,6 +27,6 @@
 
 /tracking/verbose 0
 
-/run/output 4438MeV.root.json
+/run/output 4438MeV.root
 /run/statusReport 10000
 /run/beamOn 1000
