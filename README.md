@@ -202,25 +202,25 @@ The physics process generating each track point is saved in a variable `pro[n]`,
 
 The type of particle related to a track point is saved in a variable `pdg[n]`. It is the same as the `PDG encoding` of the particle. A Google search will give more information about it.
 
-## JSON vs ROOT
+## JSON 
 
 Since the amount of data gears might generate can be huge, we suggest install the ROOT library to increase the preforance of data processing. If user do not want to use .root format, output as JSON format are provide also.
  
-Event are store as an object, and contain all information list on [Track Point](). All event are stored inside a array.
+Events are store as an object, and contain all information list on [Track Point](). All event are stored inside a array. An example:
 
 ~~~
 [
 {
-"n":2,
-"trk":[1,1],
-"stp":[0,1],
-...   
+   "n":2,
+   "trk":[1,1],
+   "stp":[0,1],
+   ...   
 },
 {
-"n":3,
-"trk":[1,1,2],
-"stp":[0,1,3],
-...
+   "n":3,
+   "trk":[1,1,2],
+   "stp":[0,1,3],
+   ...
 }
 ]
 ~~~
