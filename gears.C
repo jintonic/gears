@@ -209,7 +209,9 @@ class ROOTOutput:public Output
 void ROOTOutput::Save()
 {
    if (IsROOT)
+   {
       if (Tree) Tree->Fill();
+   }
    else
       Output::Save();
 }

@@ -2,7 +2,7 @@ FLAG=$(shell geant4-config --cflags)
 LIBS=$(shell geant4-config --libs)
 
 #ifeq ( root-config , 0 )
-ROOTCHECK := $(shell command -v 1root-config 2> /dev/null )
+ROOTCHECK := $(shell command -v root-config 2> /dev/null )
 
 ROOTCONFIG = root-config
 ROOTCFLAGS:= $(shell $(ROOTCONFIG) --cflags)
@@ -17,10 +17,10 @@ TGT=$(SRC:.C=.exe)
 
 all: $(TGT)
 ifdef ROOTCHECK
-hasROOT=yes
+FLAG+= -DhasROOT
 endif
 %.exe: %.C
-	$(CXX) $(FLAG) $^ -DhasROOT -o $@ $(LIBS)
+	$(CXX) $(FLAG) $^ -o $@ $(LIBS)
 
 clean:
 	rm -f `cat .gitignore`
