@@ -7,8 +7,13 @@
  */
 const int MaxNpnt=20000; ///< Max number of track points that can be recorded
 const int MaxNdet=100; ///< Max number of detectors that can be handled
+#include <fstream>
+
+#ifdef hasROOT
 #include <TFile.h>
 #include <TTree.h>
+#endif
+
 #include <G4SteppingVerbose.hh>
 #include <G4UImessenger.hh>
 #include <G4UIcmdWithAString.hh>
@@ -42,6 +47,12 @@ class Output : public G4SteppingVerbose, public G4UImessenger
       short nd; ///< Number of detectors
       double ed[MaxNdet]; ///< Total energy deposited in each detector [keV]
 
+      void SetNewValue(G4UIcommand* cmd, G4String value); ///< for G4UI
+      virtual void Fill();
+      virtual void Write();
+      
+      ofstream out;
+      bool CommaCheck;
 
    protected:
       void Record(); ///< Record simulated data
@@ -112,21 +123,7 @@ void Output::Reset()
 }
 //______________________________________________________________________________
 //
-#include <fstream>
-//#include <string>
-class JSONOutput:public Output
-{
-   public :
-      void SetNewValue(G4UIcommand* cmd, G4String value); ///< for G4UI
-      void JSONFill();
-      void JSONwrite();
-      //string data;
-      ofstream out;
-      bool CommaCheck;
-};
-//______________________________________________________________________________
-//
-void JSONOutput::JSONFill()
+void Output::Fill()
 {
    //debug
    //G4cout<<"test\n";
@@ -182,14 +179,14 @@ void JSONOutput::JSONFill()
 }
 //______________________________________________________________________________
 //
-void JSONOutput::JSONwrite()
+void Output::Write()
 {
    out<<"]";
    out.close();
 }
 //______________________________________________________________________________
 //
-void JSONOutput::SetNewValue(G4UIcommand* cmd, G4String value)
+void Output::SetNewValue(G4UIcommand* cmd, G4String value)
 {
    CommaCheck=true;
    if (cmd==fCmd ) {
@@ -206,33 +203,80 @@ void JSONOutput::SetNewValue(G4UIcommand* cmd, G4String value)
 class ROOTOutput:public Output
 {
    public:
-      ROOTOutput(): File(0),Tree(0){Output();};
+      ROOTOutput(): Output(),File(0),Tree(0){};
       void SetNewValue(G4UIcommand* cmd, G4String value); ///< for G4UI
+      virtual void Fill();
+      virtual void Write();
       TFile* File; ///< ROOT output file
       TTree* Tree; ///< ROOT tree to save output
+      bool JSONOrROOT;///<true for json false for root
 };
 //______________________________________________________________________________
 //
+void ROOTOutput::Fill()
+{
+   if(JSONOrROOT)     Output::Fill();
+   else
+   {
+      if (Tree) 
+      { // if file exists
+         Tree->Fill();
+      }
+   }
+}
+//______________________________________________________________________________
+//
+void ROOTOutput::Write()
+{
+   if(JSONOrROOT)     
+   {
+      Output::Write();
+      G4cout<<"jsonwtire\n";
+   }
+   else
+   {
+      G4cout<<"rootwtire\n";
+      G4cout<<JSONOrROOT;
+      if (File) 
+      { // if file exists
+         File->Write("", TObject::kOverwrite);
+         File->Close();
+      }
+   }
+}
+//______________________________________________________________________________
+//
+#include <string>
 void ROOTOutput::SetNewValue(G4UIcommand* cmd, G4String value)
 {
    if (cmd==fCmd && File==0) {
-      File = new TFile(value.data(),"recreate");
-      Tree = new TTree("t","simulated samples");
-      Tree->Branch("n",&n,"n/S");
-      Tree->Branch("trk",trk,"trk[n]/S");
-      Tree->Branch("stp",stp,"stp[n]/S");
-      Tree->Branch("det",det,"det[n]/S");
-      Tree->Branch("pro",pro,"pro[n]/S");
-      Tree->Branch("pdg",pdg,"pdg[n]/I");
-      Tree->Branch("mom",mom,"mom[n]/I");
-      Tree->Branch("e",e,"e[n]/D");
-      Tree->Branch("k",k,"k[n]/D");
-      Tree->Branch("t",t,"t[n]/D");
-      Tree->Branch("x",x,"x[n]/D");
-      Tree->Branch("y",y,"y[n]/D");
-      Tree->Branch("z",z,"z[n]/D");
-      Tree->Branch("nd",&nd,"nd/S");
-      Tree->Branch("ed",ed,"ed[nd]/D");
+      std::string filename=value.data();
+      if(filename.substr(filename.length()-4)!="root")
+      {
+         Output::SetNewValue(cmd,value);
+         JSONOrROOT=true;
+      }
+      else
+      {
+         JSONOrROOT=false;
+         File = new TFile(value.data(),"recreate");
+         Tree = new TTree("t","simulated samples");
+         Tree->Branch("n",&n,"n/S");
+         Tree->Branch("trk",trk,"trk[n]/S");
+         Tree->Branch("stp",stp,"stp[n]/S");
+         Tree->Branch("det",det,"det[n]/S");
+         Tree->Branch("pro",pro,"pro[n]/S");
+         Tree->Branch("pdg",pdg,"pdg[n]/I");
+         Tree->Branch("mom",mom,"mom[n]/I");
+         Tree->Branch("e",e,"e[n]/D");
+         Tree->Branch("k",k,"k[n]/D");
+         Tree->Branch("t",t,"t[n]/D");
+         Tree->Branch("x",x,"x[n]/D");
+         Tree->Branch("y",y,"y[n]/D");
+         Tree->Branch("z",z,"z[n]/D");
+         Tree->Branch("nd",&nd,"nd/S");
+         Tree->Branch("ed",ed,"ed[nd]/D");
+      }
    }
 }
 //______________________________________________________________________________
@@ -644,17 +688,16 @@ void RunAction::BeginOfRunAction (const G4Run* run)
 void RunAction::EndOfRunAction (const G4Run* run)
 {
    G4cout<<"In total, "<<run->GetNumberOfEvent()<<" events simulated"<<G4endl;
-   /*ROOTOutput *o = (ROOTOutput*) G4VSteppingVerbose::GetInstance();
-   if (o->File) { // if file exists
-      o->File->Write("", TObject::kOverwrite);
-      o->File->Close();
-   }
-   */
-   JSONOutput *jo = (JSONOutput*) G4VSteppingVerbose::GetInstance();
+#ifdef hasROOT
+   ROOTOutput *o = (ROOTOutput*) G4VSteppingVerbose::GetInstance();
+      o->Write();
+#else
+   Output *jo = (Output*) G4VSteppingVerbose::GetInstance();
    if(jo->out)
    {
-      jo->JSONwrite();
+      jo->Write();
    }
+#endif
 }
 //______________________________________________________________________________
 //
@@ -703,10 +746,13 @@ void EventAction::BeginOfEventAction(const G4Event*)
 //
 void EventAction::EndOfEventAction(const G4Event* event)
 {
-   //ROOTOutput *o = (ROOTOutput*) G4VSteppingVerbose::GetInstance();
-   JSONOutput *jo = (JSONOutput*) G4VSteppingVerbose::GetInstance();
-   //if (o->Tree) o->Tree->Fill();
-   if (jo->out) jo->JSONFill();
+#ifdef hasROOT
+   ROOTOutput *o = (ROOTOutput*) G4VSteppingVerbose::GetInstance();
+   o->Fill();
+#else
+   Output *jo = (Output*) G4VSteppingVerbose::GetInstance();
+   if (jo->out) jo->Fill();
+#endif
    int id=event->GetEventID()+1;
    if (id%fN2report==0) G4cout<<id<<" events simulated"<<G4endl;
 }
@@ -722,8 +768,11 @@ void EventAction::EndOfEventAction(const G4Event* event)
 int main(int argc, char **argv)
 {
    // inherit G4SteppingVerbose instead of G4UserSteppingAction to record data
-   //G4VSteppingVerbose::SetInstance(new ROOTOutput); // must be before run manager
-   G4VSteppingVerbose::SetInstance(new JSONOutput); // must be before run manager
+#ifdef hasROOT
+   G4VSteppingVerbose::SetInstance(new ROOTOutput); // must be before run manager
+#else
+   G4VSteppingVerbose::SetInstance(new Output); // must be before run manager
+#endif
    // initialize necessary components for simulation
    G4RunManager* run = new G4RunManager;
    run->SetUserInitialization(new Detector);
