@@ -7,5 +7,4 @@
 /gps/pos/centre 0 0 0
 /gps/energy 0
 
-/tracking/verbose 2
-/run/beamOn 2
+/run/beamOn 200

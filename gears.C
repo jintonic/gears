@@ -24,7 +24,6 @@ class Output : public G4SteppingVerbose, public G4UImessenger
       void StepInfo()
       { G4SteppingVerbose::StepInfo(); Record(); } ///< Infomation of step > 0 
       void Reset(); ///< Reset record variables
-      void SetNewValue(G4UIcommand* cmd, G4String value); ///< for G4UI
 
       short n; ///< Number of track points
       short trk[MaxNpnt]; ///< track id
@@ -43,16 +42,14 @@ class Output : public G4SteppingVerbose, public G4UImessenger
       short nd; ///< Number of detectors
       double ed[MaxNdet]; ///< Total energy deposited in each detector [keV]
 
-      TFile* File; ///< ROOT output file
-      TTree* Tree; ///< ROOT tree to save output
 
-   private:
+   protected:
       void Record(); ///< Record simulated data
       G4UIcmdWithAString* fCmd; ///< UI command to set output file name
 };
 //______________________________________________________________________________
 //
-Output::Output(): G4SteppingVerbose(), G4UImessenger(), File(0), Tree(0)
+Output::Output(): G4SteppingVerbose(), G4UImessenger()
 {
    fCmd = new G4UIcmdWithAString("/run/output",this);
    fCmd->SetGuidance("Set output file name");
@@ -115,7 +112,108 @@ void Output::Reset()
 }
 //______________________________________________________________________________
 //
-void Output::SetNewValue(G4UIcommand* cmd, G4String value)
+#include <fstream>
+//#include <string>
+class JSONOutput:public Output
+{
+   public :
+      void SetNewValue(G4UIcommand* cmd, G4String value); ///< for G4UI
+      void JSONFill();
+      void JSONwrite();
+      //string data;
+      ofstream out;
+      bool CommaCheck;
+};
+//______________________________________________________________________________
+//
+void JSONOutput::JSONFill()
+{
+   //debug
+   //G4cout<<"test\n";
+   //if(out)G4cout<<"out ok\n";
+   //debug end
+   if(CommaCheck)
+   {
+      CommaCheck=false;
+   }
+   else
+      out<<",\n";
+   
+   out<<"{\n";
+   out<<"\"n\":"<<n<<",\n";
+   out<<"\"trk\":["<<trk[0];
+   for (int i=1;i<n;i++)out<<","<<trk[i];
+   out<<"],\n";
+   out<<"\"stp\":["<<stp[0];             
+   for (int i=1;i<n;i++)out<<","<<stp[i];
+   out<<"],\n";
+   out<<"\"det\":["<<det[0];             
+   for (int i=1;i<n;i++)out<<","<<det[i];
+   out<<"],\n";
+   out<<"\"pro\":["<<pro[0];             
+   for (int i=1;i<n;i++)out<<","<<pro[i];
+   out<<"],\n";
+   out<<"\"pdg\":["<<pdg[0];             
+   for (int i=1;i<n;i++)out<<","<<pdg[i];
+   out<<"],\n";
+   out<<"\"mom\":["<<mom[0];             
+   for (int i=1;i<n;i++)out<<","<<mom[i];
+   out<<"],\n";
+   out<<"\"e\":["<<e[0];
+   for (int i=1;i<n;i++)out<<","<<e[i];
+   out<<"],\n";
+   out<<"\"k\":["<<k[0];     
+   for (int i=1;i<n;i++)out<<","<<k[i];
+   out<<"],\n";
+   out<<"\"t\":["<<t[0];     
+   for (int i=1;i<n;i++)out<<","<<t[i];
+   out<<"],\n";
+   out<<"\"x\":["<<x[0];     
+   for (int i=1;i<n;i++)out<<","<<x[i];
+   out<<"],\n";
+   out<<"\"y\":["<<y[0];     
+   for (int i=1;i<n;i++)out<<","<<y[i];
+   out<<"],\n";
+   out<<"\"z\":["<<z[0];      
+   for (int i=1;i<n;i++)out<<","<<z[i];
+   out<<"]\n";
+   
+   out<<"}\n";
+}
+//______________________________________________________________________________
+//
+void JSONOutput::JSONwrite()
+{
+   out<<"]";
+   out.close();
+}
+//______________________________________________________________________________
+//
+void JSONOutput::SetNewValue(G4UIcommand* cmd, G4String value)
+{
+   CommaCheck=true;
+   if (cmd==fCmd ) {
+      //out.open("jsontest.json");//value.data());
+      out.open(value.data());
+      //debug
+      //G4cout<<value.data()<<"\n";
+      //debug end
+      out<<"[\n";
+   }
+}
+//______________________________________________________________________________
+//
+class ROOTOutput:public Output
+{
+   public:
+      ROOTOutput(): File(0),Tree(0){Output();};
+      void SetNewValue(G4UIcommand* cmd, G4String value); ///< for G4UI
+      TFile* File; ///< ROOT output file
+      TTree* Tree; ///< ROOT tree to save output
+};
+//______________________________________________________________________________
+//
+void ROOTOutput::SetNewValue(G4UIcommand* cmd, G4String value)
 {
    if (cmd==fCmd && File==0) {
       File = new TFile(value.data(),"recreate");
@@ -546,10 +644,16 @@ void RunAction::BeginOfRunAction (const G4Run* run)
 void RunAction::EndOfRunAction (const G4Run* run)
 {
    G4cout<<"In total, "<<run->GetNumberOfEvent()<<" events simulated"<<G4endl;
-   Output *o = (Output*) G4VSteppingVerbose::GetInstance();
+   /*ROOTOutput *o = (ROOTOutput*) G4VSteppingVerbose::GetInstance();
    if (o->File) { // if file exists
       o->File->Write("", TObject::kOverwrite);
       o->File->Close();
+   }
+   */
+   JSONOutput *jo = (JSONOutput*) G4VSteppingVerbose::GetInstance();
+   if(jo->out)
+   {
+      jo->JSONwrite();
    }
 }
 //______________________________________________________________________________
@@ -599,8 +703,10 @@ void EventAction::BeginOfEventAction(const G4Event*)
 //
 void EventAction::EndOfEventAction(const G4Event* event)
 {
-   Output *o = (Output*) G4VSteppingVerbose::GetInstance();
-   if (o->Tree) o->Tree->Fill();
+   //ROOTOutput *o = (ROOTOutput*) G4VSteppingVerbose::GetInstance();
+   JSONOutput *jo = (JSONOutput*) G4VSteppingVerbose::GetInstance();
+   //if (o->Tree) o->Tree->Fill();
+   if (jo->out) jo->JSONFill();
    int id=event->GetEventID()+1;
    if (id%fN2report==0) G4cout<<id<<" events simulated"<<G4endl;
 }
@@ -616,7 +722,8 @@ void EventAction::EndOfEventAction(const G4Event* event)
 int main(int argc, char **argv)
 {
    // inherit G4SteppingVerbose instead of G4UserSteppingAction to record data
-   G4VSteppingVerbose::SetInstance(new Output); // must be before run manager
+   //G4VSteppingVerbose::SetInstance(new ROOTOutput); // must be before run manager
+   G4VSteppingVerbose::SetInstance(new JSONOutput); // must be before run manager
    // initialize necessary components for simulation
    G4RunManager* run = new G4RunManager;
    run->SetUserInitialization(new Detector);
