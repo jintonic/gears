@@ -13,6 +13,10 @@
   * Flat tree (no nested branches or arrays)
     * Easy to use in TTree::Draw
     * No need to load extra library to open
+* Output in JSON data format
+  * Universal data format
+  * Easy to read by different tool
+  * Human readable in raw data
 * [Record information of step 0](#record-information-of-step-0) (initStep)
   * This is not available from G4UserSteppingAction
 * Create/Change geometry without re-compilation
@@ -192,12 +196,34 @@ A track point is a concept introduced in [GEARS][]. It is a point where a track 
 
 ## Process id
 
-The physics process generating each track point is saved in a variable `pro[n]`, where `n` is the index of the track point. It equals to (process type)*1000 + (sub type). The Process types are defined in G4ProcessType.hh, sub types are defined in G4HadronicProcessType.hh, G4DecayProcessType.hh, G4EmProcessSubType.hh,  G4TransportationProcessType.hh, G4FastSimulationProcessType.hh, G4OpProcessSubType.hh, etc. They can be found at http://www-geant4.kek.jp/lxr/find?string=Type.hh
+The physics process generating each track point is saved in a variable `pro[n]`, where `n` is the index of the track point. It equals to (process type) * 1000 + (sub type). The Process types are defined in G4ProcessType.hh, sub types are defined in G4HadronicProcessType.hh, G4DecayProcessType.hh, G4EmProcessSubType.hh,  G4TransportationProcessType.hh, G4FastSimulationProcessType.hh, G4OpProcessSubType.hh, etc. They can be found at http://www-geant4.kek.jp/lxr/find?string=Type.hh
 
 ## Particle id
 
 The type of particle related to a track point is saved in a variable `pdg[n]`. It is the same as the `PDG encoding` of the particle. A Google search will give more information about it.
 
+## JSON vs ROOT
+
+Since the amount of data gears might generate can be huge, we suggest install the ROOT library to increase the preforance of data processing. If user do not want to use .root format, output as JSON format are provide also.
+ 
+Event are store as an object, and contain all information list on [Track Point](). All event are stored inside a array.
+
+~~~
+[
+{
+"n":2,
+"trk":[1,1],
+"stp":[0,1],
+...   
+},
+{
+"n":3,
+"trk":[1,1,2],
+"stp":[0,1,3],
+...
+}
+]
+~~~
 ## Record information of step 0
 
 One cannot get access to step 0 (initStep printed on screen if `/tracking/verbose` is set to be more than 0) through [G4UserSteppingAction][], which only provides access to step 1 and afterwards. However, step 0 contains some very important information that is constantly requested by the user. For example, the energy of a gamma ray from a radioactive decay is only available from step 0. Such information can be easily displayed using the following ROOT command with the Output ROOT tree, `t`:
