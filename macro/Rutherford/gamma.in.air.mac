@@ -23,4 +23,5 @@
 /gps/direction 1 0 0
 
 /random/setSeeds 2 43 1 523 51 132 56 75 498
+/run/output gamma.json
 /run/beamOn 500
