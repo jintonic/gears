@@ -206,7 +206,7 @@ The type of particle related to a track point is saved in a variable `pdg[n]`. I
 
 Since the amount of data which gears might generate can be huge, we suggest install the ROOT library and use .root format to store data to increase the preforance of data processing. If user do not want to use .root format, JSON format is avilable.
  
-Events are store as an object, and contain all information list on [Track Point](). All event are stored inside a array. An example:
+Events are store as an object, and contain all information list on [Track Point](track-point). All event are stored inside a array. An example:
 
 ~~~
 [
