@@ -2,7 +2,7 @@ FLAG=$(shell geant4-config --cflags)
 LIBS=$(shell geant4-config --libs)
 
 #ifeq ( root-config , 0 )
-ROOTCHECK= $(shell command -v root-config 2> /dev/null )
+ROOTCHECK := $(shell command -v 1root-config 2> /dev/null )
 
 ROOTCONFIG = root-config
 ROOTCFLAGS:= $(shell $(ROOTCONFIG) --cflags)
@@ -16,9 +16,7 @@ TGT=$(SRC:.C=.exe)
 .PHONY: all clean docs
 
 all: $(TGT)
-ifndef ROOTCHECK
-hasROOT=no
-else
+ifdef ROOTCHECK
 hasROOT=yes
 endif
 %.exe: %.C
