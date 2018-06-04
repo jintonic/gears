@@ -126,45 +126,45 @@ void Output::Save()
    else fOut<<","<<G4endl;
    
    fOut<<"{\n";
-   fOut<<"\"n\":"<<n<<",\n";
-   fOut<<"\"trk\":["<<trk[0];
+   fOut<<"  \"n\":"<<n<<",\n";
+   fOut<<"  \"trk\":["<<trk[0];
    for (int i=1;i<n;i++)fOut<<","<<trk[i];
    fOut<<"],\n";
-   fOut<<"\"stp\":["<<stp[0];             
+   fOut<<"  \"stp\":["<<stp[0];             
    for (int i=1;i<n;i++)fOut<<","<<stp[i];
    fOut<<"],\n";
-   fOut<<"\"det\":["<<det[0];             
+   fOut<<"  \"det\":["<<det[0];             
    for (int i=1;i<n;i++)fOut<<","<<det[i];
    fOut<<"],\n";
-   fOut<<"\"pro\":["<<pro[0];             
+   fOut<<"  \"pro\":["<<pro[0];             
    for (int i=1;i<n;i++)fOut<<","<<pro[i];
    fOut<<"],\n";
-   fOut<<"\"pdg\":["<<pdg[0];             
+   fOut<<"  \"pdg\":["<<pdg[0];             
    for (int i=1;i<n;i++)fOut<<","<<pdg[i];
    fOut<<"],\n";
-   fOut<<"\"mom\":["<<mom[0];             
+   fOut<<"  \"mom\":["<<mom[0];             
    for (int i=1;i<n;i++)fOut<<","<<mom[i];
    fOut<<"],\n";
-   fOut<<"\"e\":["<<e[0];
+   fOut<<"  \"e\":["<<e[0];
    for (int i=1;i<n;i++)fOut<<","<<e[i];
    fOut<<"],\n";
-   fOut<<"\"k\":["<<k[0];     
+   fOut<<"  \"k\":["<<k[0];     
    for (int i=1;i<n;i++)fOut<<","<<k[i];
    fOut<<"],\n";
-   fOut<<"\"t\":["<<t[0];     
+   fOut<<"  \"t\":["<<t[0];     
    for (int i=1;i<n;i++)fOut<<","<<t[i];
    fOut<<"],\n";
-   fOut<<"\"x\":["<<x[0];     
+   fOut<<"  \"x\":["<<x[0];     
    for (int i=1;i<n;i++)fOut<<","<<x[i];
    fOut<<"],\n";
-   fOut<<"\"y\":["<<y[0];     
+   fOut<<"  \"y\":["<<y[0];     
    for (int i=1;i<n;i++)fOut<<","<<y[i];
    fOut<<"],\n";
-   fOut<<"\"z\":["<<z[0];      
+   fOut<<"  \"z\":["<<z[0];      
    for (int i=1;i<n;i++)fOut<<","<<z[i];
    fOut<<"]\n";
    
-   fOut<<"}\n";
+   fOut<<"}";
 }
 //______________________________________________________________________________
 //
