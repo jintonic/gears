@@ -7,12 +7,8 @@
  */
 const int MaxNpnt=20000; ///< Max number of track points that can be recorded
 const int MaxNdet=100; ///< Max number of detectors that can be handled
-#include <fstream>
 
-#ifdef hasROOT
-#include <TFile.h>
-#include <TTree.h>
-#endif
+#include <fstream>
 
 #include <G4SteppingVerbose.hh>
 #include <G4UImessenger.hh>
@@ -48,15 +44,15 @@ class Output : public G4SteppingVerbose, public G4UImessenger
       double ed[MaxNdet]; ///< Total energy deposited in each detector [keV]
 
       void SetNewValue(G4UIcommand* cmd, G4String value); ///< for G4UI
-      virtual void Fill();
-      virtual void Write();
+      virtual void Save();
+      virtual void Close();
       
-      ofstream out;
-      bool CommaCheck;
+      bool IsFirstEvent; ///< used to avoid trailing comma in JSON
 
    protected:
       void Record(); ///< Record simulated data
       G4UIcmdWithAString* fCmd; ///< UI command to set output file name
+      std::ofstream fOut; ///< output file
 };
 //______________________________________________________________________________
 //
@@ -123,142 +119,124 @@ void Output::Reset()
 }
 //______________________________________________________________________________
 //
-void Output::Fill()
+void Output::Save()
 {
-   //debug
-   //G4cout<<"test\n";
-   //if(out)G4cout<<"out ok\n";
-   //debug end
-   if(CommaCheck)
-   {
-      CommaCheck=false;
-   }
-   else
-      out<<",\n";
+   // add "," for previous event except for the first event
+   if(IsFirstEvent) IsFirstEvent=false;
+   else fOut<<","<<G4endl;
    
-   out<<"{\n";
-   out<<"\"n\":"<<n<<",\n";
-   out<<"\"trk\":["<<trk[0];
-   for (int i=1;i<n;i++)out<<","<<trk[i];
-   out<<"],\n";
-   out<<"\"stp\":["<<stp[0];             
-   for (int i=1;i<n;i++)out<<","<<stp[i];
-   out<<"],\n";
-   out<<"\"det\":["<<det[0];             
-   for (int i=1;i<n;i++)out<<","<<det[i];
-   out<<"],\n";
-   out<<"\"pro\":["<<pro[0];             
-   for (int i=1;i<n;i++)out<<","<<pro[i];
-   out<<"],\n";
-   out<<"\"pdg\":["<<pdg[0];             
-   for (int i=1;i<n;i++)out<<","<<pdg[i];
-   out<<"],\n";
-   out<<"\"mom\":["<<mom[0];             
-   for (int i=1;i<n;i++)out<<","<<mom[i];
-   out<<"],\n";
-   out<<"\"e\":["<<e[0];
-   for (int i=1;i<n;i++)out<<","<<e[i];
-   out<<"],\n";
-   out<<"\"k\":["<<k[0];     
-   for (int i=1;i<n;i++)out<<","<<k[i];
-   out<<"],\n";
-   out<<"\"t\":["<<t[0];     
-   for (int i=1;i<n;i++)out<<","<<t[i];
-   out<<"],\n";
-   out<<"\"x\":["<<x[0];     
-   for (int i=1;i<n;i++)out<<","<<x[i];
-   out<<"],\n";
-   out<<"\"y\":["<<y[0];     
-   for (int i=1;i<n;i++)out<<","<<y[i];
-   out<<"],\n";
-   out<<"\"z\":["<<z[0];      
-   for (int i=1;i<n;i++)out<<","<<z[i];
-   out<<"]\n";
+   fOut<<"{\n";
+   fOut<<"\"n\":"<<n<<",\n";
+   fOut<<"\"trk\":["<<trk[0];
+   for (int i=1;i<n;i++)fOut<<","<<trk[i];
+   fOut<<"],\n";
+   fOut<<"\"stp\":["<<stp[0];             
+   for (int i=1;i<n;i++)fOut<<","<<stp[i];
+   fOut<<"],\n";
+   fOut<<"\"det\":["<<det[0];             
+   for (int i=1;i<n;i++)fOut<<","<<det[i];
+   fOut<<"],\n";
+   fOut<<"\"pro\":["<<pro[0];             
+   for (int i=1;i<n;i++)fOut<<","<<pro[i];
+   fOut<<"],\n";
+   fOut<<"\"pdg\":["<<pdg[0];             
+   for (int i=1;i<n;i++)fOut<<","<<pdg[i];
+   fOut<<"],\n";
+   fOut<<"\"mom\":["<<mom[0];             
+   for (int i=1;i<n;i++)fOut<<","<<mom[i];
+   fOut<<"],\n";
+   fOut<<"\"e\":["<<e[0];
+   for (int i=1;i<n;i++)fOut<<","<<e[i];
+   fOut<<"],\n";
+   fOut<<"\"k\":["<<k[0];     
+   for (int i=1;i<n;i++)fOut<<","<<k[i];
+   fOut<<"],\n";
+   fOut<<"\"t\":["<<t[0];     
+   for (int i=1;i<n;i++)fOut<<","<<t[i];
+   fOut<<"],\n";
+   fOut<<"\"x\":["<<x[0];     
+   for (int i=1;i<n;i++)fOut<<","<<x[i];
+   fOut<<"],\n";
+   fOut<<"\"y\":["<<y[0];     
+   for (int i=1;i<n;i++)fOut<<","<<y[i];
+   fOut<<"],\n";
+   fOut<<"\"z\":["<<z[0];      
+   for (int i=1;i<n;i++)fOut<<","<<z[i];
+   fOut<<"]\n";
    
-   out<<"}\n";
+   fOut<<"}\n";
 }
 //______________________________________________________________________________
 //
-void Output::Write()
+void Output::Close()
 {
-   out<<"]";
-   out.close();
+   fOut<<"]";
+   fOut.close();
 }
 //______________________________________________________________________________
 //
 void Output::SetNewValue(G4UIcommand* cmd, G4String value)
 {
-   CommaCheck=true;
    if (cmd==fCmd ) {
-      //out.open("jsontest.json");//value.data());
-      out.open(value.data());
-      //debug
-      //G4cout<<value.data()<<"\n";
-      //debug end
-      out<<"[\n";
+      fOut.open(value.data());
+      if (!fOut.is_open()) {
+         G4cout<<"Failed to open output file. Abort"<<G4endl;
+         abort();
+      }
+      fOut<<"[\n";
    }
+   IsFirstEvent=true;
 }
 //______________________________________________________________________________
 //
+#ifdef hasROOT
+#include <TFile.h>
+#include <TTree.h>
+
 class ROOTOutput:public Output
 {
    public:
-      ROOTOutput(): Output(),File(0),Tree(0){};
+      ROOTOutput(): Output(), File(0), Tree(0){};
       void SetNewValue(G4UIcommand* cmd, G4String value); ///< for G4UI
-      virtual void Fill();
-      virtual void Write();
+      void Save();
+      void Close();
       TFile* File; ///< ROOT output file
       TTree* Tree; ///< ROOT tree to save output
-      bool JSONOrROOT;///<true for json false for root
+      bool IsROOT;///< if true, set output format to be ROOT
 };
 //______________________________________________________________________________
 //
-void ROOTOutput::Fill()
+void ROOTOutput::Save()
 {
-   if(JSONOrROOT)     Output::Fill();
+   if (IsROOT)
+      if (Tree) Tree->Fill();
    else
-   {
-      if (Tree) 
-      { // if file exists
-         Tree->Fill();
-      }
-   }
+      Output::Save();
 }
 //______________________________________________________________________________
 //
-void ROOTOutput::Write()
+void ROOTOutput::Close()
 {
-   if(JSONOrROOT)     
-   {
-      Output::Write();
-      G4cout<<"jsonwtire\n";
-   }
-   else
-   {
-      G4cout<<"rootwtire\n";
-      G4cout<<JSONOrROOT;
-      if (File) 
-      { // if file exists
+   if(IsROOT) {
+      if (File) {
          File->Write("", TObject::kOverwrite);
          File->Close();
       }
+   } else {
+      Output::Close();
    }
 }
 //______________________________________________________________________________
 //
-#include <string>
 void ROOTOutput::SetNewValue(G4UIcommand* cmd, G4String value)
 {
    if (cmd==fCmd && File==0) {
-      std::string filename=value.data();
-      if(filename.substr(filename.length()-4)!="root")
-      {
+      G4String fileName=value.data();
+      if(fileName.substr(fileName.length()-4)!="root") {
+         IsROOT=false;
          Output::SetNewValue(cmd,value);
-         JSONOrROOT=true;
-      }
-      else
-      {
-         JSONOrROOT=false;
+      } else {
+         IsROOT=true;
          File = new TFile(value.data(),"recreate");
          Tree = new TTree("t","simulated samples");
          Tree->Branch("n",&n,"n/S");
@@ -279,6 +257,7 @@ void ROOTOutput::SetNewValue(G4UIcommand* cmd, G4String value)
       }
    }
 }
+#endif
 //______________________________________________________________________________
 //
 #include <G4OpticalSurface.hh>
@@ -688,15 +667,11 @@ void RunAction::BeginOfRunAction (const G4Run* run)
 void RunAction::EndOfRunAction (const G4Run* run)
 {
    G4cout<<"In total, "<<run->GetNumberOfEvent()<<" events simulated"<<G4endl;
+   Output *o = (Output*) G4VSteppingVerbose::GetInstance();
 #ifdef hasROOT
-   ROOTOutput *o = (ROOTOutput*) G4VSteppingVerbose::GetInstance();
-      o->Write();
+   ((ROOTOutput*)o)->Close();
 #else
-   Output *jo = (Output*) G4VSteppingVerbose::GetInstance();
-   if(jo->out)
-   {
-      jo->Write();
-   }
+   o->Close();
 #endif
 }
 //______________________________________________________________________________
@@ -712,7 +687,7 @@ class EventAction : public G4UserEventAction, public G4UImessenger
       EventAction();
       ~EventAction() { delete fCmd; }
       void BeginOfEventAction(const G4Event*); ///< Prepare for recording
-      void EndOfEventAction(const G4Event* event); ///< Fill tree
+      void EndOfEventAction(const G4Event* event); ///< Save tree
       void SetNewValue(G4UIcommand* cmd, G4String value)
       { if (cmd==fCmd) fN2report=atoi(value); } ///< for G4UI
    private:
@@ -721,8 +696,8 @@ class EventAction : public G4UserEventAction, public G4UImessenger
 };
 //______________________________________________________________________________
 //
-EventAction::EventAction()
-   : G4UserEventAction(), G4UImessenger(), fN2report(1000)
+   EventAction::EventAction()
+: G4UserEventAction(), G4UImessenger(), fN2report(1000)
 {
    fCmd = new G4UIcmdWithAnInteger("/run/statusReport",this);
    fCmd->SetGuidance("enable status report after [number of events]");
@@ -746,12 +721,11 @@ void EventAction::BeginOfEventAction(const G4Event*)
 //
 void EventAction::EndOfEventAction(const G4Event* event)
 {
+   Output *o = (Output*) G4VSteppingVerbose::GetInstance();
 #ifdef hasROOT
-   ROOTOutput *o = (ROOTOutput*) G4VSteppingVerbose::GetInstance();
-   o->Fill();
+   ((ROOTOutput*)o)->Save();
 #else
-   Output *jo = (Output*) G4VSteppingVerbose::GetInstance();
-   if (jo->out) jo->Fill();
+   o->Save();
 #endif
    int id=event->GetEventID()+1;
    if (id%fN2report==0) G4cout<<id<<" events simulated"<<G4endl;
@@ -769,7 +743,7 @@ int main(int argc, char **argv)
 {
    // inherit G4SteppingVerbose instead of G4UserSteppingAction to record data
 #ifdef hasROOT
-   G4VSteppingVerbose::SetInstance(new ROOTOutput); // must be before run manager
+   G4VSteppingVerbose::SetInstance(new ROOTOutput);
 #else
    G4VSteppingVerbose::SetInstance(new Output); // must be before run manager
 #endif
