@@ -7,16 +7,16 @@
   * Easy management and compiling
 * Fast compilation
   * a few second on a regular PC
+* [Output in JSON data format](#json)(default)
+  * Universal data format
+  * Easy to read by different tool
+  * Human readable in raw data
 * [Output](#output) in ROOT TTree format
   * Build-in data compression
   * Fast access to independent data members
   * Flat tree (no nested branches or arrays)
     * Easy to use in TTree::Draw
     * No need to load extra library to open
-* Output in JSON data format
-  * Universal data format
-  * Easy to read by different tool
-  * Human readable in raw data
 * [Record information of step 0](#record-information-of-step-0) (initStep)
   * This is not available from G4UserSteppingAction
 * Create/Change geometry without re-compilation
@@ -206,7 +206,7 @@ The type of particle related to a track point is saved in a variable `pdg[n]`. I
 
 Since the amount of data which gears might generate can be huge, we suggest install the ROOT library and use .root format to store data to increase the preforance of data processing. If user do not want to use .root format, JSON format is avilable.
  
-Events are store as an object, and contain all information list on [Track Point](#track-point). All event are stored inside a array. An example:
+All events are store as an object array, each event is an object and  contain all information listed in [Track Point](#track-point).  An example:
 
 ~~~
 [
