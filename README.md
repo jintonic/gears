@@ -7,12 +7,12 @@
   * Easy management and compiling
 * Fast compilation
   * a few second on a regular PC
-* [Output in JSON data format](#json)(default)
-  * Universal data format
-  * Easy to read by different tool
-  * Human readable in raw data
-* [Output](#output) in ROOT TTree format
-  * Build-in data compression
+* [Output in JSON data format](#json) (default)
+  * Universal data format, easy to read by different tools
+  * Human readable ASCII file
+  * Capable of dealing with multiple dimensional arrays
+* [Output](#output) in ROOT TTree format (optional)
+  * Build-in data compression, well suitable for large data processing
   * Fast access to independent data members
   * Flat tree (no nested branches or arrays)
     * Easy to use in TTree::Draw
@@ -181,15 +181,15 @@ Detailed control of radioactive decay is provided by the /[grdm]/ command, for e
 
 A track point is a concept introduced in [GEARS][]. It is a point where a track is generated or changed. It records the following information:
 
-* Track id
-* Step number, starting from 0
-* Detector volume copy number
-* [Process id](#process-id)
-* [Particle id](#particle-id)
-* Parent id
-* Energy deposited [keV]
-* Kinetic energy of the track [keV]
-* global time [ns]
+* Track id (`trk` in short)
+* Step number, starting from 0  (`stp` in short)
+* Detector volume copy number (`det` in short)
+* [Process id](#process-id) (`pro` in short)
+* [Particle id](#particle-id) (`pid` in short)
+* Parent id (`mom` in short)
+* Energy deposited [keV] (`e` in short)
+* Kinetic energy of the track [keV] (`k` in short)
+* global time [ns] (`t` in short)
 * x [mm]
 * y [mm]
 * z [mm]
@@ -202,28 +202,6 @@ The physics process generating each track point is saved in a variable `pro[n]`,
 
 The type of particle related to a track point is saved in a variable `pdg[n]`. It is the same as the `PDG encoding` of the particle. A Google search will give more information about it.
 
-## JSON 
-
-Since the amount of data which gears might generate can be huge, we suggest install the ROOT library and use .root format to store data to increase the preforance of data processing. If user do not want to use .root format, JSON format is avilable.
- 
-All events are store as an object array. Each event is an object and contain all information listed in [Track Point](#track-point).  An example:
-
-~~~
-[
-{
-   "n":2,
-   "trk":[1,1],
-   "stp":[0,1],
-   ...   
-},
-{
-   "n":3,
-   "trk":[1,1,2],
-   "stp":[0,1,3],
-   ...
-}
-]
-~~~
 ## Record information of step 0
 
 One cannot get access to step 0 (initStep printed on screen if `/tracking/verbose` is set to be more than 0) through [G4UserSteppingAction][], which only provides access to step 1 and afterwards. However, step 0 contains some very important information that is constantly requested by the user. For example, the energy of a gamma ray from a radioactive decay is only available from step 0. Such information can be easily displayed using the following ROOT command with the Output ROOT tree, `t`:
@@ -245,6 +223,41 @@ In fact, [G4UserSteppingAction][]::[UserSteppingAction][]([G4Step][]*) is not us
 This is used in [G4UserRunAction][] to open and close a TFile, in [G4UserEventAction][] to fill a TTree.
 
 The catch is that functions in [G4SteppingVerbose][] will not be called in [G4SteppingManager][] unless `/tracking/verbose` is set, which will print too much information on screen for a long run. This is solved in EventAction::BeginOfEventAction by turning on tracking verbose all the time so that all functions in [G4SteppingVerbose][] will be called, while at the same time, turning on [G4SteppingVerbose][] local verbose flag [Silent][] to run them in silent mode.
+
+## Output format
+Gears provides two output formats: JSON and ROOT. The output file name and format can be chosen using macro command:
+
+~~~
+/run/output file.json (or file.root)
+~~~
+
+The format is determined by the surfix of the output file name.
+
+### JSON 
+Since the amount of data which gears might generate can be huge, we suggest install the [ROOT](#root) library and use .root format to store data to increase the preforance of data processing. If users do not want to use .root format, JSON format is avilable as default.
+ 
+All events are store as a JSON object array. Each event is an object and contains all information listed in [Track Point](#track-point), for example:
+
+~~~
+[
+{
+   "n":2,
+   "trk":[1,1],
+   "stp":[0,1],
+   ...   
+},
+{
+   "n":3,
+   "trk":[1,1,2],
+   "stp":[0,1,3],
+   ...
+}
+]
+~~~
+
+where things inside of a pair of {} is the information of an event, "n" is the number of [Track Points](#track-point) in each event.
+
+### ROOT
 
 # Coding convention
 
