@@ -11,7 +11,7 @@
   * Universal data format, easy to read by different tools
   * Human readable ASCII file
   * Capable of dealing with multiple dimensional arrays
-* [Output](#output) in ROOT TTree format (optional)
+* [Output](#output) in [ROOT](#root) TTree format (optional)
   * Build-in data compression, well suitable for large data processing
   * Fast access to independent data members
   * Flat tree (no nested branches or arrays)
@@ -244,13 +244,31 @@ All events are store as a JSON object array. Each event is an object and contain
    "n":2,
    "trk":[1,1],
    "stp":[0,1],
-   ...   
+   "det":[0,0],
+   "pro":[-1,1091],
+   "pdg":[22,22],
+   "mom":[0,0],
+   "e":[0,0],
+   "k":[4438.84,4438.84],
+   "t":[0,0.258763],
+   "x":[-1.99299,65.9771],
+   "y":[-8.12482,-45.244],
+   "z":[-225,-229.486] 
 },
 {
    "n":3,
    "trk":[1,1,2],
    "stp":[0,1,3],
-   ...
+   "det":[0,0,2],
+   "pro":[-1,1091,2000],
+   "pdg":[22,22,22],
+   "mom":[0,0,0],
+   "e":[0,0,0],
+   "k":[4438.84,4438.84,4438.84],
+   "t":[0,0.258763,1],
+   "x":[-1.99299,65.9771,23],
+   "y":[-8.12482,-45.244,-70],
+   "z":[-225,-229.486,-233] 
 }
 ]
 ~~~
@@ -258,6 +276,8 @@ All events are store as a JSON object array. Each event is an object and contain
 where things inside of a pair of {} is the information of an event, "n" is the number of [Track Points](#track-point) in each event.
 
 ### ROOT
+
+ROOT use TTree to save data. TTree have entry and branch to build their data structure. Each branch is a variable listed in [Track Points](#track-point), and each entry is a event. ROOT will compress the data, so it will cost less disk space. ROOT can load part of data, which can save time when it get large.
 
 # Coding convention
 
