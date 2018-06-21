@@ -13,6 +13,7 @@ const int MaxNdet=100; ///< Max number of detectors that can be handled
 #include <G4SteppingVerbose.hh>
 #include <G4UImessenger.hh>
 #include <G4UIcmdWithAString.hh>
+#include "G4GDMLParser.hh"
 /**
  * Output simulation results to screen or a file.
  */
@@ -568,12 +569,21 @@ void Detector::SetNewValue(G4UIcommand* cmd, G4String value)
 //
 G4VPhysicalVolume* Detector::Construct()
 {
-   G4tgbVolumeMgr* mgr = G4tgbVolumeMgr::GetInstance();
-   mgr->AddTextFile(fGeomSrcText);
-   TextDetectorBuilder * gtb = new TextDetectorBuilder;
-   mgr->SetDetectorBuilder(gtb); 
-   G4VPhysicalVolume* world = mgr->ReadAndConstructDetector();
-   return world;
+   if (fGeomSrcText.substr(fGeomSrcText.length()-4)!="gdml")
+   {
+      G4tgbVolumeMgr* mgr = G4tgbVolumeMgr::GetInstance();
+      mgr->AddTextFile(fGeomSrcText);
+      TextDetectorBuilder * gtb = new TextDetectorBuilder;
+      mgr->SetDetectorBuilder(gtb); 
+      G4VPhysicalVolume* world = mgr->ReadAndConstructDetector();
+      return world;
+   }
+   else
+   {
+      G4GDMLParser parser;
+      parser.Read(fGeomSrcText);
+      return parser.GetWorldVolume();
+   }
 }
 //______________________________________________________________________________
 //
