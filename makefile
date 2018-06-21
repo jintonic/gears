@@ -1,5 +1,5 @@
-FLAG=$(shell geant4-config --cflags)
-LIBS=$(shell geant4-config --libs)
+FLAG=$(shell geant4-config --cflags) 
+LIBS=$(shell geant4-config --libs) -L/share/apps/xerces-c/lib
 
 ROOTAVAILABLE:=$(shell command -v root-config 2> /dev/null)
 ifdef ROOTAVAILABLE
@@ -18,7 +18,7 @@ TGT=$(SRC:.C=.exe)
 all: $(TGT)
 
 %.exe: %.C
-	$(CXX) $(FLAG) $^ -o $@ $(LIBS)
+	$(CXX) $(FLAG) $^ -o $@     $(LIBS) -lxerces-c 
 
 clean:
 	rm -f `cat .gitignore`
