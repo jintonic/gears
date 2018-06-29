@@ -744,6 +744,11 @@ void EventAction::EndOfEventAction(const G4Event* event)
 }
 //______________________________________________________________________________
 //
+void WriteVolume(G4String outputfile,G4LogicalVolume *    lvol)
+{
+   G4GDMLParser paser;
+   paser.Write(outputfile,lvol);
+}
 #include <G4RunManager.hh>
 #include <G4VisExecutive.hh>
 #include <G4UIExecutive.hh>
