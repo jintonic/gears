@@ -531,12 +531,18 @@ class Detector : public G4VUserDetectorConstruction, public G4UImessenger
       G4UIdirectory *fDir;
       G4UIcmdWith3VectorAndUnit* fCmdSetM;
       G4UIcmdWithAString* fCmdSrc;
+      G4UIcmdWithAString* fCmdOut;
       G4UniformMagField* fField;
+      G4VPhysicalVolume * fWorld;
 };
 //______________________________________________________________________________
 //
 Detector::Detector(): G4UImessenger()
 {
+   fCmdOut = new G4UIcmdWithAString("/geometry/export",this);
+   fCmdOut->SetGuidance("Export geometry gdml file name");
+   fCmdOut->SetParameterName("gdml geometry output",false);
+
    fCmdSrc = new G4UIcmdWithAString("/geometry/source",this);
    fCmdSrc->SetGuidance("Set geometry source file name");
    fCmdSrc->SetParameterName("text geometry input",false);
@@ -563,7 +569,14 @@ void Detector::SetNewValue(G4UIcommand* cmd, G4String value)
       mgr->SetDetectorField(fField);
       mgr->CreateChordFinder(fField);
       G4cout<<"Magnetic field is set to "<<value<<G4endl;
-   } else if (cmd==fCmdSrc) fGeomSrcText = value;
+   }
+   else if(cmd==fCmdOut)
+   {
+      G4GDMLParser paser;
+      paser.Write(value,fWorld,false);
+
+   }
+   else if (cmd==fCmdSrc) fGeomSrcText = value;
 }
 //______________________________________________________________________________
 //
@@ -576,13 +589,15 @@ G4VPhysicalVolume* Detector::Construct()
       TextDetectorBuilder * gtb = new TextDetectorBuilder;
       mgr->SetDetectorBuilder(gtb); 
       G4VPhysicalVolume* world = mgr->ReadAndConstructDetector();
+      fWorld=world;
       return world;
    }
    else
    {
       G4GDMLParser parser;
       parser.Read(fGeomSrcText);
-      return parser.GetWorldVolume();
+      fWorld=parser.GetWorldVolume();
+      return fWorld;
    }
 }
 //______________________________________________________________________________
@@ -744,11 +759,6 @@ void EventAction::EndOfEventAction(const G4Event* event)
 }
 //______________________________________________________________________________
 //
-void WriteVolume(G4String outputfile,G4LogicalVolume *    lvol)
-{
-   G4GDMLParser paser;
-   paser.Write(outputfile,lvol);
-}
 #include <G4RunManager.hh>
 #include <G4VisExecutive.hh>
 #include <G4UIExecutive.hh>
