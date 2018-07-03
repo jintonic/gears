@@ -1,4 +1,5 @@
 /geometry/source geom/NICE/CsI2in10cm.tg
+/geometry/export CsI2in10cm.gdml
 
 /physics_lists/enable Optical
 /process/optical/processActivation Scintillation
