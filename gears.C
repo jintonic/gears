@@ -5,7 +5,7 @@
  *
  * Everything is placed in one file intentionally to simplify management.
  */
-const int MaxNpnt=20000; ///< Max number of track points that can be recorded
+const int MaxNpnt=5000; ///< Max number of track points that can be recorded
 const int MaxNdet=100; ///< Max number of detectors that can be handled
 
 #include <fstream>
