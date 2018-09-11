@@ -22,9 +22,10 @@ class Output : public G4SteppingVerbose, public G4UImessenger
    public:
       Output();
       ~Output() { delete fCmd; }
-      void TrackingStarted(); ///< Infomation of step 0 (initStep)
-      void StepInfo()
-      { G4SteppingVerbose::StepInfo(); Record(); } ///< Infomation of step > 0 
+      void TrackingStarted() ///< Infomation of step 0 (initStep)
+      { G4SteppingVerbose::TrackingStarted(); Record(); }
+      void StepInfo() ///< Infomation of step > 0 
+      { G4SteppingVerbose::StepInfo(); Record(); }
       void Reset(); ///< Reset record variables
 
       short n; ///< Number of track points
@@ -54,10 +55,11 @@ class Output : public G4SteppingVerbose, public G4UImessenger
       void Record(); ///< Record simulated data
       G4UIcmdWithAString* fCmd; ///< UI command to set output file name
       std::ofstream fOut; ///< output file
+      int iter;
 };
 //______________________________________________________________________________
 //
-Output::Output(): G4SteppingVerbose(), G4UImessenger()
+Output::Output(): G4SteppingVerbose(), G4UImessenger(), iter(0)
 {
    fCmd = new G4UIcmdWithAString("/run/output",this);
    fCmd->SetGuidance("Set output file name");
@@ -65,23 +67,15 @@ Output::Output(): G4SteppingVerbose(), G4UImessenger()
 }
 //______________________________________________________________________________
 //
-void Output::TrackingStarted()
-{
-   // print to screen
-   G4SteppingVerbose::TrackingStarted(); // fulfill its designed functionality
-   // save to file
-   if(n>=MaxNpnt) {
-      G4cout<<"Number of records >= "<<MaxNpnt<<", stop recording."<<G4endl;
-      fTrack->SetTrackStatus(fKillTrackAndSecondaries);
-      return;
-   }
-   Record();
-}
-//______________________________________________________________________________
-//
 void Output::Record()
 {
    if (Silent==1) CopyState(); // point fTrack, fStep, etc. to right places
+   if(n>=MaxNpnt) {
+      G4cout<<"Track "<<fTrack->GetTrackID()<<" has more than "<<MaxNpnt
+         <<" track points, stop recording."<<G4endl;
+      fTrack->SetTrackStatus(fKillTrackAndSecondaries);
+      return;
+   }
    trk[n] = fTrack->GetTrackID();
    stp[n] = fTrack->GetCurrentStepNumber();
    det[n] = fTrack->GetVolume()->GetCopyNo();
