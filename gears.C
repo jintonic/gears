@@ -5,7 +5,7 @@
  *
  * Everything is placed in one file intentionally to simplify management.
  */
-const int MaxNpnt=5000; ///< Max number of track points that can be recorded
+const int MaxNpnt=10000; ///< Max number of track points that can be recorded
 const int MaxNdet=100; ///< Max number of detectors that can be handled
 
 #include <fstream>
@@ -71,13 +71,16 @@ void Output::Record()
 {
    if (Silent==1) CopyState(); // point fTrack, fStep, etc. to right places
    if(n>=MaxNpnt) {
-      G4cout<<"Track "<<fTrack->GetTrackID()<<" has more than "<<MaxNpnt
-         <<" track points, stop recording."<<G4endl;
-      fTrack->SetTrackStatus(fKillTrackAndSecondaries);
+      G4cout<<"Maximal number of track points, "<<MaxNpnt<<", is reached."
+         <<"Stop recording."<<G4endl;
       return;
    }
    trk[n] = fTrack->GetTrackID();
    stp[n] = fTrack->GetCurrentStepNumber();
+   if(stp[n]>=100) {
+      G4cout<<"Trk "<<trk[n]<<" has >=100 track points. Killed."<<G4endl;
+      fTrack->SetTrackStatus(fKillTrackAndSecondaries);
+   }
    det[n] = fTrack->GetVolume()->GetCopyNo();
    pdg[n] = fTrack->GetDefinition()->GetPDGEncoding();
    mom[n] = fTrack->GetParentID();
