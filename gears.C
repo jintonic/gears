@@ -219,8 +219,7 @@ void ROOTOutput::Close()
 {
    if(IsROOT) {
       if (File) {
-         File->Write("", TObject::kSingleKey);
-         //File->Write("", TObject::kOverwrite);
+         File->Write("", TObject::kOverwrite);
          File->Close();
       }
    } else {
@@ -229,44 +228,16 @@ void ROOTOutput::Close()
 }
 //______________________________________________________________________________
 //
-#include <sys/stat.h>
-#include <unistd.h>
-inline bool CheckFileExist (const G4String& name) 
-{
-   struct stat buffer;   
-   return (stat (name.c_str(), &buffer) == 0); 
-}
-//______________________________________________________________________________
-//
-#include <time.h>
-
-// Get current date/time, format is YYYY-MM-DD.HH:mm:ss
-const G4String currentDateTime() {
-    time_t     now = time(0);
-    struct tm  tstruct;
-    char       buf[80];
-    tstruct = *localtime(&now);
-    // Visit http://en.cppreference.com/w/cpp/chrono/c/strftime
-    // for more information about date/time format
-    strftime(buf, sizeof(buf), "%Y-%m-%d.%X", &tstruct);
-
-    return buf;
-}
 void ROOTOutput::SetNewValue(G4UIcommand* cmd, G4String value)
 {
    if (cmd==fCmd && File==0) {
       G4String fileName=value.data();
-      while(CheckFileExist(fileName))
-      {
-         fileName=currentDateTime()+fileName;
-         
-      }
       if(fileName.substr(fileName.length()-4)!="root") {
          IsROOT=false;
          Output::SetNewValue(cmd,value);
       } else {
          IsROOT=true;
-         File = new TFile(fileName,"recreate");
+         File = new TFile(value.data(),"recreate");
          Tree = new TTree("t","simulated samples");
          Tree->Branch("n",&n,"n/S");
          Tree->Branch("trk",trk,"trk[n]/S");
