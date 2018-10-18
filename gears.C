@@ -77,8 +77,8 @@ void Output::Record()
    }
    trk[n] = fTrack->GetTrackID();
    stp[n] = fTrack->GetCurrentStepNumber();
-   if(stp[n]>=100) {
-      G4cout<<"Trk "<<trk[n]<<" has >=100 track points. Killed."<<G4endl;
+   if(stp[n]>=1000) {
+      G4cout<<"Trk "<<trk[n]<<" has >=1000 track points. Killed."<<G4endl;
       fTrack->SetTrackStatus(fKillTrackAndSecondaries);
    }
    det[n] = fTrack->GetVolume()->GetCopyNo();
