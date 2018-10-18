@@ -41,6 +41,7 @@ class Output : public G4SteppingVerbose, public G4UImessenger
       double x[MaxNpnt]; ///< x [mm]
       double y[MaxNpnt]; ///< y [mm]
       double z[MaxNpnt]; ///< z [mm]
+      double l[MaxNpnt]; ///< length of track till this point [mm]
 
       short nd; ///< Number of detectors
       double ed[MaxNdet]; ///< Total energy deposited in each detector [keV]
@@ -77,8 +78,12 @@ void Output::Record()
    }
    trk[n] = fTrack->GetTrackID();
    stp[n] = fTrack->GetCurrentStepNumber();
+
    if(stp[n]>=1000) {
       G4cout<<"Trk "<<trk[n]<<" has >=1000 track points. Killed."<<G4endl;
+   l[n] = fTrack->GetTrackLength()/CLHEP::mm;
+   if(l[n]>=100*CLHEP::cm) {
+      G4cout<<"Trk "<<trk[n]<<" is longer than 1 meter. Killed."<<G4endl;
       fTrack->SetTrackStatus(fKillTrackAndSecondaries);
    }
    det[n] = fTrack->GetVolume()->GetCopyNo();
@@ -160,6 +165,9 @@ void Output::Save()
    fOut<<"],\n";
    fOut<<"  \"z\":["<<z[0];      
    for (int i=1;i<n;i++)fOut<<","<<z[i];
+   fOut<<"]\n";
+   fOut<<"  \"l\":["<<l[0];      
+   for (int i=1;i<n;i++)fOut<<","<<l[i];
    fOut<<"]\n";
    
    fOut<<"}";
@@ -252,6 +260,7 @@ void ROOTOutput::SetNewValue(G4UIcommand* cmd, G4String value)
          Tree->Branch("x",x,"x[n]/D");
          Tree->Branch("y",y,"y[n]/D");
          Tree->Branch("z",z,"z[n]/D");
+         Tree->Branch("l",l,"l[n]/D");
          Tree->Branch("nd",&nd,"nd/S");
          Tree->Branch("ed",ed,"ed[nd]/D");
       }
