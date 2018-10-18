@@ -6,6 +6,7 @@
  * Everything is placed in one file intentionally to simplify management.
  */
 const int MaxNpnt=10000; ///< Max number of track points that can be recorded
+//const int MaxNtrk=1000; ///< Max number of tracks that can be handled
 const int MaxNdet=100; ///< Max number of detectors that can be handled
 
 #include <fstream>
@@ -41,6 +42,8 @@ class Output : public G4SteppingVerbose, public G4UImessenger
       double x[MaxNpnt]; ///< x [mm]
       double y[MaxNpnt]; ///< y [mm]
       double z[MaxNpnt]; ///< z [mm]
+      //short nt; ///< Number of tracks
+      //double l[MaxNtrk]; ///< length of a track [mm]
 
       short nd; ///< Number of detectors
       double ed[MaxNdet]; ///< Total energy deposited in each detector [keV]
@@ -77,8 +80,8 @@ void Output::Record()
    }
    trk[n] = fTrack->GetTrackID();
    stp[n] = fTrack->GetCurrentStepNumber();
-   if(stp[n]>=100) {
-      G4cout<<"Trk "<<trk[n]<<" has >=100 track points. Killed."<<G4endl;
+   if(fTrack->GetTrackLength()>=1000) {
+      G4cout<<"Trk "<<trk[n]<<" is longer than 1 meter. Killed."<<G4endl;
       fTrack->SetTrackStatus(fKillTrackAndSecondaries);
    }
    det[n] = fTrack->GetVolume()->GetCopyNo();
