@@ -116,7 +116,7 @@ void Output::Reset()
    n=nd=0;
    for (int i=0; i<MaxNpnt; i++) {
       trk[i]=stp[i]=det[i]=pro[i]=pdg[i]=mom[i]=-1;
-      e[i]=k[i]=t[i]=x[i]=y[i]=z[i]=0.;
+      e[i]=k[i]=t[i]=x[i]=y[i]=z[i]=l[i]=0.;
    }
    for (int i=0; i<MaxNdet; i++) ed[i]=0;
 }
