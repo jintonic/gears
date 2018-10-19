@@ -78,11 +78,8 @@ void Output::Record()
    }
    trk[n] = fTrack->GetTrackID();
    stp[n] = fTrack->GetCurrentStepNumber();
-
-   if(stp[n]>=1000) {
-      G4cout<<"Trk "<<trk[n]<<" has >=1000 track points. Killed."<<G4endl;
    l[n] = fTrack->GetTrackLength()/CLHEP::mm;
-   if(l[n]>=100*CLHEP::cm) {
+   if (l[n]>=1000) {
       G4cout<<"Trk "<<trk[n]<<" is longer than 1 meter. Killed."<<G4endl;
       fTrack->SetTrackStatus(fKillTrackAndSecondaries);
    }
