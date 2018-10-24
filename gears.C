@@ -455,7 +455,7 @@ class TextDetectorBuilder : public G4tgbDetectorBuilder
 #include <G4tgrVolumeMgr.hh>
 #include <G4tgrFileReader.hh>
 #include <G4tgbVolumeMgr.hh>
-const G4tgrVolume * TextDetectorBuilder::ReadDetector()
+const G4tgrVolume* TextDetectorBuilder::ReadDetector()
 {
    G4tgrFileReader* fileReader = G4tgrFileReader::GetInstance();
    fileReader->SetLineProcessor(fLineProcessor);
@@ -512,8 +512,10 @@ G4VPhysicalVolume* TextDetectorBuilder::ConstructDetector(
 /**
  * Construct detector geometry.
  *
- * This uses Geant4 text geometry to construct a detector: 
- * http://geant4.cern.ch/geant4/collaboration/working_groups/geometry/docs/textgeom/textgeom.pdf
+ * This uses two types of instructions to construct a detector: 
+ *
+ * - [Geant4 text geometry](http://www.geant4.org/geant4/sites/geant4.web.cern.ch/files/geant4/collaboration/working_groups/geometry/docs/textgeom/textgeom.pdf)
+ * - [GDML](http://lcgapp.cern.ch/project/simu/framework/GDML/gdml.html)
  *
  * It won't work together with HP neutron simulation if Geant4 version is lower
  * than 10 because of this bug:
@@ -524,27 +526,25 @@ class Detector : public G4VUserDetectorConstruction, public G4UImessenger
    public:
       Detector();
       ~Detector()
-      { delete fDir; delete fCmdSetM; delete fCmdSrc; delete fField; }
-      G4VPhysicalVolume* Construct(); ///< Construct detector
+      { delete fDir; delete fCmdSetB; delete fCmdSrc; delete fCmdOut; }
+      G4VPhysicalVolume* Construct(); ///< called at /run/initialize
       void SetNewValue(G4UIcommand* cmd, G4String value); ///< for G4UI
 
    private:
-      G4String fGeomSrcText;
-
-      G4UIdirectory *fDir;
-      G4UIcmdWith3VectorAndUnit* fCmdSetM;
-      G4UIcmdWithAString* fCmdSrc;
-      G4UIcmdWithAString* fCmdOut;
-      G4UniformMagField* fField;
+      G4UIdirectory *fDir; ///< /field/
+      G4UIcmdWith3VectorAndUnit* fCmdSetB; ///< /field/setB
+      G4UIcmdWithAString* fCmdSrc; ///< /geometry/source
+      G4UIcmdWithAString* fCmdOut; ///< /geometry/export
       G4VPhysicalVolume * fWorld;
 };
 //______________________________________________________________________________
 //
-Detector::Detector(): G4UImessenger()
+Detector::Detector(): G4UImessenger(), fWorld(0)
 {
    fCmdOut = new G4UIcmdWithAString("/geometry/export",this);
    fCmdOut->SetGuidance("Export geometry gdml file name");
    fCmdOut->SetParameterName("gdml geometry output",false);
+   fCmdOut->AvailableForStates(G4State_Idle);
 
    fCmdSrc = new G4UIcmdWithAString("/geometry/source",this);
    fCmdSrc->SetGuidance("Set geometry source file name");
@@ -554,54 +554,55 @@ Detector::Detector(): G4UImessenger()
    fDir = new G4UIdirectory("/field/");
    fDir->SetGuidance("Global uniform field UI commands");
 
-   fCmdSetM = new G4UIcmdWith3VectorAndUnit("/field/setM",this);
-   fCmdSetM->SetGuidance("Set uniform magnetic field value.");
-   fCmdSetM->SetParameterName("Bx", "By", "Bz", false);
-   fCmdSetM->SetUnitCategory("Magnetic flux density");
+   fCmdSetB = new G4UIcmdWith3VectorAndUnit("/field/SetB",this);
+   fCmdSetB->SetGuidance("Set uniform magnetic field value.");
+   fCmdSetB->SetParameterName("Bx", "By", "Bz", false);
+   fCmdSetB->SetUnitCategory("Magnetic flux density");
 
-   fField = new G4UniformMagField(0,0,0);
 }
 //______________________________________________________________________________
 //
 void Detector::SetNewValue(G4UIcommand* cmd, G4String value)
 {
-   if (cmd==fCmdSetM) {
-      fField->SetFieldValue(fCmdSetM->GetNew3VectorValue(value));
+   if (cmd==fCmdSetB) {
+      G4UniformMagField* field = new G4UniformMagField(0,0,0);
+      field->SetFieldValue(fCmdSetB->GetNew3VectorValue(value));
       G4FieldManager* mgr = 
          G4TransportationManager::GetTransportationManager()->GetFieldManager();
-      mgr->SetDetectorField(fField);
-      mgr->CreateChordFinder(fField);
+      mgr->SetDetectorField(field);
+      mgr->CreateChordFinder(field);
       G4cout<<"Magnetic field is set to "<<value<<G4endl;
-   }
-   else if(cmd==fCmdOut)
-   {
+   } else if(cmd==fCmdOut) {
       G4GDMLParser paser;
-      paser.Write(value,fWorld,false);
-
+      paser.Write(value,fWorld);
+   } else { // cmd==fCmdSrc
+      if (value.substr(value.length()-4)!="gdml") {//text geometry input
+         G4tgbVolumeMgr* mgr = G4tgbVolumeMgr::GetInstance();
+         mgr->AddTextFile(value);
+         TextDetectorBuilder * gtb = new TextDetectorBuilder;
+         mgr->SetDetectorBuilder(gtb); 
+         fWorld = mgr->ReadAndConstructDetector();
+      } else { // GDML input
+         G4GDMLParser parser;
+         parser.Read(value);
+         fWorld=parser.GetWorldVolume();
+      }
    }
-   else if (cmd==fCmdSrc) fGeomSrcText = value;
 }
 //______________________________________________________________________________
 //
+#include "G4PVPlacement.hh"
 G4VPhysicalVolume* Detector::Construct()
 {
-   if (fGeomSrcText.substr(fGeomSrcText.length()-4)!="gdml")
-   {
-      G4tgbVolumeMgr* mgr = G4tgbVolumeMgr::GetInstance();
-      mgr->AddTextFile(fGeomSrcText);
-      TextDetectorBuilder * gtb = new TextDetectorBuilder;
-      mgr->SetDetectorBuilder(gtb); 
-      G4VPhysicalVolume* world = mgr->ReadAndConstructDetector();
-      fWorld=world;
-      return world;
+   if (fWorld==NULL) {
+      G4cerr<<"\tFailed constructing detector. Return a simple hall."<<G4endl;
+      G4Box* box = new G4Box("hall", 5*CLHEP::m, 5*CLHEP::m, 5*CLHEP::m);
+      G4NistManager *nist = G4NistManager::Instance();
+      G4Material *vacuum = nist->FindOrBuildMaterial("G4_Galactic");
+      G4LogicalVolume *v = new G4LogicalVolume(box, vacuum, "hall");
+      fWorld = new G4PVPlacement(0, G4ThreeVector(), v, "hall", 0, false, 0);
    }
-   else
-   {
-      G4GDMLParser parser;
-      parser.Read(fGeomSrcText);
-      fWorld=parser.GetWorldVolume();
-      return fWorld;
-   }
+   return fWorld;
 }
 //______________________________________________________________________________
 //
@@ -726,8 +727,8 @@ class EventAction : public G4UserEventAction, public G4UImessenger
 };
 //______________________________________________________________________________
 //
-   EventAction::EventAction()
-: G4UserEventAction(), G4UImessenger(), fN2report(1000)
+EventAction::EventAction()
+   : G4UserEventAction(), G4UImessenger(), fN2report(1000)
 {
    fCmd = new G4UIcmdWithAnInteger("/run/statusReport",this);
    fCmd->SetGuidance("enable status report after [number of events]");
