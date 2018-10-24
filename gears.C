@@ -504,11 +504,8 @@ G4VPhysicalVolume* TextDetectorBuilder::ConstructDetector(
 //______________________________________________________________________________
 //
 #include <G4VUserDetectorConstruction.hh>
-#include <G4TransportationManager.hh>
 #include <G4UIcmdWith3VectorAndUnit.hh>
 #include <G4UIdirectory.hh>
-#include <G4UniformMagField.hh>
-#include <G4FieldManager.hh>
 /**
  * Construct detector geometry.
  *
@@ -562,6 +559,9 @@ Detector::Detector(): G4UImessenger(), fWorld(0)
 }
 //______________________________________________________________________________
 //
+#include <G4FieldManager.hh>
+#include <G4UniformMagField.hh>
+#include <G4TransportationManager.hh>
 void Detector::SetNewValue(G4UIcommand* cmd, G4String value)
 {
    if (cmd==fCmdSetB) {
@@ -600,7 +600,7 @@ G4VPhysicalVolume* Detector::Construct()
       G4NistManager *nist = G4NistManager::Instance();
       G4Material *vacuum = nist->FindOrBuildMaterial("G4_Galactic");
       G4LogicalVolume *v = new G4LogicalVolume(box, vacuum, "hall");
-      fWorld = new G4PVPlacement(0, G4ThreeVector(), v, "hall", 0, false, 0);
+      fWorld = new G4PVPlacement(0, G4ThreeVector(), v, "hall", 0, 0, 0);
    }
    return fWorld;
 }
