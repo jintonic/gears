@@ -72,15 +72,15 @@ void Output::Record()
 {
    if (Silent==1) CopyState(); // point fTrack, fStep, etc. to right places
    if(n>=MaxNpnt) {
-      G4cout<<"Maximal number of track points, "<<MaxNpnt<<", is reached."
-         <<"Stop recording."<<G4endl;
+      G4cout<<"GEARS: Maximal number of track points, "<<MaxNpnt
+         <<", is reached. Stop recording."<<G4endl;
       return;
    }
    trk[n] = fTrack->GetTrackID();
    stp[n] = fTrack->GetCurrentStepNumber();
    l[n] = fTrack->GetTrackLength()/CLHEP::mm;
    if (l[n]>=1000) {
-      G4cout<<"Trk "<<trk[n]<<" is longer than 1 meter. Killed."<<G4endl;
+      G4cout<<"GEARS: Trk "<<trk[n]<<" longer than 1 meter. Killed."<<G4endl;
       fTrack->SetTrackStatus(fKillTrackAndSecondaries);
    }
    det[n] = fTrack->GetVolume()->GetCopyNo();
@@ -183,7 +183,7 @@ void Output::SetNewValue(G4UIcommand* cmd, G4String value)
    if (cmd==fCmd ) {
       fOut.open(value.data());
       if (!fOut.is_open()) {
-         G4cout<<"Failed to open output file. Abort"<<G4endl;
+         G4cout<<"GEARS: Failed to open output file. Abort"<<G4endl;
          abort();
       }
       fOut<<"[\n";
@@ -327,7 +327,7 @@ G4bool LineProcessor::ProcessLine(const std::vector<G4String> &words)
    tag.toLower();
    if (tag.substr(0,5)==":prop") {
       G4NistManager* mgr = G4NistManager::Instance();
-      G4cout<<"Set optical properties of "<<words[1]<<":"<<G4endl;
+      G4cout<<"GEARS: Set optical properties of "<<words[1]<<":"<<G4endl;
       mgr->FindOrBuildMaterial(words[1])
          ->SetMaterialPropertiesTable(CreateMaterialPropertiesTable(words,2));
       return true;
@@ -354,11 +354,13 @@ G4bool LineProcessor::ProcessLine(const std::vector<G4String> &words)
                bdr->optic->SetType(dielectric_dielectric);
             else if(value=="firsov") bdr->optic->SetType(firsov);
             else if(value=="x_ray") bdr->optic->SetType(x_ray);
-            else G4cout<<"Unknown surface type "<<value<<", ignored!"<<G4endl;
+            else G4cout<<"GERAS: Unknown surface type "<<value
+               <<", ignored!"<<G4endl;
          } else if(setting=="model") {
             if (value=="glisur") bdr->optic->SetModel(glisur);
             else if(value=="unified") bdr->optic->SetModel(unified);
-            else G4cout<<"Unknown surface model "<<value<<", ignored!"<<G4endl;
+            else G4cout<<"GEARS: Unknown surface model "<<value
+               <<", ignored!"<<G4endl;
          } else if(setting=="finish") {
             if(value=="polished") bdr->optic->SetFinish(polished);
             else if(value=="polishedfrontpainted")
@@ -371,15 +373,17 @@ G4bool LineProcessor::ProcessLine(const std::vector<G4String> &words)
             else if(value=="groundbackpainted")
                bdr->optic->SetFinish(groundbackpainted);
             else
-               G4cout<<"Unknown surface finish "<<value<<", ignored!"<<G4endl;
+               G4cout<<"GEARS: Unknown surface finish "<<value
+                  <<", ignored!"<<G4endl;
          } else if(setting=="sigma_alpha") {
             bdr->optic->SetSigmaAlpha(G4UIcommand::ConvertToInt(value));
          } else
-            G4cout<<"Unknown surface setting "<<setting<<", ignored!"<<G4endl;
+            G4cout<<"GEARS: Unknown surface setting "<<setting
+               <<", ignored!"<<G4endl;
          i+=2;
       }
       if (i<words.size()) { // break while loop because of "property"
-         G4cout<<"Set optical properties of "<<bdr->name<<":"<<G4endl;
+         G4cout<<"GEARS: Set optical properties of "<<bdr->name<<":"<<G4endl;
          bdr->optic->SetMaterialPropertiesTable(
                CreateMaterialPropertiesTable(words,i));
       }
@@ -414,7 +418,7 @@ G4MaterialPropertiesTable* LineProcessor::CreateMaterialPropertiesTable(
          i=i+1+cnt; // array has been used
       } else { // wavelength-dependent properties
          if (photonEnergyUnDefined) {
-            G4cout<<"photon energies undefined, "
+            G4cout<<"GEARS: photon energies undefined, "
                <<"ignore all wavelength-dependent properties!"<<G4endl;
             break;
          }
@@ -448,7 +452,7 @@ class TextDetectorBuilder : public G4tgbDetectorBuilder
       G4VPhysicalVolume* ConstructDetector(const G4tgrVolume* topVol);
 
    private :
-      LineProcessor* fLineProcessor;
+      LineProcessor* fLineProcessor; ///< Process individual lines in a tg file
 };
 //______________________________________________________________________________
 //
@@ -457,9 +461,9 @@ class TextDetectorBuilder : public G4tgbDetectorBuilder
 #include <G4tgbVolumeMgr.hh>
 const G4tgrVolume* TextDetectorBuilder::ReadDetector()
 {
-   G4tgrFileReader* fileReader = G4tgrFileReader::GetInstance();
-   fileReader->SetLineProcessor(fLineProcessor);
-   fileReader->ReadFiles();
+   G4tgrFileReader* reader = G4tgrFileReader::GetInstance();
+   reader->SetLineProcessor(fLineProcessor);
+   reader->ReadFiles();
    G4tgrVolumeMgr* mgr = G4tgrVolumeMgr::GetInstance();
    const G4tgrVolume* world = mgr->GetTopVolume();
    return world;
@@ -555,7 +559,6 @@ Detector::Detector(): G4UImessenger(), fWorld(0)
    fCmdSetB->SetGuidance("Set uniform magnetic field value.");
    fCmdSetB->SetParameterName("Bx", "By", "Bz", false);
    fCmdSetB->SetUnitCategory("Magnetic flux density");
-
 }
 //______________________________________________________________________________
 //
@@ -571,16 +574,16 @@ void Detector::SetNewValue(G4UIcommand* cmd, G4String value)
          G4TransportationManager::GetTransportationManager()->GetFieldManager();
       mgr->SetDetectorField(field);
       mgr->CreateChordFinder(field);
-      G4cout<<"Magnetic field is set to "<<value<<G4endl;
+      G4cout<<"GEARS: Magnetic field is set to "<<value<<G4endl;
    } else if(cmd==fCmdOut) {
       G4GDMLParser paser;
       paser.Write(value,fWorld);
    } else { // cmd==fCmdSrc
-      if (value.substr(value.length()-4)!="gdml") {//text geometry input
+      if (value.substr(value.length()-4)!="gdml") { // text geometry input
          G4tgbVolumeMgr* mgr = G4tgbVolumeMgr::GetInstance();
          mgr->AddTextFile(value);
-         TextDetectorBuilder * gtb = new TextDetectorBuilder;
-         mgr->SetDetectorBuilder(gtb); 
+         TextDetectorBuilder * tgb = new TextDetectorBuilder;
+         mgr->SetDetectorBuilder(tgb); 
          fWorld = mgr->ReadAndConstructDetector();
       } else { // GDML input
          G4GDMLParser parser;
@@ -595,7 +598,7 @@ void Detector::SetNewValue(G4UIcommand* cmd, G4String value)
 G4VPhysicalVolume* Detector::Construct()
 {
    if (fWorld==NULL) {
-      G4cerr<<"\tFailed constructing detector. Return a simple hall."<<G4endl;
+      G4cout<<"GEARS: World not available. Return a simple hall."<<G4endl;
       G4Box* box = new G4Box("hall", 5*CLHEP::m, 5*CLHEP::m, 5*CLHEP::m);
       G4NistManager *nist = G4NistManager::Instance();
       G4Material *vacuum = nist->FindOrBuildMaterial("G4_Galactic");
@@ -690,14 +693,15 @@ class RunAction : public G4UserRunAction
 #include <G4Run.hh>
 void RunAction::BeginOfRunAction (const G4Run* run)
 { 
-   G4cout<<run->GetNumberOfEventToBeProcessed()
+   G4cout<<"GEARS: "<<run->GetNumberOfEventToBeProcessed()
       <<" events to be processed"<<G4endl;
 }
 //______________________________________________________________________________
 //
 void RunAction::EndOfRunAction (const G4Run* run)
 {
-   G4cout<<"In total, "<<run->GetNumberOfEvent()<<" events simulated"<<G4endl;
+   G4cout<<"GEARS: In total, "<<run->GetNumberOfEvent()
+      <<" events simulated"<<G4endl;
    Output *o = (Output*) G4VSteppingVerbose::GetInstance();
 #ifdef hasROOT
    ((ROOTOutput*)o)->Close();
@@ -759,7 +763,7 @@ void EventAction::EndOfEventAction(const G4Event* event)
    o->Save();
 #endif
    int id=event->GetEventID()+1;
-   if (id%fN2report==0) G4cout<<id<<" events simulated"<<G4endl;
+   if (id%fN2report==0) G4cout<<"GEARS: "<<id<<" events simulated"<<G4endl;
 }
 //______________________________________________________________________________
 //
