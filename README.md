@@ -286,7 +286,7 @@ ROOT use TTree to save data. TTree have entry and branch to build their data str
 `G4cout` and `G4endl` is preferred over `std:cout` and `std:endl` because the former handle the output in [Geant4][] GUI correctly, while the later can only output to terminal.
 
 [GEARS]: https://github.com/jintonic/gears
-[tg]: http://geant4.web.cern.ch/geant4/collaboration/working_groups/geometry/docs/textgeom/textgeom.pdf
+[tg]: http://www.geant4.org/geant4/sites/geant4.web.cern.ch/files/geant4/collaboration/working_groups/geometry/docs/textgeom/textgeom.pdf
 [TUI]: http://geant4.cern.ch/G4UsersDocuments/UsersGuides/ForApplicationDeveloper/html/Control/UIcommands/_.html
 [SLOC]: https://en.wikipedia.org/wiki/Source_lines_of_code
 [ROOT]: https://root.cern.ch
