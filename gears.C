@@ -307,7 +307,7 @@ class LineProcessor: public G4tgrLineProcessor
 //
 LineProcessor::~LineProcessor()
 {
-   while (Border) { // the G4OpticalSurface should be taken care by Geant4
+   while (Border) { // deleting G4OpticalSurface is done in Geant4
       BorderSurface *next=Border->next;
       delete Border;
       Border=next;
@@ -316,6 +316,7 @@ LineProcessor::~LineProcessor()
 //______________________________________________________________________________
 //
 #include <G4NistManager.hh>
+#include <G4tgbMaterialMgr.hh>
 G4bool LineProcessor::ProcessLine(const std::vector<G4String> &words)
 {
    // process default text geometry tags
@@ -326,10 +327,13 @@ G4bool LineProcessor::ProcessLine(const std::vector<G4String> &words)
    G4String tag = words[0];
    tag.toLower();
    if (tag.substr(0,5)==":prop") {
-      G4NistManager* mgr = G4NistManager::Instance();
       G4cout<<"GEARS: Set optical properties of "<<words[1]<<":"<<G4endl;
-      mgr->FindOrBuildMaterial(words[1])
-         ->SetMaterialPropertiesTable(CreateMaterialPropertiesTable(words,2));
+      G4NistManager *mgr = G4NistManager::Instance();
+      mgr->SetVerbose(10);
+      G4Material *m = mgr->FindOrBuildMaterial(words[1],true,true);
+      if (m==NULL) // if not in NIST, then build in tgb
+         m = G4tgbMaterialMgr::GetInstance()->FindOrBuildG4Material(words[1]);
+      m->SetMaterialPropertiesTable(CreateMaterialPropertiesTable(words,2));
       return true;
    } else if (tag.substr(0,5)==":surf") {
       BorderSurface *bdr = new BorderSurface;
@@ -407,7 +411,7 @@ G4MaterialPropertiesTable* LineProcessor::CreateMaterialPropertiesTable(
             || property=="FASTTIMECONSTANT" || property=="SLOWTIMECONSTANT"
             || property=="YIELDRATIO" || property=="WLSTIMECONSTANT") {
          table->AddConstProperty(property, G4tgrUtils::GetDouble(words[i+1]));
-         G4cout<<property<<"="<<words[i+1]<<G4endl;
+         G4cout<<"GEARS: "<<property<<"="<<words[i+1]<<G4endl;
          i++; // property value has been used
       } else if (property.substr(0,12)=="PHOTON_ENERG") {
          photonEnergyUnDefined=false;
@@ -425,7 +429,8 @@ G4MaterialPropertiesTable* LineProcessor::CreateMaterialPropertiesTable(
          double *values = new double[cnt];
          for (int j=0; j<cnt; j++) 
             values[j]=G4tgrUtils::GetDouble(words[i+1+j]);
-         G4cout<<property<<"="<<values[0]<<", "<<values[1]<<"..."<<G4endl;
+         G4cout<<"GEARS: "<<property<<"="<<values[0]<<", "
+            <<values[1]<<"..."<<G4endl;
          table->AddProperty(property, energies, values, cnt);
          delete[] values;
          i=i+cnt;
