@@ -1,5 +1,5 @@
 #!/bin/sh
-# submit batch jobs to cluster
+# submit batch jobs to cluster using qsub
 
 # http://stackoverflow.com/questions/10496758/unexpected-end-of-file-and-error-importing-function-definition-error-running
 unset module
