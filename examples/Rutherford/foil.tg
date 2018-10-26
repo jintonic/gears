@@ -1,5 +1,4 @@
-:mixt vacuum 1e-9 1 G4_AIR 1
-:volu hall BOX 1*cm 0.5*cm 0.5*cm vacuum
+:volu hall BOX 1*cm 0.5*cm 0.5*cm G4_Galactic
 :volu foil BOX 2*micrometer 0.4*cm 0.4*cm G4_Au
 :rotm r000 0 0 0
 :place foil 1 hall r000 0 0 0
