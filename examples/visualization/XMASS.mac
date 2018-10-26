@@ -1,11 +1,11 @@
-/geometry/source geom/XMASS/PMTs.tg
+/geometry/source XMASS.tg
 /run/initialize
 
+# dump geometry tree in terminal
 /vis/ASCIITree/verbose 13
 /vis/drawTree
 /geometry/test/run
 
-#/vis/open DAWNFILE
 /vis/open HepRepFile
 /vis/drawVolume
 /vis/viewer/refresh
@@ -14,11 +14,11 @@
 /vis/scene/add/axes 0 0 0 50 cm
 
 /vis/scene/add/trajectories
-#/vis/scene/endOfEventAction accumulate 50
+/vis/scene/endOfEventAction accumulate 50
 
 /gps/particle gamma
 /gps/energy 1.2 MeV
 /gps/position 0 0 400 mm
 
-/run/output xmass.root
+/run/output XMASS.root
 /run/beamOn 10
