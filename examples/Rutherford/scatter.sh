@@ -37,4 +37,6 @@ CMD="convert -delay 8 -dispose None g4*.png merged.gif"
 echo $CMD
 $CMD
 
-rm -f $M g4*.* .DAWN*
+if [ -f merged.gif ]; then
+  rm -f $M g4*.* .DAWN*
+fi
