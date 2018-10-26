@@ -57,10 +57,10 @@ Their difference is similar to that between [markdown][md] and [HTML][]. The sim
 :volume hall BOX 5*m 5*m 5*m G4_AIR
 ~~~
 
-More examples can be found in the [geom/](geom/) directory, such as [geom/hall.tg](geom/hall.tg). Files in this directory have a suffix of *.tg*, indicating that they are [text geometry][tg] description files. A [Geant4][] macro command is added to load [one of the geometry files](geom/Rutherford/foil.tg):
+More examples can be found in the [geom/](geom/) directory, such as [geom/hall.tg](geom/hall.tg). Files in this directory have a suffix of *.tg*, indicating that they are [text geometry][tg] description files. A [Geant4][] macro command is added to load [one of the geometry files](examples/Rutherford/foil.tg):
 
 ~~~
-/geometry/source geom/Rutherford/foil.tg
+/geometry/source examples/Rutherford/foil.tg
 ~~~
 
 Alternatively,
