@@ -11,44 +11,50 @@
   * Universal data format, easy to read by different tools
   * Human readable ASCII file
   * Capable of dealing with multiple dimensional arrays
-* [Output](#output) in [ROOT](#root) TTree format (optional)
+* [Output](#output) in [ROOT](#root) TTree format (if ROOT is installed)
   * Build-in data compression, well suitable for large data processing
   * Fast access to independent data members
-  * Flat tree (no nested branches or arrays)
+  * Flat tree (no nested branches or arrays) with short leave names
     * Easy to use in TTree::Draw
     * No need to load extra library to open
 * [Record information of step 0](#record-information-of-step-0) (initStep)
   * This is not available from G4UserSteppingAction
-* Create/Change geometry without re-compilation
-* Turn any volume to a sensitive detector by adding "(S)" in its name
-* Assign optical properties in [Geant4][] plain [text geometry description][tg]
+* [simple text][tg] or [GDML][] geometry I/O
+  * Fast implementation of [detector geometry](#detector) without C++ programming
+  * Create/Change geometry without re-compilation
+  * Turn any volume to a sensitive detector by adding "(S)" in its name
+  * Assign optical properties in [Geant4][] plain [text geometry description][tg]
 * Optional optical and hadronic physics
 * Periodic status report in a long run
 * Frequently used source spectra (AmBe, Am-241, etc.)
 * [Doxygen documentation](http://www.physino.xyz/gears/)
+* Many sample macros and geometry descriptions for feature demonstration
 
 # Prerequisites
 
-* [ROOT][] for recording simulation results
 * [Geant4][], version above 9 is requested due to the following inconvenience in version 9: http://hypernews.slac.stanford.edu/HyperNews/geant4/get/hadronprocess/1242.html?inline=-1
+* Optionally, [ROOT][] for recording simulation results
 
 # Get started
 
 ~~~shell
-git clone https://github.com/jintonic/gears.git
-cd gears
-make
-cd macro/Rutherford/
-./scatter.sh 100
+$ git clone https://github.com/jintonic/gears.git
+$ cd gears
+$ make
+$ ./gears.exe
+PreInit> ls
 ~~~
 
 # Detector
 
 ## Geometry
-[Geant4][] provides a simple way to describe the geometry of a detector in a plain text file. For example, the following line in such a file defines an experimental hall filled with air, the dimension of which is 20 x 20 x 30 meters:
+[GEARS][] accepts two types of detector geometry descriptions in pure ASCII format as input:
+- [Geant4][] [text geometry description][tg] (recommended)
+- [GDML][] (provided for data analysis and visualization in other tools)
+Their difference is similar to that between [markdown][md] and [HTML][]. The simpler [text geometry description][tg] provided by [Geant4][] is recommended to be used as [GEARS][]'s input given its simplicity and readability. For example, an experimental hall filled with air and of a dimension of 10 x 10 x 10 meters can be easily implemented using the following line:
 
 ~~~
-:volume hall BOX 10*m 10*m 10*m G4_AIR
+:volume hall BOX 5*m 5*m 5*m G4_AIR
 ~~~
 
 More examples can be found in the [geom/](geom/) directory, such as [geom/hall.tg](geom/hall.tg). Files in this directory have a suffix of *.tg*, indicating that they are [text geometry][tg] description files. A [Geant4][] macro command is added to load [one of the geometry files](geom/Rutherford/foil.tg):
@@ -57,13 +63,38 @@ More examples can be found in the [geom/](geom/) directory, such as [geom/hall.t
 /geometry/source geom/Rutherford/foil.tg
 ~~~
 
-The command must be used before [/run/initialize][run], otherwise [Geant4][] does not have a detector to initialize.
+Alternatively,
+
+~~~
+/geometry/source file.gdml
+~~~
+
+The command must be used before [/run/initialize][run], otherwise [GEARS][] will construct a simple experimental hall automatically to prevent crashing.
+
+[GEARS][] provides the following command to export constructed detector geometry to a [GDML][] file:
+
+~~~
+/geometry/export output.gdml
+~~~
+
+This can only be used after the macro command [/run/initialize][run], which constructs the detector geometry before exporting. While the simpler [text geometry description][tg] can only be understood by [Geant4][], [GDML][] can be understood by many other tools. For example, [ROOT][] provides functions to read and visualize [GDML][] geometries. On the other hand, it is not that easy to write a valid [GDML][] file manually. This functionality is provided to enable the following usage:
+
+~~~
+# describe the detector using simple text geometry description
+/geometry/source input.tg
+# construct the detector
+/run/intialize
+# export detector geometry as GDML for analysis/visualization in other tools
+/geometry/export output.gdml
+~~~
 
 ## Material
 
-The [NIST][] material table provided by Geant4 contains a lot of commonly used materials. One can run /material/nist/[listMaterials][] at any Geant4 state to print the list locally. These materials can be used directly in a [text geometry description][tg], for example
+The [NIST][] material table provided by Geant4 contains all elements (C, H, O, for example) and a lot of commonly used materials (start with "G4_"). One can run /material/nist/[listMaterials][] at any Geant4 state to print the list locally. These materials can be used directly in a [text geometry description][tg], for example
 
 ~~~
+// use Geant4 elements, C and H to define TPB
+:MIXT_BY_NATOMS TPB 1.079 2 C 28 H 22
 // use NIST material G4_AIR to define vacuum
 :mixt vacuum 1e-9 1 G4_AIR 1
 ~~~
@@ -295,6 +326,7 @@ ROOT use TTree to save data. TTree have entry and branch to build their data str
 [run]: http://geant4.cern.ch/G4UsersDocuments/UsersGuides/ForApplicationDeveloper/html/Control/UIcommands/_run_.html
 [listMaterials]: https://geant4.web.cern.ch/geant4/UserDocumentation/UsersGuides/ForApplicationDeveloper/html/AllResources/Control/UIcommands/_material_nist_.html
 [G4OpBoundaryProcess]: http://www-geant4.kek.jp/lxr/source//processes/optical/include/G4OpBoundaryProcess.hh
+[PostStepDoIt]: http://www.apc.univ-paris7.fr/~franco/g4doxy4.10/html/class_g4_op_boundary_process.html#a70a65cc5127a05680a0c4679f8300871
 [G4LogicalBorderSurface]: http://www-geant4.kek.jp/lxr/source/geometry/volumes/include/G4LogicalBorderSurface.hh
 [grdm]:http://geant4.cern.ch/UserDocumentation/UsersGuides/ForApplicationDeveloper/html/AllResources/Control/UIcommands/_grdm_.html
 [G4Track]: http://www-geant4.kek.jp/lxr/source/track/include/G4Track.hh
@@ -309,3 +341,6 @@ ROOT use TTree to save data. TTree have entry and branch to build their data str
 [Stepping]: http://www-geant4.kek.jp/lxr/source/tracking/src/G4SteppingManager.cc#L116
 [StepInfo]: http://www-geant4.kek.jp/lxr/source/tracking/src/G4SteppingManager.cc#L228
 [TrackingStarted]: http://www-geant4.kek.jp/lxr/source/tracking/src/G4SteppingManager.cc#L360
+[GDML]: https://gdml.web.cern.ch/GDML/
+[md]: https://en.wikipedia.org/wiki/Markdown
+[HTML]: https://www.w3schools.com/html/
