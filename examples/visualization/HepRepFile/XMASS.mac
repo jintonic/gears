@@ -20,5 +20,4 @@
 /gps/energy 1.2 MeV
 /gps/position 0 0 400 mm
 
-/run/output XMASS.root
 /run/beamOn 10
