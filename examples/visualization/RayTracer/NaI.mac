@@ -1,0 +1,16 @@
+/geometry/source NaI.tg
+/run/initialize
+
+/vis/ASCIITree/verbose 13
+/vis/drawTree
+/geometry/test/run
+/vis/geometry/list
+
+/vis/open RayTracer
+/vis/viewer/set/background ! ! ! 0
+/vis/viewer/set/upThetaPhi 10 0
+/vis/viewer/set/viewpointThetaPhi 60 0
+/vis/drawVolume
+/vis/scene/add/axes 0 0 0 10 cm
+/vis/viewer/refresh
+/vis/viewer/flush

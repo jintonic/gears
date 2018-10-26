@@ -1,0 +1,7 @@
+:volu hall BOX 10*cm 10*cm 10*cm G4_AIR
+:volu NaI TUBS 0. 2.54*cm 5*cm 0 360 G4_SODIUM_IODIDE
+:rotm r000 0 0 0
+:place NaI -1 hall r000 0 0 0
+
+:color NaI 0.2 0.4 0.8
+:vis hall OFF
