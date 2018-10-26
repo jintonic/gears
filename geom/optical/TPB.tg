@@ -5,9 +5,7 @@
 //example of a material made of a mixture of elements 
 //:MIXT_BY_NATOMS <name> <density (units of g/cm3)> <# of components>
 //1 line per component, <symbol> <# of atoms>
-:MIXT_BY_NATOMS TPB 1.079 2
-G4_C 28
-G4_H 22
+:MIXT_BY_NATOMS TPB 1.079 2 C 28 H 22
 :prop TPB
 WLSTIMECONSTANT 1.5*ns
 photon_energies 63 3.543*eV 3.496*eV 3.455*eV 3.411*eV 3.368*eV 3.322*eV 3.274*eV 3.245*eV 3.203*eV 3.161*eV 3.121*eV 3.085*eV 3.050*eV 3.009*eV 2.975*eV 2.943*eV 2.905*eV 2.873*eV 2.840*eV 2.807*eV 2.776*eV 2.747*eV 2.719*eV 2.692*eV 2.662*eV 2.636*eV 2.608*eV 2.580*eV 2.558*eV 2.531*eV 2.508*eV 2.482*eV 2.459*eV 2.435*eV 2.413*eV 2.387*eV 2.366*eV 2.345*eV 2.323*eV 2.303*eV 2.283*eV 2.264*eV 2.243*eV 2.224*eV 2.204*eV 2.186*eV 2.165*eV 2.148*eV 2.131*eV 2.112*eV 2.096*eV 2.079*eV 2.062*eV 2.045*eV 2.029*eV 2.012*eV 1.996*eV 1.980*eV 1.966*eV 1.951*eV 1.938*eV 1.924*eV 1.908*eV
