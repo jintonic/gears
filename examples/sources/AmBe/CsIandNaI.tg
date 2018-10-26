@@ -1,0 +1,47 @@
+// materials
+:mixt steel 8.06*g/cm3 6
+G4_C  0.001
+G4_Si 0.007
+G4_Cr 0.180
+G4_Mn 0.010
+G4_Fe 0.712
+G4_Ni 0.090
+
+// volumes
+:volu cleanroom TUBE 0 8*cm 32*cm G4_AIR
+
+:solid base TUBE 0*cm 7.62*cm 22.3*cm
+:solid skin TUBE 5.08*cm 9.0*cm 18.34*cm
+:rotm r000 0 0 0
+:solid cylinder SUBTRACTION base skin r000 0 0 0
+:volu chamber cylinder steel
+
+:volu N2 TUBE 0*cm 4.88*cm 20.32*cm G4_N
+
+:volu CsI(S) TUBE 0. 2.54*cm 5*cm G4_CESIUM_IODIDE
+
+:volu AlCan TUBE 0. 40.4*mm 40.4*mm G4_Al
+
+:volu Vacuum TUBE 0. 40*mm 40*mm G4_Galactic
+
+:volu NaI(Tl)(S) TUBE 0. 38.1*mm 38.1*mm G4_SODIUM_IODIDE
+
+// placement
+:place NaI(Tl)(S) 0 Vacuum r000 0. 0. 0.
+:place Vacuum 1 AlCan r000 0. 0. 0.
+:place AlCan 1 cleanroom r000 0. 0. -27.34*cm
+
+:place CsI(S) 1 N2 r000 0 0 -15.32*cm
+:place N2 1 chamber r000 0. 0. 0.
+:place chamber 1 cleanroom r000 0. 0. 0.
+
+// visualization
+:color CsI(S) 0.2 0.4 0.8
+:color N2 0.8 0.4 0.2
+:color chamber 0.4 0.4 0.4
+
+:color NaI(Tl)(S) 0.25 0.41 0.88
+:color Vacuum 0.3 0.3 0.3
+:color AlCan 0.5 0.5 0.5
+:color cleanroom 0.2 0.5 0.6
+//:vis cleanroom OFF

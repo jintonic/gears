@@ -1,0 +1,26 @@
+/geometry/source CsIandNaI.tg
+
+/physics_lists/enable HadronElastic
+/physics_lists/enable HadronInelastic
+
+/run/initialize
+
+/vis/ASCIITree/verbose 13
+/vis/drawTree
+/geometry/test/run
+
+/process/list
+#/grdm/deselectVolume chamber
+#/grdm/nucleusLimits 1 293 40 50
+
+# AmBe neutron spectrum
+/control/execute AmBe.mac
+/gps/pos/centre 0 0 -22.5 cm
+
+/random/setSeeds 2412 79628
+
+/tracking/verbose 0
+
+/run/output AmBe.root
+/run/statusReport 10000
+/run/beamOn 1000000
