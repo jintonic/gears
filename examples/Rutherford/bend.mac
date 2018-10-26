@@ -1,5 +1,5 @@
 /geometry/source magnet.tg
-/field/setB 0 0 1e-1 tesla
+/field/SetB 0 0 1e-1 tesla
 
 /run/initialize
 
