@@ -1,6 +1,8 @@
 var searchData=
 [
-  ['setnewvalue',['SetNewValue',['../classOutput.html#a57bdd3b46fd825fe2a6e8c2beb6fa064',1,'Output::SetNewValue()'],['../classDetector.html#a2faa7c7dda09ce4085e621f0183ce81a',1,'Detector::SetNewValue()'],['../classPhysics.html#a114f19a134371af7ce8fcb93b2450df9',1,'Physics::SetNewValue()'],['../classEventAction.html#a5f290a0479a4e80b19986ebdff91c06e',1,'EventAction::SetNewValue()']]],
-  ['stepinfo',['StepInfo',['../classOutput.html#a2f10ccb12b40068f164825db35e00173',1,'Output']]],
-  ['stp',['stp',['../classOutput.html#aae6479b4145ec4b734bf20d04bc07754',1,'Output']]]
+  ['readdetector',['ReadDetector',['../classTextDetectorBuilder.html#ad930f807c16f7cf01dd202c0ff9dd8bd',1,'TextDetectorBuilder']]],
+  ['readme_2emd',['README.md',['../README_8md.html',1,'']]],
+  ['record',['Record',['../classOutput.html#ab0da2585e0622a95ac482f631129065a',1,'Output']]],
+  ['reset',['Reset',['../classOutput.html#abbf68b6b530c12370c9823792423264a',1,'Output']]],
+  ['runaction',['RunAction',['../classRunAction.html',1,'RunAction'],['../classRunAction.html#a535a70dd2811b2212753372dcb5a2f50',1,'RunAction::RunAction()']]]
 ];

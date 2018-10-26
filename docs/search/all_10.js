@@ -1,4 +1,5 @@
 var searchData=
 [
-  ['x',['x',['../classOutput.html#a90b6c8ff78f9b98721f5d9ad6c56414d',1,'Output']]]
+  ['v1',['v1',['../structBorderSurface.html#a08d7d340ee41dddebd505989637f085e',1,'BorderSurface']]],
+  ['v2',['v2',['../structBorderSurface.html#acac5ef2095c805789b4a8ffbc280e80e',1,'BorderSurface']]]
 ];

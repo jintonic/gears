@@ -1,7 +1,7 @@
 var searchData=
 [
-  ['n',['n',['../classOutput.html#ae8a0bdd757aea8671ae518d0e57cf600',1,'Output']]],
-  ['name',['name',['../structBorderSurface.html#af047c82bc515d77cc20f6c9496f865be',1,'BorderSurface']]],
-  ['nd',['nd',['../classOutput.html#a183a137342fe3efdaeceb81ead217660',1,'Output']]],
-  ['next',['next',['../structBorderSurface.html#a86c1049826b5bc969b0b4a978a46631b',1,'BorderSurface']]]
+  ['main',['main',['../gears_8C.html#a3c04138a5bfe5d72780bb7e82a18e627',1,'gears.C']]],
+  ['maxndet',['MaxNdet',['../gears_8C.html#ae6956f98af512042967a8e63a285ae5f',1,'gears.C']]],
+  ['maxnpnt',['MaxNpnt',['../gears_8C.html#a8b1a00dea127608d5e06ac433a90e238',1,'gears.C']]],
+  ['mom',['mom',['../classOutput.html#a94011872235262f933c6f140a539c000',1,'Output']]]
 ];
