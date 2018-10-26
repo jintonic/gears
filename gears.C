@@ -327,12 +327,12 @@ G4bool LineProcessor::ProcessLine(const std::vector<G4String> &words)
    G4String tag = words[0];
    tag.toLower();
    if (tag.substr(0,5)==":prop") {
-      G4cout<<"GEARS: Set optical properties of "<<words[1]<<":"<<G4endl;
       G4NistManager *mgr = G4NistManager::Instance();
       mgr->SetVerbose(10);
       G4Material *m = mgr->FindOrBuildMaterial(words[1],true,true);
       if (m==NULL) // if not in NIST, then build in tgb
          m = G4tgbMaterialMgr::GetInstance()->FindOrBuildG4Material(words[1]);
+      G4cout<<"GEARS: Set optical properties of "<<words[1]<<":"<<G4endl;
       m->SetMaterialPropertiesTable(CreateMaterialPropertiesTable(words,2));
       return true;
    } else if (tag.substr(0,5)==":surf") {
