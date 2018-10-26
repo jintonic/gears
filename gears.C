@@ -79,8 +79,8 @@ void Output::Record()
    trk[n] = fTrack->GetTrackID();
    stp[n] = fTrack->GetCurrentStepNumber();
    l[n] = fTrack->GetTrackLength()/CLHEP::mm;
-   if (l[n]>=1000) {
-      G4cout<<"GEARS: Trk "<<trk[n]<<" longer than 1 meter. Killed."<<G4endl;
+   if (l[n]>=100*CLHEP::m) {
+      G4cout<<"GEARS: Trk "<<trk[n]<<" longer than 100 meter. Killed."<<G4endl;
       fTrack->SetTrackStatus(fKillTrackAndSecondaries);
    }
    det[n] = fTrack->GetVolume()->GetCopyNo();
