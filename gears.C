@@ -293,7 +293,14 @@ class LineProcessor: public G4tgrLineProcessor
       ~LineProcessor();
       /**
        * Overwrite G4tgrLineProcessor::ProcessLine to add new tags.
-       * Two new tags are added: ":PROP" and ":SURF".
+       *
+       * Two new tags are added: ":PROP" and ":SURF" (case insensitive):
+       * - ":prop" is used to add optical properties to a material
+       * - ":surf" is used to define an optical surface
+       *
+       * The function is called for each new line.  Be sure to insert an
+       * end-of-line character by typing <Enter> at the end of the last line,
+       * otherwise, the last line will not be processed.
        */
       G4bool ProcessLine(const std::vector<G4String> &words);
 
@@ -321,24 +328,23 @@ G4bool LineProcessor::ProcessLine(const std::vector<G4String> &words)
 {
    // process default text geometry tags
    G4bool processed = G4tgrLineProcessor::ProcessLine(words);
-   if (processed) return true;
+   if (processed) return true; // no new tags involved
 
-   // process added tags
+   // process added tags: prop & surf
    G4String tag = words[0];
-   tag.toLower();
-   if (tag.substr(0,5)==":prop") {
-      G4NistManager *mgr = G4NistManager::Instance();
-      mgr->SetVerbose(10);
-      G4Material *m = mgr->FindOrBuildMaterial(words[1],true,true);
+   tag.toLower(); // to lower cases
+   if (tag.substr(0,5)==":prop") { // set optical properties of a material
+      G4NistManager *mgr = G4NistManager::Instance(); mgr->SetVerbose(2);
+      G4Material *m = mgr->FindOrBuildMaterial(words[1]);
       if (m==NULL) // if not in NIST, then build in tgb
-         m = G4tgbMaterialMgr::GetInstance()->FindOrBuildG4Material(words[1]);
+         m=G4tgbMaterialMgr::GetInstance()->FindOrBuildG4Material(words[1]);
       G4cout<<"GEARS: Set optical properties of "<<words[1]<<":"<<G4endl;
       m->SetMaterialPropertiesTable(CreateMaterialPropertiesTable(words,2));
       return true;
-   } else if (tag.substr(0,5)==":surf") {
+   } else if (tag.substr(0,5)==":surf") { // define an optical surface
       BorderSurface *bdr = new BorderSurface;
-      bdr->next=Border;
-      Border=bdr;
+      bdr->next=Border; // save current border pointer
+      Border=bdr; // overwrite current border pointer
       bdr->name=words[1];
       bdr->v1=words[2];
       bdr->v2=words[3];
@@ -358,13 +364,11 @@ G4bool LineProcessor::ProcessLine(const std::vector<G4String> &words)
                bdr->optic->SetType(dielectric_dielectric);
             else if(value=="firsov") bdr->optic->SetType(firsov);
             else if(value=="x_ray") bdr->optic->SetType(x_ray);
-            else G4cout<<"GERAS: Unknown surface type "<<value
-               <<", ignored!"<<G4endl;
+            else G4cout<<"GERAS: Ignore unknown surface type "<<value<<G4endl;
          } else if(setting=="model") {
             if (value=="glisur") bdr->optic->SetModel(glisur);
             else if(value=="unified") bdr->optic->SetModel(unified);
-            else G4cout<<"GEARS: Unknown surface model "<<value
-               <<", ignored!"<<G4endl;
+            else G4cout<<"GERAS: Ignore unknown surface model "<<value<<G4endl;
          } else if(setting=="finish") {
             if(value=="polished") bdr->optic->SetFinish(polished);
             else if(value=="polishedfrontpainted")
@@ -377,13 +381,11 @@ G4bool LineProcessor::ProcessLine(const std::vector<G4String> &words)
             else if(value=="groundbackpainted")
                bdr->optic->SetFinish(groundbackpainted);
             else
-               G4cout<<"GEARS: Unknown surface finish "<<value
-                  <<", ignored!"<<G4endl;
+               G4cout<<"GERAS: Ignore unknown surface finish "<<value<<G4endl;
          } else if(setting=="sigma_alpha") {
             bdr->optic->SetSigmaAlpha(G4UIcommand::ConvertToInt(value));
          } else
-            G4cout<<"GEARS: Unknown surface setting "<<setting
-               <<", ignored!"<<G4endl;
+            G4cout<<"GERAS: Ignore unknown surface setting "<<value<<G4endl;
          i+=2;
       }
       if (i<words.size()) { // break while loop because of "property"
