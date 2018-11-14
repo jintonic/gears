@@ -2,6 +2,8 @@
 #include CsI.tg
 // optical properties of SiO2
 #include SiO2.tg
+// optical properties of TPB
+#include TPB.tg
 // optical properties of Teflon
 :prop G4_TEFLON
   photon_energies 2 2.5*eV 5.0*eV
