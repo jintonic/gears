@@ -13,7 +13,7 @@ endif
 GDML_ENABLED:=$(shell geant4-config --has-feature gdml)
 ifeq ($(GDML_ENABLED),yes)
   FLAG+=-DhasGDML
-  LIBS+=-L$($XERCESC_ROOT_DIR)/lib -lxerces-c
+  LIBS+=-lxerces-c
 endif
 
 SRC=$(wildcard *.C)
