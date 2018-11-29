@@ -13,7 +13,6 @@ const int MaxNdet=100; ///< Max number of detectors that can be handled
 #include <G4SteppingVerbose.hh>
 #include <G4UImessenger.hh>
 #include <G4UIcmdWithAString.hh>
-#include "G4GDMLParser.hh"
 /**
  * Output simulation results to screen or a file.
  */
@@ -549,10 +548,14 @@ class Detector : public G4VUserDetectorConstruction, public G4UImessenger
 //
 Detector::Detector(): G4UImessenger(), fWorld(0)
 {
+#ifdef hasGDML
    fCmdOut = new G4UIcmdWithAString("/geometry/export",this);
    fCmdOut->SetGuidance("Export geometry gdml file name");
    fCmdOut->SetParameterName("gdml geometry output",false);
    fCmdOut->AvailableForStates(G4State_Idle);
+#else
+   fCmdOut=0;
+#endif
 
    fCmdSrc = new G4UIcmdWithAString("/geometry/source",this);
    fCmdSrc->SetGuidance("Set geometry source file name");
@@ -572,6 +575,9 @@ Detector::Detector(): G4UImessenger(), fWorld(0)
 #include <G4FieldManager.hh>
 #include <G4UniformMagField.hh>
 #include <G4TransportationManager.hh>
+#ifdef hasGDML
+#include "G4GDMLParser.hh"
+#endif
 void Detector::SetNewValue(G4UIcommand* cmd, G4String value)
 {
    if (cmd==fCmdSetB) {
@@ -582,9 +588,11 @@ void Detector::SetNewValue(G4UIcommand* cmd, G4String value)
       mgr->SetDetectorField(field);
       mgr->CreateChordFinder(field);
       G4cout<<"GEARS: Magnetic field is set to "<<value<<G4endl;
+#ifdef hasGDML
    } else if(cmd==fCmdOut) {
       G4GDMLParser paser;
       paser.Write(value,fWorld);
+#endif
    } else { // cmd==fCmdSrc
       if (value.substr(value.length()-4)!="gdml") { // text geometry input
          G4tgbVolumeMgr* mgr = G4tgbVolumeMgr::GetInstance();
@@ -592,15 +600,18 @@ void Detector::SetNewValue(G4UIcommand* cmd, G4String value)
          TextDetectorBuilder * tgb = new TextDetectorBuilder;
          mgr->SetDetectorBuilder(tgb); 
          fWorld = mgr->ReadAndConstructDetector();
+#ifdef hasGDML
       } else { // GDML input
          G4GDMLParser parser;
          parser.Read(value);
          fWorld=parser.GetWorldVolume();
+#endif
       }
    }
 }
 //______________________________________________________________________________
 //
+#include "G4Box.hh"
 #include "G4PVPlacement.hh"
 G4VPhysicalVolume* Detector::Construct()
 {
