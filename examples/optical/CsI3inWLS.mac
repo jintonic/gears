@@ -1,4 +1,4 @@
-/geometry/source CsI3in20cm.tg
+/geometry/source CsI3inWLS.tg
 
 /physics_lists/enable Optical
 /process/optical/processActivation Scintillation
@@ -18,7 +18,7 @@
 /process/list
 /process/setVerbose 10 OpBoundary
 
-/vis/open HepRepFile
+/vis/open OGLIQt
 /vis/scene/add/axes 0 0 0 10 cm
 /vis/scene/add/trajectories
 
