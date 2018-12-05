@@ -1,5 +1,5 @@
 /**
- * \file gears.C
+ * \file gears.cc
  *
  * The only C++ file in this project.
  *

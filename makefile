@@ -16,14 +16,14 @@ ifeq ($(GDML_ENABLED),yes)
   LIBS+=-lxerces-c
 endif
 
-SRC=$(wildcard *.C)
-TGT=$(SRC:.C=.exe)
+SRC=$(wildcard *.cc)
+TGT=$(SRC:.cc=.exe)
 
 .PHONY: all clean docs
 
 all: $(TGT)
 
-%.exe: %.C
+%.exe: %.cc
 	$(CXX) $(FLAG) $^ -o $@ $(LIBS)
 
 clean:
