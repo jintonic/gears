@@ -23,7 +23,6 @@ class Output : public G4SteppingVerbose
       { G4SteppingVerbose::StepInfo(); Record(); }
       void Reset(); ///< Reset record variables
 
-      int n; ///< Number of track points
       vector<int> trk; ///< track ID
       vector<int> stp; ///< step number
       vector<int> vlm; ///< volume copy number
@@ -32,13 +31,15 @@ class Output : public G4SteppingVerbose
       vector<int> mom;   ///< parent particle's PDG encoding
       vector<double> e;  ///< energy deposited [keV]
       vector<double> k;  ///< kinetic energy of the track [keV]
-      vector<double> t;  ///< time [ns]
-      vector<double> x;  ///< x [mm]
-      vector<double> y;  ///< y [mm]
-      vector<double> z;  ///< z [mm]
+      vector<double> t;  ///< local time [ns]
+      vector<double> x;  ///< local x [mm]
+      vector<double> y;  ///< local y [mm]
+      vector<double> z;  ///< local z [mm]
       vector<double> l;  ///< length of track till this point [mm]
-
-      int nd; ///< Number of detectors
+      vector<double> t0;  ///< global time [ns]
+      vector<double> x0;  ///< global x [mm]
+      vector<double> y0;  ///< global y [mm]
+      vector<double> z0;  ///< global z [mm]
       vector<double> et; ///< Total energy deposited in a volume [keV]
 
    protected:
@@ -50,8 +51,6 @@ Output::Output(): G4SteppingVerbose()
 {
    auto manager = G4AnalysisManager::Instance();
    manager->CreateNtuple("t", "Geant4 track points");
-   manager->CreateNtupleIColumn("n");
-   manager->CreateNtupleIColumn("nd");
    manager->CreateNtupleIColumn("trk", trk);
    manager->CreateNtupleIColumn("stp", stp);
    manager->CreateNtupleIColumn("vlm", vlm);
@@ -65,16 +64,24 @@ Output::Output(): G4SteppingVerbose()
    manager->CreateNtupleDColumn("y", y);
    manager->CreateNtupleDColumn("z", z);
    manager->CreateNtupleDColumn("l", l);
+   manager->CreateNtupleDColumn("t0", t);
+   manager->CreateNtupleDColumn("x0", x);
+   manager->CreateNtupleDColumn("y0", y);
+   manager->CreateNtupleDColumn("z0", z);
    manager->CreateNtupleDColumn("et", et);
    manager->FinishNtuple();
 }
 //______________________________________________________________________________
 //
+#include <G4NavigationHistory.hh>
 void Output::Record()
 {
    if (Silent==1) CopyState(); // point fTrack, fStep, etc. to right places
 
-   if (n>=10000) {
+   G4TouchableHandle handle = fStep->GetPreStepPoint()->GetTouchableHandle();
+   int copyNo=handle->GetReplicaNumber();
+   if (copyNo<0) return; //skip uninteresting volumes
+   if (trk.size()>=10000) {
       G4cout<<"GEARS: # of track points >=10000. Recording stopped."<<G4endl;
       fTrack->SetTrackStatus(fKillTrackAndSecondaries);
       return;
@@ -82,42 +89,46 @@ void Output::Record()
 
    trk.push_back(fTrack->GetTrackID());
    stp.push_back(fTrack->GetCurrentStepNumber());
-   vlm.push_back(fTrack->GetVolume()->GetCopyNo());
+   vlm.push_back(copyNo);
    pdg.push_back(fTrack->GetDefinition()->GetPDGEncoding());
    mom.push_back(fTrack->GetParentID());
-   if (stp[n]==0) {
-      if (mom[n]!=0)
+   if (stp.back()==0) {
+      if (mom.back()!=0)
          pro.push_back(fTrack->GetCreatorProcess()->GetProcessType()*1000
                + fTrack->GetCreatorProcess()->GetProcessSubType());
    } else {
       const G4VProcess *p = fStep->GetPostStepPoint()->GetProcessDefinedStep();
       pro.push_back(p->GetProcessType()*1000 + p->GetProcessSubType());
    }
+
    e.push_back(fStep->GetTotalEnergyDeposit()/CLHEP::keV);
    k.push_back(fTrack->GetKineticEnergy()/CLHEP::keV);
-   t.push_back(fTrack->GetGlobalTime()/CLHEP::ns);
-   x.push_back(fTrack->GetPosition().x()/CLHEP::mm);
-   y.push_back(fTrack->GetPosition().y()/CLHEP::mm);
-   z.push_back(fTrack->GetPosition().z()/CLHEP::mm);
    l.push_back(fTrack->GetTrackLength()/CLHEP::mm);
-   if (e[n]>0 && fTrack->GetVolume()->GetName().contains("(S)")) {
-      et[vlm[n]]+=e[n];
-      if (vlm[n]>=nd) nd=vlm[n]+1;
-   }
-   n++;
 
-   auto manager = G4AnalysisManager::Instance();
-   manager->FillNtupleIColumn(0, n);
-   manager->FillNtupleIColumn(1, nd);
-   manager->AddNtupleRow();
+   t0.push_back(fTrack->GetGlobalTime()/CLHEP::ns);
+   x0.push_back(fTrack->GetPosition().x()/CLHEP::mm);
+   y0.push_back(fTrack->GetPosition().y()/CLHEP::mm);
+   z0.push_back(fTrack->GetPosition().z()/CLHEP::mm);
+
+   G4ThreeVector pos = handle->GetHistory()->GetTopTransform()
+      .TransformPoint(fStep->GetPostStepPoint()->GetPosition());
+   x.push_back(pos.x()/CLHEP::mm);
+   y.push_back(pos.y()/CLHEP::mm);
+   z.push_back(pos.z()/CLHEP::mm);
+   t.push_back(fTrack->GetLocalTime()/CLHEP::ns);
+
+   if (e.back()>0 && handle->GetVolume()->GetName().contains("(S)")) {
+      if (et.size()<(unsigned int)copyNo+1) et.resize((unsigned int)copyNo+1);
+      et[copyNo]+=e.back();
+   }
 }
 //______________________________________________________________________________
 //
 void Output::Reset()
 {
-   n=nd=0;
    trk.clear(); stp.clear(); vlm.clear(); pro.clear(); pdg.clear(); mom.clear();
    e.clear(); k.clear(); x.clear(); y.clear(); z.clear(); l.clear(); et.clear();
+   x0.clear(); y0.clear(); z0.clear(); t0.clear();
 }
 //______________________________________________________________________________
 //
@@ -634,6 +645,7 @@ void EventAction::EndOfEventAction(const G4Event* event)
 {
    int id=event->GetEventID()+1;
    if (id%fN2report==0) G4cout<<"GEARS: "<<id<<" events simulated"<<G4endl;
+   G4AnalysisManager::Instance()->AddNtupleRow(); // save event data
 }
 //______________________________________________________________________________
 //
