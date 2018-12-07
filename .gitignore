@@ -45,3 +45,8 @@ user.properties
 # Data
 *.root
 *.json
+
+# alternative output format
+ghdf5.cc
+gcsv.cc
+gxml.cc

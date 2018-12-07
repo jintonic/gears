@@ -10,15 +10,15 @@ endif
 SRC=$(wildcard *.cc)
 TGT=$(SRC:.cc=.exe)
 
-.PHONY: all clean docs
+.PHONY: all clean docs hdf5
 
 all: $(TGT)
 
 %.exe: %.cc
-	$(CXX) $(FLAG) $^ -o $@ $(LIBS)
-
+	$(CXX) $(FLAG) -o $@ $(LIBS) $^
 clean:
 	rm -f `cat .gitignore`
-
 docs:
 	doxygen Doxyfile
+hdf5 xml csv:
+	sed 's/g4root/g4$@/' gears.cc > g$@.cc
