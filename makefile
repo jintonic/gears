@@ -3,8 +3,11 @@ LIBS=$(shell geant4-config --libs)
 
 GDML_ENABLED:=$(shell geant4-config --has-feature gdml)
 ifeq ($(GDML_ENABLED),yes)
+  ifndef XERCESROOT
+  $(error XERCESROOT needs to be defined to enable GDML)
+  endif
   FLAG+=-DhasGDML
-  LIBS+=-lxerces-c
+  LIBS+=-L$(XERCESROOT)/lib -lxerces-c
 endif
 
 SRC=$(wildcard *.cc)
