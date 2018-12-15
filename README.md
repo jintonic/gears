@@ -316,6 +316,16 @@ ROOT use TTree to save data. TTree have entry and branch to build their data str
 
 `G4cout` and `G4endl` is preferred over `std:cout` and `std:endl` because the former handle the output in [Geant4][] GUI correctly, while the later can only output to terminal.
 
+# To-do's
+
+- examples
+  - add an example to show how QE can be implemented
+  - add an example to show how one can use uproot to load ROOT file
+  - add examples to show how one can distribute source in a volume or surface
+- new functions
+  - time chopping of radioactive decay chain
+  - selective saving based on copy number
+
 [GEARS]: https://github.com/jintonic/gears
 [tg]: http://www.geant4.org/geant4/sites/geant4.web.cern.ch/files/geant4/collaboration/working_groups/geometry/docs/textgeom/textgeom.pdf
 [TUI]: http://geant4.cern.ch/G4UsersDocuments/UsersGuides/ForApplicationDeveloper/html/Control/UIcommands/_.html
