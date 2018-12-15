@@ -7,16 +7,15 @@
   * Easy management and compiling
 * Fast compilation
   * a few second on a regular PC
-* [Output in JSON data format](#json) (default)
-  * Universal data format, easy to read by different tools
-  * Human readable ASCII file
-  * Capable of dealing with multiple dimensional arrays
-* [Output](#output) in [ROOT](#root) TTree format (if ROOT is installed)
-  * Build-in data compression, well suitable for large data processing
-  * Fast access to independent data members
-  * Flat tree (no nested branches or arrays) with short leave names
-    * Easy to use in TTree::Draw
-    * No need to load extra library to open
+* [Output in multiple data format](#output)
+  * [ROOT](#root) TTree format (default, no ROOT installation is needed)
+    * Build-in data compression, well suitable for large data processing
+    * Fast access to independent data members
+    * Flat tree (no nested branches or arrays) with short leave names
+      * Easy to use in TTree::Draw
+      * No need to load extra library to open
+  * HDF5, universal data format, easy to read by different tools
+  * CSV or XML, Human readable ASCII file, capable of dealing with multiple dimensional arrays
 * [Record information of step 0](#record-information-of-step-0) (initStep)
   * This is not available from G4UserSteppingAction
 * [simple text][tg] or [GDML][] geometry I/O
@@ -33,7 +32,6 @@
 # Prerequisites
 
 * [Geant4][], version above 9 is requested due to the following inconvenience in version 9: http://hypernews.slac.stanford.edu/HyperNews/geant4/get/hadronprocess/1242.html?inline=-1
-* Optionally, [ROOT][] for recording simulation results
 
 # Get started
 
@@ -256,55 +254,21 @@ This is used in [G4UserRunAction][] to open and close a TFile, in [G4UserEventAc
 The catch is that functions in [G4SteppingVerbose][] will not be called in [G4SteppingManager][] unless `/tracking/verbose` is set, which will print too much information on screen for a long run. This is solved in EventAction::BeginOfEventAction by turning on tracking verbose all the time so that all functions in [G4SteppingVerbose][] will be called, while at the same time, turning on [G4SteppingVerbose][] local verbose flag [Silent][] to run them in silent mode.
 
 ## Output format
-Gears provides two output formats: JSON and ROOT. The output file name and format can be chosen using macro command:
+Gears provides 4 output formats: ROOT (default), HDF5, CSV, and XML.
+The output file format can be chosen using the following command:
 
-~~~
-/run/output file.json (or file.root)
-~~~
-
-The format is determined by the surfix of the output file name.
-
-### JSON 
-Since the amount of data which gears might generate can be huge, we suggest install the [ROOT](#root) library and use .root format to store data to increase the preforance of data processing. If users do not want to use .root format, JSON format is avilable as default.
- 
-All events are store as a JSON object array. Each event is an object and contains all information listed in [Track Point](#track-point), for example:
-
-~~~
-[
-{
-   "n":2,
-   "trk":[1,1],
-   "stp":[0,1],
-   "det":[0,0],
-   "pro":[-1,1091],
-   "pdg":[22,22],
-   "mom":[0,0],
-   "e":[0,0],
-   "k":[4438.84,4438.84],
-   "t":[0,0.258763],
-   "x":[-1.99299,65.9771],
-   "y":[-8.12482,-45.244],
-   "z":[-225,-229.486] 
-},
-{
-   "n":3,
-   "trk":[1,1,2],
-   "stp":[0,1,3],
-   "det":[0,0,2],
-   "pro":[-1,1091,2000],
-   "pdg":[22,22,22],
-   "mom":[0,0,0],
-   "e":[0,0,0],
-   "k":[4438.84,4438.84,4438.84],
-   "t":[0,0.258763,1],
-   "x":[-1.99299,65.9771,23],
-   "y":[-8.12482,-45.244,-70],
-   "z":[-225,-229.486,-233] 
-}
-]
+~~~sh
+make hdf5
+make
 ~~~
 
-where things inside of a pair of {} is the information of an event, "n" is the number of [Track Points](#track-point) in each event.
+The output file name can be chosen using macro command:
+
+~~~
+/analysis/setFileName output
+~~~
+
+No suffix is needed for the file name.
 
 ### ROOT
 
