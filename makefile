@@ -34,4 +34,4 @@ hdf5 xml csv:
 	@echo -n creating g$@.cc for output in $@ format...
 	@sed 's/g4root/g4$@/' gears.cc > g$@.cc
 	@echo done!
-	@echo please type `make` to compile g$@.cc
+	@echo please type \"make\" to compile g$@.cc
