@@ -23,7 +23,7 @@ TGT=$(SRC:.cc=.exe)
 all: $(TGT)
 
 %.exe: %.cc
-	$(CXX) $(FLAG) -o $@ $(LIBS) $^
+	$(CXX) $(FLAG) $^ $(LIBS) -o $@
 clean:
 	rm -f `cat .gitignore`
 docs:
