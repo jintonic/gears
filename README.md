@@ -11,7 +11,7 @@
   * [ROOT](#root) TTree format (default, no ROOT installation is needed)
     * Build-in data compression, well suitable for large data processing
     * Fast access to independent data members
-    * Flat tree (no nested branches or arrays) with short leave names
+    * Flat tree (no nested branches or arrays) with short leaf names
       * Easy to use in TTree::Draw
       * No need to load extra library to open
   * HDF5, universal data format, easy to read by different tools
@@ -21,6 +21,7 @@
 * [simple text][tg] or [GDML][] geometry I/O
   * Fast implementation of [detector geometry](#detector) without C++ programming
   * Create/Change geometry without re-compilation
+  * Turn off data saving in a volume by assigning it a non-positive copy number
   * Turn any volume to a sensitive detector by adding "(S)" in its name
   * Assign optical properties in [Geant4][] plain [text geometry description][tg]
 * Optional optical and hadronic physics
@@ -288,7 +289,6 @@ ROOT use TTree to save data. TTree have entry and branch to build their data str
   - add examples to show how one can distribute source in a volume or surface
 - new functions
   - time chopping of radioactive decay chain
-  - selective saving based on copy number
 
 [GEARS]: https://github.com/jintonic/gears
 [tg]: http://www.geant4.org/geant4/sites/geant4.web.cern.ch/files/geant4/collaboration/working_groups/geometry/docs/textgeom/textgeom.pdf
