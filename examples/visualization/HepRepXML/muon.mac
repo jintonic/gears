@@ -1,0 +1,15 @@
+/geometry/source hall.tg
+/run/initialize
+
+/vis/scene/create muon.bheprep.zip
+/vis/open HepRepXML
+
+/vis/scene/add/axes 0 0 0 50 cm
+/vis/scene/add/trajectories
+
+/gps/particle mu-
+/gps/energy 100 GeV
+/gps/pos/centre 1 0 0 m
+/gps/direction -1 0 0
+
+/run/beamOn 1
