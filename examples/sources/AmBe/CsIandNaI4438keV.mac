@@ -27,6 +27,6 @@
 
 /tracking/verbose 0
 
-/run/output 4438MeV.root
+/analysis/setFileName 4438MeV
 /run/statusReport 10000
 /run/beamOn 1000
