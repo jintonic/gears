@@ -1,6 +1,7 @@
 /geometry/source hall.tg
 /run/initialize
 
+# https://gitlab.cern.ch/geant4/geant4/tree/master/source/visualization/HepRep
 /vis/scene/create muon.bheprep.zip
 /vis/open HepRepXML
 
