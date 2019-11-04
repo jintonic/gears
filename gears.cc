@@ -64,10 +64,10 @@ Output::Output(): G4SteppingVerbose()
    manager->CreateNtupleDColumn("y", y);
    manager->CreateNtupleDColumn("z", z);
    manager->CreateNtupleDColumn("l", l);
-   manager->CreateNtupleDColumn("t0", t);
-   manager->CreateNtupleDColumn("x0", x);
-   manager->CreateNtupleDColumn("y0", y);
-   manager->CreateNtupleDColumn("z0", z);
+   manager->CreateNtupleDColumn("t0", t0);
+   manager->CreateNtupleDColumn("x0", x0);
+   manager->CreateNtupleDColumn("y0", y0);
+   manager->CreateNtupleDColumn("z0", z0);
    manager->CreateNtupleDColumn("et", et);
    manager->FinishNtuple();
 }
