@@ -1,3 +1,7 @@
+[![Documentation](https://codedocs.xyz/jintonic/gears.svg)](https://codedocs.xyz/jintonic/gears/)
+![Code size](https://img.shields.io/github/languages/code-size/jintonic/gears.svg?style=flat)
+![](https://img.shields.io/github/languages/top/jintonic/gears.svg?style=flat)
+
 [GEARS][] is a [Geant4][] Example Application with Rich features yet Small footprint. The entire C++ coding is minimized down to a single file with about 600 [SLOC][]. This is achieved mainly by utilizing [Geant4][] plain [text geometry description][tg], [build-in UI commands][TUI] (macros), and C++ inheritance. It is ideal for student training and fast implementation of small to medium-sized experiments.
 
 # Features
