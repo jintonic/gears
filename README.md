@@ -1,4 +1,5 @@
 [![Documentation](https://codedocs.xyz/jintonic/gears.svg)](https://codedocs.xyz/jintonic/gears/)
+[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
 ![Code size](https://img.shields.io/github/languages/code-size/jintonic/gears.svg?style=flat)
 ![](https://img.shields.io/github/languages/top/jintonic/gears.svg?style=flat)
 
