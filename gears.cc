@@ -17,16 +17,16 @@ class Output : public G4SteppingVerbose
    public:
       Output(); ///< Create analysis manager to handle output
       ~Output() { delete G4AnalysisManager::Instance(); }
-      void TrackingStarted() ///< Infomation of step 0 (initStep)
-      { G4SteppingVerbose::TrackingStarted(); Record(); }
-      void StepInfo() ///< Infomation of step > 0 
-      { G4SteppingVerbose::StepInfo(); Record(); }
+      void TrackingStarted() { G4SteppingVerbose::TrackingStarted();
+         Record(); } ///< Infomation of step 0 (initStep)
+      void StepInfo() { G4SteppingVerbose::StepInfo();
+         Record(); } ///< Infomation of steps>0 
       void Reset(); ///< Reset record variables
 
-      vector<int> trk; ///< track ID
-      vector<int> stp; ///< step number
-      vector<int> vlm; ///< volume copy number
-      vector<int> pro; ///< process ID * 100 + sub-process ID
+      vector<int> trk;   ///< track ID
+      vector<int> stp;   ///< step number
+      vector<int> vlm;   ///< volume copy number
+      vector<int> pro;   ///< process ID * 100 + sub-process ID
       vector<int> pdg;   ///< PDG encoding
       vector<int> mom;   ///< parent particle's PDG encoding
       vector<double> e;  ///< energy deposited [keV]
@@ -36,10 +36,10 @@ class Output : public G4SteppingVerbose
       vector<double> y;  ///< local y [mm]
       vector<double> z;  ///< local z [mm]
       vector<double> l;  ///< length of track till this point [mm]
-      vector<double> t0;  ///< global time [ns]
-      vector<double> x0;  ///< global x [mm]
-      vector<double> y0;  ///< global y [mm]
-      vector<double> z0;  ///< global z [mm]
+      vector<double> t0; ///< global time [ns]
+      vector<double> x0; ///< global x [mm]
+      vector<double> y0; ///< global y [mm]
+      vector<double> z0; ///< global z [mm]
       vector<double> et; ///< Total energy deposited in a volume [keV]
 
    protected:
