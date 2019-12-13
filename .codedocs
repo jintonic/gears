@@ -3,5 +3,7 @@ PROJECT_NAME           = "GEARS"
 PROJECT_BRIEF          = "Geant4 Example Application with Rich features and Small footprints"
 INPUT                  = README.md gears.cc
 USE_MDFILE_AS_MAINPAGE = README.md
+
+EXTRACT_ALL            = YES
 SOURCE_BROWSER         = YES
 INLINE_SOURCES         = YES
