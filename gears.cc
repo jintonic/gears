@@ -1,9 +1,6 @@
 /**
- * \file gears.cc
- *
- * The only C++ file in this project.
- *
- * Everything is placed in one file intentionally to simplify management.
+ * \mainpage notitle
+ * http://physino.xyz/gears
  */
 #include <vector>
 using namespace std;
