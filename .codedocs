@@ -1,8 +1,9 @@
 # https://codedocs.xyz/static/codedocs_example.txt
+
 PROJECT_NAME           = "GEARS"
 PROJECT_BRIEF          = "Geant4 Example Application with Rich features and Small footprints"
-INPUT                  = README.md gears.cc
-USE_MDFILE_AS_MAINPAGE = README.md
+
+INPUT                  = gears.cc
 
 EXTRACT_ALL            = YES
 SOURCE_BROWSER         = YES
