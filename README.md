@@ -32,7 +32,7 @@
 * Optional optical and hadronic physics
 * Periodic status report in a long run
 * Frequently used source spectra (AmBe, Am-241, etc.)
-* [Doxygen documentation](http://www.physino.xyz/gears/)
+* [Doxygen documentation](https://codedocs.xyz/jintonic/gears/)
 * Many sample macros and geometry descriptions for feature demonstration
 
 # Prerequisites
