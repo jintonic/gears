@@ -1,0 +1,10 @@
+# https://codedocs.xyz/static/codedocs_example.txt
+
+PROJECT_NAME           = "GEARS"
+PROJECT_BRIEF          = "Geant4 Example Application with Rich features and Small footprints"
+
+INPUT                  = gears.cc
+
+EXTRACT_ALL            = YES
+SOURCE_BROWSER         = YES
+INLINE_SOURCES         = YES

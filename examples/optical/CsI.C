@@ -65,3 +65,5 @@
    for (int i=0; i<N; i++) tg<<" "<<n[i]; tg<<endl;
    tg.close();
 }
+// -*- c++ -*-
+// vim: set ft=cpp:
