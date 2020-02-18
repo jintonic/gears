@@ -7,7 +7,7 @@
 /vis/drawTree
 /geometry/test/run
 
-/vis/open DAWNFILE
+/vis/open OGL
 /vis/viewer/zoom 1.5
 /vis/drawVolume
 /vis/scene/add/trajectories
