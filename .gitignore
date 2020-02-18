@@ -10,41 +10,25 @@
 user.properties
 *.gif
 
-# Compiled Object files
-*.slo
-*.lo
-*.o
-*.obj
-
-# Precompiled Headers
-*.gch
-*.pch
-
-# Compiled Dynamic libraries
-*.so
-*.dylib
-*.dll
-
-# Fortran module files
-*.mod
-
-# Compiled Static libraries
-*.lai
-*.la
-*.a
-*.lib
-
 # Executables
-*.exe
-*.out
-*.app
+gears
+ghdf5
+gcsv
+gxml
 
 # backup files
 \#*
+.swp
+*~
 
 # Data
 *.root
 *.json
+*.csv
+*.h5
+*.he5
+*.hdf
+*.hdf5
 
 # alternative output format
 ghdf5.cc
