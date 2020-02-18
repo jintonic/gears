@@ -39,7 +39,7 @@
 
 # Get started
 
-~~~shell
+```sh
 $ git clone https://github.com/jintonic/gears.git
 $ cd gears
 $ make
@@ -47,9 +47,9 @@ $ export LD_LIBRARY_PATH=/path/to/geant4/libs:$LD_LIBRARY_PATH # for Linux
 $ export DYLD_LIBRARY_PATH=/path/to/geant4/libs:$DYLD_LIBRARY_PATH # for MAC
 $ ./gears.exe
 PreInit> ls
-~~~
+```
 
-Next step: [examples/Rutherford](example/Rutherford)
+Next step: [examples/Rutherford](examples/Rutherford)
 
 # Detector
 
