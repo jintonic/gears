@@ -49,6 +49,8 @@ $ ./gears.exe
 PreInit> ls
 ~~~
 
+Next step: [examples/Rutherford](example/Rutherford)
+
 # Detector
 
 ## Geometry
