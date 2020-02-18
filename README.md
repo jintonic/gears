@@ -214,6 +214,26 @@ Detailed control of radioactive decay is provided by the /[grdm]/ command, for e
 
 # Output
 
+## Output format
+Gears utilizes [Geant4 analysis managers](http://geant4-userdoc.web.cern.ch/geant4-userdoc/UsersGuides/ForApplicationDeveloper/html/Analysis/managers.html) to provide 4 output formats: ROOT (default), HDF5, CSV, and XML. The output file format can be chosen using the following command:
+
+~~~sh
+make hdf5 # create ghdf5.cc from gears.cc
+make # compile ghdf5.cc
+~~~
+
+The output file name can be chosen using macro command:
+
+~~~
+/analysis/setFileName output
+~~~
+
+No suffix is needed for the file name.
+
+### ROOT
+
+ROOT use TTree to save data. TTree have entry and branch to build their data structure. Each branch is a variable listed in [Track Points](#track-point), and each entry is a event. ROOT will compress the data, so it will cost less disk space. ROOT can load part of data, which can save time when it get large.
+
 ## Track point
 
 A track point is a concept introduced in [GEARS][]. It is a point where a track is generated or changed. It records the following information:
@@ -261,26 +281,6 @@ This is used in [G4UserRunAction][] to open and close a TFile, in [G4UserEventAc
 
 The catch is that functions in [G4SteppingVerbose][] will not be called in [G4SteppingManager][] unless `/tracking/verbose` is set, which will print too much information on screen for a long run. This is solved in EventAction::BeginOfEventAction by turning on tracking verbose all the time so that all functions in [G4SteppingVerbose][] will be called, while at the same time, turning on [G4SteppingVerbose][] local verbose flag [Silent][] to run them in silent mode.
 
-## Output format
-Gears provides 4 output formats: ROOT (default), HDF5, CSV, and XML.
-The output file format can be chosen using the following command:
-
-~~~sh
-make hdf5
-make
-~~~
-
-The output file name can be chosen using macro command:
-
-~~~
-/analysis/setFileName output
-~~~
-
-No suffix is needed for the file name.
-
-### ROOT
-
-ROOT use TTree to save data. TTree have entry and branch to build their data structure. Each branch is a variable listed in [Track Points](#track-point), and each entry is a event. ROOT will compress the data, so it will cost less disk space. ROOT can load part of data, which can save time when it get large.
 
 # Coding convention
 
