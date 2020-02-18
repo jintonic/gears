@@ -7,11 +7,9 @@
 
 # Features
 
-* Single small C++ file
-  * Easy code browsing
-  * Easy management and compiling
-* Fast compilation
-  * a few second on a regular PC
+* [Single small C++ file](https://github.com/jintonic/gears/blob/master/gears.cc)
+  * [Easy code browsing](https://codedocs.xyz/jintonic/gears/gears_8cc.html#a3c04138a5bfe5d72780bb7e82a18e627)
+  * Easy management and fast [compilation](https://github.com/jintonic/gears/blob/master/makefile) (a few second on a regular PC)
 * [Output in multiple data format](#output)
   * [ROOT](#root) TTree format (default, no ROOT installation is needed)
     * Build-in data compression, well suitable for large data processing
