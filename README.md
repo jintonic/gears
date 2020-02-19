@@ -7,9 +7,9 @@
 
 # Features
 
-* [Single small C++ file](gears.cc)
+* [Single small C++ file](https://github.com/jintonic/gears/blob/master/gears.cc)
   * [Easy code browsing](https://codedocs.xyz/jintonic/gears/gears_8cc.html#a3c04138a5bfe5d72780bb7e82a18e627)
-  * Easy management and fast [compilation](makefile) (a few second on a regular PC)
+  * Easy management and fast [compilation](https://github.com/jintonic/gears/blob/master/makefile) (a few second on a regular PC)
 * [Output in multiple data format](#output)
   * [ROOT](#root) TTree format (default, no ROOT installation is needed)
     * Build-in data compression, well suitable for large data processing
@@ -43,7 +43,7 @@
 
 ## Compilation
 
-[GEARS][] is shipped with a simple [makefile](makefile). Simply type `make` to compile [gears.cc](gears.cc) to generate the executable `gears`:
+[GEARS][] is shipped with a simple [makefile](https://github.com/jintonic/gears/blob/master/makefile). Simply type `make` to compile [gears.cc](https://github.com/jintonic/gears/blob/master/gears.cc) to generate the executable `gears`:
 
 ```sh
 $ git clone https://github.com/jintonic/gears.git
@@ -97,7 +97,7 @@ Their difference is similar to that between [markdown][md] and [HTML][]. The sim
 :volume hall BOX 5*m 5*m 5*m G4_AIR
 ~~~
 
-For more examples, please check `*.tg` files in the [examples/](examples/) directory, such as [examples/Rutherford/hall.tg](examples/Rutherford/hall.tg). The suffix of *.tg* indicates that they are [text geometry][tg] description files. A [Geant4][] macro command `/geometry/source` is added to load geometry files:
+For more examples, please check `*.tg` files in the [examples/](https://github.com/jintonic/gears/blob/master/examples/) directory, such as [examples/Rutherford/hall.tg](https://github.com/jintonic/gears/blob/master/examples/Rutherford/hall.tg). The suffix of *.tg* indicates that they are [text geometry][tg] description files. A [Geant4][] macro command `/geometry/source` is added to load geometry files:
 
 ~~~
 /geometry/source examples/Rutherford/foil.tg
@@ -337,13 +337,13 @@ The catch is that functions in [G4SteppingVerbose][] will not be called in [G4St
 [SLOC]: https://en.wikipedia.org/wiki/Source_lines_of_code
 [ROOT]: https://root.cern.ch
 [Geant4]: http://geant4.cern.ch
-[NIST]: http://geant4.web.cern.ch/geant4/workAreaUserDocKA/Backup/Docbook_UsersGuides_beta/ForApplicationDeveloper/html/apas08.html
-[run]: http://geant4.cern.ch/G4UsersDocuments/UsersGuides/ForApplicationDeveloper/html/Control/UIcommands/_run_.html
-[listMaterials]: https://geant4.web.cern.ch/geant4/UserDocumentation/UsersGuides/ForApplicationDeveloper/html/AllResources/Control/UIcommands/_material_nist_.html
+[NIST]: http://geant4-userdoc.web.cern.ch/geant4-userdoc/UsersGuides/ForApplicationDeveloper/html/Appendix/materialNames.html#g4matrdb
+[run]: http://geant4-userdoc.web.cern.ch/geant4-userdoc/UsersGuides/ForApplicationDeveloper/html/Control/AllResources/Control/UIcommands/_run_.html
+[listMaterials]: http://geant4-userdoc.web.cern.ch/geant4-userdoc/UsersGuides/ForApplicationDeveloper/html/Control/AllResources/Control/UIcommands/_material_nist_.html
 [G4OpBoundaryProcess]: http://www-geant4.kek.jp/lxr/source//processes/optical/include/G4OpBoundaryProcess.hh
 [PostStepDoIt]: http://www.apc.univ-paris7.fr/~franco/g4doxy4.10/html/class_g4_op_boundary_process.html#a70a65cc5127a05680a0c4679f8300871
 [G4LogicalBorderSurface]: http://www-geant4.kek.jp/lxr/source/geometry/volumes/include/G4LogicalBorderSurface.hh
-[grdm]:http://geant4.cern.ch/UserDocumentation/UsersGuides/ForApplicationDeveloper/html/AllResources/Control/UIcommands/_grdm_.html
+[grdm]:http://geant4-userdoc.web.cern.ch/geant4-userdoc/UsersGuides/ForApplicationDeveloper/html/Control/AllResources/Control/UIcommands/_grdm_.html
 [G4Track]: http://www-geant4.kek.jp/lxr/source/track/include/G4Track.hh
 [G4Step]: http://www-geant4.kek.jp/lxr/source/track/include/G4Step.hh
 [G4UserSteppingAction]:http://www-geant4.kek.jp/lxr/source/tracking/include/G4UserSteppingAction.hh
