@@ -4,9 +4,16 @@
 
 /geometry/test/run
 
+/vis/geometry/list
+
 /vis/open OGLIX
-/vis/viewer/zoom 2
 /vis/drawVolume
+/vis/scene/add/axes 0 0 0 2 m
+/vis/viewer/set/background white
+/vis/viewer/set/style surface
+/vis/viewer/set/viewpointThetaPhi 25 35
+#/vis/viewer/zoom 2
 /vis/viewer/flush
 
-/vis/ogl/export gears.jpg
+/vis/ogl/set/exportFormat pdf
+/vis/ogl/export gears
