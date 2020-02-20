@@ -6,10 +6,10 @@
 /vis/geometry/list
 
 /vis/open RayTracer
-/vis/scene/add/axes 0 0 0 2 m
-#/vis/viewer/set/background ! ! ! 0
+/vis/viewer/set/background ! ! ! 0
 /vis/viewer/set/upThetaPhi 10 0
 /vis/viewer/set/viewpointThetaPhi 60 0
 /vis/viewer/set/style surface
 /vis/drawVolume
+/vis/viewer/refresh
 #/vis/rayTracer/trace gears.jpeg
