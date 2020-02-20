@@ -5,7 +5,7 @@
 
 [GEARS][] is a [Geant4][] [Example Application](https://geant4.kek.jp/lxr/source/examples/) with [Rich features](#features) yet Small footprint. The entire C++ coding is minimized down to a single file with about 600 [SLOC][]. This is achieved mainly by utilizing [Geant4][] plain [text geometry description][tg], [build-in UI commands][TUI] (macros), and C++ inheritance. It is ideal for student training and fast implementation of small to medium-sized experiments.
 
-# Features
+## Features
 
 * [Single small C++ file](https://github.com/jintonic/gears/blob/master/gears.cc)
   * [Easy code browsing](https://codedocs.xyz/jintonic/gears/gears_8cc.html#a3c04138a5bfe5d72780bb7e82a18e627)
@@ -33,15 +33,38 @@
 * [Doxygen documentation](https://codedocs.xyz/jintonic/gears/)
 * Many sample macros and geometry descriptions for feature demonstration
 
-# Getting started
+## Getting started
 
-## Prerequisites
+### Prerequisites
 
 * [Geant4][], version above 9 is requested due to the following inconvenience in version 9: <http://hypernews.slac.stanford.edu/HyperNews/geant4/get/hadronprocess/1242.html>.
 * (Optional) [Xerces-C++ XML Parser](https://xerces.apache.org/xerces-c/), if you'd like to use or export detector geometries defined in [GDML][] format.
 * (Optional) [HDF5][], if you'd like to save the simulation result in [HDF5][] format.
 
-## Compilation
+### Get GEARS
+
+You can download [GEARS][] as a `.tar.gz` or `*.zip` file from its [homepage](http://physino.xyz/gears) or [GitHub page](https://github.com/jintonic/gears), and run the following to unzip it:
+
+```sh
+$ unzip gears-master.zip # if you downloaded the zip file
+$ tar xfvz jintonic-gears-commitID.tar.gz # if you download the tar.gz file
+$ mv jintonic-gears-commitID gears # rename the directory
+```
+
+If you know how to use [Git][], you can download the whole [GEARS repository from GitHub](https://github.com/jintonic/gears):
+
+```sh
+$ git clone https://github.com/jintonic/gears.git
+```
+
+This way, you can update your [GEARS][] using
+
+```sh
+$ cd /path/to/gears
+$ git pull
+```
+
+### Compilation
 
 [GEARS][] is shipped with a simple [makefile](https://github.com/jintonic/gears/blob/master/makefile). Simply type `make` to compile [gears.cc](https://github.com/jintonic/gears/blob/master/gears.cc) to generate the executable `gears`:
 
@@ -55,7 +78,7 @@ $ export DYLD_LIBRARY_PATH=/path/to/geant4/libs:$DYLD_LIBRARY_PATH # for MAC
 $ gears # run gears
 ```
 
-## User interface
+### User interface
 
 [GEARS][] relies on [G4UIExecutive](http://geant4-userdoc.web.cern.ch/geant4-userdoc/UsersGuides/ForApplicationDeveloper/html/GettingStarted/graphicalUserInterface.html#how-to-select-interface-in-your-applications) to select a user interface (UI). Without any specific setup, [GEARS][] will try to run a graphic user interface (GUI) based on [Qt][]. If your [Geant4][] is not compiled with [Qt][] support, [GEARS][] will try to [use a command-line UI that behaves like a tcsh](http://geant4-userdoc.web.cern.ch/geant4-userdoc/UsersGuides/ForApplicationDeveloper/html/GettingStarted/graphicalUserInterface.html#g4uiterminal). Run the following command to check if your [Geant4][] is compiled with [Qt][]
 
@@ -361,3 +384,4 @@ The catch is that functions in [G4SteppingVerbose][] will not be called in [G4St
 [HTML]: https://www.w3schools.com/html/
 [HDF5]: https://www.hdfgroup.org/downloads/hdf5/
 [Qt]: https://doc.qt.io/
+[Git]: https://en.wikipedia.org/wiki/Git
