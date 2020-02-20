@@ -1,0 +1,8 @@
+/geometry/source ../gears.tg
+
+/run/initialize
+
+/geometry/test/run
+
+/vis/ASCIITree/verbose 13
+/vis/drawTree

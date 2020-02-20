@@ -1,0 +1,7 @@
+:volu hall BOX 10*m 10*m 10*m G4_AIR
+:volu base TUBS 50*cm 140*cm 50*cm 0 360 G4_BRASS
+:rotm r000 0 0 0
+:place base 1 hall r000 0 0 0
+
+:color base 0.2 0.4 0.8
+:vis hall OFF

@@ -1,0 +1,12 @@
+/geometry/source ../gears.tg
+
+/run/initialize
+
+/geometry/test/run
+
+/vis/open OGLIX
+/vis/viewer/zoom 2
+/vis/drawVolume
+/vis/viewer/flush
+
+/vis/ogl/export gears.jpg
