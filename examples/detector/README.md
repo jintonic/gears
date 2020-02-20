@@ -114,3 +114,7 @@ Note that physics volumes from the same logical volume created by the text geome
 [G4OpBoundaryProcess]: http://www-geant4.kek.jp/lxr/source//processes/optical/include/G4OpBoundaryProcess.hh
 [PostStepDoIt]: http://www.apc.univ-paris7.fr/~franco/g4doxy4.10/html/class_g4_op_boundary_process.html#a70a65cc5127a05680a0c4679f8300871
 [G4LogicalBorderSurface]: http://www-geant4.kek.jp/lxr/source/geometry/volumes/include/G4LogicalBorderSurface.hh
+[GDML]: https://gdml.web.cern.ch/GDML/
+[md]: https://en.wikipedia.org/wiki/Markdown
+[HTML]: https://www.w3schools.com/html/
+[ROOT]: https://root.cern.ch
