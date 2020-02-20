@@ -55,12 +55,14 @@ If you know how to use [Git][], you can download the whole [GEARS repository fro
 $ git clone https://github.com/jintonic/gears.git
 ```
 
-This way, you can update your [GEARS][] using
+This way, you can update your local copy after a while using
 
 ```sh
 $ cd /path/to/gears
 $ git pull
 ```
+
+If you have changed some files in your local copy, the `git pull` command will fail since [Git][] does not want to overwrite your modification with that in the original [GEARS][] repository. To avoid this, please copy [example macros](examples) to some place else and modify them to conduct your simulation tasks.
 
 ### Compilation
 
