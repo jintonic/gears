@@ -1,28 +1,26 @@
 [![Documentation](https://codedocs.xyz/jintonic/gears.svg)](https://codedocs.xyz/jintonic/gears/)
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
 ![Code size](https://img.shields.io/github/languages/code-size/jintonic/gears.svg?style=flat)
-![](https://img.shields.io/github/languages/top/jintonic/gears.svg?style=flat)
+![Languages](https://img.shields.io/github/languages/top/jintonic/gears.svg?style=flat)
 
 [GEARS][] is a [Geant4][] [Example Application](https://geant4.kek.jp/lxr/source/examples/) with [Rich features](#features) yet Small footprint. The entire C++ coding is minimized down to a single file with about 600 [SLOC][]. This is achieved mainly by utilizing [Geant4][] plain [text geometry description][tg], [build-in UI commands][TUI] (macros), and C++ inheritance. It is ideal for student training and fast implementation of small to medium-sized experiments.
 
 ## Features
 
-* [Single small C++ file](https://github.com/jintonic/gears/blob/master/gears.cc)
-  * [Easy code browsing](https://codedocs.xyz/jintonic/gears/gears_8cc.html#a3c04138a5bfe5d72780bb7e82a18e627)
-  * Easy management and fast [compilation](https://github.com/jintonic/gears/blob/master/makefile) (a few second on a regular PC)
+* [Single small C++ file](https://github.com/jintonic/gears/blob/master/gears.cc), easy to manage, fast to [compile](#compilation)(a few second on a regular PC)
 * [Output in multiple data format](#output)
-  * [ROOT](#root) TTree format (default, no ROOT installation is needed)
+  * [ROOT](#root) TTree format (default, no [ROOT][] installation is needed)
     * Build-in data compression, well suitable for large data processing
     * Fast access to independent data members
     * Flat tree (no nested branches or arrays) with short leaf names
       * Easy to use in TTree::Draw
       * No need to load extra library to open
-  * HDF5, universal data format, easy to read by different tools
+  * [HDF5][], universal data format, easy to read by different tools
   * CSV or XML, Human readable ASCII file, capable of dealing with multiple dimensional arrays
 * [Record information of step 0](#record-information-of-step-0) (initStep)
   * This is not available from G4UserSteppingAction
 * [simple text][tg] or [GDML][] geometry I/O
-  * Fast implementation of [detector geometry](https://github.com/jintonic/gears/blob/master/examples/detector/README.md) without C++ programming
+  * Fast implementation of [detector geometry](examples/detector) without C++ programming
   * Create/Change geometry without re-compilation
   * Turn off data saving in a volume by assigning it a non-positive copy number
   * Turn any volume to a sensitive detector by adding "(S)" in its name
@@ -107,6 +105,28 @@ gears qt
 ```
 
 so that you can use [Qt][] based GUI with [GEARS][], while run other [Geant4][] applications with command-line based UI.
+
+
+## How to contribute
+
+Please [fork GEARS on GitHub](https://help.github.com/en/github/getting-started-with-github/fork-a-repo). Run the following to get a local copy of the forked repository and link it to the [original GEARS repository][GEARS]:
+
+```sh
+$ git clone git@github.com:yourGitHubAccount/gears.git # get forked repository
+$ git remote add upstream git@github.com:jintonic/gears.git # link to original repository
+$ git remote -v # run a check
+```
+
+Run the following to keep your local repository updated with the [original GEARS repository][GEARS]:
+
+```sh
+$ git fetch upstream # updates are saved in a new branch upstream/master
+$ git merge upstream/master # merge 2 branches: upstream/master and master
+```
+
+If the merge is successful, run `git push` to update your forked GEARS repository on GitHub.
+
+You can initiate a [pull request on GitHub](https://help.github.com/en/github/collaborating-with-issues-and-pull-requests/about-pull-requests) if you'd like to have your update being absorbed in [the original GEARS repository][GEARS].
 
 # Physics
 
@@ -272,8 +292,6 @@ The catch is that functions in [G4SteppingVerbose][] will not be called in [G4St
 [StepInfo]: http://www-geant4.kek.jp/lxr/source/tracking/src/G4SteppingManager.cc#L228
 [TrackingStarted]: http://www-geant4.kek.jp/lxr/source/tracking/src/G4SteppingManager.cc#L360
 [GDML]: https://gdml.web.cern.ch/GDML/
-[md]: https://en.wikipedia.org/wiki/Markdown
-[HTML]: https://www.w3schools.com/html/
 [HDF5]: https://www.hdfgroup.org/downloads/hdf5/
 [Qt]: https://doc.qt.io/
 [Git]: https://en.wikipedia.org/wiki/Git
