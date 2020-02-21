@@ -1,12 +1,12 @@
 ## Detector visualization
 The [visualization chapter](http://geant4-userdoc.web.cern.ch/geant4-userdoc/UsersGuides/ForApplicationDeveloper/html/Visualization/visualization.html) of the [Geant4 Book For Application Developers](http://geant4-userdoc.web.cern.ch/geant4-userdoc/UsersGuides/ForApplicationDeveloper/html) documents in detail how to visualize a detector using various tools.
 
-- [ASCIITree](visualization/ASCIITree.mac)
-- [RayTracer](visualization/RayTracer.mac)
+- [ASCIITree](https://github.com/jintonic/gears/blob/master/examples/detector/visualization/ASCIITree.mac)
+- [RayTracer](https://github.com/jintonic/gears/blob/master/examples/detector/visualization/RayTracer.mac)
 
 ### OpenGL
 
-- [OpenGL](visualization/OpenGL.mac)
+- [OpenGL](https://github.com/jintonic/gears/blob/master/examples/detector/visualization/OpenGL.mac)
 
 
 For Mac users, please run
