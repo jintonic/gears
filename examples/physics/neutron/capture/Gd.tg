@@ -1,0 +1,6 @@
+:volu hall BOX 1*m 1*m 1*m G4_Galactic
+:volu Gd(S) SPHERE 0 0.5*m 0 360 0 360 G4_Gd
+
+:rotm r0 0 0 0
+
+:place Gd(S) 1 hall r0 0.0 0.0 0.0

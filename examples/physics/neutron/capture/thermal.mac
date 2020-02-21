@@ -1,0 +1,21 @@
+/geometry/source Gd.tg
+
+/physics_lists/enable HadronElastic
+/physics_lists/enable HadronInelastic
+
+/run/initialize
+
+/process/list
+
+/vis/open OGLIQt
+/vis/drawVolume
+
+/vis/scene/add/axes 0 0 0 50 cm
+
+/vis/scene/add/trajectories
+/gps/particle neutron
+/gps/energy 0.005 eV
+
+/tracking/verbose 1
+
+/run/beamOn 1
