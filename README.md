@@ -102,6 +102,19 @@ qt # the first line is for all Geant4 applications
 gears tcsh # just for gears
 ```
 
+### Session mode
+
+Without any argument, `gears` will start an [interactive session](http://geant4-userdoc.web.cern.ch/geant4-userdoc/UsersGuides/ForApplicationDeveloper/html/GettingStarted/graphicalUserInterface.html). It accepts [commands](http://geant4-userdoc.web.cern.ch/geant4-userdoc/UsersGuides/ForApplicationDeveloper/html/Control/commands.html) you type in the UI.
+
+You can also put a set of commands into a [macro](examples) file, which can be used as an argument of `gears`. For example,
+
+```sh
+$ cd gears/examples/detector/visualization
+$ gears RayTracer.mac # run gears in batch mode
+```
+
+This way, `gears` will run in the batch mode. It executes commands in the macro file one by one, and quit once it finishes.
+
 ## How to contribute
 
 Please [fork GEARS on GitHub](https://help.github.com/en/github/getting-started-with-github/fork-a-repo). Run the following to get a local copy of the forked repository and link it to the [original GEARS repository][GEARS]:
