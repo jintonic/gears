@@ -1,8 +1,34 @@
 ## Detector visualization
-[Geant4 Book For Application Developers](http://geant4-userdoc.web.cern.ch/geant4-userdoc/UsersGuides/ForApplicationDeveloper/html/Visualization/visualization.html)
+The [visualization chapter](http://geant4-userdoc.web.cern.ch/geant4-userdoc/UsersGuides/ForApplicationDeveloper/html/Visualization/visualization.html) of the [Geant4 Book For Application Developers](http://geant4-userdoc.web.cern.ch/geant4-userdoc/UsersGuides/ForApplicationDeveloper/html) documents in detail how to visualize a detector using various tools.
 
 - [ASCIITree](visualization/ASCIITree.mac)
 - [RayTracer](visualization/RayTracer.mac)
+
+### OpenGL
+
+- [OpenGL](visualization/OpenGL.mac)
+
+
+For Mac users, please run
+
+```sh
+defaults write org.macosforge.xquartz.X11 enable_iglx -bool true
+```
+
+in a terminal to enable `iglx` for XQuartz if you encounter the following error message when running `gears OpenGL.mac`:
+
+```
+libGL error: No matching fbConfigs or visuals found
+libGL error: failed to load driver: swrast
+X Error of failed request:  GLXBadContext
+  Major opcode of failed request:  149 (GLX)
+...
+```
+
+References:
+
+- <https://www.hoffman2.idre.ucla.edu/access/x11_forwarding/#Mac_OS_X>
+- <https://www.xquartz.org/releases/XQuartz-2.7.10.html>
 
 ## Detector construction
 ### Geometry
