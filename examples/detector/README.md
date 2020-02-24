@@ -19,9 +19,7 @@ in a terminal to enable `iglx` for XQuartz if you encounter the following error 
 ```
 libGL error: No matching fbConfigs or visuals found
 libGL error: failed to load driver: swrast
-X Error of failed request:  GLXBadContext
-  Major opcode of failed request:  149 (GLX)
-...
+X Error ...
 ```
 
 References:
@@ -32,6 +30,12 @@ References:
 ### DAWNFILE
 
 <https://geant4.kek.jp/~tanaka/DAWN/About_DAWN.html>
+
+### HepRepFile
+
+### HepRepXML
+
+<http://jas.freehep.org/jas3/>
 
 ## Detector construction
 ### Geometry

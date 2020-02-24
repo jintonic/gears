@@ -9,10 +9,10 @@
 # https://gitlab.cern.ch/geant4/geant4/tree/master/source/visualization/HepRep
 /vis/open HepRepXML
 /vis/drawVolume
+/vis/viewer/flush
 
-/vis/heprep/appendGeometry false
+#/vis/heprep/appendGeometry false
 
 /vis/scene/create gears.bheprep.zip
 /vis/scene/add/axes 0 0 0 50 cm
 
-/vis/viewer/flush
