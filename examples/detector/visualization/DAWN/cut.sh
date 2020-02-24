@@ -6,7 +6,7 @@ export DAWN_BATCH=1
 M=cut.mac
 for step in 0 1 2 3; do
   sed 's|0.tg|'$step'.tg|' $M > $step.mac
-  ../../../gears.exe $step.mac 2>cut.log
+  ../../../../gears $step.mac 2>cut.log
   err=`sed -n '/corrapted/p' cut.log`
   if [ -n "$err" ]; then 
     echo $err; read -p "Press any key to continue..."

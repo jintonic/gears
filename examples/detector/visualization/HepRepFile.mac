@@ -1,10 +1,10 @@
-/geometry/source XMASS.tg
+/geometry/source ../gears.tg
+
 /run/initialize
 
-# dump geometry tree in terminal
-/vis/ASCIITree/verbose 13
-/vis/drawTree
 /geometry/test/run
+
+/vis/geometry/list
 
 /vis/open HepRepFile
 /vis/drawVolume
