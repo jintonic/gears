@@ -8,7 +8,6 @@ The [visualization chapter](http://geant4-userdoc.web.cern.ch/geant4-userdoc/Use
 
 - [OpenGL](https://github.com/jintonic/gears/blob/master/examples/detector/visualization/OpenGL.mac)
 
-
 For Mac users, please run
 
 ```sh
@@ -29,6 +28,10 @@ References:
 
 - <https://www.hoffman2.idre.ucla.edu/access/x11_forwarding/#Mac_OS_X>
 - <https://www.xquartz.org/releases/XQuartz-2.7.10.html>
+
+### DAWNFILE
+
+<https://geant4.kek.jp/~tanaka/DAWN/About_DAWN.html>
 
 ## Detector construction
 ### Geometry
