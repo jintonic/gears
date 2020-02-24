@@ -6,7 +6,7 @@
 
 /vis/geometry/list
 
-/vis/open OGLIX
+/vis/open OGLI 600x600+0+0
 /vis/drawVolume
 /vis/scene/add/axes 0 0 0 2 m
 /vis/viewer/set/background white
