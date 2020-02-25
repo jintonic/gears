@@ -1,14 +1,56 @@
 ## Detector visualization
 The [visualization chapter](http://geant4-userdoc.web.cern.ch/geant4-userdoc/UsersGuides/ForApplicationDeveloper/html/Visualization/visualization.html) of the [Geant4 Book For Application Developers](http://geant4-userdoc.web.cern.ch/geant4-userdoc/UsersGuides/ForApplicationDeveloper/html) documents in detail how to visualize a detector using various tools.
 
-- [ASCIITree](https://github.com/jintonic/gears/blob/master/examples/detector/visualization/ASCIITree.mac)
-- [RayTracer](https://github.com/jintonic/gears/blob/master/examples/detector/visualization/RayTracer.mac)
+### ASCIITree
+
+The [ASCIITree](http://geant4-userdoc.web.cern.ch/geant4-userdoc/UsersGuides/ForApplicationDeveloper/html/Visualization/visdrivers.html#visualization-of-detector-geometry-tree) does not really visualize the detector geometry. Instead, it prints a hierarchical list of volumes in a detector on screen. If your geometry is simple, the only two commands you need in your macro is:
+
+```
+/vis/ASCIITree/verbose 13
+/vis/drawTree
+```
+
+If your geometry is complicated, you can specify the volume to be printed following the instruction [here](http://geant4-userdoc.web.cern.ch/geant4-userdoc/UsersGuides/ForApplicationDeveloper/html/Visualization/AllResources/Control/UIcommands/_vis_ASCIITree_.html).
+
+A [sample ASCIITree macro](https://github.com/jintonic/gears/blob/master/examples/detector/visualization/ASCIITree.mac) is shipped with [GERAS][]. Try it out this way:
+
+```sh
+$ cd /path/to/gears
+$ cd examples/detector/visualization
+$ gears ASCIITree.mac
+```
+
+### RayTracer
+
+[RayTracer](http://geant4-userdoc.web.cern.ch/geant4-userdoc/UsersGuides/ForApplicationDeveloper/html/Visualization/visdrivers.html#raytracer) is included in any [Geant4][] installation, and can be used for geometries that other tools may fail to visualize. Detailed instructions on RayTracer related built-in commands can be found [here](http://geant4-userdoc.web.cern.ch/geant4-userdoc/UsersGuides/ForApplicationDeveloper/html/Control/AllResources/Control/UIcommands/_vis_rayTracer_.html)
+
+A [sample RayTracer macro](https://github.com/jintonic/gears/blob/master/examples/detector/visualization/RayTracer.mac) is shipped with [GEARS][]. Try it out this way:
+
+```sh
+$ cd /path/to/gears
+$ cd examples/detector/visualization
+$ gears RayTracer.mac
+```
+
+It generates a `g4RayTracer.viewer-0_0000.jpeg` file in the current directory.
 
 ### OpenGL
 
-- [OpenGL](https://github.com/jintonic/gears/blob/master/examples/detector/visualization/OpenGL.mac)
+[OpenGL](http://geant4-userdoc.web.cern.ch/geant4-userdoc/UsersGuides/ForApplicationDeveloper/html/Visualization/visdrivers.html#opengl) is included in most [Geant4][] installations. Detailed instructions on OpenGL related built-in commands can be found [here](http://geant4-userdoc.web.cern.ch/geant4-userdoc/UsersGuides/ForApplicationDeveloper/html/Control/AllResources/Control/UIcommands/_vis_ogl_.html)
 
-For Mac users, please run
+A [sample OpenGL macro](https://github.com/jintonic/gears/blob/master/examples/detector/visualization/OpenGL.mac) is shipped with [GEARS][]. Try it out this way:
+
+```sh
+$ cd /path/to/gears
+$ cd examples/detector/visualization
+$ gears OpenGL.mac
+```
+
+It generates a `gears_0000.pdf` file in the current directory.
+
+It can also be run in an [interactive session](http://geant4-userdoc.web.cern.ch/geant4-userdoc/UsersGuides/ForApplicationDeveloper/html/GettingStarted/graphicalUserInterface.html).
+
+Not that for Mac users, you may need to run
 
 ```sh
 defaults write org.macosforge.xquartz.X11 enable_iglx -bool true
@@ -29,13 +71,17 @@ References:
 
 ### DAWNFILE
 
-<https://geant4.kek.jp/~tanaka/DAWN/About_DAWN.html>
+[DAWNFILE](http://geant4-userdoc.web.cern.ch/geant4-userdoc/UsersGuides/ForApplicationDeveloper/html/Visualization/visdrivers.html#dawn) is available in any [Geant4][] installation. It can be used to generate a `g4.prim` file, which has to be converted to an EPS file using an external program called [dawn](https://geant4.kek.jp/~tanaka/DAWN/About_DAWN.html)
 
 ### HepRepFile
 
 ### HepRepXML
 
 <http://jas.freehep.org/jas3/>
+
+### VRML
+
+- <https://stackoverflow.com/questions/14849593/vrml-to-x3d-conversion>
 
 ## Detector construction
 ### Geometry
