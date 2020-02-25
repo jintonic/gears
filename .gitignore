@@ -16,6 +16,10 @@ user.properties
 *.zip
 *.wrl
 *.jar
+*.x3d
+*.html
+*.htm
+*.gdml
 
 # Executables
 gears
