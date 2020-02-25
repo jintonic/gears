@@ -96,7 +96,7 @@ $ gears HepRepFile.mac
 It generates `G4Data0.heprep` in the same directory. A shell script [hv](https://github.com/jintonic/gears/blob/master/examples/detector/visualization/hv) is shipped with [GEARS][]. Run it this way:
 
 ```sh
-$ hv G4Data0.heprep
+$ ./hv G4Data0.heprep
 ```
 
 If this is the first time you run it, it will download a `HepRApp.jar` file from the Internet and run it the following way:
