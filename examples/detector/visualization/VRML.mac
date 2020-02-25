@@ -1,0 +1,14 @@
+/geometry/source ../gears.tg
+
+/run/initialize
+
+/geometry/test/run
+/vis/geometry/list
+
+/vis/open VRML2FILE
+/vis/viewer/set/background ! ! ! 0
+/vis/viewer/set/upThetaPhi 10 0
+/vis/viewer/set/viewpointThetaPhi 60 0
+/vis/viewer/set/style surface
+/vis/drawVolume
+/vis/viewer/refresh
