@@ -1,0 +1,16 @@
+/geometry/source ../gears.tg
+
+/run/initialize
+
+/geometry/test/run
+/vis/geometry/list
+
+/vis/open DAWNFILE
+/vis/viewer/set/background white
+/vis/viewer/set/style surface
+/vis/viewer/set/viewpointThetaPhi 45 0
+/vis/viewer/set/projection perspective
+# too slow if too large, causing white segment in dawn if too small
+/vis/viewer/set/lineSegmentsPerCircle 300
+/vis/drawVolume
+/vis/viewer/flush

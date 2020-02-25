@@ -1,0 +1,5 @@
+#!/bin/sh
+if [ ! -f HepRApp.jar ]; then
+  wget http://www.slac.stanford.edu/~perl/HepRApp/HepRApp.jar
+fi
+java -jar HepRApp.jar -opt HepRApp.properties -file $1
