@@ -1,0 +1,6 @@
+#/bin/sh
+JAR="VrmlMerge-0.5beta.jar"
+if [ ! -f ${JAR} ]; then
+  wget http://www.deem7.com/files/${JAR}
+fi
+java -jar ${JAR} -convert $1 ${1/wrl/x3d}
