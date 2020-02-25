@@ -1,6 +1,6 @@
 // ROOT script to visualize hall.gdml
 {
-  TGeoManager::Import("hall.gdml");
+  TGeoManager::Import("gears.gdml");
   gGeoManager->GetTopVolume()->Draw();
 }
 // -*- c++ -*-

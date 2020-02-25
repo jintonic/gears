@@ -1,2 +1,3 @@
+/geometry/source ../gears.tg
 /run/initialize
-/geometry/export hall.gdml
+/geometry/export gears.gdml
