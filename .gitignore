@@ -15,6 +15,7 @@ user.properties
 *.gif
 *.zip
 *.wrl
+*.jar
 
 # Executables
 gears
