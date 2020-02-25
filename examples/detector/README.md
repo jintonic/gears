@@ -32,7 +32,7 @@ $ cd examples/detector/visualization
 $ gears RayTracer.mac
 ```
 
-It generates a `g4RayTracer.viewer-0_0000.jpeg` file in the current directory.
+It generates a `g4RayTracer.viewer-0_0000.jpeg` file in the same directory.
 
 ### OpenGL
 
@@ -46,7 +46,7 @@ $ cd examples/detector/visualization
 $ gears OpenGL.mac
 ```
 
-It generates a `gears_0000.pdf` file in the current directory.
+It generates a `gears_0000.pdf` file in the same directory.
 
 It can also be run in an [interactive session](http://geant4-userdoc.web.cern.ch/geant4-userdoc/UsersGuides/ForApplicationDeveloper/html/GettingStarted/graphicalUserInterface.html).
 
@@ -71,17 +71,79 @@ References:
 
 ### DAWNFILE
 
-[DAWNFILE](http://geant4-userdoc.web.cern.ch/geant4-userdoc/UsersGuides/ForApplicationDeveloper/html/Visualization/visdrivers.html#dawn) is available in any [Geant4][] installation. It can be used to generate a `g4.prim` file, which has to be converted to an EPS file using an external program called [dawn](https://geant4.kek.jp/~tanaka/DAWN/About_DAWN.html)
+[DAWNFILE](http://geant4-userdoc.web.cern.ch/geant4-userdoc/UsersGuides/ForApplicationDeveloper/html/Visualization/visdrivers.html#dawn) is available in any [Geant4][] installation. It can be used to generate `g4_*.prim` files, which can be converted to an EPS file using an external program called [dawn](https://geant4.kek.jp/~tanaka/DAWN/About_DAWN.html).
+
+A [sample DAWNFILE macro](https://github.com/jintonic/gears/blob/master/examples/detector/visualization/DAWN.mac) is shipped with [GEARS][]. Try it out this way:
+
+```sh
+$ cd /path/to/gears
+$ cd examples/detector/visualization
+$ gears DAWN.mac
+```
 
 ### HepRepFile
 
+[HepRepFile](http://geant4-userdoc.web.cern.ch/geant4-userdoc/UsersGuides/ForApplicationDeveloper/html/Visualization/visdrivers.html#heprepfile) is available in any [Geant4][] installation. It can be used to generate `G4Data*.heprep` files, which can be viewed using an external program called [HepRApp][] in wireframe mode, that is, no surface, only outlines.
+
+A [sample HepRepFile macro](https://github.com/jintonic/gears/blob/master/examples/detector/visualization/HepRepFile.mac) is shipped with [GEARS][]. Try it out this way:
+
+```sh
+$ cd /path/to/gears
+$ cd examples/detector/visualization
+$ gears HepRepFile.mac
+```
+
+It generates `G4Data0.heprep` in the same directory. A shell script [hv](https://github.com/jintonic/gears/blob/master/examples/detector/visualization/hv) is shipped with [GEARS][]. Run it this way:
+
+```sh
+$ hv G4Data0.heprep
+```
+
+If this is the first time you run it, it will download a `HepRApp.jar` file from the Internet and run it the following way:
+
+```sh
+java -jar HepRApp.jar -opt HepRApp.properties -file G4Data0.heprep
+```
+
+[HepRApp.properties](https://github.com/jintonic/gears/blob/master/examples/detector/visualization/HepRApp.properties) is the configuration file for [HepRApp][]. It is also shipped with [GEARS][].
+
+[HepRApp]: https://www.slac.stanford.edu/~perl/HepRApp/
+
 ### HepRepXML
 
-<http://jas.freehep.org/jas3/>
+[HepRepXML](http://geant4-userdoc.web.cern.ch/geant4-userdoc/UsersGuides/ForApplicationDeveloper/html/Visualization/visdrivers.html#heprepxml) is available in any [Geant4][] installation. It is used to generate binary HepRep (`.bheprep`) or XML HepRep (`.heprep`) file, which can be viewed using an external program called [JAS3][] with the [WIRED4][] plugin.
+
+A [sample HepRepXML macro](https://github.com/jintonic/gears/blob/master/examples/detector/visualization/HepRepXML.mac) is shipped with [GEARS][]. Try it out this way:
+
+```sh
+$ cd /path/to/gears
+$ cd examples/detector/visualization
+$ gears HepRepXML.mac
+```
+
+It generates `scene-0.heprep.zip` in the same directory, which can be directly open using [WIRED4][] in [JAS3][].
+
+[JAS3]: http://jas.freehep.org/jas3
+[WIRED4]:http://wired.freehep.org/index.html
 
 ### VRML
 
-- <https://stackoverflow.com/questions/14849593/vrml-to-x3d-conversion>
+[VRML][] is available in any [Geant4][] installation. It is used to generate files in VRML format, which can be viewed using an external program, such as [OpenVRML][], [view3dscene][], etc., or be converted to its succeeder [X3D][].
+
+A [sample VRML macro](https://github.com/jintonic/gears/blob/master/examples/detector/visualization/VRML.mac) is shipped with [GEARS][]. Try it out this way:
+
+```sh
+$ cd /path/to/gears
+$ cd examples/detector/visualization
+$ gears VRML.mac
+```
+
+It generates `g4_00.wrl` in the same directory.
+
+[VRML]:http://geant4-userdoc.web.cern.ch/geant4-userdoc/UsersGuides/ForApplicationDeveloper/html/Visualization/visdrivers.html#vrml
+[OpenVRML]:https://sourceforge.net/projects/openvrml/
+[view3dscene]:https://castle-engine.sourceforge.io/view3dscene.php
+[X3D]: https://stackoverflow.com/questions/14849593/vrml-to-x3d-conversion
 
 ## Detector construction
 ### Geometry
