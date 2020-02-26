@@ -1,6 +1,37 @@
-#/bin/sh
+#!/bin/sh
+
+# get the latest g4_??.wrl
+for each in `ls *.wrl 2>&1`; do latest=$each; done
+if [ "$latest" = directory ]; then echo "no g4_??.wrl file found"; exit; fi
+
+# get VRML to X3D converter
 JAR="VrmlMerge-0.5beta.jar"
-if [ ! -f ${JAR} ]; then
-  wget http://www.deem7.com/files/${JAR}
+if [ ! -f ${JAR} ]; then wget http://www.deem7.com/files/${JAR}; fi
+
+# convert VRML to X3D
+X3D=${latest/wrl/x3d}
+if [ ! -f ${X3D} ] || [ $latest -nt $X3D ]; then
+    java -jar ${JAR} -convert $latest ${X3D}
 fi
-java -jar ${JAR} -convert $1 ${1/wrl/x3d}
+
+# embed g4_??.x3d in g4_??.html
+cat << END > ${latest/wrl/html}
+<html> 
+<head> 
+<title>$latest</title>
+<script type='text/javascript' src='http://www.x3dom.org/download/x3dom.js'> </script>
+<link rel='stylesheet' type='text/css' href='http://www.x3dom.org/download/x3dom.css'></link>
+</head> 
+<body>
+<x3d> 
+<scene>
+<inline url="$X3D"></inline> 
+</scene> 
+</x3d> 
+</body>
+</html>
+END
+
+# server the current directory
+echo -e "click http://0.0.0.0:8000/${latest/wrl/html} to view $latest\n"
+python3 -m http.server
