@@ -128,7 +128,7 @@ It generates `scene-0.heprep.zip` in the same directory, which can be directly o
 
 ### VRML
 
-[VRML][] is available in any [Geant4][] installation. It is used to generate files in VRML format, which can be viewed using an external program, such as [OpenVRML][], [view3dscene][], etc., or be converted to its succeeder [X3D][].
+[VRML][] is available in any [Geant4][] installation. It is used to generate files in VRML format, which can be viewed using an external program, such as [ORBISNAP][], [OpenVRML][], [view3dscene][], etc., or be converted to its succeeder [X3D][], which can be viewed directly in a modern web browser that supports WebGL.
 
 A [sample VRML macro](https://github.com/jintonic/gears/blob/master/examples/detector/visualization/VRML.mac) is shipped with [GEARS][]. Try it out this way:
 
@@ -138,12 +138,16 @@ $ cd examples/detector/visualization
 $ gears VRML.mac
 ```
 
-It generates `g4_00.wrl` in the same directory.
+It generates `g4_??.wrl` in the same directory.
+
+A shell script [v2x][] is shipped in the same directory to convert the latest `g4_??.wrl` to `g4_??.x3d`, embed the latter to `g4_??.html` and run a simple http server using python3 in the current directory. Open <http://0.0.0.0/8000/g4_??.html> in a modern browser to see the result.
 
 [VRML]:http://geant4-userdoc.web.cern.ch/geant4-userdoc/UsersGuides/ForApplicationDeveloper/html/Visualization/visdrivers.html#vrml
+[ORBISNAP]:https://www.orbisnap.com/download2.html
 [OpenVRML]:https://sourceforge.net/projects/openvrml/
 [view3dscene]:https://castle-engine.sourceforge.io/view3dscene.php
-[X3D]: https://stackoverflow.com/questions/14849593/vrml-to-x3d-conversion
+[X3D]:https://stackoverflow.com/questions/14849593/vrml-to-x3d-conversion
+[v2x]:https://github.com/jintonic/gears/blob/master/examples/detector/visualization/v2x
 
 ## Detector construction
 ### Geometry
