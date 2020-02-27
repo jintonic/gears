@@ -6,19 +6,22 @@ if [ "$latest" = directory ]; then echo "no g4_??.wrl file found"; exit; fi
 
 # get VRML to X3D converter
 JAR="VrmlMerge-0.5beta.jar"
-if [ ! -f ${JAR} ]; then wget http://www.deem7.com/files/${JAR}; fi
+if [ ! -f $JAR ]; then wget http://www.deem7.com/files/$JAR; fi
 
 # convert VRML to X3D
 X3D=${latest/wrl/x3d}
-if [ ! -f ${X3D} ] || [ $latest -nt $X3D ]; then
-    java -jar ${JAR} -convert $latest ${X3D}
+if [ ! -f $X3D ] || [ $latest -nt $X3D ]; then
+    java -jar $JAR -convert $latest $X3D
 fi
+
+# turn off transparency in $X3D
+sed -i 's/"0.7"/"0"/g' $X3D
 
 # embed g4_??.x3d in g4_??.html
 cat << END > ${latest/wrl/html}
 <html> 
 <head> 
-<title>$latest</title>
+<title>$X3D</title>
 <script type='text/javascript' src='http://www.x3dom.org/download/x3dom.js'> </script>
 <link rel='stylesheet' type='text/css' href='http://www.x3dom.org/download/x3dom.css'></link>
 </head> 
@@ -33,5 +36,7 @@ cat << END > ${latest/wrl/html}
 END
 
 # server the current directory
-echo -e "click http://0.0.0.0:8000/${latest/wrl/html} to view $latest\n"
-python3 -m http.server
+echo click http://127.0.0.1:8888/${latest/wrl/html} to view $X3D
+echo click https://doc.x3dom.org/tutorials/animationInteraction/navigation
+echo for instructions on nagivation method
+python3 -m http.server 8888 -b 127.0.0.1
