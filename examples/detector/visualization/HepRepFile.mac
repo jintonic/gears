@@ -6,15 +6,19 @@
 
 /vis/geometry/list
 
+/control/verbose 2
+
 /vis/open HepRepFile
 /vis/drawVolume
 
-/vis/scene/add/axes 0 0 0 50 cm
-
+/vis/scene/add/axes
+/vis/scene/add/date
+/vis/scene/add/scale
 /vis/scene/add/trajectories
 /vis/scene/endOfEventAction accumulate 50
 
 /gps/particle gamma
 /gps/energy 1.2 MeV
+/gps/ang/type iso
 
 /run/beamOn 10
