@@ -151,7 +151,7 @@ A shell script [v2x][] is shipped in the same directory to convert the latest `g
 
 ## Detector construction
 ### Geometry
-[GEARS][] accepts two types of detector geometry descriptions in pure ASCII format as input:
+Instead of using geometry written in C++ as described in detail in the [Geant4 manual](http://geant4-userdoc.web.cern.ch/geant4-userdoc/UsersGuides/ForApplicationDeveloper/html/Detector/Geometry/geomSolids.html), [GEARS][] accepts two types of detector geometry descriptions in pure ASCII format as input:
 - [Geant4][] [text geometry description][tg] (recommended)
 - [GDML][] (provided for data analysis and visualization in other tools)
 Their difference is similar to that between [markdown][md] and [HTML][]. The simpler [text geometry description][tg] provided by [Geant4][] is recommended to be used as [GEARS][]'s input given its simplicity and readability. For example, an experimental hall filled with air and of a dimension of 10 x 10 x 10 meters can be easily implemented using the following line:
@@ -183,12 +183,12 @@ The command must be used before [/run/initialize][run], otherwise [GEARS][] will
 This can only be used after the macro command [/run/initialize][run], which constructs the detector geometry before exporting. While the simpler [text geometry description][tg] can only be understood by [Geant4][], [GDML][] can be understood by many other tools. For example, [ROOT][] provides functions to read and visualize [GDML][] geometries. On the other hand, it is not that easy to write a valid [GDML][] file manually. This functionality is provided to enable the following usage:
 
 ~~~
-# describe the detector using simple text geometry description
-/geometry/source input.tg
-# construct the detector
-/run/intialize
-# export detector geometry as GDML for analysis/visualization in other tools
-/geometry/export output.gdml
+ # describe the detector using simple text geometry description
+ /geometry/source input.tg
+ # construct the detector
+ /run/intialize
+ # export detector geometry as GDML for analysis/visualization in other tools
+ /geometry/export output.gdml
 ~~~
 
 #### Sensitive detector
@@ -253,7 +253,7 @@ Note that physics volumes from the same logical volume created by the text geome
 [GEARS]: http://physino.xyz/gears
 [tg]: http://geant4-userdoc.web.cern.ch/geant4-userdoc/UsersGuides/ForApplicationDeveloper/html/Detector/Geometry/geomASCII.html
 [Geant4]: http://geant4.cern.ch
-[NIST]: http://geant4-userdoc.web.cern.ch/geant4-userdoc/UsersGuides/ForApplicationDeveloper/html/Appendix/materialNames.html#g4matrdb
+[NIST]: http://geant4-userdoc.web.cern.ch/geant4-userdoc/UsersGuides/ForApplicationDeveloper/html/Appendix/materialNames.html
 [run]: http://geant4-userdoc.web.cern.ch/geant4-userdoc/UsersGuides/ForApplicationDeveloper/html/Control/AllResources/Control/UIcommands/_run_.html
 [listMaterials]: http://geant4-userdoc.web.cern.ch/geant4-userdoc/UsersGuides/ForApplicationDeveloper/html/Control/AllResources/Control/UIcommands/_material_nist_.html
 [G4OpBoundaryProcess]: http://www-geant4.kek.jp/lxr/source//processes/optical/include/G4OpBoundaryProcess.hh

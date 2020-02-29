@@ -27,9 +27,11 @@
   * Assign optical properties in [Geant4][] plain [text geometry description][tg]
 * Optional optical and hadronic [physics](examples/physics)
 * Periodic status report in a long run
-* Frequently used source spectra (AmBe, Am-241, etc.)
+* Frequently used source spectra (AmBe, Am-241, etc.) in addition to [GPS][]
 * [Doxygen documentation](https://codedocs.xyz/jintonic/gears/)
 * Many [sample macros](examples) and [geometry descriptions](examples/detector#detector-construction) for feature demonstration
+
+[GPS]:http://geant4-userdoc.web.cern.ch/geant4-userdoc/UsersGuides/ForApplicationDeveloper/html/GettingStarted/generalParticleSource.html
 
 ## Getting started
 
