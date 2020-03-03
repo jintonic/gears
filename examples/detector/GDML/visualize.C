@@ -1,4 +1,4 @@
-// ROOT script to visualize hall.gdml
+// ROOT script to visualize gears.gdml
 {
   TGeoManager::Import("gears.gdml");
   gGeoManager->GetTopVolume()->Draw();
