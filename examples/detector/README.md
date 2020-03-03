@@ -140,7 +140,7 @@ $ gears VRML.mac
 
 It generates `g4_??.wrl` in the same directory.
 
-A shell script [v2x][] is shipped in the same directory to convert the latest `g4_??.wrl` to `g4_??.x3d`, embed the latter to `g4_??.html` and run a simple http server using python3 in the current directory. Open <http://0.0.0.0/8000/g4_??.html> in a modern browser to see the result.
+A shell script [v2x][] is shipped in the same directory to convert the latest `g4_??.wrl` to `g4_??.x3d`, embed the latter to `g4_??.html` and run a simple http server using python3 in the current directory. Open <http://127.0.0.1/8888/g4_??.html> in a modern browser to see the result.
 
 [VRML]:http://geant4-userdoc.web.cern.ch/geant4-userdoc/UsersGuides/ForApplicationDeveloper/html/Visualization/visdrivers.html#vrml
 [ORBISNAP]:https://www.orbisnap.com/download2.html
@@ -160,15 +160,17 @@ Their difference is similar to that between [markdown][md] and [HTML][]. The sim
 :volume hall BOX 5*m 5*m 5*m G4_AIR
 ~~~
 
-For more examples, please check `*.tg` files in the [examples/](https://github.com/jintonic/gears/blob/master/examples/) directory, such as [examples/Rutherford/hall.tg](https://github.com/jintonic/gears/blob/master/examples/Rutherford/hall.tg). The suffix of *.tg* indicates that they are [text geometry][tg] description files. A [Geant4][] macro command `/geometry/source` is added to load geometry files:
+For more examples, please check `*.tg` files in the [examples/detector](https://github.com/jintonic/gears/blob/master/examples/detector) directory, such as [examples/detector/gears.tg](https://github.com/jintonic/gears/blob/master/examples/detector/gears.tg) and [example/detector/solids.tg](https://github.com/jintonic/gears/blob/master/examples/detector/solids.tg). The suffix of *.tg* indicates that they are [text geometry][tg] description files. A [Geant4][] macro command `/geometry/source` is added to load geometry files:
 
-~~~
-/geometry/source examples/Rutherford/foil.tg
+~~~sh
+/geometry/source gears.tg
 ~~~
 
-Alternatively,
+You can utilize [Boolean operation](http://physino.xyz/gears/examples/detector/boolean) or [shell scripts](http://physino.xyz/gears/examples/detector/scripts) to construct more complicated geometries.
 
-~~~
+Alternatively, you can read a [GDML][] file:
+
+~~~sh
 /geometry/source file.gdml
 ~~~
 
@@ -176,13 +178,13 @@ The command must be used before [/run/initialize][run], otherwise [GEARS][] will
 
 [GEARS][] provides the following command to export constructed detector geometry to a [GDML][] file:
 
-~~~
+~~~sh
 /geometry/export output.gdml
 ~~~
 
 This can only be used after the macro command [/run/initialize][run], which constructs the detector geometry before exporting. While the simpler [text geometry description][tg] can only be understood by [Geant4][], [GDML][] can be understood by many other tools. For example, [ROOT][] provides functions to read and visualize [GDML][] geometries. On the other hand, it is not that easy to write a valid [GDML][] file manually. This functionality is provided to enable the following usage:
 
-~~~
+~~~sh
  # describe the detector using simple text geometry description
  /geometry/source input.tg
  # construct the detector
@@ -190,6 +192,8 @@ This can only be used after the macro command [/run/initialize][run], which cons
  # export detector geometry as GDML for analysis/visualization in other tools
  /geometry/export output.gdml
 ~~~
+
+You can find a concrete example in [example/detector/GDML](http://physino.xyz/gears/example/detector/GDML).
 
 #### Sensitive detector
 
