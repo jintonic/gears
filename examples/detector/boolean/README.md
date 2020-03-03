@@ -12,8 +12,8 @@ $ gears tophat.mac
 
 You need to install [dawn][] and [HepRApp][] to view the results.
 
-[tophat.tg]:https://github.com/jintonic/gears/blob/master/examples/detector/scripts/tophat.tg
-[tophat.mac]:https://github.com/jintonic/gears/blob/master/examples/detector/scripts/tophat.mac
+[tophat.tg]:https://github.com/jintonic/gears/blob/master/examples/detector/boolean/tophat.tg
+[tophat.mac]:https://github.com/jintonic/gears/blob/master/examples/detector/boolean/tophat.mac
 [dawn]:https://geant4.kek.jp/~tanaka/DAWN/About_DAWN.html
 [HepRApp]: https://www.slac.stanford.edu/~perl/HepRApp/
 
