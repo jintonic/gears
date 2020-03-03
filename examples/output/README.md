@@ -2,8 +2,8 @@
 [GEARS][] utilizes [Geant4 analysis managers](http://geant4-userdoc.web.cern.ch/geant4-userdoc/UsersGuides/ForApplicationDeveloper/html/Analysis/managers.html) to provide 4 output formats: ROOT (default), HDF5, CSV, and XML. The output file format can be chosen using the following command:
 
 ~~~sh
-make hdf5 # create ghdf5.cc from gears.cc
-make # compile ghdf5.cc
+$ make hdf5 # create ghdf5.cc from gears.cc
+$ make # compile ghdf5.cc
 ~~~
 
 The output file name can be chosen using macro command:

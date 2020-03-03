@@ -3,13 +3,13 @@
 ![Code size](https://img.shields.io/github/languages/code-size/jintonic/gears.svg?style=flat)
 ![Languages](https://img.shields.io/github/languages/top/jintonic/gears.svg?style=flat)
 
-[GEARS][] is a [Geant4][] [Example Application](https://geant4.kek.jp/lxr/source/examples/) with [Rich features](#features) yet Small footprint. The entire C++ coding is minimized down to a single file with about 600 [SLOC][]. This is achieved mainly by utilizing [Geant4][] plain [text geometry description][tg], [build-in UI commands][TUI] (macros), and C++ inheritance. It is ideal for student training and fast implementation of small to medium-sized experiments.
+[GEARS][] is a [Geant4][] [Example Application](https://geant4.kek.jp/lxr/source/examples/) with [Rich features](#features) yet Small footprint. The entire C++ coding is minimized down to a single file with about 600 [SLOC][]. This is achieved mainly by utilizing [Geant4][] plain [text geometry description][tg], [built-in UI commands][TUI] (macros), and C++ inheritance. It is ideal for student training and fast implementation of small to medium-sized experiments.
 
 ## Features
 
 * [Single small C++ file](https://github.com/jintonic/gears/blob/master/gears.cc), easy to manage, fast to [compile](#compilation)(a few second on a regular PC)
-* [Output in multiple data format](#output)
-  * [ROOT](#root) TTree format (default, no [ROOT][] installation is needed)
+* [Output in multiple data format](examples/output)
+  * [ROOT](examples/output#root) TTree format (default, no [ROOT][] installation is needed)
     * Build-in data compression, well suitable for large data processing
     * Fast access to independent data members
     * Flat tree (no nested branches or arrays) with short leaf names
@@ -23,7 +23,7 @@
   * Fast implementation of [detector geometry](examples/detector) without C++ programming
   * Create/Change geometry without re-compilation
   * Turn off data saving in a volume by assigning it a non-positive copy number
-  * Turn any volume to a sensitive detector by adding "(S)" in its name
+  * Turn any volume to a [sensitive detector](examples/detector#sensitive-detector) by adding "(S)" in its name
   * Assign optical properties in [Geant4][] plain [text geometry description][tg]
 * Optional optical and hadronic [physics](examples/physics)
 * Periodic status report in a long run

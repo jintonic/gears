@@ -166,7 +166,7 @@ For more examples, please check `*.tg` files in the [examples/detector](https://
 /geometry/source gears.tg
 ~~~
 
-You can utilize [Boolean operation](http://physino.xyz/gears/examples/detector/boolean) or [shell scripts](http://physino.xyz/gears/examples/detector/scripts) to construct more complicated geometries.
+You can utilize [Boolean operation](boolean) or [shell scripts](scripts) to construct more complicated geometries.
 
 Alternatively, you can read a [GDML][] file:
 
@@ -193,7 +193,7 @@ This can only be used after the macro command [/run/initialize][run], which cons
  /geometry/export output.gdml
 ~~~
 
-You can find a concrete example in [example/detector/GDML](http://physino.xyz/gears/example/detector/GDML).
+You can find a concrete example in [example/detector/GDML](GDML).
 
 #### Sensitive detector
 
