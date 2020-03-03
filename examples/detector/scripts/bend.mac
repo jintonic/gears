@@ -1,30 +1,51 @@
-/geometry/source magnet.tg
+/geometry/source tracker.tg
+#/geometry/source LINEAR_X.tg
 /field/SetB 0 0 1e-1 tesla
 
 /run/initialize
 
 /vis/ASCIITree/verbose 13
 /vis/drawTree
-/geometry/test/run
 
-/vis/open OGL
-/vis/viewer/zoom 1.5
+/vis/geometry/list
+
+/vis/open DAWNFILE
 /vis/drawVolume
+
+/vis/scene/add/gps
+/vis/scene/add/magneticField
 /vis/scene/add/trajectories
-/vis/scene/add/text -8 7 0 cm 20 0 0 red: 2 MeV electron; blue: 6.11 MeV alpha
-/vis/scene/add/text -6 -7 0 cm 20 0 0 Magnetic field: 0.1 Tesla
+/vis/scene/endOfEventAction accumulate
+/vis/scene/add/text 1.5 9.5 0 cm 20 0 0 electron
+/vis/scene/add/text 8 0.3 0 cm 20 0 0 neutron
+/vis/scene/add/text 8 -2 0 cm 20 0 0 alpha
+/vis/scene/add/text 2 -10.5 0 cm 20 0 0 positon
+
+/vis/viewer/set/background white
 
 /gps/source/multiplevertex true
 
-/gps/source/intensity 0.5
+/gps/source/intensity 0.25
 /gps/particle alpha
-/gps/energy 6.11 MeV
+/gps/energy 5 MeV
 /gps/pos/centre -9 -0.1 0 cm
 /gps/direction 1 0 0
 
-/gps/source/add 0.5 
+/gps/source/add 0.25 
 /gps/particle e-
-/gps/energy 2 MeV
+/gps/energy 5 MeV
+/gps/pos/centre -9 0.1 0 cm
+/gps/direction 1 0 0
+
+/gps/source/add 0.25 
+/gps/particle e+
+/gps/energy 5 MeV
+/gps/pos/centre -9 0.1 0 cm
+/gps/direction 1 0 0
+
+/gps/source/add 0.25 
+/gps/particle neutron
+/gps/energy 5 MeV
 /gps/pos/centre -9 0.1 0 cm
 /gps/direction 1 0 0
 

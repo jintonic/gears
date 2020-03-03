@@ -1,6 +1,9 @@
-:volu hall BOX 10*cm 10*cm 10*cm G4_Galactic
-:volu tracker BOX 1*micrometer 6*cm 6*cm G4_Galactic
+:volu world BOX 10*cm 10*cm 10*cm G4_Galactic
+:vis world OFF
 
 :rotm r000 0 0 0
-:place_param tracker 1 hall LINEAR_X r000 70 2*mm -8*cm
-:vis hall OFF
+
+:volu tracker BOX 1*micrometer 9*cm 9*cm G4_Galactic
+:place_param tracker 20 world LINEAR_X r000 81 2*mm -8*cm
+
+:color tracker 0.3 0.4 0.3
