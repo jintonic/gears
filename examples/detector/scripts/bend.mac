@@ -12,7 +12,6 @@
 /vis/open DAWNFILE
 /vis/drawVolume
 
-/vis/scene/add/gps
 /vis/scene/add/magneticField
 /vis/scene/add/trajectories
 /vis/scene/endOfEventAction accumulate

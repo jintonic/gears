@@ -12,7 +12,7 @@ The [ASCIITree](http://geant4-userdoc.web.cern.ch/geant4-userdoc/UsersGuides/For
 
 If your geometry is complicated, you can specify the volume to be printed following the instruction [here](http://geant4-userdoc.web.cern.ch/geant4-userdoc/UsersGuides/ForApplicationDeveloper/html/Visualization/AllResources/Control/UIcommands/_vis_ASCIITree_.html).
 
-A [sample ASCIITree macro](https://github.com/jintonic/gears/blob/master/examples/detector/visualization/ASCIITree.mac) is shipped with [GERAS][]. Try it out this way:
+A [sample ASCIITree macro](https://github.com/jintonic/gears/blob/master/examples/detector/visualization/ASCIITree.mac) is shipped with [GEARS][]. Try it out this way:
 
 ```sh
 $ cd /path/to/gears

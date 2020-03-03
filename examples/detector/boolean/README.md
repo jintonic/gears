@@ -1,4 +1,10 @@
+## Boolean operation
+
+Two examples are provided here to demonstrate how to create complex geometry using boolean operations.
+
 ### Tophat geometry
+
+A tophat geometry is described in [tophat.tg][], which is visualized using [tophat.mac][]:
 
 ```sh
 $ gears tophat.mac
@@ -6,6 +12,8 @@ $ gears tophat.mac
 
 You need to install [dawn][] and [HepRApp][] to view the results.
 
+[tophat.tg]:https://github.com/jintonic/gears/blob/master/examples/detector/scripts/tophat.tg
+[tophat.mac]:https://github.com/jintonic/gears/blob/master/examples/detector/scripts/tophat.mac
 [dawn]:https://geant4.kek.jp/~tanaka/DAWN/About_DAWN.html
 [HepRApp]: https://www.slac.stanford.edu/~perl/HepRApp/
 
