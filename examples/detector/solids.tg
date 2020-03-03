@@ -1,4 +1,4 @@
-:volu hall BOX 50*cm 80*cm 50*cm G4_AIR
+:volu hall BOX 100*cm 100*cm 100*cm G4_AIR
 :vis hall OFF
 
 :rotm r000 0 0 0
