@@ -1,0 +1,12 @@
+/geometry/source solids.tg
+
+/run/initialize
+
+/geometry/test/run
+
+/vis/open OGL
+/vis/drawVolume
+
+/vis/viewer/set/background white
+/vis/viewer/set/viewpointThetaPhi 60 20
+/vis/viewer/flush
