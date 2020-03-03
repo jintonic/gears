@@ -1,0 +1,24 @@
+/geometry/source TUNL.tg
+
+/physics_lists/enable HadronElastic
+/physics_lists/enable HadronInelastic
+
+/run/initialize
+
+/geometry/test/run
+
+/vis/ASCIITree/verbose 13
+/vis/drawTree
+
+/vis/open HepRepFile
+/vis/drawVolume
+
+/vis/scene/add/trajectories
+/vis/scene/endOfEventAction accumulate 50
+
+/gps/particle neutron
+/gps/energy 3.2 MeV
+/gps/position 0 -20 0 cm
+/gps/direction 0 1 0
+
+/run/beamOn 50

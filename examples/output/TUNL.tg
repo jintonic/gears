@@ -1,0 +1,34 @@
+:volu world BOX 1.5*m 1.5*m 1.5*m G4_AIR
+:color world 0.5  0.5 0.5
+:vis world OFF
+
+:volu target BOX 2*cm 2*cm 2*cm G4_CESIUM_IODIDE
+:volu vacuum TUBE 0 4.9*cm 5*cm G4_Galactic
+:volu chamber TUBE 0 5*cm 6*cm G4_STAINLESS-STEEL
+
+:color target 0.9 0.9 0
+:color vacuum 0.2 0.3 0.5
+:color chamber 0  0.5 0
+
+:rotm r000 0 0 0
+:place chamber 1 world r000 0 0 0
+:place vacuum 1 chamber r000 0 0 0
+:place target 1 vacuum r000 0 0 0
+
+:volu NaI TUBE 0 5*cm 6*cm G4_SODIUM_IODIDE
+:color NaI 0 0.5 0.9
+
+:rotm x90 90 0 0
+:place NaI 1 world x90 0 1*m 0
+:rotm x90yp45 90 45 0
+:place NaI 2 world x90yp45 -0.7*m 0.7*m 0
+:rotm x90ym45 90 -45 0
+:place NaI 3 world x90ym45 0.7*m 0.7*m 0
+:rotm x90yp30 90 30 0
+:place NaI 4 world x90yp30 -0.5*m 0.866*m 0
+:rotm x90ym30 90 -30 0
+:place NaI 5 world x90ym30 0.5*m 0.866*m 0
+:rotm x90yp15 90 15 0
+:place NaI 6 world x90yp15 -0.25881905*m 0.96592583*m 0
+:rotm x90ym15 90 -15 0
+:place NaI 7 world x90ym15 0.25881905*m 0.96592583*m 0
