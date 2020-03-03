@@ -36,7 +36,7 @@ cat << END > ${latest/wrl/html}
 END
 
 # server the current directory
-echo click http://127.0.0.1:8888/${latest/wrl/html} to view $X3D
+echo click http://127.0.0.1:52120/${latest/wrl/html} to view $X3D
 echo click https://doc.x3dom.org/tutorials/animationInteraction/navigation
 echo for instructions on nagivation method
-python3 -m http.server 8888 -b 127.0.0.1
+python3 -m http.server 52120 -b 127.0.0.1
