@@ -1,0 +1,168 @@
+:volu world BOX 10*cm 10*cm 10*cm G4_Galactic
+:vis world OFF
+
+:rotm r000 0 0 0
+
+:volu tracker BOX 1*micrometer 9*cm 9*cm G4_Galactic
+:place tracker 1 world r000 -80*mm 0 0
+:color tracker 0.3 0.4 0.3
+:place tracker 2 world r000 -78*mm 0 0
+:color tracker 0.3 0.4 0.3
+:place tracker 3 world r000 -76*mm 0 0
+:color tracker 0.3 0.4 0.3
+:place tracker 4 world r000 -74*mm 0 0
+:color tracker 0.3 0.4 0.3
+:place tracker 5 world r000 -72*mm 0 0
+:color tracker 0.3 0.4 0.3
+:place tracker 6 world r000 -70*mm 0 0
+:color tracker 0.3 0.4 0.3
+:place tracker 7 world r000 -68*mm 0 0
+:color tracker 0.3 0.4 0.3
+:place tracker 8 world r000 -66*mm 0 0
+:color tracker 0.3 0.4 0.3
+:place tracker 9 world r000 -64*mm 0 0
+:color tracker 0.3 0.4 0.3
+:place tracker 10 world r000 -62*mm 0 0
+:color tracker 0.3 0.4 0.3
+:place tracker 11 world r000 -60*mm 0 0
+:color tracker 0.3 0.4 0.3
+:place tracker 12 world r000 -58*mm 0 0
+:color tracker 0.3 0.4 0.3
+:place tracker 13 world r000 -56*mm 0 0
+:color tracker 0.3 0.4 0.3
+:place tracker 14 world r000 -54*mm 0 0
+:color tracker 0.3 0.4 0.3
+:place tracker 15 world r000 -52*mm 0 0
+:color tracker 0.3 0.4 0.3
+:place tracker 16 world r000 -50*mm 0 0
+:color tracker 0.3 0.4 0.3
+:place tracker 17 world r000 -48*mm 0 0
+:color tracker 0.3 0.4 0.3
+:place tracker 18 world r000 -46*mm 0 0
+:color tracker 0.3 0.4 0.3
+:place tracker 19 world r000 -44*mm 0 0
+:color tracker 0.3 0.4 0.3
+:place tracker 20 world r000 -42*mm 0 0
+:color tracker 0.3 0.4 0.3
+:place tracker 21 world r000 -40*mm 0 0
+:color tracker 0.3 0.4 0.3
+:place tracker 22 world r000 -38*mm 0 0
+:color tracker 0.3 0.4 0.3
+:place tracker 23 world r000 -36*mm 0 0
+:color tracker 0.3 0.4 0.3
+:place tracker 24 world r000 -34*mm 0 0
+:color tracker 0.3 0.4 0.3
+:place tracker 25 world r000 -32*mm 0 0
+:color tracker 0.3 0.4 0.3
+:place tracker 26 world r000 -30*mm 0 0
+:color tracker 0.3 0.4 0.3
+:place tracker 27 world r000 -28*mm 0 0
+:color tracker 0.3 0.4 0.3
+:place tracker 28 world r000 -26*mm 0 0
+:color tracker 0.3 0.4 0.3
+:place tracker 29 world r000 -24*mm 0 0
+:color tracker 0.3 0.4 0.3
+:place tracker 30 world r000 -22*mm 0 0
+:color tracker 0.3 0.4 0.3
+:place tracker 31 world r000 -20*mm 0 0
+:color tracker 0.3 0.4 0.3
+:place tracker 32 world r000 -18*mm 0 0
+:color tracker 0.3 0.4 0.3
+:place tracker 33 world r000 -16*mm 0 0
+:color tracker 0.3 0.4 0.3
+:place tracker 34 world r000 -14*mm 0 0
+:color tracker 0.3 0.4 0.3
+:place tracker 35 world r000 -12*mm 0 0
+:color tracker 0.3 0.4 0.3
+:place tracker 36 world r000 -10*mm 0 0
+:color tracker 0.3 0.4 0.3
+:place tracker 37 world r000 -8*mm 0 0
+:color tracker 0.3 0.4 0.3
+:place tracker 38 world r000 -6*mm 0 0
+:color tracker 0.3 0.4 0.3
+:place tracker 39 world r000 -4*mm 0 0
+:color tracker 0.3 0.4 0.3
+:place tracker 40 world r000 -2*mm 0 0
+:color tracker 0.3 0.4 0.3
+:place tracker 41 world r000 0*mm 0 0
+:color tracker 0.3 0.4 0.3
+:place tracker 42 world r000 2*mm 0 0
+:color tracker 0.3 0.4 0.3
+:place tracker 43 world r000 4*mm 0 0
+:color tracker 0.3 0.4 0.3
+:place tracker 44 world r000 6*mm 0 0
+:color tracker 0.3 0.4 0.3
+:place tracker 45 world r000 8*mm 0 0
+:color tracker 0.3 0.4 0.3
+:place tracker 46 world r000 10*mm 0 0
+:color tracker 0.3 0.4 0.3
+:place tracker 47 world r000 12*mm 0 0
+:color tracker 0.3 0.4 0.3
+:place tracker 48 world r000 14*mm 0 0
+:color tracker 0.3 0.4 0.3
+:place tracker 49 world r000 16*mm 0 0
+:color tracker 0.3 0.4 0.3
+:place tracker 50 world r000 18*mm 0 0
+:color tracker 0.3 0.4 0.3
+:place tracker 51 world r000 20*mm 0 0
+:color tracker 0.3 0.4 0.3
+:place tracker 52 world r000 22*mm 0 0
+:color tracker 0.3 0.4 0.3
+:place tracker 53 world r000 24*mm 0 0
+:color tracker 0.3 0.4 0.3
+:place tracker 54 world r000 26*mm 0 0
+:color tracker 0.3 0.4 0.3
+:place tracker 55 world r000 28*mm 0 0
+:color tracker 0.3 0.4 0.3
+:place tracker 56 world r000 30*mm 0 0
+:color tracker 0.3 0.4 0.3
+:place tracker 57 world r000 32*mm 0 0
+:color tracker 0.3 0.4 0.3
+:place tracker 58 world r000 34*mm 0 0
+:color tracker 0.3 0.4 0.3
+:place tracker 59 world r000 36*mm 0 0
+:color tracker 0.3 0.4 0.3
+:place tracker 60 world r000 38*mm 0 0
+:color tracker 0.3 0.4 0.3
+:place tracker 61 world r000 40*mm 0 0
+:color tracker 0.3 0.4 0.3
+:place tracker 62 world r000 42*mm 0 0
+:color tracker 0.3 0.4 0.3
+:place tracker 63 world r000 44*mm 0 0
+:color tracker 0.3 0.4 0.3
+:place tracker 64 world r000 46*mm 0 0
+:color tracker 0.3 0.4 0.3
+:place tracker 65 world r000 48*mm 0 0
+:color tracker 0.3 0.4 0.3
+:place tracker 66 world r000 50*mm 0 0
+:color tracker 0.3 0.4 0.3
+:place tracker 67 world r000 52*mm 0 0
+:color tracker 0.3 0.4 0.3
+:place tracker 68 world r000 54*mm 0 0
+:color tracker 0.3 0.4 0.3
+:place tracker 69 world r000 56*mm 0 0
+:color tracker 0.3 0.4 0.3
+:place tracker 70 world r000 58*mm 0 0
+:color tracker 0.3 0.4 0.3
+:place tracker 71 world r000 60*mm 0 0
+:color tracker 0.3 0.4 0.3
+:place tracker 72 world r000 62*mm 0 0
+:color tracker 0.3 0.4 0.3
+:place tracker 73 world r000 64*mm 0 0
+:color tracker 0.3 0.4 0.3
+:place tracker 74 world r000 66*mm 0 0
+:color tracker 0.3 0.4 0.3
+:place tracker 75 world r000 68*mm 0 0
+:color tracker 0.3 0.4 0.3
+:place tracker 76 world r000 70*mm 0 0
+:color tracker 0.3 0.4 0.3
+:place tracker 77 world r000 72*mm 0 0
+:color tracker 0.3 0.4 0.3
+:place tracker 78 world r000 74*mm 0 0
+:color tracker 0.3 0.4 0.3
+:place tracker 79 world r000 76*mm 0 0
+:color tracker 0.3 0.4 0.3
+:place tracker 80 world r000 78*mm 0 0
+:color tracker 0.3 0.4 0.3
+:place tracker 81 world r000 80*mm 0 0
+:color tracker 0.3 0.4 0.3
