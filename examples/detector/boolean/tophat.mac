@@ -1,0 +1,21 @@
+/geometry/source tophat.tg
+
+/run/initialize
+
+/geometry/test/run
+
+/vis/ASCIITree/verbose 13
+/vis/drawTree
+
+/vis/open DAWNFILE
+/vis/viewer/set/background white
+/vis/viewer/set/style wireframe
+/vis/viewer/set/viewpointThetaPhi 40 80
+# too slow if too large, causing white segment in dawn if too small
+/vis/viewer/set/lineSegmentsPerCircle 300
+/vis/drawVolume
+/vis/viewer/flush
+
+/vis/open HepRepFile
+/vis/drawVolume
+/vis/viewer/flush

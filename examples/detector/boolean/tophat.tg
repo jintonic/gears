@@ -1,0 +1,19 @@
+:volu hall BOX 20 20 20 G4_Galactic
+:vis hall OFF
+
+:solid base TUBE 0 15 5
+:solid inner TUBE 0 9 5
+:solid outer TUBE 10 16 5
+:solid top SUBTRACTION base inner r000 0 0 1
+:solid hat SUBTRACTION top outer r000 0 0 -1
+:volu hat hat G4_AIR
+:volu inner inner G4_Galactic
+:volu outer outer G4_Galactic
+:color hat 0.4 0.4 0.4
+:color inner 0.2 0.4 0.7
+:color outer 0.7 0.4 0.2
+
+:rotm r000 0 0 0
+:place hat 1 hall r000 0 0 0
+:place inner 1 hall r000 0 0 1
+:place outer 1 hall r000 0 0 -1
