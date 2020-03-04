@@ -2,8 +2,10 @@
 [![examples](https://img.shields.io/badge/gears-examples-green?style=flat)](..)
 [![ROOT](https://img.shields.io/badge/output-ROOT-orange?style=flat)](#root)
 
-## Output format
-[GEARS][] utilizes [Geant4 analysis managers](http://geant4-userdoc.web.cern.ch/geant4-userdoc/UsersGuides/ForApplicationDeveloper/html/Analysis/managers.html) to provide 4 output formats: ROOT (default), HDF5, CSV, and XML. The output file format can be chosen using the following command:
+## Output
+Generally speaking, the [visualization](../detector/#detector-visualization) of [detector](../detector) [geometry](../detector/#detector-construction) and the [screen dump](#screen-dump) of a [Geant4][] application can be all regarded as output of a [Geant4][] simulation. Strictly speaking, the output of a [Geant4][] simulation includes [histograms][] and/or [ntuples][] of data generated during the simulation, which can be used to reveal statistical distributions of, for example, positions and energy depositions of interactions.
+
+[GEARS][] utilizes [Geant4 analysis managers]({{site.g4doc}}/Analysis/managers.html) to provide four output formats: [ROOT][] (default), [HDF5][], CSV, and XML. The output file format can be chosen using the following command:
 
 ~~~sh
 $ make hdf5 # create ghdf5.cc from gears.cc
@@ -16,7 +18,36 @@ The output file name can be chosen using macro command:
 /analysis/setFileName output
 ~~~
 
-No suffix is needed for the file name.
+No suffix is needed for the file name. Note that the output is disabled by default. It will be enabled if the output file name is not empty. So this macro command also works as a switch. Without it, no output file will be created.
+
+[Geant4]: http://geant4.cern.ch
+[histograms]:https://www.khanacademy.org/math/ap-statistics/quantitative-data-ap/histograms-stem-leaf/v/histograms-intro
+[ntuples]:https://en.wikipedia.org/wiki/Tuple
+[ROOT]:https://root.cern.ch
+[HDF5]: https://www.hdfgroup.org/downloads/hdf5/
+[GEARS]: http://physino.xyz/gears
+
+### Screen dump
+
+[Geant4][] can print out on screen detailed information of a simulation if you increase the verbose level of tracking using the macro command [/tracking/verbose]({{site.g4doc}}/Control/AllResources/Control/UIcommands/_tracking_.html), for example,
+
+```sh
+# turn on detailed screen dump
+/tracking/verbose 2
+# run a few events for debugging
+/run/beamOn 10
+# turn off screen dump for fast simulation
+/tracking/verbose 0
+# run a lot of events
+/run/beamOn 100000
+```
+
+You can re-direct the screen dump to a file for detailed examination:
+
+```sh
+$ gears macro.mac | tee log
+$ less log
+```
 
 ### ROOT
 
@@ -69,7 +100,6 @@ This is used in [G4UserRunAction][] to open and close a TFile, in [G4UserEventAc
 
 The catch is that functions in [G4SteppingVerbose][] will not be called in [G4SteppingManager][] unless `/tracking/verbose` is set, which will print too much information on screen for a long run. This is solved in EventAction::BeginOfEventAction by turning on tracking verbose all the time so that all functions in [G4SteppingVerbose][] will be called, while at the same time, turning on [G4SteppingVerbose][] local verbose flag [Silent][] to run them in silent mode.
 
-[GEARS]: http://physino.xyz/gears
 [G4Track]: http://www-geant4.kek.jp/lxr/source/track/include/G4Track.hh
 [G4Step]: http://www-geant4.kek.jp/lxr/source/track/include/G4Step.hh
 [G4UserSteppingAction]:http://www-geant4.kek.jp/lxr/source/tracking/include/G4UserSteppingAction.hh

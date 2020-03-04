@@ -20,7 +20,7 @@
 /vis/scene/add/gps
 /vis/scene/add/axes
 /vis/scene/add/trajectories
-/vis/scene/endOfEventAction accumulate
+/vis/scene/endOfEventAction accumulate 10
 
 # dump a few events on screen for debugging
 /tracking/verbose 2
@@ -29,4 +29,10 @@
 # turn off debugging tools for fast simulation 
 /vis/disable
 /tracking/verbose 0
+# turn on data recording
+/analysis/setFileName output
+# turn on progress report
+/run/verbose 2
+/run/printProgress 1000
+# start simulation
 /run/beamOn 5000
