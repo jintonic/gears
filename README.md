@@ -4,11 +4,13 @@
 [![Get Started](https://img.shields.io/badge/get-started-orange?style=flat)](#getting-started)
 [![Get Involved](https://img.shields.io/badge/get-involved-ff69b4?style=flat)](#how-to-contribute)
 
-[GEARS][] is a [Geant4][] [Example Application](https://geant4.kek.jp/lxr/source/examples/) with [Rich features](#features) yet Small footprint. The entire C++ coding is minimized down to a single file with about 600 [SLOC][]. This is achieved mainly by utilizing [Geant4][] plain [text geometry description][tg], [built-in UI commands][TUI] (macros), and C++ inheritance. It is ideal for student training and fast implementation of small to medium-sized experiments.
+[GEARS][] is a [Geant4][] [Example][] Application with [Rich features](#features) yet Small footprint. The entire C++ coding is minimized down to a single file with about 600 [SLOC][]. This is achieved mainly by utilizing [Geant4][] plain [text geometry description][tg], [built-in UI commands][TUI] (macros), and C++ inheritance. It is ideal for student training and fast implementation of small to medium-sized experiments.
+
+[Example]:{{site.g4doc}}/Examples/examples.html
 
 ## Features
 
-* [Single small C++ file](https://github.com/jintonic/gears/blob/master/gears.cc), easy to manage, fast to [compile](#compilation)(a few second on a regular PC)
+* [Single small C++ file]({{site.file}}/gears.cc), easy to manage, fast to [compile](#compilation)(a few second on a regular PC)
 * [Output in multiple data format](examples/output)
   * [ROOT](examples/output#root) TTree format (default, no [ROOT][] installation is needed)
     * Build-in data compression, well suitable for large data processing
@@ -32,7 +34,7 @@
 * [Doxygen documentation](https://codedocs.xyz/jintonic/gears/)
 * Many [sample macros](examples) and [geometry descriptions](examples/detector#detector-construction) for feature demonstration
 
-[GPS]:http://geant4-userdoc.web.cern.ch/geant4-userdoc/UsersGuides/ForApplicationDeveloper/html/GettingStarted/generalParticleSource.html
+[GPS]:{{site.g4doc}}/GettingStarted/generalParticleSource.html
 
 ## Getting started
 
@@ -69,7 +71,7 @@ Note that if you change some files in your local copy, the `git pull` command wi
 
 ### Compilation
 
-[GEARS][] is shipped with a simple [makefile](https://github.com/jintonic/gears/blob/master/makefile). Simply type `make` to compile [gears.cc](https://github.com/jintonic/gears/blob/master/gears.cc) to generate a tiny executable `gears`:
+[GEARS][] is shipped with a simple [makefile]({{site.file}}/makefile). Simply type `make` to compile [gears.cc]({{site.file}}/gears.cc) to generate a tiny executable `gears`:
 
 ```sh
 $ cd /path/to/gears
@@ -147,7 +149,7 @@ You can initiate a [pull request on GitHub](https://help.github.com/en/github/co
 
 #### Indentation
 
-Two spaces instead of a tab are used to indent a line in [gears.cc](https://github.com/jintonic/gears/blob/master/gears.cc) to insure a consistent appearance in different text editors, and to avoid wasting space in font of deeply nested code blocks. The following mode lines are added to the end of [gears.cc](https://github.com/jintonic/gears/blob/master/gears.cc) to insure that in [Vim][] and [Emacs][]:
+Two spaces instead of a tab are used to indent a line in [gears.cc]({{site.file}}/gears.cc) to insure a consistent appearance in different text editors, and to avoid wasting space in font of deeply nested code blocks. The following mode lines are added to the end of [gears.cc]({{site.file}}/gears.cc) to insure that in [Vim][] and [Emacs][]:
 
 ```cpp
 // -*- C++; indent-tabs-mode:nil; tab-width:2 -*-
