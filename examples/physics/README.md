@@ -1,3 +1,6 @@
+[![home](https://img.shields.io/badge/gears-home-blue?style=flat)](../..)
+[![examples](https://img.shields.io/badge/gears-examples-green?style=flat)](..)
+
 ## Physics list
 
 Since it requires a lot of knowledge to set up a correct physics list, [Geant4][] provides some pre-packaged physics lists. Three are enabled by default in [GEARS][]:

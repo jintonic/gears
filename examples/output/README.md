@@ -1,3 +1,7 @@
+[![home](https://img.shields.io/badge/gears-home-blue?style=flat)](../..)
+[![examples](https://img.shields.io/badge/gears-examples-green?style=flat)](..)
+[![ROOT](https://img.shields.io/badge/output-ROOT-orange?style=flat)](#root)
+
 ## Output format
 [GEARS][] utilizes [Geant4 analysis managers](http://geant4-userdoc.web.cern.ch/geant4-userdoc/UsersGuides/ForApplicationDeveloper/html/Analysis/managers.html) to provide 4 output formats: ROOT (default), HDF5, CSV, and XML. The output file format can be chosen using the following command:
 
