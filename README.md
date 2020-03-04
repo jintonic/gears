@@ -6,7 +6,12 @@
 
 [GEARS][] is a [Geant4][] [Example][] Application with [Rich features](#features) yet Small footprint. The entire C++ coding is minimized down to a single file with about 600 [SLOC][]. This is achieved mainly by utilizing [Geant4][] plain [text geometry description][tg], [built-in UI commands][TUI] (macros), and C++ inheritance. It is ideal for student training and fast implementation of small to medium-sized experiments.
 
+[GEARS]: https://github.com/jintonic/gears
+[Geant4]: http://geant4.cern.ch
 [Example]:{{site.g4doc}}/Examples/examples.html
+[tg]: {{site.g4doc}}/Detector/Geometry/geomASCII.html
+[TUI]: {{site.g4doc}}/Control/commands.html
+[SLOC]: https://en.wikipedia.org/wiki/Source_lines_of_code
 
 ## Features
 
@@ -29,11 +34,11 @@
   * Turn any volume to a [sensitive detector](examples/detector#sensitive-detector) by adding "(S)" in its name
   * Assign optical properties in [Geant4][] plain [text geometry description][tg]
 * Optional optical and hadronic [physics](examples/physics)
-* Periodic status report in a long run
 * Frequently used source spectra (AmBe, Am-241, etc.) in addition to [GPS][]
 * [Doxygen documentation](https://codedocs.xyz/jintonic/gears/)
 * Many [sample macros](examples) and [geometry descriptions](examples/detector#detector-construction) for feature demonstration
 
+[ROOT]: https://root.cern.ch
 [GPS]:{{site.g4doc}}/GettingStarted/generalParticleSource.html
 
 ## Getting started
@@ -168,12 +173,6 @@ Two spaces instead of a tab are used to indent a line in [gears.cc]({{site.file}
 - new functions
   - time chopping of radioactive decay chain
 
-[GEARS]: https://github.com/jintonic/gears
-[tg]: http://geant4-userdoc.web.cern.ch/geant4-userdoc/UsersGuides/ForApplicationDeveloper/html/Detector/Geometry/geomASCII.html
-[TUI]: http://geant4-userdoc.web.cern.ch/geant4-userdoc/UsersGuides/ForApplicationDeveloper/html/Control/commands.html
-[SLOC]: https://en.wikipedia.org/wiki/Source_lines_of_code
-[ROOT]: https://root.cern.ch
-[Geant4]: http://geant4.cern.ch
 [G4UserSteppingAction]:http://www-geant4.kek.jp/lxr/source/tracking/include/G4UserSteppingAction.hh
 [GDML]: https://gdml.web.cern.ch/GDML/
 [HDF5]: https://www.hdfgroup.org/downloads/hdf5/
