@@ -40,6 +40,7 @@ gxml
 *.he5
 *.hdf
 *.hdf5
+*log
 
 # alternative output format
 ghdf5.cc
