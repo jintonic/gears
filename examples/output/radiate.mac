@@ -1,0 +1,32 @@
+# must be specified before /run/initialize
+/geometry/source target.tg
+
+# enable the following for neutron simulation
+#/physics_lists/enable HadronElastic
+#/physics_lists/enable HadronInelastic
+
+# initialize Geant4 kernal
+/run/initialize
+
+# change particle and its energy here
+/gps/particle gamma
+/gps/energy 2.6 MeV
+/gps/position -45 0 0 cm
+/gps/direction 1 0 0
+
+# visualize geometry and events for debugging
+/vis/open HepRepFile
+/vis/drawVolume
+/vis/scene/add/gps
+/vis/scene/add/axes
+/vis/scene/add/trajectories
+/vis/scene/endOfEventAction accumulate
+
+# dump a few events on screen for debugging
+/tracking/verbose 2
+/run/beamOn 10
+
+# turn off debugging tools for fast simulation 
+/vis/disable
+/tracking/verbose 0
+/run/beamOn 5000

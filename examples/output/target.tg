@@ -1,0 +1,9 @@
+:volu world BOX 0.5*m 0.5*m 0.5*m G4_Galactic
+:color world 0.5 0.5 0.5
+
+// you can try different material here
+:volu target BOX 40*cm 40*cm 40*cm G4_Ge
+:color target 0.9 0.9 0
+
+:rotm r000 0 0 0
+:place target 1 world r000 0 0 0
