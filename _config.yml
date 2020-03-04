@@ -7,3 +7,7 @@ github:
   
 plugins:
   - jekyll-mentions
+
+g4doc: http://geant4-userdoc.web.cern.ch/geant4-userdoc/UsersGuides/ForApplicationDeveloper/html
+xyz: http://physino.xyz/gears
+file: https://github.com/jintonic/gears/blob/master/
