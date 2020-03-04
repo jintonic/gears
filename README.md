@@ -1,7 +1,7 @@
-[![Documentation](https://codedocs.xyz/jintonic/gears.svg)](https://codedocs.xyz/jintonic/gears/)
-[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
-![Code size](https://img.shields.io/github/languages/code-size/jintonic/gears.svg?style=flat)
-![Languages](https://img.shields.io/github/languages/top/jintonic/gears.svg?style=flat)
+[![Doxygen](https://codedocs.xyz/jintonic/gears.svg)](https://codedocs.xyz/jintonic/gears/annotated.html)
+[![License:MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
+[![Examples](https://img.shields.io/badge/gears-examples-blue?style=flat)](examples)
+[![Getting Started](https://img.shields.io/badge/getting-started-ff69b4?style=flat)](#getting-started)
 
 [GEARS][] is a [Geant4][] [Example Application](https://geant4.kek.jp/lxr/source/examples/) with [Rich features](#features) yet Small footprint. The entire C++ coding is minimized down to a single file with about 600 [SLOC][]. This is achieved mainly by utilizing [Geant4][] plain [text geometry description][tg], [built-in UI commands][TUI] (macros), and C++ inheritance. It is ideal for student training and fast implementation of small to medium-sized experiments.
 
