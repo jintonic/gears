@@ -124,8 +124,8 @@ void Output::Record()
 void Output::Reset()
 {
   trk.clear(); stp.clear(); vlm.clear(); pro.clear(); pdg.clear(); mom.clear();
-  e.clear(); k.clear(); x.clear(); y.clear(); z.clear(); l.clear(); et.clear();
-  x0.clear(); y0.clear(); z0.clear(); t0.clear();
+  e.clear(); k.clear(); x.clear(); y.clear(); z.clear(); t.clear(); l.clear();
+  et.clear(); x0.clear(); y0.clear(); z0.clear(); t0.clear();
 }
 //______________________________________________________________________________
 //
