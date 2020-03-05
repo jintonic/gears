@@ -1,0 +1,20 @@
+:volu world BOX 20 20 20 G4_Galactic
+:vis world OFF
+
+// cuboid is longer than cube to avoid sharing surface
+:solid cuboid BOX 17 12 12
+:solid cube BOX 16 16 16
+
+//rotational matrix <name> <rotation around x,y,z>
+:rotm r000 0  0  0
+:rotm ry90 0 90  0
+:rotm rz90 0  0 90
+
+// boolean operations
+:solid base0 SUBTRACTION cube cuboid r000 0 0 0
+:solid base1 SUBTRACTION base0 cuboid ry90 0 0 0
+:solid frame SUBTRACTION base1 cuboid rz90 0 0 0
+
+:volu frame frame G4_AIR
+:color frame 0.8 0.2 0.3
+:place frame 1 world r000 0 0 0

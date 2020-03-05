@@ -1,0 +1,24 @@
+/geometry/source frame.tg
+
+/run/initialize
+
+# the only visualization method that works
+/vis/open RayTracer
+/vis/drawVolume
+/vis/viewer/set/background white
+/vis/viewer/set/viewpointThetaPhi 20 30
+/vis/viewer/flush
+
+# all the rest fail
+/vis/open VRML2FILE
+/vis/drawVolume
+/vis/viewer/flush
+
+/vis/open DAWNFILE
+/vis/drawVolume
+/vis/viewer/flush
+
+/vis/open HepRepFile
+/vis/drawVolume
+/vis/viewer/flush
+
