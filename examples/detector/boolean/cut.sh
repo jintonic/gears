@@ -1,12 +1,15 @@
 #!/bin/sh
 # usage: ./cut.sh
 
+# https://stackoverflow.com/questions/592620/how-can-i-check-if-a-program-exists-from-a-bash-script
+type gears >/dev/null 2>&1 || { echo >&2 "Can't find gears, abort."; exit 1; }
+
 # run geant4
 export DAWN_BATCH=1
 M=cut.mac
 for step in 0 1 2 3; do
   sed 's|0.tg|'$step'.tg|' $M > $step.mac
-  ../../../../gears $step.mac 2>cut.log
+  gears $step.mac 2>cut.log
   err=`sed -n '/corrapted/p' cut.log`
   if [ -n "$err" ]; then 
     echo $err; read -p "Press any key to continue..."
@@ -50,7 +53,7 @@ NONE
 EOF
 
 unset DAWN_BATCH # .DAWN_1.history wont' be read in batch mode
-for step in 0 1 2 3; do dawn -d g4_0$step.prim; done
+for step in 0 1 2 3; do dawn -d g4_*$step.prim; done
 
 # eps cannot have transparent background, png can
 # -transparent white: make white color transparent
@@ -61,6 +64,6 @@ for eps in `ls *.eps`; do
   $CMD
 done
 
-if [ -f g4_03.png ]; then
+if [ -f g4_*3.png ]; then
   rm -f *.prim *.eps .DAWN*
 fi
