@@ -70,7 +70,7 @@ A step point is where a particle is generated or changed. A step point in [GEARS
 * Step number, starting from 0  (`stp` in short)
 * Detector volume copy number (`vlm` in short)
 * [Process id](#process-id) (`pro` in short)
-* [Particle id](#particle-id) (`pid` in short)
+* [Particle id](#particle-id) (`pdg` in short)
 * Parent id (`mom` in short)
 * Energy deposited [keV] (`e` in short)
 * Kinetic energy of the particle [keV] (`k` in short)
@@ -89,7 +89,7 @@ The physics process generating each step point is saved in a variable `pro[n]`, 
 
 ## Particle id
 
-The type of particle related to a step point is saved in a variable `pdg[n]`. It is the same as the `PDG encoding` of the particle. A Google search will give more information about it.
+The type of particle related to a step point is saved in a variable `pdg[n]`. It is the same as the [PDG encoding](http://pdg.lbl.gov/current/mc-particle-id) of the particle. A Google search will give more information about it.
 
 ## Record information of step 0
 
