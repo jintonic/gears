@@ -1,0 +1,24 @@
+/geometry/source frame2.tg
+
+/run/initialize
+
+# all of them work for frame2
+/vis/open RayTracer
+/vis/drawVolume
+/vis/viewer/set/background white
+/vis/viewer/set/viewpointThetaPhi 20 30
+/vis/viewer/flush
+
+/vis/open VRML2FILE
+/vis/drawVolume
+/vis/viewer/flush
+
+/vis/open DAWNFILE
+/vis/drawVolume
+/vis/viewer/set/viewpointThetaPhi 40 20
+/vis/viewer/set/style surface
+/vis/viewer/flush
+
+/vis/open HepRepFile
+/vis/drawVolume
+/vis/viewer/flush
