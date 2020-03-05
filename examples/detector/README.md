@@ -2,6 +2,8 @@
 [![examples](https://img.shields.io/badge/gears-examples-green?style=flat)](..)
 [![visualization](https://img.shields.io/badge/detector-visualization-orange?style=flat)](#detector-visualization)
 [![construction](https://img.shields.io/badge/detector-construction-red?style=flat)](#detector-construction)
+[![boolen](https://img.shields.io/badge/boolean-operation-yellow?style=flat)](boolean)
+[![scripts](https://img.shields.io/badge/program-geometry-yellow?style=flat)](scripts)
 
 ## Detector visualization
 The [visualization chapter](http://geant4-userdoc.web.cern.ch/geant4-userdoc/UsersGuides/ForApplicationDeveloper/html/Visualization/visualization.html) of the [Geant4 Book For Application Developers](http://geant4-userdoc.web.cern.ch/geant4-userdoc/UsersGuides/ForApplicationDeveloper/html) documents in detail how to visualize a detector using various tools.
