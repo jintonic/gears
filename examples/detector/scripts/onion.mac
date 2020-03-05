@@ -1,0 +1,12 @@
+/geometry/source onion.tg
+
+/run/initialize
+
+/vis/ASCIITree/verbose 13
+/vis/drawTree
+
+/geometry/test/run
+
+/vis/open HepRepFile
+/vis/drawVolume
+/vis/viewer/flush
