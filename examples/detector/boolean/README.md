@@ -18,7 +18,7 @@ $ gears tophat.mac
 You need to install [dawn][] or [HepRApp][] to view the result.
 
 [examples]:https://github.com/jintonic/gears/tree/master/examples/detector/boolean
-[Boolean]:{{site.g4doc}}Detector/Geometry/geomSolids.html?highlight=boolean#solids-made-by-boolean-operations
+[Boolean]:{{site.g4doc}}/Detector/Geometry/geomSolids.html?highlight=boolean#solids-made-by-boolean-operations
 [tophat.tg]: {{site.file}}/examples/detector/boolean/tophat.tg
 [tophat.mac]:{{site.file}}/examples/detector/boolean/tophat.mac
 [dawn]:https://geant4.kek.jp/~tanaka/DAWN/About_DAWN.html
