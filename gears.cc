@@ -27,7 +27,7 @@ class Output : public G4SteppingVerbose
     vector<int> pdg;   ///< PDG encoding
     vector<int> mom;   ///< parent particle's PDG encoding
     vector<double> e;  ///< energy deposited [keV]
-    vector<double> k;  ///< kinetic energy of the track [keV]
+    vector<double> k;  ///< kinetic energy [keV]
     vector<double> t;  ///< local time [ns]
     vector<double> x;  ///< local x [mm]
     vector<double> y;  ///< local y [mm]
@@ -47,7 +47,7 @@ class Output : public G4SteppingVerbose
 Output::Output(): G4SteppingVerbose()
 {
   auto manager = G4AnalysisManager::Instance();
-  manager->CreateNtuple("t", "Geant4 track points");
+  manager->CreateNtuple("t", "Geant4 step points");
   manager->CreateNtupleIColumn("trk", trk);
   manager->CreateNtupleIColumn("stp", stp);
   manager->CreateNtupleIColumn("vlm", vlm);
@@ -79,7 +79,7 @@ void Output::Record()
   int copyNo=handle->GetReplicaNumber();
   if (copyNo<=0) return; //skip uninteresting volumes
   if (trk.size()>=10000) {
-    G4cout<<"GEARS: # of track points >=10000. Recording stopped."<<G4endl;
+    G4cout<<"GEARS: # of step points >=10000. Recording stopped."<<G4endl;
     fTrack->SetTrackStatus(fKillTrackAndSecondaries);
     return;
   }
