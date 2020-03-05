@@ -1,4 +1,4 @@
-/geometry/source frame.tg
+/geometry/source frame1.tg
 
 /run/initialize
 
@@ -21,4 +21,3 @@
 /vis/open HepRepFile
 /vis/drawVolume
 /vis/viewer/flush
-

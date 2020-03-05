@@ -8,12 +8,12 @@
 /vis/drawTree
 
 /vis/open DAWNFILE
-/vis/viewer/set/background white
-/vis/viewer/set/style wireframe
-/vis/viewer/set/viewpointThetaPhi 40 80
-# too slow if too large, causing white segment in dawn if too small
-/vis/viewer/set/lineSegmentsPerCircle 300
 /vis/drawVolume
+/vis/viewer/set/style surface
+/vis/viewer/set/background white
+/vis/viewer/set/viewpointThetaPhi 60 60
+# hide low density volumes
+/vis/viewer/set/culling density true 1e-10 kg/m3
 /vis/viewer/flush
 
 /vis/open HepRepFile
