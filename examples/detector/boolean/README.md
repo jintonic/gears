@@ -2,11 +2,11 @@
 [![examples](https://img.shields.io/badge/gears-examples-green?style=flat)](../..)
 [![detector](https://img.shields.io/badge/examples-detector-orange?style=flat)](..)
 
-<img style="float: right;" src="tophat.png">
-
 ## Boolean operation
 
 Three [examples][] are provided here to demonstrate how to create a complex geometry using the [Boolean][] operation.
+
+<img style="float:right; width:120px;" src="tophat.png">
 
 ### Tophat geometry
 
