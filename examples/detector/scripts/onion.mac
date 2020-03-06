@@ -7,6 +7,42 @@
 
 /geometry/test/run
 
+/vis/open OGL
+/vis/drawVolume
+/vis/viewer/set/style surface
+/vis/viewer/set/background white ! ! 0
+/vis/viewer/addCutawayPlane 0 0 0 m 1 0 0
+/vis/viewer/addCutawayPlane 0 0 0 m 0 1 0
+/vis/viewer/addCutawayPlane 0 0 0 m 0 0 1
+/vis/viewer/set/viewpointThetaPhi 115 -100
+/vis/viewer/flush
+
+# create gif file
+/control/shell rm -f onion_*.eps onion.gif
+/vis/ogl/set/exportFormat eps
+/vis/ogl/export onion
+/control/shell convert onion_*.eps -trim +repage onion.gif
+
+# wireframe display
+/control/shell rm -f G4Data*.heprep
 /vis/open HepRepFile
 /vis/drawVolume
 /vis/viewer/flush
+
+# clean up old files
+/control/shell dawn -c
+/control/shell rm -f *.prim *.eps onion.png
+
+# surface display
+/vis/open DAWNFILE
+/vis/drawVolume
+/vis/viewer/set/style surface
+# too slow or crashes dawncut if too large
+/vis/viewer/set/lineSegmentsPerCircle 45
+/vis/viewer/flush
+
+# cut the onion using dawncut
+# https://geant4.kek.jp/~tanaka/DAWN/About_DAWNCUT.html
+/control/shell dawncut g4_*.prim onion.prim
+/control/shell DAWN_BATCH=0 dawn onion.prim
+/control/shell convert onion.eps -trim +repage onion.png
