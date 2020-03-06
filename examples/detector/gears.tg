@@ -3,22 +3,20 @@
 :rotm r000 0 0 0
 
 :solid base TUBS 5*cm 14*cm 5*cm 0 360
-:solid gap1 TUBS 10*cm 15*cm 6*cm 0 30
-:solid gap2 TUBS 10*cm 15*cm 6*cm 60 30
-:solid gap3 TUBS 10*cm 15*cm 6*cm 120 30
-:solid gap4 TUBS 10*cm 15*cm 6*cm 180 30
-:solid gap5 TUBS 10*cm 15*cm 6*cm 240 30
-:solid gap6 TUBS 10*cm 15*cm 6*cm 300 30
+:solid gap1 TUBS 10*cm 15*cm 6*cm 0 36
+:solid gap2 TUBS 10*cm 15*cm 6*cm 72 36
+:solid gap3 TUBS 10*cm 15*cm 6*cm 144 36
+:solid gap4 TUBS 10*cm 15*cm 6*cm 216 36
+:solid gap5 TUBS 10*cm 15*cm 6*cm 288 36
 :solid bas1 subtraction base gap1 r000 0 0 0
 :solid bas2 subtraction bas1 gap2 r000 0 0 0
 :solid bas3 subtraction bas2 gap3 r000 0 0 0
 :solid bas4 subtraction bas3 gap4 r000 0 0 0
 :solid bas5 subtraction bas4 gap5 r000 0 0 0
-:solid bas6 subtraction bas5 gap6 r000 0 0 0
 
-:volu gear1 bas6 G4_STAINLESS-STEEL
-:volu gear2 bas6 G4_BRASS
-:volu gear3 bas6 G4_PARAFFIN
+:volu gear1 bas5 G4_STAINLESS-STEEL
+:volu gear2 bas5 G4_BRASS
+:volu gear3 bas5 G4_PARAFFIN
 
 :place gear1 1 world r000 -2*cm -8*cm 0
 :place gear2 2 world r000 -8*cm  8*cm 12*cm
