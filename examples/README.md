@@ -5,5 +5,5 @@
 
 ## Examples
 
-- [Detector](detector) [construction](detector#detector-construction) and [visualization](detector/#detector-visualization)
+- [Detector  construction](detector) and [visualization](detector/visualization)
 - [Output](output) in [ROOT format](output#root)

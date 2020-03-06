@@ -36,7 +36,7 @@
 * Optional optical and hadronic [physics](examples/physics)
 * Frequently used source spectra (AmBe, Am-241, etc.) in addition to [GPS][]
 * [Doxygen documentation](https://codedocs.xyz/jintonic/gears/)
-* Many [sample macros](examples) and [geometry descriptions](examples/detector#detector-construction) for feature demonstration
+* Many [sample macros](examples) and [geometry descriptions](examples/detector) for feature demonstration
 
 [ROOT]: https://root.cern.ch
 [GPS]:{{site.g4doc}}/GettingStarted/generalParticleSource.html
@@ -89,7 +89,7 @@ $ gears # run gears
 
 ### User interface
 
-[GEARS][] relies on [G4UIExecutive](http://geant4-userdoc.web.cern.ch/geant4-userdoc/UsersGuides/ForApplicationDeveloper/html/GettingStarted/graphicalUserInterface.html#how-to-select-interface-in-your-applications) to select a user interface (UI). Without any specific setup, [GEARS][] will try to run a graphic user interface (GUI) based on [Qt][]. If your [Geant4][] is not compiled with [Qt][] support, [GEARS][] will try to [use a command-line UI that behaves like a tcsh](http://geant4-userdoc.web.cern.ch/geant4-userdoc/UsersGuides/ForApplicationDeveloper/html/GettingStarted/graphicalUserInterface.html#g4uiterminal). Run the following command to check if your [Geant4][] is compiled with [Qt][]
+[GEARS][] relies on [G4UIExecutive]({{site.g4doc}}/GettingStarted/graphicalUserInterface.html#how-to-select-interface-in-your-applications) to select a user interface (UI). Without any specific setup, [GEARS][] will try to run a graphic user interface (GUI) based on [Qt][]. If your [Geant4][] is not compiled with [Qt][] support, [GEARS][] will try to [use a command-line UI that behaves like a tcsh]({{site.g4doc}}/GettingStarted/graphicalUserInterface.html#g4uiterminal). Run the following command to check if your [Geant4][] is compiled with [Qt][]
 
 ```sh
 $ geant4-config --help | grep qt
@@ -114,7 +114,7 @@ gears tcsh # just for gears
 
 ### Session mode
 
-Without any argument, `gears` will start an [interactive session](http://geant4-userdoc.web.cern.ch/geant4-userdoc/UsersGuides/ForApplicationDeveloper/html/GettingStarted/graphicalUserInterface.html). It accepts [commands](http://geant4-userdoc.web.cern.ch/geant4-userdoc/UsersGuides/ForApplicationDeveloper/html/Control/commands.html) you type in the UI.
+Without any argument, `gears` will start an [interactive session]({{site.g4doc}}/GettingStarted/graphicalUserInterface.html). It accepts [commands]({{site.g4doc}}/Control/commands.html) you type in the UI.
 
 You can also put a set of commands into a [macro](examples) file, which can be used as an argument of `gears`. For example,
 
