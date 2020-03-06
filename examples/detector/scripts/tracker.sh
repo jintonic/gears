@@ -1,7 +1,6 @@
 #!/bin/sh
-
 output="tracker.tg"
-if [ $# -eq 2 ]; then output=$1; fi
+echo -n "Creating $output... "
 
 cat << EOC > $output
 :volu world BOX 10*cm 10*cm 10*cm G4_Galactic
@@ -19,3 +18,5 @@ while [ $id -le 81 ]; do
   echo ":color tracker 0.3 0.4 0.3" >> $output
   id=$((id+1))
 done
+
+echo Done.
