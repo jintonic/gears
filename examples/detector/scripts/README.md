@@ -29,9 +29,11 @@ It demonstrate how to place a smaller solid directly inside a bigger one. The fi
 
 ![onion.png](onion.png)
 
-[tracker.sh]:https://github.com/jintonic/gears/blob/master/examples/detector/scripts/tracker.sh
-[bend.mac]:https://github.com/jintonic/gears/blob/master/examples/detector/scripts/bend.mac
-[tg]: http://geant4-userdoc.web.cern.ch/geant4-userdoc/UsersGuides/ForApplicationDeveloper/html/Detector/Geometry/geomASCII.html
+[tracker.sh]:{{site.file}}/examples/detector/scripts/tracker.sh
+[bend.mac]:{{site.file}}/examples/detector/scripts/bend.mac
+[tg]: {{site.g4doc}}/Detector/Geometry/geomASCII.html
 [dawn]:https://geant4.kek.jp/~tanaka/DAWN/About_DAWN.html
-[LINEAR_X.tg]:https://github.com/jintonic/gears/blob/master/examples/detector/scripts/LINEAR_X.tg
+[LINEAR_X.tg]:{{site.file}}/examples/detector/scripts/LINEAR_X.tg
 [convert]:https://imagemagick.org/script/convert.php
+[onion.sh]:{{site.file}}/example/detector/scripts/onion.sh
+[onion.mac]:{{site.file}}/example/detector/scripts/onion.mac
