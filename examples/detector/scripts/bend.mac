@@ -9,6 +9,9 @@
 
 /vis/geometry/list
 
+/control/shell dawn -c
+/control/shell rm -f *.prim *.eps tracker.png
+
 /vis/open DAWNFILE
 /vis/drawVolume
 
@@ -20,7 +23,7 @@
 /vis/scene/add/text 8 -2 0 cm 20 0 0 alpha
 /vis/scene/add/text 2 -10.5 0 cm 20 0 0 positon
 
-/vis/viewer/set/background white
+/vis/viewer/set/background white ! ! 0
 
 /gps/source/multiplevertex true
 
@@ -49,3 +52,5 @@
 /gps/direction 1 0 0
 
 /run/beamOn 1
+
+/control/shell convert g4_*.eps -trim +repage tracker.png
