@@ -1,7 +1,6 @@
 [![home](https://img.shields.io/badge/gears-home-blue?style=flat)](../../..)
 [![examples](https://img.shields.io/badge/gears-examples-green?style=flat)](../..)
 [![detector](https://img.shields.io/badge/examples-detector-orange?style=flat)](..)
-[![construction](https://img.shields.io/badge/detector-construction-red?style=flat)](../#detector-construction)
 
 ## Boolean operation
 
@@ -15,7 +14,11 @@ A tophat geometry is described in [tophat.tg][], which is visualized using [toph
 $ gears tophat.mac
 ```
 
-You need to install [dawn][] or [HepRApp][] to view the result.
+You need to install [dawn][] or [HepRApp][] to view the result:
+
+| ![tophat.png](tophat.png) | ![frame2.png](frame2.png) |
+| :---:                     | :---:                     |
+| Tophat                    | Frame                     |
 
 [examples]:https://github.com/jintonic/gears/tree/master/examples/detector/boolean
 [Boolean]:{{site.g4doc}}/Detector/Geometry/geomSolids.html?highlight=boolean#solids-made-by-boolean-operations
