@@ -6,14 +6,17 @@
 
 /vis/geometry/list
 
-/vis/open OGLI 600x600+0+0
+/vis/open OGL 600x600+25+25
 /vis/drawVolume
-/vis/scene/add/axes 0 0 0 2 m
-/vis/viewer/set/background white
 /vis/viewer/set/style surface
-/vis/viewer/set/viewpointThetaPhi 25 35
-#/vis/viewer/zoom 2
+/vis/viewer/set/background white ! ! 0
+/vis/viewer/set/lineSegmentsPerCircle 50
+/vis/viewer/set/viewpointThetaPhi 35 55
+/vis/viewer/set/lightsMove cam
 /vis/viewer/flush
 
+# create png file
+/control/shell rm -f gears_*.pdf gearsOGL.png
 /vis/ogl/set/exportFormat pdf
 /vis/ogl/export gears
+/control/shell convert gears_*.pdf -trim +repage gearsOGL.png
