@@ -16,7 +16,7 @@ A tophat geometry is described in [tophat.tg][], which is visualized using [toph
 $ gears tophat.mac
 ```
 
-You need to install [dawn][] or [HepRApp][] to view the result:
+You need to install [dawn][] or [HepRApp][] to view the result.
 
 [examples]:https://github.com/jintonic/gears/tree/master/examples/detector/boolean
 [Boolean]:{{site.g4doc}}/Detector/Geometry/geomSolids.html?highlight=boolean#solids-made-by-boolean-operations
