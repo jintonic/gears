@@ -18,10 +18,10 @@
 /vis/viewer/flush
 
 # create gif file
-/control/shell rm -f onion_*.eps onion.gif
-/vis/ogl/set/exportFormat eps
+/control/shell rm -f onion_*.pdf onion.gif
+/vis/ogl/set/exportFormat pdf
 /vis/ogl/export onion
-/control/shell convert onion_*.eps -trim +repage onion.gif
+/control/shell convert onion_*.pdf -trim +repage onion.gif
 
 # wireframe display
 /control/shell rm -f G4Data*.heprep
