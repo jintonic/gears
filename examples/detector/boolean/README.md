@@ -16,9 +16,7 @@ $ gears tophat.mac
 
 You need to install [dawn][] or [HepRApp][] to view the result:
 
-| ![tophat.png](tophat.png) | ![frame2.png](frame2.png) |
-| :---:                     | :---:                     |
-| Tophat                    | Frame                     |
+<img style="float: right;" src="tophat.jpg">
 
 [examples]:https://github.com/jintonic/gears/tree/master/examples/detector/boolean
 [Boolean]:{{site.g4doc}}/Detector/Geometry/geomSolids.html?highlight=boolean#solids-made-by-boolean-operations
@@ -34,6 +32,8 @@ You need to install [dawn][] or [HepRApp][] to view the result:
 $ gears frame1.mac # can only be visualized by RayTracer
 $ gears frame2.mac # can be visualized by any tool
 ```
+
+<img style="float: right;" src="frame2.jpg">
 
 [frame1.tg]: {{site.file}}/examples/detector/boolean/frame1.tg
 [frame1.mac]:{{site.file}}/examples/detector/boolean/frame1.mac
