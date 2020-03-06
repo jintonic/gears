@@ -61,6 +61,39 @@ The [ROOT][] version of [ntuples][] is [TTree][], which is commonly called a **t
 [TTree]:https://root.cern.ch/doc/master/classTTree.html
 [functions]:https://root.cern.ch/doc/master/classTTree.html#a8a2b55624f48451d7ab0fc3c70bfe8d7
 
+Here are some example codes that can be run in a ROOT interactive session to generate histograms:
+
+```cpp
+$ root output.root
+root [] .ls
+TFile**         output.root
+ TFile*         output.root
+   KEY: TTree    t;1     Geant4 step points
+root [] t->GetEntries()
+(long long) 5000
+root [] t->Show(0)
+======> EVENT:0
+ trk = (vector<int>*)0x351a520
+ stp = (vector<int>*)0x398c7b0
+ vlm = (vector<int>*)0x2d4dba0
+ pro = (vector<int>*)0x3524f60
+ pdg = (vector<int>*)0x34302c0
+ mom = (vector<int>*)0x3972e80
+ e   = (vector<double>*)0x34b2d90
+ k   = (vector<double>*)0x3a907c0
+ t   = (vector<double>*)0x351eed0
+ x   = (vector<double>*)0x2d50760
+ y   = (vector<double>*)0x351a450
+ z   = (vector<double>*)0x3543f10
+ l   = (vector<double>*)0x2f636f0
+ t0  = (vector<double>*)0x3549db0
+ x0  = (vector<double>*)0x3548ce0
+ y0  = (vector<double>*)0x2d4ef10
+ z0  = (vector<double>*)0x354e600
+ et  = (vector<double>*)0x35293f0
+root [] t->Draw("x","e*(pdg==2)")
+```
+
 ## Step point
 
 [Geant4][] follows a particle step by step when it passes through the simulated [geometry](../detector).
