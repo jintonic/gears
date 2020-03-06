@@ -13,12 +13,17 @@
 /vis/drawVolume
 /vis/viewer/flush
 
-/vis/open DAWNFILE
-/vis/drawVolume
-/vis/viewer/set/viewpointThetaPhi 40 20
-/vis/viewer/set/style surface
-/vis/viewer/flush
-
 /vis/open HepRepFile
 /vis/drawVolume
 /vis/viewer/flush
+
+/control/shell dawn -c
+/control/shell rm -f *.prim g4_????.eps frame2.png
+
+/vis/open DAWNFILE
+/vis/drawVolume
+/vis/viewer/set/viewpointThetaPhi 30 120
+/vis/viewer/set/style surface
+/vis/viewer/flush
+
+/control/shell convert g4_????.eps -trim +repage frame2.png

@@ -9,7 +9,7 @@
 :volu hat hat G4_AIR
 :volu inner inner G4_Galactic
 :volu outer outer G4_Galactic
-:color hat 0.7 0.6 0.6
+:color hat 0.2 0.2 0
 :color inner 0.2 0.4 0.7
 :color outer 0.7 0.4 0.2
 

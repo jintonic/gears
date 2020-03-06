@@ -7,15 +7,21 @@
 /vis/ASCIITree/verbose 13
 /vis/drawTree
 
+/vis/open HepRepFile
+/vis/drawVolume
+/vis/viewer/flush
+
+/control/shell dawn -c
+/control/shell rm -f *.prim g4_????.eps tophat.png
+
 /vis/open DAWNFILE
 /vis/drawVolume
 /vis/viewer/set/style surface
-/vis/viewer/set/background white
+/vis/viewer/set/background white ! ! 0
 /vis/viewer/set/viewpointThetaPhi 60 60
+/vis/viewer/set/lineSegmentsPerCircle 121
 # hide low density volumes
 /vis/viewer/set/culling density true 1e-10 kg/m3
 /vis/viewer/flush
 
-/vis/open HepRepFile
-/vis/drawVolume
-/vis/viewer/flush
+/control/shell convert g4_????.eps -trim +repage tophat.png
