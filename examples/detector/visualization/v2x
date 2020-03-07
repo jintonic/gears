@@ -14,8 +14,8 @@ if [ ! -f $X3D ] || [ $latest -nt $X3D ]; then
     java -jar $JAR -convert $latest $X3D
 fi
 
-# turn off transparency in $X3D
-sed -i 's/"0.7"/"0"/g' $X3D
+# tune transparency in $X3D
+sed -i 's/"0.7"/"0.1"/g' $X3D
 
 # embed g4_??.x3d in g4_??.html
 cat << END > ${latest/wrl/html}
@@ -26,6 +26,16 @@ cat << END > ${latest/wrl/html}
 <link rel='stylesheet' type='text/css' href='http://www.x3dom.org/download/x3dom.css'></link>
 </head> 
 <body>
+Rotate:
+<img width="50px" src="https://doc.x3dom.org/tutorials/animationInteraction/navigation/img/Mouse_Left.png"/>
+Zoom:
+<img width="50px" src="https://doc.x3dom.org/tutorials/animationInteraction/navigation/img/Mouse_Right.png"/>
+Zoom:
+<img width="50px" src="https://doc.x3dom.org/tutorials/animationInteraction/navigation/img/Mouse_Wheel_Scroll.png"/>
+Pan:
+<img width="50px" src="https://doc.x3dom.org/tutorials/animationInteraction/navigation/img/Mouse_Wheel_Press.png"/>
+More:
+<a href="https://doc.x3dom.org/tutorials/animationInteraction/navigation/">X3DOM Documentation</a>
 <x3d> 
 <scene>
 <inline url="$X3D"></inline> 
@@ -37,6 +47,4 @@ END
 
 # server the current directory
 echo click http://127.0.0.1:8888/${latest/wrl/html} to view $X3D
-echo click https://doc.x3dom.org/tutorials/animationInteraction/navigation
-echo for instructions on nagivation method
 python3 -m http.server 8888 -b 127.0.0.1
