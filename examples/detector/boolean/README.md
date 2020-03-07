@@ -6,7 +6,7 @@
 
 Three [examples][] are provided here to demonstrate how to create a complex geometry using the [Boolean][] operation.
 
-<img style="float:right; width:120px;" src="tophat.png">
+<img style="float:right; width:120px;" src="tophat.png"/>
 
 ### Tophat geometry
 
@@ -25,7 +25,7 @@ You need to install [dawn][] or [HepRApp][] to view the result.
 [dawn]:https://geant4.kek.jp/~tanaka/DAWN/About_DAWN.html
 [HepRApp]: https://www.slac.stanford.edu/~perl/HepRApp/
 
-<img style="float:right; width:120px;" src="frame2.png">
+<img style="float:right; width:120px;" src="frame2.png"/>
 
 ### Frame geometry
 [frame1.tg][] and [frame1.mac][] are created to demonstrate that [RayTracer][] always works to visualize geometries that other [visualization drivers][] cannot handle. [frame2.tg][] and [frame2.mac][] are created to demonstrate how to avoid creating a geometry that are problematic in visualization.
