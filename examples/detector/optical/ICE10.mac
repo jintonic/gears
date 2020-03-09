@@ -1,0 +1,12 @@
+/geometry/source ICE10.tg
+
+/run/initialize
+
+/geometry/test/run
+
+/vis/ASCIITree/verbose 13
+/vis/drawTree
+
+/vis/open VRML2FILE
+/vis/drawVolume
+/vis/viewer/flush

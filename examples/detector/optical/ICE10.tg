@@ -1,0 +1,65 @@
+// default unit for length is mm
+:volu hall BOX 500 500 500 G4_AIR
+:volu chamber TUBE 0 101.6 204 G4_Cu
+:volu N2 TUBE 0 100 200 G4_AIR
+:volu SiPM BOX   1  25  25 G4_Si
+:volu CsI(S) BOX 50 50 50 G4_CESIUM_IODIDE
+:volu Teflon BOX 50 50  1 G4_TEFLON
+
+:rotm r000 0 0 0
+:solid tube TUBE 0 160 170
+:solid hole TUBE 0 101.6 200
+:solid LN2 SUBTRACTION tube hole r000 0 0 0
+:volu LN2 LN2 G4_lN2
+
+:place LN2 0 hall r000 0 0 -34
+:place chamber 0 hall r000 0 0 0
+:place N2 0 chamber r000 0 0 0
+:place CsI(S) 1 N2 r000  0   0 -148
+:place CsI(S) 2 N2 r000  0   0  -46
+:place CsI(S) 3 N2 r000  0   0   56
+
+:rotm rx90 90 0 0
+:place Teflon  1 N2 r000 0   0 -199
+:place Teflon  2 N2 r000 0   0  -97
+:place Teflon  3 N2 r000 0   0    5
+:place Teflon  4 N2 r000 0   0  107
+:place Teflon  5 N2 rx90 0  51  -46 
+:place Teflon  6 N2 rx90 0 -51  -46 
+:place Teflon  7 N2 rx90 0  51 -146 
+:place Teflon  8 N2 rx90 0 -51 -146 
+:place Teflon  9 N2 rx90 0  51   54 
+:place Teflon 10 N2 rx90 0 -51   54 
+
+:place SiPM  1 N2 r000  51  25  -21
+:place SiPM  2 N2 r000  51 -25  -21
+:place SiPM  3 N2 r000  51  25  -71
+:place SiPM  4 N2 r000  51 -25  -71
+:place SiPM  5 N2 r000  51  25   81
+:place SiPM  6 N2 r000  51 -25   81
+:place SiPM  7 N2 r000  51  25   31
+:place SiPM  8 N2 r000  51 -25   31
+:place SiPM  9 N2 r000  51  25 -173
+:place SiPM 10 N2 r000  51 -25 -173
+:place SiPM 11 N2 r000  51  25 -123
+:place SiPM 12 N2 r000  51 -25 -123
+:place SiPM 13 N2 r000 -51  25  -21
+:place SiPM 14 N2 r000 -51 -25  -21
+:place SiPM 15 N2 r000 -51  25  -71
+:place SiPM 16 N2 r000 -51 -25  -71
+:place SiPM 17 N2 r000 -51  25   81
+:place SiPM 18 N2 r000 -51 -25   81
+:place SiPM 19 N2 r000 -51  25   31
+:place SiPM 20 N2 r000 -51 -25   31
+:place SiPM 21 N2 r000 -51  25 -173
+:place SiPM 22 N2 r000 -51 -25 -173
+:place SiPM 23 N2 r000 -51  25 -123
+:place SiPM 24 N2 r000 -51 -25 -123
+
+:color CsI(S)  0.2 0.4 0.8
+:color Teflon  1.0 1.0 1.0
+:color SiPM    0.7 0.7 0.7
+:color N2      0.3 0.3 0.3
+:color chamber 0.5 0.5 0.0
+:color LN2     0.0 0.6 0.8
+:vis hall OFF
