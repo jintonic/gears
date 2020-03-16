@@ -95,7 +95,8 @@ void Output::Record()
           + fTrack->GetCreatorProcess()->GetProcessSubType());
   } else {
     const G4VProcess *p = fStep->GetPostStepPoint()->GetProcessDefinedStep();
-    pro.push_back(p->GetProcessType()*1000 + p->GetProcessSubType());
+    if (p) pro.push_back(p->GetProcessType()*1000 + p->GetProcessSubType());
+    else pro.push_back(-100); // not sure why p can be zero
   }
 
   e.push_back(fStep->GetTotalEnergyDeposit()/CLHEP::keV);
