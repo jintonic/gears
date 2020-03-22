@@ -3,7 +3,7 @@
 
 ## Physics list
 
-Since it requires a lot of knowledge to set up a correct physics list, [Geant4][] provides some pre-packaged physics lists. Three are enabled by default in [GEARS][]:
+Since it requires a lot of knowledge to set up a correct [physics list][], [Geant4][] provides some pre-packaged physics lists. Three are enabled by default in [GEARS][]:
 
 - G4DecayPhysics, it defines particle decays. It defines more particles than G4EmStandardPhysics does, so it has to be enabled before optional hadronic physics, otherwise the later will complain about missing particle definitions.
 - G4RadioactiveDecayPhysics, it defines nuclear decays.
@@ -17,6 +17,8 @@ Three optional lists (G4OpticalPhysics, G4HadronElasticPhysicsHP, G4HadronPhysic
   /physics_lists/enable HadronElastic
   /physics_lists/enable HadronInelastic
 ~~~
+
+[physics list]:{{site.g4doc}}/UserActions/mandatoryActions.html#physics-lists
 
 ### Physics processes
 

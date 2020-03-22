@@ -118,7 +118,35 @@ A step point is where a particle is generated or changed. A step point in [GEARS
 
 ## Process id
 
-The physics process generating each step point is saved in a variable `pro[n]`, where `n` is the index of the step point. It equals to (process type) * 1000 + (sub type). The Process types are defined in G4ProcessType.hh, sub types are defined in G4HadronicProcessType.hh, G4DecayProcessType.hh, G4EmProcessSubType.hh,  G4TransportationProcessType.hh, G4FastSimulationProcessType.hh, G4OpProcessSubType.hh, etc. They can be found at http://www-geant4.kek.jp/lxr/find?string=Type.hh
+The physics process generating each step point is saved in a variable `pro[n]`, where `n` is the index of the step point. It equals to (process type) * 1000 + (sub type). The Process types are defined in G4ProcessType.hh, sub types are defined in G4HadronicProcessType.hh, G4DecayProcessType.hh, G4EmProcessSubType.hh,  G4TransportationProcessType.hh, G4FastSimulationProcessType.hh, G4OpProcessSubType.hh, etc. They can be found in <http://www-geant4.kek.jp/lxr/find?string=Type.hh>.
+
+- less than 1000: not defined
+- 1000 to 2000: transportation
+  - 1091: transportation
+- 2000 to 3000: electromagnetic
+  - 2001: Coulomb scattering
+  - 2002: ionization
+  - 2003: Bremsstrahlung
+  - 2004: pair production by charged particles
+  - 2005: annihilation
+  - 2010: multiple scattering
+  - 2011: Rayleigh scattering
+  - 2012: photoelectric effect
+  - 2013: Compton scattering
+  - 2014: gamma conversion (pair production)
+  - 2021: Cherenkov
+  - 2022: scintillation
+  - 2023: syncrhotron radiation
+- 3000 to 4000: optical
+- 4000 to 5000: hadronic
+- 5000 to 6000: photolepton_hadron
+- 6000 to 7000: decay
+- 7000 to 8000: general
+- 8000 to 9000: Parameterisation
+- 9000 to 10000: user defined
+- 10000 to 11000: parallel
+- 11000 to 12000: phonon
+- 12000 to 13000: UCN
 
 ## Particle id
 
