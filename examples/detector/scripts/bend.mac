@@ -1,6 +1,6 @@
 /geometry/source tracker.tg
 #/geometry/source LINEAR_X.tg
-/field/SetB 0 0 1e-1 tesla
+/geometry/SetB 0 0 1e-1 tesla
 
 /run/initialize
 

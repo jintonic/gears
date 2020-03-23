@@ -408,13 +408,11 @@ class Detector : public G4VUserDetectorConstruction, public G4UImessenger
 {
   public:
     Detector();
-    ~Detector()
-    { delete fDir; delete fCmdSetB; delete fCmdSrc; delete fCmdOut; }
+    ~Detector() { delete fCmdSetB; delete fCmdSrc; delete fCmdOut; }
     G4VPhysicalVolume* Construct(); ///< called at /run/initialize
     void SetNewValue(G4UIcommand* cmd, G4String value); ///< for G4UI
 
   private:
-    G4UIdirectory *fDir; ///< /field/
     G4UIcmdWith3VectorAndUnit* fCmdSetB; ///< /field/setB
     G4UIcmdWithAString* fCmdSrc; ///< /geometry/source
     G4UIcmdWithAString* fCmdOut; ///< /geometry/export
@@ -438,10 +436,7 @@ Detector::Detector(): G4UImessenger(), fWorld(0)
   fCmdSrc->SetParameterName("text geometry input",false);
   fCmdSrc->AvailableForStates(G4State_PreInit);
 
-  fDir = new G4UIdirectory("/field/");
-  fDir->SetGuidance("Global uniform field UI commands");
-
-  fCmdSetB = new G4UIcmdWith3VectorAndUnit("/field/SetB",this);
+  fCmdSetB = new G4UIcmdWith3VectorAndUnit("/geometry/SetB",this);
   fCmdSetB->SetGuidance("Set uniform magnetic field value.");
   fCmdSetB->SetParameterName("Bx", "By", "Bz", false);
   fCmdSetB->SetUnitCategory("Magnetic flux density");
@@ -596,30 +591,33 @@ class RunManager : public G4RunManager, public G4UImessenger
     G4UIcmdWithAString* fCmdPhys; ///< macro cmd to select a physics list
   public:
     RunManager() {
-      SetUserInitialization(new Detector);
+      SetUserInitialization(new Detector); // should be called before physics
       fCmdPhys = new G4UIcmdWithAString("/physics_lists/select",this);
       fCmdPhys->SetGuidance("Select a physics list");
-      fCmdPhys->SetGuidance("Search G4PhysListFactory.cc on Google");
+      fCmdPhys->SetGuidance("Candidates are specified in G4PhysListFactory.cc");
       fCmdPhys->SetParameterName("name of a physics list", false);
       fCmdPhys->AvailableForStates(G4State_PreInit);
     }
     ~RunManager() { delete fCmdPhys; }
-    void SetNewValue(G4UIcommand* cmd, G4String value) {
-      if (cmd!=fCmdPhys) return; fList = value;
-    }
+
+    void SetNewValue(G4UIcommand* cmd, G4String value)
+    { if (cmd!=fCmdPhys) return; fList = value; }
+
     void InitializePhysics() {
       G4PhysListFactory factory;
       if (factory.IsReferencePhysList(fList)==false) {
         G4cout<<"GEARS: no physics list "<<fList<<", set to Shielding"<<G4endl;
-        fList = "Shielding";
+        fList = "Shielding"; // default
       }
       G4StateManager::GetStateManager()->SetNewState(G4State_PreInit);
+      // has to be called in PreInit state:
       SetUserInitialization(factory.GetReferencePhysList(fList));
+      G4RunManager::InitializePhysics(); // call the original function
+
       SetUserAction(new Generator);
       SetUserAction(new RunAction);
       SetUserAction(new EventAction);
-      G4RunManager::InitializePhysics(); // call the original function
-    } ///< set physics list to "Shielding" if it is not specified
+    } ///< set physics list to "Shielding" if not specified correctly
 };
 //______________________________________________________________________________
 //
