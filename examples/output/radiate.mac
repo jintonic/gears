@@ -18,15 +18,12 @@
 
 # turn on detailed information about tracking
 /tracking/verbose 2
-# turn on detailed information about physics processes
-/process/verbose 1
 # dump a few events on screen for debugging
 /run/beamOn 10
 
 # turn off screen printing for fast simulation 
 /vis/disable
 /tracking/verbose 0
-/process/verbose 0
 # turn on data recording
 /analysis/setFileName output
 # turn on progress report
