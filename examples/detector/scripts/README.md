@@ -34,5 +34,5 @@ It demonstrate how to place a smaller solid directly inside a bigger one. The fi
 [dawn]:https://geant4.kek.jp/~tanaka/DAWN/About_DAWN.html
 [LINEAR_X.tg]:{{site.file}}/examples/detector/scripts/LINEAR_X.tg
 [convert]:https://imagemagick.org/script/convert.php
-[onion.sh]:{{site.file}}/example/detector/scripts/onion.sh
-[onion.mac]:{{site.file}}/example/detector/scripts/onion.mac
+[onion.sh]:{{site.file}}/examples/detector/scripts/onion.sh
+[onion.mac]:{{site.file}}/examples/detector/scripts/onion.mac

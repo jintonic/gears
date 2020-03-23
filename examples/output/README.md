@@ -210,13 +210,13 @@ root [] t->Draw("et[1]")
 ```
 ## Data analysis
 
-One can use the following command to generate `output.root` in [GEARS][]/[example](../example)/[output]({{site.file}}/example/output)/:
+One can use the following command to generate `output.root` in [GEARS][]/[examples](../examples)/[output]({{site.file}}/examples/output)/:
 
 ```sh
 $ gears radiate.mac
 ```
 
-[radiate.mac]({{site.file}}/example/output/radiate.mac) demonstrates how to use [Geant4][] [macro commands]({{site.g4doc}}/Control/AllResources/Control/UIcommands/_.html) to save [step points](#step-point) and [total energies in sensitive volums](#total-energy). It uses the [detector geometry](../detector) defined in [detector.tg]({{site.file}}/example/output/detector.tg).
+[radiate.mac]({{site.file}}/examples/output/radiate.mac) demonstrates how to use [Geant4][] [macro commands]({{site.g4doc}}/Control/AllResources/Control/UIcommands/_.html) to save [step points](#step-point) and [total energies in sensitive volums](#total-energy). It uses the [detector geometry](../detector) defined in [detector.tg]({{site.file}}/examples/output/detector.tg).
 
 Here are some sample [ROOT][] commands that one can use to generate plots from `output.root`:
 
