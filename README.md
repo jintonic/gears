@@ -33,7 +33,7 @@
   * Fast implementation of [detector geometry](examples/detector) without C++ programming
   * Create/Change geometry without re-compilation
   * Turn off data saving in a volume by assigning it a non-positive copy number
-  * Turn any volume to a [sensitive detector](examples/detector#sensitive-detector) by adding "(S)" in its name
+  * Turn any volume to a [sensitive detector](examples/detector#sensitive-volume) by adding "(S)" in its name
   * Assign optical properties in [Geant4][] plain [text geometry description][tg]
 * Optional optical and hadronic [physics](examples/physics)
 * Frequently used source spectra (AmBe, Am-241, etc.) in addition to [GPS][]

@@ -52,9 +52,9 @@ This can only be used after the macro command [/run/initialize][run], which cons
 
 You can find a concrete example in [example/detector/GDML](GDML).
 
-#### Sensitive detector
+#### Sensitive volume
 
-Sensitive detectors are specified by simply add "(S)" at the end of their volume names. The copy numbers of their volumes must be continuous integers starting from 0.
+Total energy deposited in a sensitive volume is recorded in an array in a [GEARS][] [output][../output#total-energy] file. You can turn any volume to a sensitive one by simply adding the string "(S)" at the end of its name. The copy number of the volume is used as the array index to retrieve the total energy deposited in that volume. Note that hits in any volume that has a copy number less than 1 won't be recorded. Consequently, the copy number of a sensitive volume must be larger than 0. If there are multiple sensitive volumes, their copy numbers do not have to be continueous. 
 
 ### Material
 
