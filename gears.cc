@@ -606,8 +606,9 @@ class RunManager : public G4RunManager, public G4UImessenger
     void InitializePhysics() {
       G4PhysListFactory factory;
       if (factory.IsReferencePhysList(fList)==false) {
-        G4cout<<"GEARS: no physics list "<<fList<<", set to Shielding"<<G4endl;
-        fList = "Shielding"; // default
+        G4cout<<"GEARS: no physics list \""<<fList
+          <<"\", set to \"QGSP_BERT_EMV\""<<G4endl;
+        fList = "QGSP_BERT_EMV"; // default
       }
       G4StateManager::GetStateManager()->SetNewState(G4State_PreInit);
       // has to be called in PreInit state:
