@@ -12,13 +12,13 @@ $ make hdf5 # create ghdf5.cc from gears.cc
 $ make # compile ghdf5.cc
 ~~~
 
-The output file name can be chosen using macro command:
+The output file name can be chosen using the macro command:
 
 ~~~
 /analysis/setFileName output
 ~~~
 
-No suffix is needed for the file name. Note that the output is disabled by default. It will be enabled if the output file name is not empty. So this macro command also works as a switch. Without it, no output file will be created.
+No suffix is needed for the file name. Note that the **output is disabled by default**. It will be enabled if the output file name is not empty. So this macro command also works as a switch. Without it, no output file will be created.
 
 [Geant4]: http://geant4.cern.ch
 [histograms]:https://www.khanacademy.org/math/ap-statistics/quantitative-data-ap/histograms-stem-leaf/v/histograms-intro
@@ -97,7 +97,11 @@ root [] t->Draw("x","e*(pdg==2)")
 ## Step point
 
 [Geant4][] follows a particle step by step when it passes through the simulated [geometry](../detector).
-A step point is where a particle is generated or changed. A step point in [GEARS][] contains the following information:
+A step point is where a particle is generated or changed.
+
+<img src="tracks.png" style="width:100%" alt="tracks.png">
+
+A step point in [GEARS][] contains the following information:
 
 * Track id (`trk` in short)
 * Step number, starting from 0  (`stp` in short)
