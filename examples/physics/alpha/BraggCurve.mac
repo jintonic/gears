@@ -2,13 +2,22 @@
 /control/verbose 1
 # geometry must be specified before /run/initialize
 /geometry/source target.tg
+# select a physics list defined in
+# https://geant4.kek.jp/lxr/source/physics_lists/lists/src/G4PhysListFactory.cc#L83
+# LBE: low background experiment (maximal step length: 1 um)
+# LIV: Livermore data based EM models
+/physics_lists/select LBE_LIV
+# turn on detailed information about physics processes
+/process/verbose 1
+
 # initialize geometry and physics
 /run/initialize
 
 # change particle and its energy here
-/gps/particle gamma
-/gps/energy 2.6 MeV
-/gps/ang/type iso
+/gps/particle alpha
+/gps/energy 5.5 MeV
+/gps/position 0 0 -105 cm
+/gps/direction 0 0 1
 
 # visualize geometry and events for debugging
 /vis/open HepRepFile
