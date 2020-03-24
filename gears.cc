@@ -587,38 +587,43 @@ void EventAction::EndOfEventAction(const G4Event*)
 class RunManager : public G4RunManager, public G4UImessenger
 {
   private:
-    G4String fList; ///< name of physics list
+    G4PhysListFactory* fFactory; ///< tool to construct a ref. list by its name
     G4UIcmdWithAString* fCmdPhys; ///< macro cmd to select a physics list
   public:
-    RunManager() {
-      SetUserInitialization(new Detector); // should be called before physics
+    RunManager() : fFactory(0) {
+      SetUserInitialization(new Detector); // needed for /run/initialize
       fCmdPhys = new G4UIcmdWithAString("/physics_lists/select",this);
       fCmdPhys->SetGuidance("Select a physics list");
       fCmdPhys->SetGuidance("Candidates are specified in G4PhysListFactory.cc");
       fCmdPhys->SetParameterName("name of a physics list", false);
       fCmdPhys->AvailableForStates(G4State_PreInit);
     }
-    ~RunManager() { delete fCmdPhys; }
+    ~RunManager() { delete fCmdPhys; delete fFactory; }
 
-    void SetNewValue(G4UIcommand* cmd, G4String value)
-    { if (cmd!=fCmdPhys) return; fList = value; }
+    void SetNewValue(G4UIcommand* cmd, G4String value) {
+      if (cmd!=fCmdPhys) return; if (fFactory) return;
+      fFactory = new G4PhysListFactory;
+      if (fFactory->IsReferencePhysList(value)==false) {
+        G4cout<<"GEARS: no physics list \""<<value
+          <<"\", set to \"QGSP_BERT_EMV\""<<G4endl;
+        value = "QGSP_BERT_EMV"; // default
+      }
+      SetUserInitialization(fFactory->GetReferencePhysList(value));
+    } ///< for UI
 
     void InitializePhysics() {
-      G4PhysListFactory factory;
-      if (factory.IsReferencePhysList(fList)==false) {
-        G4cout<<"GEARS: no physics list \""<<fList
-          <<"\", set to \"QGSP_BERT_EMV\""<<G4endl;
-        fList = "QGSP_BERT_EMV"; // default
+      if (fFactory==NULL) { // no /physics_lists/select is used
+        fFactory = new G4PhysListFactory;
+        G4StateManager::GetStateManager()->SetNewState(G4State_PreInit);
+        // has to be called in PreInit state:
+        SetUserInitialization(fFactory->GetReferencePhysList("QGSP_BERT_EMV"));
       }
-      G4StateManager::GetStateManager()->SetNewState(G4State_PreInit);
-      // has to be called in PreInit state:
-      SetUserInitialization(factory.GetReferencePhysList(fList));
       G4RunManager::InitializePhysics(); // call the original function
-
+      // has to be called after physics initilization
       SetUserAction(new Generator);
       SetUserAction(new RunAction);
       SetUserAction(new EventAction);
-    } ///< set physics list to "Shielding" if not specified correctly
+    } ///< set physics list if it is not specified explicitly
 };
 //______________________________________________________________________________
 //
