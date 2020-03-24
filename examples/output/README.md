@@ -210,7 +210,7 @@ root [] t->Draw("et[1]")
 ```
 ## Data analysis
 
-One can use the following command to generate `output.root` in [GEARS][]/[examples](../examples)/[output]({{site.file}}examples/output)/:
+One can use the following command to generate `output.root` in [GEARS][]/[examples](..)/[output]({{site.file}}/examples/output)/:
 
 ```sh
 $ gears radiate.mac
