@@ -17,7 +17,7 @@ Their difference is similar to that between [markdown][md] and [HTML][]. The sim
 :volume hall BOX 5*m 5*m 5*m G4_AIR
 ~~~
 
-For more examples, please check `*.tg` files in the [examples/detector]({{site.file}}/examples/detector) directory, such as [examples/detector/gears.tg]({{site.file}}/examples/detector/gears.tg) and [example/detector/solids.tg]({{site.file}}/examples/detector/solids.tg). The suffix of *.tg* indicates that they are [text geometry][tg] description files. A [Geant4][] macro command `/geometry/source` is added to load geometry files:
+For more examples, please check `*.tg` files in the [examples/detector]({{site.file}}/examples/detector) directory, such as [examples/detector/gears.tg]({{site.file}}/examples/detector/gears.tg) and [examples/detector/solids.tg]({{site.file}}/examples/detector/solids.tg). The suffix of *.tg* indicates that they are [text geometry][tg] description files. A [Geant4][] macro command `/geometry/source` is added to load geometry files:
 
 ~~~sh
 /geometry/source gears.tg
@@ -50,11 +50,11 @@ This can only be used after the macro command [/run/initialize][run], which cons
  /geometry/export output.gdml
 ~~~
 
-You can find a concrete example in [example/detector/GDML](GDML).
+You can find a concrete example in [examples/detector/GDML](GDML).
 
-#### Sensitive detector
+#### Sensitive volume
 
-Sensitive detectors are specified by simply add "(S)" at the end of their volume names. The copy numbers of their volumes must be continuous integers starting from 0.
+Total energy deposited in a sensitive volume is recorded in an array in a [GEARS][] [output](../output#total-energy) file. You can turn any volume to a sensitive one by simply adding the string "(S)" at the end of its name. The copy number of the volume is used as the array index to retrieve the total energy deposited in that volume. Note that hits in any volume that has a copy number less than 1 won't be recorded. Consequently, the copy number of a sensitive volume must be larger than 0. If there are multiple sensitive volumes, their copy numbers do not have to be continuous. 
 
 ### Material
 

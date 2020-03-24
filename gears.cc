@@ -124,7 +124,7 @@ void Output::Record()
 
   if (de.back()>0 && handle->GetVolume()->GetName().contains("(S)")) {
     if (et.size()<(unsigned int)copyNo+1) et.resize((unsigned int)copyNo+1);
-    et[copyNo]+=de.back();
+    et[copyNo]+=de.back(); et[0]+=de.back();
   }
 }
 //______________________________________________________________________________
