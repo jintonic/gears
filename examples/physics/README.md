@@ -1,5 +1,6 @@
-[![home](https://img.shields.io/badge/gears-home-blue?style=flat)](../..)
+[![home](https://img.shields.io/badge/gears-home-magenta?style=flat)](../..)
 [![examples](https://img.shields.io/badge/gears-examples-green?style=flat)](..)
+[![examples](https://img.shields.io/badge/alpha-interaction-blue?style=flat)](alpha)
 
 ## Terminology
 
@@ -19,10 +20,10 @@
 
 ## How to choose a physics list
 
-[GEARS][] uses [G4PhysListFactory.cc][factory] to allow one to select one from [pre-packaged lists][] by its name:
+[GEARS][] uses [G4PhysListFactory.cc][factory] to allow the user to select one from the [pre-packaged lists][] by its name:
 
 ```sh
-# select an example physics list
+# select a pre-packaged physics list
 # LBE: low background experiment
 # LIV: EM model based on Livermore data
 /physics_lists/select LBE_LIV
@@ -43,19 +44,19 @@ The available names are listed in [G4PhysListFactory.cc][factory]. The naming sc
 - Electromagnitism (EM)
   - Standard processes (~1 keV to ~PeV)
   - Low energy processes (250 eV to ~PeV)
-  - Optical photon tracking
+  - [Optical photon tracking](#optical-processes)
 - Weak interaction
   - decay of subatomic particles
-  - radioactive decay of nuclei
+  - [radioactive decay of nuclei](radioactive-decay-processes)
 - Hadronic physics
   - pure strong interaction (0 to ~TeV)
   - electro- and gamma-nuclear (10 MeV to ~TeV)
 - Parameterized physics (not from first principles) for fast simulation
 - Transportation (change from one volume to another)
 
-A unique [process id](../output#process-id) is assigned to each process in a [GEARS][] [output](../output).
+A unique [process id](../output#process-id) is assigned to each process in a [GEARS][] [output](../output#process-id).
 
-Run `/process/list` after `/run/initialize`, and you will get something like this:
+Run `/process/list` after `/run/initialize`, you will get something like this:
 
 ~~~
      Transportation,              Decay,   RadioactiveDecay,                msc
@@ -79,7 +80,7 @@ Optical processes can be enabled after a reference list is chosen:
 
 ```sh
 /physics_lists/select QGSC_BERT_EMV
-# cmd below becomes available only after the cmd above is executed
+# cmd below becomes available only when the cmd above is used
 /physics_lists/factory/addOptical
 # must be run after the cmds above
 /run/initialize
@@ -92,14 +93,13 @@ Optical processes can be enabled after a reference list is chosen:
   Scintillation
 
 /process/list Optical
-  OpAbsorption,         OpRayleigh,            OpMieHG,         OpBoundary
+  OpAbsorption,   OpRayleigh,            OpMieHG,         OpBoundary
   OpWLS
-
 ```
 
 Individual optical processes can be toggled by the following commands:
 
-~~~
+~~~sh
 /process/optical/processActivation Cerenkov true/false
 /process/optical/processActivation Scintillation true/false
 /process/optical/processActivation OpAbsorption true/false
@@ -114,7 +114,7 @@ Radioactive decay processes can be enabled after a reference list is chosen:
 
 ```sh
 /physics_lists/select QGSC_BERT_EMV
-# cmd below becomes available only after the cmd above is executed
+# cmd below becomes available only when the cmd above is used
 /physics_lists/factory/addRadioactiveDecay
 # must be run after the cmds above
 /run/initialize
@@ -124,7 +124,7 @@ Radioactive decay processes can be enabled after a reference list is chosen:
 ```
 Detailed control of radioactive decay is provided by the /[grdm][]/ command, for example,
 
-~~~
+~~~sh
 /grdm/deselectVolume chamber # disabled radioactive decay in volume "chamber"
 /grdm/nucleusLimits 1 80 # enabled radioactive decay only when z in [1, 80]
 ~~~
