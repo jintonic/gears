@@ -1,6 +1,8 @@
 [![home](https://img.shields.io/badge/gears-home-magenta?style=flat)](../..)
 [![examples](https://img.shields.io/badge/gears-examples-green?style=flat)](..)
-[![examples](https://img.shields.io/badge/alpha-interaction-blue?style=flat)](alpha)
+[![alpha](https://img.shields.io/badge/alpha-interactions-blue?style=flat)](alpha)
+[![beta](https://img.shields.io/badge/beta-interactions-yellow?style=flat)](beta)
+[![gamma](https://img.shields.io/badge/gamma-interactions-cyan?style=flat)](gamma)
 
 ## Terminology
 
