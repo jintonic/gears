@@ -1,12 +1,7 @@
 # print macro commands on screen
 /control/verbose 1
 # geometry must be specified before /run/initialize
-/geometry/source target.tg
-# select a physics list defined in
-# https://geant4.kek.jp/lxr/source/physics_lists/lists/src/G4PhysListFactory.cc#L83
-# LBE: low background experiment (maximal step length: 1 um)
-# LIV: Livermore data based EM models
-/physics_lists/select LBE_LIV
+/geometry/source air.tg
 # turn on detailed information about physics processes
 /process/verbose 1
 
@@ -16,8 +11,7 @@
 # change particle and its energy here
 /gps/particle alpha
 /gps/energy 5.5 MeV
-/gps/position 0 0 -105 cm
-/gps/direction 0 0 1
+/gps/direction 1 0 0
 
 # visualize geometry and events for debugging
 /vis/open HepRepFile
@@ -39,4 +33,4 @@
 /run/verbose 2
 /run/printProgress 1000
 # start simulation
-/run/beamOn 50000
+/run/beamOn 5000
