@@ -154,6 +154,15 @@ The physics process generating each step point is saved in a variable `pro[n]`, 
   - 2023: syncrhotron radiation
 - 3000 to 4000: optical
 - 4000 to 5000: hadronic
+  - 2111: hadron elastic
+  - 2121: hadron inelastic
+  - 2131: capture
+  - 2132: muon atomic capture
+  - 2141: fission
+  - 2151: hadron at rest
+  - 2142: lepton at rest
+  - 2161: charge exchange
+  - 2210: radioactive decay
 - 5000 to 6000: photolepton_hadron
 - 6000 to 7000: decay
 - 7000 to 8000: general
