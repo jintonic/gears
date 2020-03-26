@@ -28,7 +28,7 @@ root[] t->Draw("de/dl:k", "pdg==22")
 The energy of an alpha particle decreases as it moves deeper and deeper into certain material. As it slows down, the surrounding electrons have more time to interact with it. Consequently, its _dE/dx_ goes up. However, when it becomes really slow, it can pick up electrons and get neutralized. Consequently, its _dE/dx_ quickly drops to zero. Such behavior can be shown clearly by the [Bragg curve](https://en.wikipedia.org/wiki/Bragg_peak):
 
 <img src="https://upload.wikimedia.org/wikipedia/commons/d/df/Bragg_Curve_for_Alphas_in_Air.png" alt="Bragg curve" style="width:45%">
-<img src="dedl.png" alt="simulated Bragg curve" style="width:45%">
+<img src="dedl.png" alt="simulated Bragg curve" style="width:50%">
 
 Such a curve can be produced by
 
@@ -57,14 +57,14 @@ root[] t->Draw("y:x","trk==1","l",100,0)
 root[] t->Draw("y:z","trk==1")
 ```
 
-<img src="http://physino.xyz/assets/ainair.png" alt="alpha in air" style="width:45%">
-<img src="endpoints.png" alt="end points of alpha tracks" style="width:45%">
+<img src="http://physino.xyz/assets/ainair.png" alt="alpha in air" style="width:50%">
+<img src="endpoints.png" alt="end points of alpha tracks" style="width:40%">
 
 One can see that there are often a group of hits very close to each other around the end points of alpha tracks. This is due to the large _dE/dx_ at low energies.
 
 ### Impact of physics list
 
-In [range.mac]({{site.file}}/examples/physics/alpha/range.mac), 5.5 MeV alphas are shot to a CsI scintillation crystal instead of air. The simulated world is defined in [CsI.tg]({{site.file}}/examples/physics/alpha/CsI.tg). Without specifying a reference physics list (that is, to use the default one specified by [GEARS][], QGSP_BERT_EMV), all alpha particles deposit its full energy in just one step. The step lengths are all about 28 um. To do a detailed simulation, one needs to specify the maximal step length of alphas in CsI. This can be done manually using the macro command `/run/setCut 1 um` or to select a more suitable physics list:
+In [range.mac]({{site.file}}/examples/physics/alpha/range.mac), 5.5 MeV alphas are shot to a CsI scintillation crystal instead of air. The simulated world is defined in [CsI.tg]({{site.file}}/examples/physics/alpha/CsI.tg). Without specifying a reference physics list (that is, to use the default one specified by GEARS, QGSP_BERT_EMV), all alpha particles deposit its full energy in just one step. The step lengths are all about 28 um. To do a detailed simulation, one needs to specify the maximal step length of alphas in CsI. This can be done manually using the macro command `/run/setCut 1 um` or to select a more suitable physics list:
 
 ```sh
 # LBE: low background experiment (maximal step length: 1 um)
