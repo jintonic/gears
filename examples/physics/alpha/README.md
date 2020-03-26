@@ -4,7 +4,7 @@
 
 ## Alpha interactions
 
-Alpha particles, or ions in general, are heavy (compared to elemental particles) electrically charged particles. According to Knoll's [Radiation Detection and Measurement](https://www.amazon.com/Radiation-Detection-Measurement-Glenn-Knoll/dp/0470131489), they interact with matter primarily through coulomb forces between their positive charge and the negative charge of the orbital electrons within the absorber atoms. Although interactions of the particle with nuclei (as in Rutherford scattering or alpha-particle-induced reactions) are also possible, such encounters occur only rarely and they are not normally significant in the response of radiation detectors.
+Alpha particles, or ions in general, are heavy (compared to elemental particles) electrically charged particles. According to Knoll's [Radiation Detection and Measurement](https://www.amazon.com/dp/0470131489), they interact with matter primarily through coulomb forces between their positive charge and the negative charge of the orbital electrons within the absorber atoms. Although interactions of the particle with nuclei (as in Rutherford scattering or alpha-particle-induced reactions) are also possible, such encounters occur only rarely and they are not normally significant in the response of radiation detectors.
 
 Common interactions that can be assigned to an alpha in a physics list include:
 
@@ -28,6 +28,7 @@ root[] t->Draw("de/dl:k", "pdg==22")
 The energy of an alpha particle decreases as it moves deeper and deeper into certain material. As it slows down, the surrounding electrons have more time to interact with it. Consequently, its _dE/dx_ goes up. However, when it becomes really slow, it can pick up electrons and get neutralized. Consequently, its _dE/dx_ quickly drops to zero. Such behavior can be shown clearly by the [Bragg curve](https://en.wikipedia.org/wiki/Bragg_peak):
 
 <img src="https://upload.wikimedia.org/wikipedia/commons/d/df/Bragg_Curve_for_Alphas_in_Air.png" alt="Bragg curve" style="width:45%">
+<img src="dedl.png" alt="simulated Bragg curve" style="width:45%">
 
 Such a curve can be produced by
 
@@ -57,3 +58,19 @@ root[] t->Draw("y:z","trk==1")
 ```
 
 <img src="http://physino.xyz/assets/ainair.png" alt="alpha in air" style="width:45%">
+<img src="endpoints.png" alt="end points of alpha tracks" style="width:45%">
+
+One can see that there are often a group of hits very close to each other around the end points of alpha tracks. This is due to the large _dE/dx_ at low energies.
+
+### Impact of physics list
+
+In [range.mac]({{site.file}}/examples/physics/alpha/range.mac), 5.5 MeV alphas are shot to a CsI scintillation crystal instead of air. The simulated world is defined in [CsI.tg]({{site.file}}/examples/physics/alpha/CsI.tg). Without specifying a reference physics list (that is, to use the default one specified by [GEARS][], QGSP_BERT_EMV), all alpha particles deposit its full energy in just one step. The step lengths are all about 28 um. To do a detailed simulation, one needs to specify the maximal step length of alphas in CsI. This can be done manually using the macro command `/run/setCut 1 um` or to select a more suitable physics list:
+
+```sh
+# LBE: low background experiment (maximal step length: 1 um)
+# LIV: Livermore data based EM models
+# comment out the following line and run again to see the difference
+/physics_lists/select LBE_LIV
+```
+
+Run `gears range.mac` with and without this line and draw the alpha hits distributions to see the difference.
