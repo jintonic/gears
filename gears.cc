@@ -50,6 +50,8 @@ Output::Output(): G4SteppingVerbose()
 {
   auto manager = G4AnalysisManager::Instance();
   manager->CreateNtuple("t", "Geant4 step points");
+  manager->CreateNtupleIColumn("n"); // total number of recorded hits
+  manager->CreateNtupleIColumn("m"); // max copy number of sensitive volume
   manager->CreateNtupleIColumn("trk", trk);
   manager->CreateNtupleIColumn("stp", stp);
   manager->CreateNtupleIColumn("vlm", vlm);
@@ -81,7 +83,7 @@ void Output::Record()
 
   G4TouchableHandle handle = fStep->GetPreStepPoint()->GetTouchableHandle();
   int copyNo=handle->GetReplicaNumber();
-  if (copyNo<=0) return; //skip uninteresting volumes
+  if (copyNo<=0) return; //skip uninteresting volumes (copy No. of world == 0)
   if (trk.size()>=10000) {
     G4cout<<"GEARS: # of step points >=10000. Recording stopped."<<G4endl;
     fTrack->SetTrackStatus(fKillTrackAndSecondaries);
@@ -553,7 +555,15 @@ class EventAction : public G4UserEventAction, public G4UImessenger
 {
   public:
     void BeginOfEventAction(const G4Event*); ///< Prepare for recording
-    void EndOfEventAction(const G4Event*);   ///< Fill n-tuple
+    void EndOfEventAction(const G4Event*) {
+      auto a = G4AnalysisManager::Instance();
+      if (a->GetFileName()!="") {
+        Output* o = ((Output*) G4VSteppingVerbose::GetInstance()); 
+        a->FillNtupleIColumn(0,o->stp.size());
+        a->FillNtupleIColumn(1,o->et.size()-1);
+        a->AddNtupleRow();
+      }
+    } ///< Fill n-tuple
 };
 //______________________________________________________________________________
 //
@@ -568,13 +578,6 @@ void EventAction::BeginOfEventAction(const G4Event*)
   }
   // reset Output member variables for new record
   ((Output*) G4VSteppingVerbose::GetInstance())->Reset(); 
-}
-//______________________________________________________________________________
-//
-void EventAction::EndOfEventAction(const G4Event*)
-{
-  auto a = G4AnalysisManager::Instance();
-  if (a->GetFileName()!="") a->AddNtupleRow();
 }
 //______________________________________________________________________________
 //
