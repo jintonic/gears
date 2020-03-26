@@ -6,7 +6,7 @@
 
 ## Terminology
 
-1. [physics model][physics list]: what generates what
+1. [physics model][physics list]: what happens in a certain energy range
 2. [physics process][physics list]: model + cross section (how often it happens)
 3. [physics list][]: a list of processes for common particles
 4. [modular lists][]: lists of processes that can be used as building blocks to construct a more complex list
@@ -25,14 +25,14 @@
 [GEARS][] uses [G4PhysListFactory.cc][factory] to allow the user to select one from the [pre-packaged lists][] by its name:
 
 ```sh
-# select a pre-packaged physics list
+# select a pre-packaged physics list. For example,
 # LBE: low background experiment
 # LIV: EM model based on Livermore data
 /physics_lists/select LBE_LIV
-# dump the lists on screen
-/process/verbose 1
 # initialize physics based on the list
 /run/initialize
+# dump the lists on screen
+/run/beamOn
 ```
 
 The available names are listed in [G4PhysListFactory.cc][factory]. The naming scheme is introduced on page 24 in this [tutorial][]. A guidance on how to choose a proper physics list is also available in the [tutorial][].

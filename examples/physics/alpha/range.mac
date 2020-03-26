@@ -8,8 +8,6 @@
 # LIV: Livermore data based EM models
 # comment out the following line and run again to see the difference
 /physics_lists/select LBE_LIV
-# turn on detailed information about physics processes
-/process/verbose 1
 
 # initialize geometry and physics
 /run/initialize
