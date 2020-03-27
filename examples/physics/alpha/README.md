@@ -23,6 +23,10 @@ The stopping power _S = -dE/dx_ is simply the energy loss in a unit track length
 root[] t->Draw("de/dl:k", "pdg==22")
 ```
 
+An alternative simulation tool dedicated to ion interaction in matter is [SRIM](http://www.srim.org/). It may produce better results than Geant4 in some cases.
+
+The [NIST stopping-power and range tables for helium ions](https://physics.nist.gov/PhysRefData/Star/Text/ASTAR.html) is a great resource to verify your Geant4 simulation of alpha particles.
+
 ### Bragg curve
 
 The energy of an alpha particle decreases as it moves deeper and deeper into certain material. As it slows down, the surrounding electrons have more time to interact with it. Consequently, its _dE/dx_ goes up. However, when it becomes really slow, it can pick up electrons and get neutralized. Consequently, its _dE/dx_ quickly drops to zero. Such behavior can be shown clearly by the [Bragg curve](https://en.wikipedia.org/wiki/Bragg_peak):
