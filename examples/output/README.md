@@ -78,6 +78,8 @@ root [] t->GetEntries()
 (long long) 5000
 root [] t->Show(0)
 ======> EVENT:0
+ n   = 235
+ m   = 2
  trk = (vector<int>*)0x351a520
  stp = (vector<int>*)0x398c7b0
  vlm = (vector<int>*)0x2d4dba0
@@ -129,7 +131,10 @@ A step point in [GEARS][] contains the following information:
 * Local position `y` [mm] (origin: center of the volume)
 * Local position `z` [mm] (origin: center of the volume)
 
+
 They are saved in separated C++ vectors (arrays with various sizes). Such a flat data structure and very short variable names are chosen on purpose to make plotting of those variables in a [ROOT][] interactive session easy.
+
+Notice that the variable `n` is the total number of step points recorded in each event. `m` is the maximal copy number of a [sensitive volume](../detector#sensitive-volume)
 
 ### Process id
 
