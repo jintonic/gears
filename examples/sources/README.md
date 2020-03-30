@@ -43,20 +43,20 @@ An ASCII version of the manual of [gps][] macros is available [here]({{site.xyz}
 
 ### Am241
 
-Am241 is a complicated source. It is an alpha, X-ray and gamma emitter at the same time. A mac file is inclued [here]({site.xyz}}/examples/sources/Am241.mac) to demonstrate the definition of multiple particles from a source.
+Am241 is a complicated source. It is an alpha, X-ray and gamma emitter at the same time. A mac file is inclued [here]({site.file}}/examples/sources/Am241.mac) to demonstrate the definition of multiple particles from a source.
 
 ### AmBe
 
-The alpha partiles emitted from Am241 can be used to bonbust Be and generate neutrons up to about 12 MeV. The measured neutron energy spectrum can be found in the literature. A mac file is included [here]({{site.xyz}}/examples/sources/AmBe/AmBe.mac) to demonstrate how to generate neutrons based on an energy spectrum.
+The alpha partiles emitted from Am241 can be used to bonbust Be and generate neutrons up to about 12 MeV. The measured neutron energy spectrum can be found in the literature. A mac file is included [here]({{site.file}}/examples/sources/AmBe/AmBe.mac) to demonstrate how to generate neutrons based on an energy spectrum.
 
 ### Ar39
 
-Ar39 is a beta emitter. It is a common background for examples ulitize liquid argon as detecting material. Its measured beta spectrum is implemented in [this mac file]({{site.xyz}}/examples/sources/Ar39.mac).
+Ar39 is a beta emitter. It is a common background for examples ulitize liquid argon as detecting material. Its measured beta spectrum is implemented in [this mac file]({{site.file}}/examples/sources/Ar39.mac).
 
 ### Co57
 
-Co57 is a common low-energy calibration source. It emits a few x and gamma-rays as shown in [this mac file]({{site.xyz}}/examples/sources/Co57.mac).
+Co57 is a common low-energy calibration source. It emits a few x and gamma-rays as shown in [this mac file]({{site.file}}/examples/sources/Co57.mac).
 
 ### Fe55
 
-Fe55 is an other commonly used low-energy calibration source. It emits a few x-rays around 6 keV as shown in [this mac file]({{site.xyz}}/examples/sources/Fe55.mac).
+Fe55 is an other commonly used low-energy calibration source. It emits a few x-rays around 6 keV as shown in [this mac file]({{site.file}}/examples/sources/Fe55.mac).
