@@ -1,0 +1,1002 @@
+Command directory path : /gps/ 
+
+Guidance :
+General Paricle Source control commands.
+
+ Sub-directories : 
+   /gps/source/   Multiple source control sub-directory
+   /gps/pos/   Positional commands sub-directory
+   /gps/ang/   Angular commands sub-directory
+   /gps/ene/   Spectral commands sub-directory
+   /gps/hist/   Histogram, biasing commands sub-directory
+ Commands : 
+   List * List available particles.
+   particle * Set particle to be generated.
+   direction * Set momentum direction.
+   energy * Set kinetic energy.
+   position * Set starting position of the particle for a Point like source.
+   ion * Set properties of ion to be generated.
+   ionLvl * Set properties of ion to be generated.
+   time * Set initial time of the particle.
+   polarization * Set polarization.
+   number * Set number of particles to be generated per vertex.
+   verbose * Set Verbose level for GPS 
+
+Command /gps/List
+Guidance :
+List available particles.
+ Invoke G4ParticleTable. 
+
+Command /gps/particle
+Guidance :
+Set particle to be generated.
+ (geantino is default)
+ (ion can be specified for shooting ions)
+
+Parameter : particleName
+ Parameter type  : s
+ Omittable       : True
+ Default value   : geantino
+ Candidates      : B+ B- B0 Bc+ Bc- Bs0 D+ D- D0 Ds+ Ds- GenericIon He3 J/psi N(1440)+ N(1440)0 N(1520)+ N(1520)0 N(1535)+ N(1535)0 N(1650)+ N(1650)0 N(1675)+ N(1675)0 N(1680)+ N(1680)0 N(1700)+ N(1700)0 N(1710)+ N(1710)0 N(1720)+ N(1720)0 N(1900)+ N(1900)0 N(1990)+ N(1990)0 N(2090)+ N(2090)0 N(2190)+ N(2190)0 N(2220)+ N(2220)0 N(2250)+ N(2250)0 Upsilon a0(1450)+ a0(1450)- a0(1450)0 a0(980)+ a0(980)- a0(980)0 a1(1260)+ a1(1260)- a1(1260)0 a2(1320)+ a2(1320)- a2(1320)0 alpha anti_B0 anti_Bs0 anti_D0 anti_He3 anti_N(1440)+ anti_N(1440)0 anti_N(1520)+ anti_N(1520)0 anti_N(1535)+ anti_N(1535)0 anti_N(1650)+ anti_N(1650)0 anti_N(1675)+ anti_N(1675)0 anti_N(1680)+ anti_N(1680)0 anti_N(1700)+ anti_N(1700)0 anti_N(1710)+ anti_N(1710)0 anti_N(1720)+ anti_N(1720)0 anti_N(1900)+ anti_N(1900)0 anti_N(1990)+ anti_N(1990)0 anti_N(2090)+ anti_N(2090)0 anti_N(2190)+ anti_N(2190)0 anti_N(2220)+ anti_N(2220)0 anti_N(2250)+ anti_N(2250)0 anti_alpha anti_b_quark anti_c_quark anti_d_quark anti_dd1_diquark anti_delta(1600)+ anti_delta(1600)++ anti_delta(1600)- anti_delta(1600)0 anti_delta(1620)+ anti_delta(1620)++ anti_delta(1620)- anti_delta(1620)0 anti_delta(1700)+ anti_delta(1700)++ anti_delta(1700)- anti_delta(1700)0 anti_delta(1900)+ anti_delta(1900)++ anti_delta(1900)- anti_delta(1900)0 anti_delta(1905)+ anti_delta(1905)++ anti_delta(1905)- anti_delta(1905)0 anti_delta(1910)+ anti_delta(1910)++ anti_delta(1910)- anti_delta(1910)0 anti_delta(1920)+ anti_delta(1920)++ anti_delta(1920)- anti_delta(1920)0 anti_delta(1930)+ anti_delta(1930)++ anti_delta(1930)- anti_delta(1930)0 anti_delta(1950)+ anti_delta(1950)++ anti_delta(1950)- anti_delta(1950)0 anti_delta+ anti_delta++ anti_delta- anti_delta0 anti_deuteron anti_k(1460)0 anti_k0_star(1430)0 anti_k1(1270)0 anti_k1(1400)0 anti_k2(1770)0 anti_k2_star(1430)0 anti_k2_star(1980)0 anti_k3_star(1780)0 anti_k_star(1410)0 anti_k_star(1680)0 anti_k_star0 anti_kaon0 anti_lambda anti_lambda(1405) anti_lambda(1520) anti_lambda(1600) anti_lambda(1670) anti_lambda(1690) anti_lambda(1800) anti_lambda(1810) anti_lambda(1820) anti_lambda(1830) anti_lambda(1890) anti_lambda(2100) anti_lambda(2110) anti_lambda_b anti_lambda_c+ anti_neutron anti_nu_e anti_nu_mu anti_nu_tau anti_omega- anti_omega_b- anti_omega_c0 anti_proton anti_s_quark anti_sd0_diquark anti_sd1_diquark anti_sigma(1385)+ anti_sigma(1385)- anti_sigma(1385)0 anti_sigma(1660)+ anti_sigma(1660)- anti_sigma(1660)0 anti_sigma(1670)+ anti_sigma(1670)- anti_sigma(1670)0 anti_sigma(1750)+ anti_sigma(1750)- anti_sigma(1750)0 anti_sigma(1775)+ anti_sigma(1775)- anti_sigma(1775)0 anti_sigma(1915)+ anti_sigma(1915)- anti_sigma(1915)0 anti_sigma(1940)+ anti_sigma(1940)- anti_sigma(1940)0 anti_sigma(2030)+ anti_sigma(2030)- anti_sigma(2030)0 anti_sigma+ anti_sigma- anti_sigma0 anti_sigma_b+ anti_sigma_b- anti_sigma_b0 anti_sigma_c+ anti_sigma_c++ anti_sigma_c0 anti_ss1_diquark anti_su0_diquark anti_su1_diquark anti_t_quark anti_triton anti_u_quark anti_ud0_diquark anti_ud1_diquark anti_uu1_diquark anti_xi(1530)- anti_xi(1530)0 anti_xi(1690)- anti_xi(1690)0 anti_xi(1820)- anti_xi(1820)0 anti_xi(1950)- anti_xi(1950)0 anti_xi(2030)- anti_xi(2030)0 anti_xi- anti_xi0 anti_xi_b- anti_xi_b0 anti_xi_c+ anti_xi_c0 b1(1235)+ b1(1235)- b1(1235)0 b_quark c_quark chargedgeantino d_quark dd1_diquark delta(1600)+ delta(1600)++ delta(1600)- delta(1600)0 delta(1620)+ delta(1620)++ delta(1620)- delta(1620)0 delta(1700)+ delta(1700)++ delta(1700)- delta(1700)0 delta(1900)+ delta(1900)++ delta(1900)- delta(1900)0 delta(1905)+ delta(1905)++ delta(1905)- delta(1905)0 delta(1910)+ delta(1910)++ delta(1910)- delta(1910)0 delta(1920)+ delta(1920)++ delta(1920)- delta(1920)0 delta(1930)+ delta(1930)++ delta(1930)- delta(1930)0 delta(1950)+ delta(1950)++ delta(1950)- delta(1950)0 delta+ delta++ delta- delta0 deuteron e+ e- eta eta(1295) eta(1405) eta(1475) eta2(1645) eta2(1870) eta_prime etac f0(1370) f0(1500) f0(1710) f0(500) f0(980) f1(1285) f1(1420) f2(1270) f2(1810) f2(2010) f2_prime(1525) gamma geantino gluon h1(1170) h1(1380) k(1460)+ k(1460)- k(1460)0 k0_star(1430)+ k0_star(1430)- k0_star(1430)0 k1(1270)+ k1(1270)- k1(1270)0 k1(1400)+ k1(1400)- k1(1400)0 k2(1770)+ k2(1770)- k2(1770)0 k2_star(1430)+ k2_star(1430)- k2_star(1430)0 k2_star(1980)+ k2_star(1980)- k2_star(1980)0 k3_star(1780)+ k3_star(1780)- k3_star(1780)0 k_star(1410)+ k_star(1410)- k_star(1410)0 k_star(1680)+ k_star(1680)- k_star(1680)0 k_star+ k_star- k_star0 kaon+ kaon- kaon0 kaon0L kaon0S lambda lambda(1405) lambda(1520) lambda(1600) lambda(1670) lambda(1690) lambda(1800) lambda(1810) lambda(1820) lambda(1830) lambda(1890) lambda(2100) lambda(2110) lambda_b lambda_c+ mu+ mu- neutron nu_e nu_mu nu_tau omega omega(1420) omega(1650) omega- omega3(1670) omega_b- omega_c0 opticalphoton phi phi(1680) phi3(1850) pi(1300)+ pi(1300)- pi(1300)0 pi+ pi- pi0 pi2(1670)+ pi2(1670)- pi2(1670)0 proton rho(1450)+ rho(1450)- rho(1450)0 rho(1700)+ rho(1700)- rho(1700)0 rho+ rho- rho0 rho3(1690)+ rho3(1690)- rho3(1690)0 s_quark sd0_diquark sd1_diquark sigma(1385)+ sigma(1385)- sigma(1385)0 sigma(1660)+ sigma(1660)- sigma(1660)0 sigma(1670)+ sigma(1670)- sigma(1670)0 sigma(1750)+ sigma(1750)- sigma(1750)0 sigma(1775)+ sigma(1775)- sigma(1775)0 sigma(1915)+ sigma(1915)- sigma(1915)0 sigma(1940)+ sigma(1940)- sigma(1940)0 sigma(2030)+ sigma(2030)- sigma(2030)0 sigma+ sigma- sigma0 sigma_b+ sigma_b- sigma_b0 sigma_c+ sigma_c++ sigma_c0 ss1_diquark su0_diquark su1_diquark t_quark tau+ tau- triton u_quark ud0_diquark ud1_diquark uu1_diquark xi(1530)- xi(1530)0 xi(1690)- xi(1690)0 xi(1820)- xi(1820)0 xi(1950)- xi(1950)0 xi(2030)- xi(2030)0 xi- xi0 xi_b- xi_b0 xi_c+ xi_c0 ion 
+
+Command /gps/direction
+Guidance :
+Set momentum direction.
+Direction needs not to be a unit vector.
+Angular distribution type is set to planar.
+ Range of parameters : Px != 0 || Py != 0 || Pz != 0
+
+Parameter : Px
+ Parameter type  : d
+ Omittable       : False
+
+Parameter : Py
+ Parameter type  : d
+ Omittable       : False
+
+Parameter : Pz
+ Parameter type  : d
+ Omittable       : False 
+
+Command /gps/energy
+Guidance :
+Set kinetic energy.
+
+Parameter : Energy
+ Parameter type  : d
+ Omittable       : False
+
+Parameter : Unit
+ Parameter type  : s
+ Omittable       : True
+ Default value   : GeV
+ Candidates      : eV keV MeV GeV TeV PeV J electronvolt kiloelectronvolt megaelectronvolt gigaelectronvolt teraelectronvolt petaelectronvolt joule 
+
+Command /gps/position
+Guidance :
+Set starting position of the particle for a Point like source.
+Same effect as the two /gps/pos/type Point /gps/pos/centre commands.
+
+Parameter : X
+ Parameter type  : d
+ Omittable       : False
+
+Parameter : Y
+ Parameter type  : d
+ Omittable       : False
+
+Parameter : Z
+ Parameter type  : d
+ Omittable       : False
+
+Parameter : Unit
+ Parameter type  : s
+ Omittable       : True
+ Default value   : cm
+ Candidates      : pc km m cm mm um nm Ang fm parsec kilometer meter centimeter millimeter micrometer nanometer angstrom fermi 
+
+Command /gps/ion
+Guidance :
+Set properties of ion to be generated.
+[usage] /gps/ion Z A Q E
+        Z:(int) AtomicNumber
+        A:(int) AtomicMass
+        Q:(int) Charge of Ion (in unit of e)
+        E:(double) Excitation energy (in keV)
+
+Parameter : Z
+ Parameter type  : i
+ Omittable       : False
+ Default value   : 1
+
+Parameter : A
+ Parameter type  : i
+ Omittable       : False
+ Default value   : 1
+
+Parameter : Q
+ Parameter type  : i
+ Omittable       : True
+ Default value   : 0
+
+Parameter : E
+ Parameter type  : d
+ Omittable       : True
+ Default value   : 0.0 
+
+Command /gps/ionLvl
+Guidance :
+Set properties of ion to be generated.
+[usage] /gps/ion Z A Q Lvl
+        Z:(int) AtomicNumber
+        A:(int) AtomicMass
+        Q:(int) Charge of Ion (in unit of e)
+        Lvl:(int) Number of metastable state excitation level (0-9)
+
+Parameter : Z
+ Parameter type  : i
+ Omittable       : False
+ Default value   : 1
+
+Parameter : A
+ Parameter type  : i
+ Omittable       : False
+ Default value   : 1
+
+Parameter : Q
+ Parameter type  : i
+ Omittable       : True
+ Default value   : 0
+
+Parameter : Lvl
+ Parameter type  : i
+ Omittable       : True
+ Default value   : 0.0 
+
+Command /gps/time
+Guidance :
+Set initial time of the particle.
+
+Parameter : t0
+ Parameter type  : d
+ Omittable       : False
+
+Parameter : Unit
+ Parameter type  : s
+ Omittable       : True
+ Default value   : ns
+ Candidates      : s ms us ns ps second millisecond microsecond nanosecond picosecond 
+
+Command /gps/polarization
+Guidance :
+Set polarization.
+ Range of parameters : Px>=-1.&&Px<=1.&&Py>=-1.&&Py<=1.&&Pz>=-1.&&Pz<=1.
+
+Parameter : Px
+ Parameter type  : d
+ Omittable       : False
+
+Parameter : Py
+ Parameter type  : d
+ Omittable       : False
+
+Parameter : Pz
+ Parameter type  : d
+ Omittable       : False 
+
+Command /gps/number
+Guidance :
+Set number of particles to be generated per vertex.
+ Range of parameters : N>0
+
+Parameter : N
+ Parameter type  : i
+ Omittable       : False 
+
+Command /gps/verbose
+Guidance :
+Set Verbose level for GPS
+ 0 : Silent
+ 1 : Limited information
+ 2 : Detailed information
+ Range of parameters : level>=0 && level <=2
+
+Parameter : level
+ Parameter type  : i
+ Omittable       : False
+
+Command directory path : /gps/source/ 
+Guidance :
+Multiple source control sub-directory
+
+ Sub-directories : 
+ Commands : 
+   add * add a new source defintion to the particle gun with the specified intensity
+   list * List the defined particle sources
+   clear * Remove all the defined particle sources
+   show * Show the current source index and intensity
+   set * set the indexed source as the current one
+   delete * delete the indexed source from the list
+   intensity * reset the current source to the specified intensity
+   multiplevertex * true for simulaneous generation mutiple vertex
+   flatsampling * true for applying flat (biased) sampling among the sources 
+Command /gps/source/add
+Guidance :
+add a new source defintion to the particle gun with the specified intensity
+ Range of parameters : addsource > 0.
+
+Parameter : addsource
+ Parameter type  : d
+ Omittable       : False 
+
+Command /gps/source/list
+Guidance :
+List the defined particle sources 
+
+Command /gps/source/clear
+Guidance :
+Remove all the defined particle sources 
+
+Command /gps/source/show
+Guidance :
+Show the current source index and intensity 
+
+Command /gps/source/set
+Guidance :
+set the indexed source as the current one
+  so one can change its source definition
+ Range of parameters : setsource >= 0
+
+Parameter : setsource
+ Parameter type  : i
+ Omittable       : False 
+
+Command /gps/source/delete
+Guidance :
+delete the indexed source from the list
+ Range of parameters : deletesource > 0
+
+Parameter : deletesource
+ Parameter type  : i
+ Omittable       : False 
+
+Command /gps/source/intensity
+Guidance :
+reset the current source to the specified intensity
+ Range of parameters : setintensity > 0.
+
+Parameter : setintensity
+ Parameter type  : d
+ Omittable       : False 
+
+Command /gps/source/multiplevertex
+Guidance :
+true for simulaneous generation mutiple vertex
+Default is false
+
+Parameter : multiplevertex
+ Parameter type  : b
+ Omittable       : True
+ Default value   : 0
+
+Command /gps/source/flatsampling
+Guidance :
+true for applying flat (biased) sampling among the sources
+Default is false
+
+Parameter : flatsampling
+ Parameter type  : b
+ Omittable       : True
+ Default value   : 0
+
+Command directory path : /gps/pos/ 
+
+Guidance :
+Positional commands sub-directory
+
+ Sub-directories : 
+ Commands : 
+   type * Sets source distribution type.
+   shape * Sets source shape for Plan, Surface or Volume type source.
+   centre * Set centre coordinates of source.
+   rot1 * Set the 1st vector defining the rotation matrix'.
+   rot2 * Set the 2nd vector defining the rotation matrix'.
+   halfx * Set x half length of source.
+   halfy * Set y half length of source.
+   halfz * Set z half length of source.
+   radius * Set radius of source.
+   inner_radius * Set inner radius of source when required.
+   sigma_r * Set standard deviation in radial of the beam positional profile
+   sigma_x * Set standard deviation of beam positional profile in x-dir
+   sigma_y * Set standard deviation of beam positional profile in y-dir
+   paralp * Angle from y-axis of y' in Para
+   parthe * Polar angle through centres of z faces
+   parphi * Azimuth angle through centres of z faces
+   confine * Confine source to volume (NULL to unset). 
+
+Command /gps/pos/type
+Guidance :
+Sets source distribution type.
+Either Point, Beam, Plane, Surface or Volume
+
+Parameter : DisType
+ Parameter type  : s
+ Omittable       : False
+ Default value   : Point
+ Candidates      : Point Beam Plane Surface Volume 
+
+Command /gps/pos/shape
+Guidance :
+Sets source shape for Plan, Surface or Volume type source.
+
+Parameter : Shape
+ Parameter type  : s
+ Omittable       : False
+ Default value   : NULL
+ Candidates      : Circle Annulus Ellipse Square Rectangle Sphere Ellipsoid Cylinder EllipticCylinder Para 
+
+Command /gps/pos/centre
+Guidance :
+Set centre coordinates of source.
+
+Parameter : X
+ Parameter type  : d
+ Omittable       : False
+
+Parameter : Y
+ Parameter type  : d
+ Omittable       : False
+
+Parameter : Z
+ Parameter type  : d
+ Omittable       : False
+
+Parameter : Unit
+ Parameter type  : s
+ Omittable       : True
+ Default value   : cm
+ Candidates      : pc km m cm mm um nm Ang fm parsec kilometer meter centimeter millimeter micrometer nanometer angstrom fermi 
+
+Command /gps/pos/rot1
+Guidance :
+Set the 1st vector defining the rotation matrix'.
+It does not need to be a unit vector.
+ Range of parameters : R1x != 0 || R1y != 0 || R1z != 0
+
+Parameter : R1x
+ Parameter type  : d
+ Omittable       : False
+
+Parameter : R1y
+ Parameter type  : d
+ Omittable       : False
+
+Parameter : R1z
+ Parameter type  : d
+ Omittable       : False 
+
+Command /gps/pos/rot2
+Guidance :
+Set the 2nd vector defining the rotation matrix'.
+It does not need to be a unit vector.
+ Range of parameters : R2x != 0 || R2y != 0 || R2z != 0
+
+Parameter : R2x
+ Parameter type  : d
+ Omittable       : False
+
+Parameter : R2y
+ Parameter type  : d
+ Omittable       : False
+
+Parameter : R2z
+ Parameter type  : d
+ Omittable       : False 
+
+Command /gps/pos/halfx
+Guidance :
+Set x half length of source.
+
+Parameter : Halfx
+ Parameter type  : d
+ Omittable       : False
+
+Parameter : Unit
+ Parameter type  : s
+ Omittable       : True
+ Default value   : cm
+ Candidates      : pc km m cm mm um nm Ang fm parsec kilometer meter centimeter millimeter micrometer nanometer angstrom fermi 
+
+Command /gps/pos/halfy
+Guidance :
+Set y half length of source.
+
+Parameter : Halfy
+ Parameter type  : d
+ Omittable       : False
+
+Parameter : Unit
+ Parameter type  : s
+ Omittable       : True
+ Default value   : cm
+ Candidates      : pc km m cm mm um nm Ang fm parsec kilometer meter centimeter millimeter micrometer nanometer angstrom fermi 
+
+Command /gps/pos/halfz
+Guidance :
+Set z half length of source.
+
+Parameter : Halfz
+ Parameter type  : d
+ Omittable       : False
+
+Parameter : Unit
+ Parameter type  : s
+ Omittable       : True
+ Default value   : cm
+ Candidates      : pc km m cm mm um nm Ang fm parsec kilometer meter centimeter millimeter micrometer nanometer angstrom fermi 
+
+Command /gps/pos/radius
+Guidance :
+Set radius of source.
+
+Parameter : Radius
+ Parameter type  : d
+ Omittable       : False
+
+Parameter : Unit
+ Parameter type  : s
+ Omittable       : True
+ Default value   : cm
+ Candidates      : pc km m cm mm um nm Ang fm parsec kilometer meter centimeter millimeter micrometer nanometer angstrom fermi 
+
+Command /gps/pos/inner_radius
+Guidance :
+Set inner radius of source when required.
+
+Parameter : Radius0
+ Parameter type  : d
+ Omittable       : False
+
+Parameter : Unit
+ Parameter type  : s
+ Omittable       : True
+ Default value   : cm
+ Candidates      : pc km m cm mm um nm Ang fm parsec kilometer meter centimeter millimeter micrometer nanometer angstrom fermi 
+
+Command /gps/pos/sigma_r
+Guidance :
+Set standard deviation in radial of the beam positional profile
+ applicable to Beam type source only
+
+Parameter : Sigmar
+ Parameter type  : d
+ Omittable       : False
+
+Parameter : Unit
+ Parameter type  : s
+ Omittable       : True
+ Default value   : cm
+ Candidates      : pc km m cm mm um nm Ang fm parsec kilometer meter centimeter millimeter micrometer nanometer angstrom fermi 
+
+Command /gps/pos/sigma_x
+Guidance :
+Set standard deviation of beam positional profile in x-dir
+ applicable to Beam type source only
+
+Parameter : Sigmax
+ Parameter type  : d
+ Omittable       : False
+
+Parameter : Unit
+ Parameter type  : s
+ Omittable       : True
+ Default value   : cm
+ Candidates      : pc km m cm mm um nm Ang fm parsec kilometer meter centimeter millimeter micrometer nanometer angstrom fermi 
+
+Command /gps/pos/sigma_y
+Guidance :
+Set standard deviation of beam positional profile in y-dir
+ applicable to Beam type source only
+
+Parameter : Sigmay
+ Parameter type  : d
+ Omittable       : False
+
+Parameter : Unit
+ Parameter type  : s
+ Omittable       : True
+ Default value   : cm
+ Candidates      : pc km m cm mm um nm Ang fm parsec kilometer meter centimeter millimeter micrometer nanometer angstrom fermi 
+
+Command /gps/pos/paralp
+Guidance :
+Angle from y-axis of y' in Para
+
+Parameter : paralp
+ Parameter type  : d
+ Omittable       : False
+
+Parameter : Unit
+ Parameter type  : s
+ Omittable       : True
+ Default value   : rad
+ Candidates      : rad mrad deg radian milliradian degree 
+
+Command /gps/pos/parthe
+Guidance :
+Polar angle through centres of z faces
+
+Parameter : parthe
+ Parameter type  : d
+ Omittable       : False
+
+Parameter : Unit
+ Parameter type  : s
+ Omittable       : True
+ Default value   : rad
+ Candidates      : rad mrad deg radian milliradian degree 
+
+Command /gps/pos/parphi
+Guidance :
+Azimuth angle through centres of z faces
+
+Parameter : parphi
+ Parameter type  : d
+ Omittable       : False
+
+Parameter : Unit
+ Parameter type  : s
+ Omittable       : True
+ Default value   : rad
+ Candidates      : rad mrad deg radian milliradian degree 
+
+Command /gps/pos/confine
+Guidance :
+Confine source to volume (NULL to unset).
+usage: confine VolName
+
+Parameter : VolName
+ Parameter type  : s
+ Omittable       : False
+ Default value   : NULL
+
+Command directory path : /gps/ang/ 
+
+Guidance :
+Angular commands sub-directory
+
+ Sub-directories : 
+ Commands : 
+   type * Sets angular source distribution type
+   rot1 * Sets the 1st vector for angular distribution rotation matrix
+   rot2 * Sets the 2nd vector for angular distribution rotation matrix
+   mintheta * Set minimum theta
+   maxtheta * Set maximum theta
+   minphi * Set minimum phi
+   maxphi * Set maximum phi
+   sigma_r * Set standard deviation in direction for 1D beam.
+   sigma_x * Set standard deviation in direction in x-direc. for 2D beam
+   sigma_y * Set standard deviation in direction in y-direc. for 2D beam
+   focuspoint * Set the focusing point for the beam
+   user_coor * true for using user defined angular co-ordinates
+   surfnorm * Makes a user-defined distribution with respect to surface normals rather than x,y,z axes. 
+
+Command /gps/ang/type
+Guidance :
+Sets angular source distribution type
+Possible variables are: iso, cos, planar, beam1d, beam2d, focused or user
+
+Parameter : AngDis
+ Parameter type  : s
+ Omittable       : False
+ Default value   : iso
+ Candidates      : iso cos planar beam1d beam2d focused user 
+
+Command /gps/ang/rot1
+Guidance :
+Sets the 1st vector for angular distribution rotation matrix
+Need not be a unit vector
+ Range of parameters : AR1x != 0 || AR1y != 0 || AR1z != 0
+
+Parameter : AR1x
+ Parameter type  : d
+ Omittable       : False
+
+Parameter : AR1y
+ Parameter type  : d
+ Omittable       : False
+
+Parameter : AR1z
+ Parameter type  : d
+ Omittable       : False 
+
+Command /gps/ang/rot2
+Guidance :
+Sets the 2nd vector for angular distribution rotation matrix
+Need not be a unit vector
+ Range of parameters : AR2x != 0 || AR2y != 0 || AR2z != 0
+
+Parameter : AR2x
+ Parameter type  : d
+ Omittable       : False
+
+Parameter : AR2y
+ Parameter type  : d
+ Omittable       : False
+
+Parameter : AR2z
+ Parameter type  : d
+ Omittable       : False 
+
+Command /gps/ang/mintheta
+Guidance :
+Set minimum theta
+
+Parameter : MinTheta
+ Parameter type  : d
+ Omittable       : False
+ Default value   : 0
+
+Parameter : Unit
+ Parameter type  : s
+ Omittable       : True
+ Default value   : rad
+ Candidates      : rad mrad deg radian milliradian degree 
+
+Command /gps/ang/maxtheta
+Guidance :
+Set maximum theta
+
+Parameter : MaxTheta
+ Parameter type  : d
+ Omittable       : False
+ Default value   : 3.14159
+
+Parameter : Unit
+ Parameter type  : s
+ Omittable       : True
+ Default value   : rad
+ Candidates      : rad mrad deg radian milliradian degree 
+
+Command /gps/ang/minphi
+Guidance :
+Set minimum phi
+
+Parameter : MinPhi
+ Parameter type  : d
+ Omittable       : False
+
+Parameter : Unit
+ Parameter type  : s
+ Omittable       : True
+ Default value   : rad
+ Candidates      : rad mrad deg radian milliradian degree 
+
+Command /gps/ang/maxphi
+Guidance :
+Set maximum phi
+
+Parameter : MaxPhi
+ Parameter type  : d
+ Omittable       : False
+ Default value   : 3.14159
+
+Parameter : Unit
+ Parameter type  : s
+ Omittable       : True
+ Default value   : rad
+ Candidates      : rad mrad deg radian milliradian degree 
+
+Command /gps/ang/sigma_r
+Guidance :
+Set standard deviation in direction for 1D beam.
+
+Parameter : Sigmara
+ Parameter type  : d
+ Omittable       : False
+
+Parameter : Unit
+ Parameter type  : s
+ Omittable       : True
+ Default value   : rad
+ Candidates      : rad mrad deg radian milliradian degree 
+
+Command /gps/ang/sigma_x
+Guidance :
+Set standard deviation in direction in x-direc. for 2D beam
+
+Parameter : Sigmaxa
+ Parameter type  : d
+ Omittable       : False
+
+Parameter : Unit
+ Parameter type  : s
+ Omittable       : True
+ Default value   : rad
+ Candidates      : rad mrad deg radian milliradian degree 
+
+Command /gps/ang/sigma_y
+Guidance :
+Set standard deviation in direction in y-direc. for 2D beam
+
+Parameter : Sigmaya
+ Parameter type  : d
+ Omittable       : False
+
+Parameter : Unit
+ Parameter type  : s
+ Omittable       : True
+ Default value   : rad
+ Candidates      : rad mrad deg radian milliradian degree 
+
+Command /gps/ang/focuspoint
+Guidance :
+Set the focusing point for the beam
+
+Parameter : x
+ Parameter type  : d
+ Omittable       : False
+
+Parameter : y
+ Parameter type  : d
+ Omittable       : False
+
+Parameter : z
+ Parameter type  : d
+ Omittable       : False
+
+Parameter : Unit
+ Parameter type  : s
+ Omittable       : True
+ Default value   : cm
+ Candidates      : pc km m cm mm um nm Ang fm parsec kilometer meter centimeter millimeter micrometer nanometer angstrom fermi 
+
+Command /gps/ang/user_coor
+Guidance :
+true for using user defined angular co-ordinates
+Default is false
+
+Parameter : useuserangaxis
+ Parameter type  : b
+ Omittable       : True
+ Default value   : 0 
+
+Command /gps/ang/surfnorm
+Guidance :
+Makes a user-defined distribution with respect to surface normals rather than x,y,z axes.
+Default is false
+
+Parameter : surfnorm
+ Parameter type  : b
+ Omittable       : True
+ Default value   : 0
+
+Command directory path : /gps/ene/ 
+
+Guidance :
+Spectral commands sub-directory
+
+ Sub-directories : 
+ Commands : 
+   type * Sets energy distribution type
+   min * Sets minimum energy
+   max * Sets maximum energy
+   mono * Sets a monocromatic energy (same as  gps/energy)
+   sigma * Sets the standard deviation for Gaussian energy dist.
+   alpha * Sets Alpha (index) for power-law energy dist.
+   temp * Sets the temperature for Brem and BBody distributions (in Kelvin)
+   ezero * Sets E_0 for exponential distribution (in MeV)
+   gradient * Sets the gradient for Lin distribution (in 1/MeV)
+   intercept * Sets the intercept for Lin distributions (in MeV)
+   biasAlpha * Set the power-law index for the energy sampling distri. )
+   calculate * Calculates the distributions for Cdg and BBody
+   emspec * True for energy and false for momentum spectra
+   diffspec * True for differential and flase for integral spectra 
+
+Command /gps/ene/type
+Guidance :
+Sets energy distribution type
+
+Parameter : EnergyDis
+ Parameter type  : s
+ Omittable       : False
+ Default value   : Mono
+ Candidates      : Mono Lin Pow Exp CPow Gauss Brem Bbody Cdg User Arb Epn 
+
+Command /gps/ene/min
+Guidance :
+Sets minimum energy
+
+Parameter : emin
+ Parameter type  : d
+ Omittable       : False
+
+Parameter : Unit
+ Parameter type  : s
+ Omittable       : True
+ Default value   : keV
+ Candidates      : eV keV MeV GeV TeV PeV J electronvolt kiloelectronvolt megaelectronvolt gigaelectronvolt teraelectronvolt petaelectronvolt joule 
+
+Command /gps/ene/max
+Guidance :
+Sets maximum energy
+
+Parameter : emax
+ Parameter type  : d
+ Omittable       : False
+
+Parameter : Unit
+ Parameter type  : s
+ Omittable       : True
+ Default value   : keV
+ Candidates      : eV keV MeV GeV TeV PeV J electronvolt kiloelectronvolt megaelectronvolt gigaelectronvolt teraelectronvolt petaelectronvolt joule 
+
+Command /gps/ene/mono
+Guidance :
+Sets a monocromatic energy (same as  gps/energy)
+
+Parameter : monoenergy
+ Parameter type  : d
+ Omittable       : False
+
+Parameter : Unit
+ Parameter type  : s
+ Omittable       : True
+ Default value   : keV
+ Candidates      : eV keV MeV GeV TeV PeV J electronvolt kiloelectronvolt megaelectronvolt gigaelectronvolt teraelectronvolt petaelectronvolt joule 
+
+Command /gps/ene/sigma
+Guidance :
+Sets the standard deviation for Gaussian energy dist.
+
+Parameter : Sigmae
+ Parameter type  : d
+ Omittable       : False
+
+Parameter : Unit
+ Parameter type  : s
+ Omittable       : True
+ Default value   : keV
+ Candidates      : eV keV MeV GeV TeV PeV J electronvolt kiloelectronvolt megaelectronvolt gigaelectronvolt teraelectronvolt petaelectronvolt joule 
+
+Command /gps/ene/alpha
+Guidance :
+Sets Alpha (index) for power-law energy dist.
+
+Parameter : alpha
+ Parameter type  : d
+ Omittable       : False 
+
+Command /gps/ene/temp
+Guidance :
+Sets the temperature for Brem and BBody distributions (in Kelvin)
+
+Parameter : temp
+ Parameter type  : d
+ Omittable       : False 
+
+Command /gps/ene/ezero
+Guidance :
+Sets E_0 for exponential distribution (in MeV)
+
+Parameter : ezero
+ Parameter type  : d
+ Omittable       : False 
+
+Command /gps/ene/gradient
+Guidance :
+Sets the gradient for Lin distribution (in 1/MeV)
+
+Parameter : gradient
+ Parameter type  : d
+ Omittable       : False 
+
+Command /gps/ene/intercept
+Guidance :
+Sets the intercept for Lin distributions (in MeV)
+
+Parameter : intercept
+ Parameter type  : d
+ Omittable       : False 
+
+Command /gps/ene/biasAlpha
+Guidance :
+Set the power-law index for the energy sampling distri. )
+
+Parameter : arbeint
+ Parameter type  : d
+ Omittable       : False 
+
+Command /gps/ene/calculate
+Guidance :
+Calculates the distributions for Cdg and BBody 
+
+Command /gps/ene/emspec
+Guidance :
+True for energy and false for momentum spectra
+
+Parameter : energyspec
+ Parameter type  : b
+ Omittable       : True
+ Default value   : 1 
+
+Command /gps/ene/diffspec
+Guidance :
+True for differential and flase for integral spectra
+
+Parameter : diffspec
+ Parameter type  : b
+ Omittable       : True
+ Default value   : 1
+
+Command directory path : /gps/hist/ 
+
+Guidance :
+Histogram, biasing commands sub-directory
+
+ Sub-directories : 
+ Commands : 
+   type * Sets histogram type
+   reset * Reset (clean) the histogram 
+   point * Allows user to define a histogram
+   file * import the arb energy hist in an ASCII file
+   inter * Sets the interpolation method for arbitrary distribution. 
+
+Command /gps/hist/type
+Guidance :
+Sets histogram type
+
+Parameter : HistType
+ Parameter type  : s
+ Omittable       : False
+ Default value   : biasx
+ Candidates      : biasx biasy biasz biast biasp biase biaspt biaspp theta phi energy arb epn 
+
+Command /gps/hist/reset
+Guidance :
+Reset (clean) the histogram 
+
+Parameter : HistType
+ Parameter type  : s
+ Omittable       : False
+ Default value   : energy
+ Candidates      : biasx biasy biasz biast biasp biase biaspt biaspp theta phi energy arb epn 
+
+Command /gps/hist/point
+Guidance :
+Allows user to define a histogram
+Enter: Ehi Weight
+ Range of parameters : Ehi >= 0. && Weight >= 0.
+
+Parameter : Ehi
+ Parameter type  : d
+ Omittable       : True
+ Default value   : taken from the current value
+
+Parameter : Weight
+ Parameter type  : d
+ Omittable       : True
+ Default value   : taken from the current value
+
+Parameter : Junk
+ Parameter type  : d
+ Omittable       : True
+ Default value   : taken from the current value 
+
+Command /gps/hist/file
+Guidance :
+import the arb energy hist in an ASCII file
+
+Parameter : HistFile
+ Parameter type  : s
+ Omittable       : False 
+
+Command /gps/hist/inter
+Guidance :
+Sets the interpolation method for arbitrary distribution.
+
+Parameter : int
+ Parameter type  : s
+ Omittable       : False
+ Default value   : Lin
+ Candidates      : Lin Log Exp Spline
