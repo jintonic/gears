@@ -43,7 +43,7 @@ An ASCII version of the manual of [gps][] macros is available [here]({{site.xyz}
 
 ### Am241
 
-Am241 is a complicated source. It is an alpha, X-ray and gamma emitter at the same time. A mac file is inclued [here]({site.file}}/examples/sources/Am241.mac) to demonstrate the definition of multiple particles from a source.
+Am241 is a complicated source. It is an alpha, X-ray and gamma emitter at the same time. A mac file is inclued [here]({{site.file}}/examples/sources/Am241.mac) to demonstrate the definition of multiple particles from a source.
 
 ### AmBe
 
