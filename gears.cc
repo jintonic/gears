@@ -556,21 +556,18 @@ class EventAction : public G4UserEventAction, public G4UImessenger
   public:
     void BeginOfEventAction(const G4Event*); ///< Prepare for recording
     void EndOfEventAction(const G4Event*) {
-      auto a = G4AnalysisManager::Instance();
-      if (a->GetFileName()!="") {
-        Output* o = ((Output*) G4VSteppingVerbose::GetInstance()); 
-        a->FillNtupleIColumn(0,o->stp.size());
-        a->FillNtupleIColumn(1,o->et.size()-1);
-        a->AddNtupleRow();
-      }
-    } ///< Fill n-tuple
+      auto a = G4AnalysisManager::Instance(); if (a->GetFileName()=="") return;
+      Output* o = ((Output*) G4VSteppingVerbose::GetInstance()); 
+      a->FillNtupleIColumn(0,o->stp.size());
+      a->FillNtupleIColumn(1,o->et.size()-1);
+      a->AddNtupleRow();
+    } ///< Fill n-tuple if output file name is specified
 };
 //______________________________________________________________________________
 //
 #include <G4EventManager.hh>
 void EventAction::BeginOfEventAction(const G4Event*)
 {
-  auto a = G4AnalysisManager::Instance(); if (a->GetFileName()=="") return;
   // turn on the use of G4SteppingVerbose for recording, but silently
   if (fpEventManager->GetTrackingManager()->GetVerboseLevel()==0) {
     fpEventManager->GetTrackingManager()->SetVerboseLevel(1);

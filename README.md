@@ -34,7 +34,7 @@
   * Create/Change geometry without re-compilation
   * Turn off data saving in a volume by assigning it a non-positive copy number
   * Turn any volume to a [sensitive detector](examples/detector#sensitive-volume) by adding "(S)" in its name
-  * Assign optical properties in [Geant4][] plain [text geometry description][tg]
+  * [Assign optical properties in Geant4 plain text geometry description](examples/detector/optical)
 * [Macro commands](examples/physics) to select any [Geant4 reference physics list](https://geant4.web.cern.ch/node/155) that is well maintained and thoroughly tested upon each [Geant4][] release.
 * Frequently used source spectra (AmBe, Am-241, etc.) in addition to [GPS][]
 * [Doxygen documentation](https://codedocs.xyz/jintonic/gears/)

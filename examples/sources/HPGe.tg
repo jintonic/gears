@@ -1,0 +1,16 @@
+// default unit for length is mm
+:volu world BOX 50 50 50 G4_AIR
+:vis world OFF
+
+:volu vacuum TUBE 0 45 45 G4_Galactic
+:color vacuum 0.2 0.3 0.5
+
+:volu HPGe(S) TUBE 0 35 35 G4_Ge
+:color HPGe(S) 0.9 0.9 0.1
+
+:rotm r000 0 0 0
+// The source is placed in vacuum.
+// Give vacuum a copy number >0 !=1 to 
+// record information of the primary particle
+:place vacuum 2 world r000 0 0 0
+:place HPGe(S) 1 vacuum r000 0 0 0

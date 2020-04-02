@@ -1,0 +1,33 @@
+# print macro commands on screen
+/control/verbose 1
+
+# geometry must be specified before /run/initialize
+/geometry/source CsI3inWLS.tg
+
+# based on Geant4 example OpNovice2 (EMZ: option4 of EM)
+/physics_lists/select QGSC_BERT_EMZ
+# cmd below becomes available only when the cmd above is used
+/physics_lists/factory/addOptical
+# turn off unnecessary output
+/process/optical/verbose 0
+# must be run after the cmds above
+/run/initialize
+
+# check physics processes
+/process/list Electromagnetic
+/process/list Optical
+
+# generate primary particle with tiny energy
+/gps/particle gamma
+/gps/energy 6 keV
+/gps/ang/type iso
+
+# visualize geometry and events for debugging
+/vis/open HepRepFile
+/vis/drawVolume
+/vis/scene/add/trajectories
+
+# dump a few events on screen for debugging
+/tracking/verbose 2
+/run/beamOn 5
+

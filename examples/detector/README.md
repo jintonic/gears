@@ -2,7 +2,8 @@
 [![examples](https://img.shields.io/badge/gears-examples-green?style=flat)](..)
 [![visualization](https://img.shields.io/badge/detector-visualization-orange?style=flat)](visualization)
 [![boolen](https://img.shields.io/badge/boolean-operation-yellow?style=flat)](boolean)
-[![scripts](https://img.shields.io/badge/program-geometry-yellow?style=flat)](scripts)
+[![scripts](https://img.shields.io/badge/program-geometry-red?style=flat)](scripts)
+[![optical](https://img.shields.io/badge/optical-properties-cyan?style=flat)](optical)
 
 ## Detector construction
 
@@ -67,49 +68,7 @@ The [NIST][] material table provided by [Geant4][] contains all elements (C, H, 
 :mixt vacuum 1e-9 1 G4_AIR 1
 ~~~
 
-### Optical properties of a material or a surface
-
-There is no tag to define the optical properties of a material or a surface in the default [Geant4][] [text geometry description][tg]. The following two tags are added in [GEARS][] to enable definition of optical materials and surfaces using [Geant4][] [text geometry description][tg] syntax:
-
-#### Define optical properties of a material
-
-~~~cpp
-//:prop <material>
-//  <wavelength-independent_property> <value>
-:prop pureCsIat77K
-  SCINTILLATIONYIELD 100./keV
-  RESOLUTIONSCALE 2.
-  FASTTIMECONSTANT 1.*ns
-  SLOWTIMECONSTANT 1.*us
-  YIELDRATIO 0.8
-
-//:prop <material> photon_energies <int(array size)> <energy array>
-//  <wavelength-dependent_property> <property values>
-:prop pureCsIat77K
-  photon_energies 2 2.034*eV, 3.025*eV, 4.136*eV
-  RINDEX 1.34, 1.35, 1.36
-  ABSLENGTH 1.0*meter, 1.1*meter, 1.2*meter
-~~~
-
-#### Define optical properties of a surface
-
-First of all, there is no need to define a *surface* for polished interfaces between two media. As long as the two media have an index of refraction stored in their respective G4MaterialPropertiesTable, the [G4OpBoundaryProcess][]::[PostStepDoIt][] will handle the refraction and reflection correctly.
-
-One can use the following syntax to define a [G4LogicalBorderSurface][] in case that there is a real need to specify the optical properties of the interface:
-
-~~~cpp
-//:surf v12v2 v1:copyNo1 v2:copyNo2
-:surf CsI2Teflon CsI:1 Teflon:1
-  type dielectric_dielectric
-  model unified
-  finish ground
-  sigma_alpha 0.1
-  property photon_energies 2 2.5*eV 5.0*eV
-    REFLECTIVITY 0.9 0.9
-//property must be the last setting due to the current coding method
-~~~
-
-Note that physics volumes from the same logical volume created by the text geometry processor share the same name as their logical volume. Since [G4LogicalBorderSurface][] requires pointers to the two physical volumes beside, a unique copy number has to be attached to the volume name to uniquely identify the physics volume.
+To construct more complicated material please refer to the [manual of the text geometry description][tg].
 
 [GEARS]: http://physino.xyz/gears
 [tg]: {{site.g4doc}}/Detector/Geometry/geomASCII.html
@@ -117,9 +76,6 @@ Note that physics volumes from the same logical volume created by the text geome
 [NIST]: {{site.g4doc}}/Appendix/materialNames.html
 [run]: {{site.g4doc}}/Control/AllResources/Control/UIcommands/_run_.html
 [listMaterials]: {{site.g4doc}}/Control/AllResources/Control/UIcommands/_material_nist_.html
-[G4OpBoundaryProcess]: http://www-geant4.kek.jp/lxr/source//processes/optical/include/G4OpBoundaryProcess.hh
-[PostStepDoIt]: http://www.apc.univ-paris7.fr/~franco/g4doxy4.10/html/class_g4_op_boundary_process.html#a70a65cc5127a05680a0c4679f8300871
-[G4LogicalBorderSurface]: http://www-geant4.kek.jp/lxr/source/geometry/volumes/include/G4LogicalBorderSurface.hh
 [GDML]: https://gdml.web.cern.ch/GDML/
 [md]: https://en.wikipedia.org/wiki/Markdown
 [HTML]: https://www.w3schools.com/html/

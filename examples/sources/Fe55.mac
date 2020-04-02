@@ -3,7 +3,7 @@
 # http://nucleardata.nuclear.lu.se/toi/nuclide.asp?iZA=260055
 
 # X-ray 1
-/gps/source/add 0.0854 # 8.54%
+/gps/source/intensity 0.0854 # 8.54%
 /gps/particle gamma
 /gps/pos/type Point
 /gps/pos/centre {srcpos}

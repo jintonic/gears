@@ -9,19 +9,19 @@
   photon_energies 2 2.5*eV 5.0*eV
   RINDEX 1.36 1.36
 
-// geometry
-:volu hall BOX 15*cm 15*cm 15*cm G4_AIR
-:volu CsI TUBS 0. 3.81*cm 10*cm 0 360 G4_CESIUM_IODIDE
-:volu Teflon TUBS 3.81*cm 3.82*cm 10*cm 0 360 G4_TEFLON
-:volu PMT(S) TUBS 0. 3.81*cm 2*cm 0 360 G4_SILICON_DIOXIDE
+// default unit of length is mm
+:volu vacuum TUBE 0 40 50 G4_Galactic
+:volu CsI(S) TUBE 0 38 25 G4_CESIUM_IODIDE
+:volu Teflon TUBE 38 38.1 25 G4_TEFLON
+:volu PMT TUBE 0. 38.1 1 G4_SILICON_DIOXIDE
 :rotm r000 0 0 0
-:place CsI 1 hall r000 0 0 0
-:place Teflon 1 hall r000 0 0 0
-:place PMT(S) 0 hall r000 0 0 12*cm
-:place PMT(S) 1 hall r000 0 0 -12*cm
+:place Teflon 1 vacuum r000 0 0 0
+:place CsI(S) 1 vacuum r000 0 0 0
+:place PMT 1 vacuum r000 0 0  26
+:place PMT 2 vacuum r000 0 0 -26
 
 // optical properties of the surface between CsI & Teflon
-:surf CsI2Teflon CsI:1 Teflon:1
+:surf CsI2Teflon CsI(S):1 Teflon:1
   type dielectric_dielectric
   model unified
   finish ground
@@ -30,6 +30,7 @@
     REFLECTIVITY 0.9 0.9
 
 // visual effects
-:color CsI 0.2 0.4 0.8
-:color PMT(S) 0.8 0.4 0.2
-:vis hall OFF
+:color CsI(S) 0.2 0.4 0.8
+:color Teflon 0.3 0.3 0.3
+:color PMT 0.8 0.4 0.2
+:vis vacuum OFF
