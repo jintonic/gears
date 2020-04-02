@@ -28,15 +28,15 @@ An ASCII version of the manual of [gps][] macros is available [here]({{site.xyz}
 ### Source on a surface
 
 ```sh
-# on a plane
-/gps/pos/type Plane
-# <shape> can be Circle, Annulus, Ellipse, Square, Rectangle
-/gps/pos/shape <shape>
-
-# on the surface of a volume
-/gps/pos/type Surface
-# <shape> can be Sphere, Ellipsoid, Cylinder, EllipticCylinder, Para
-/gps/pos/shape <shape>
+ # on a plane
+ /gps/pos/type Plane
+ # <shape> can be Circle, Annulus, Ellipse, Square, Rectangle
+ /gps/pos/shape <shape>
+ 
+ # on the surface of a volume
+ /gps/pos/type Surface
+ # <shape> can be Sphere, Ellipsoid, Cylinder, EllipticCylinder, Para
+ /gps/pos/shape <shape>
 ```
 
 ## Common sources
@@ -60,3 +60,21 @@ Co57 is a common low-energy calibration source. It emits a few x and gamma-rays 
 ### Fe55
 
 Fe55 is an other commonly used low-energy calibration source. It emits a few x-rays around 6 keV as shown in [this mac file]({{site.file}}/examples/sources/Fe55.mac).
+
+## Retrieve information of primary particles
+
+[Co57HPGe.mac]({{site.file}}/examples/sources/Co57HPGe.mac) modifies some default settings of a Co57 source defined in [Co57.mac]({{site.file}}/examples/sources/Co57.mac) and shoots the emitted photons to a HPGe detector defined in [HPGe.tg]({{site.file}}/examples/sources/HPGe.tg). The following commands show how to retrieve information of the primary particles in this simulation and use it to make event selections:
+
+```cpp
+// check primary particle energy distribution
+root [] t->Draw("k[0]")
+// show results in log scale
+root [] gPad->SetLogy()
+// show penetration depth (z) of 122 keV gamma rays (trk==1) in HPGe (vlm==1)
+root [] t->Draw("z","k[0]>120 && k[0]<130 && trk==1 && vlm==1")
+// show penetration depth of 14 keV gamma rays on the same plot
+root [] t->Draw("z","k[0]<15 && trk==1 && vlm==1","same")
+// show penetration depth of 692 keV gamma rays on the same plot
+root [] t->Draw("z","k[0]>300 && trk==1 && vlm==1","same")
+```
+
