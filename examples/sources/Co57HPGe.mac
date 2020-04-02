@@ -1,0 +1,39 @@
+/control/verbose 1
+
+/geometry/source HPGe.tg
+
+/run/initialize
+
+# load pre-defined source
+/control/execute Co57.mac
+
+# modify it
+/control/alias pos "0 0 40 mm"
+/gps/source/set 0
+/gps/position {pos}
+/gps/direction 0 0 -1
+/gps/source/set 1
+/gps/position {pos}
+/gps/direction 0 0 -1
+/gps/source/set 2
+/gps/position {pos}
+/gps/direction 0 0 -1
+/gps/source/set 3
+/gps/position {pos}
+/gps/direction 0 0 -1
+
+# check if modification works
+/gps/source/list
+
+# visualize geometry and events for debugging
+/vis/open HepRepFile
+/vis/drawVolume
+/vis/scene/add/trajectories
+/run/beamOn 10
+/vis/disable
+
+/analysis/setFileName Co57HPGe
+
+/run/verbose 2
+/run/printProgress 1000
+/run/beamOn 10000
