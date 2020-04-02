@@ -86,7 +86,7 @@ Radioactive decay processes can be enabled after a reference list is chosen:
 
 ```sh
  # choose a reference physics list
- /physics_lists/select QGSC_BERT_EMV
+ /physics_lists/select QGSP_BERT_EMV
  # cmd below becomes available only when the cmd above is used
  /physics_lists/factory/addRadioactiveDecay
  # must be run after the cmds above
@@ -110,7 +110,7 @@ Optical processes can be enabled after a reference list is chosen:
 
 ```sh
  # based on Geant4 example OpNovice2 (EMZ: option4 of EM)
- /physics_lists/select QGSC_BERT_EMZ
+ /physics_lists/select QGSP_BERT_EMZ
  # cmd below becomes available only when the cmd above is used
  /physics_lists/factory/addOptical
  # must be run after the cmds above
