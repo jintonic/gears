@@ -3,7 +3,7 @@
 [![alpha](https://img.shields.io/badge/alpha-interactions-blue?style=flat)](alpha)
 [![beta](https://img.shields.io/badge/beta-interactions-yellow?style=flat)](beta)
 [![gamma](https://img.shields.io/badge/gamma-interactions-cyan?style=flat)](gamma)
-[![optical](https://img.shields.io/badge/optical-properties-red?style=flat)](../detector/optical)
+[![optical](https://img.shields.io/badge/optical-photons-red?style=flat)](#optical-processes)
 
 ## Terminology
 
@@ -140,7 +140,7 @@ Individual optical processes can be toggled by the following commands:
 /process/optical/processActivation OpWLS true/false
 ~~~
 
-More built-in commands related to optical processes can be found [here]({{site.g4doc}}/Control/AllResources/Control/UIcommands/_process_optical_.html).
+More built-in commands related to optical processes can be found [here]({{site.g4doc}}/Control/AllResources/Control/UIcommands/_process_optical_.html). Example usages can be found [here]({{site.g4doc}}/Examples/ExtendedCodes.html#optical-photons).
 
 It is useful to categorize the processes the following way:
 
@@ -149,7 +149,7 @@ It is useful to categorize the processes the following way:
   - [Scintillaiton](https://en.wikipedia.org/wiki/Scintillation_(physics))
 - Transportation of [optical photons][] inside certain material:
   - Absorption (OpAbsorption)
-  - Scattering: [Rayleigh scattering](https://en.wikipedia.org/wiki/Rayleigh_scattering) (OpRayleigh), and [Mei scattering](https://en.wikipedia.org/wiki/Mie_scattering) (OpMeiHG), etc.
+  - Scattering: [Rayleigh scattering](https://en.wikipedia.org/wiki/Rayleigh_scattering) (OpRayleigh), and [Mie scattering](https://en.wikipedia.org/wiki/Mie_scattering) (OpMieHG), etc.
   - Wavelength shifting (OpWLS)
 - Transportation of [optical photons][] on the boundary of two materials:
   - Reflection, refraction and transmission (OpBoundary)
@@ -157,19 +157,21 @@ It is useful to categorize the processes the following way:
 It is also important to understand that [optical photons][] are treated differently from gamma and x-rays in [Geant4][], since completely different physics processes are assigned to them.
 
 #### Optical properties of materials and surfaces
-To generate Cerenkov light, one HAS TO specify the refractive index of the material where the light is generated. In [GEARS][], this is [done in the detector geometry description file](../detector/optical).
+To [generate Cerenkov light]({{site.g4doc}}/TrackingAndPhysics/physicsProcess.html#generation-of-photons-in-processes-electromagnetic-xrays-cerenkov-effect), one HAS TO specify the refractive index of the material where the light is generated. In [GEARS][], this is [done in the detector geometry description file](../detector/optical).
 
 At least two parameters need to be specified to [generate scintillation light]({{site.g4doc}}/TrackingAndPhysics/physicsProcess.html#generation-of-photons-in-processes-electromagnetic-xrays-scintillation): the light yield, i.e., the number of photons per unit energy deposition (SCINTILLATIONYIELD), and the variation of the number of generated photons (RESOLUTIONSCALE). The parameters need to be attached to the material that scintillates, they are hence [specified in the detector geometry description file](../detector/optical) as well.
 
 The parameter, RAYLEIGH and ABSLENGTH, related to the transportation of [optical photons][] in a mertial also have to be [attached to the material](../detector/optical).
 
+In an ideal optical interface, the transportation of [optical photons][] can be calculated [given the refractive indices of the matierials](../detector/optical) on both sides. To simulate more complicated interfaces, please see [here]({{site.g4doc}}/TrackingAndPhysics/physicsProcess.html#boundary-process).
+
 #### Example macros
 
-- [CsI3inWLS.tg]({{site.file}}/examples/detector/optical/CsI3inWLS.tg): it models a cylindrical [CsI][] crystal with a diameter of about 3 inches. It is wrapped in Teflon tape (painted with [TPB][]) on the side surface and coupled to two [PMT][]s on its end surfaces.
+- [CsI3inWLS.tg]({{site.file}}/examples/detector/optical/CsI3inWLS.tg): it models a cylindrical [CsI][] crystal with a diameter of about 3 inches. It is wrapped in Teflon tape (painted with [TPB][]) on the side surface and coupled to two [PMT SiO2 windows][PMT] on its end surfaces.
 - [CerenkovInPMTwindow.mac]({{site.file}}/examples/detector/optical/CerenkovInPMTwindow.mac): an electron is shot to a PMT window from the vacuum side, generating Cereknov light in the PMT silica window.
 - [ScintillationInCsI.mac]({{site.file}}/examples/detector/optical/ScintillationInCsI.mac): a 6 keV gamma is emitted in the center of the CsI crystal generating scintillaiton light in the crystal.
 
-[optical photons]: {{site.g4doc}}/Examples/ExtendedCodes.html#optical-photons
+[optical photons]: {{site.g4doc}}/TrackingAndPhysics/physicsProcess.html#optical-photon-processes
 [CsI]:{{site.file}}/examples/detector/optical/CsI.tg
 [TPB]:{{site.file}}/examples/detector/optical/TPB.tg
 [PMT]:{{site.file}}/examples/detector/optical/SiO2.tg
