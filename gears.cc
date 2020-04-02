@@ -369,11 +369,11 @@ G4VPhysicalVolume* TextDetectorBuilder::ConstructDetector(
     G4LogicalVolume *m2=tgbVolmgr->FindG4PhysVol(physV2)->GetMotherLogical();
     // search for phyiscs volumes on the sides of the border
     G4VPhysicalVolume *v1=0, *v2=0;
-    for (int i=0; i<m1->GetNoDaughters(); i++) {
+    for (size_t i=0; i<m1->GetNoDaughters(); i++) {
       v1 = m1->GetDaughter(i);
       if (v1->GetCopyNo()==copyNo1) break;
     }
-    for (int i=0; i<m2->GetNoDaughters(); i++) {
+    for (size_t i=0; i<m2->GetNoDaughters(); i++) {
       v2 = m2->GetDaughter(i);
       if (v2->GetCopyNo()==copyNo2) break;
     }
@@ -604,7 +604,7 @@ class RunManager : public G4RunManager, public G4UImessenger
     ~RunManager() { delete fCmdPhys; delete fFactory; }
 
     void SetNewValue(G4UIcommand* cmd, G4String value) {
-      if (cmd!=fCmdPhys) return; if (fFactory) return;
+      if (cmd!=fCmdPhys || fFactory) return;
       fFactory = new G4PhysListFactory;
       if (fFactory->IsReferencePhysList(value)==false) {
         G4cout<<"GEARS: no physics list \""<<value
