@@ -1,7 +1,7 @@
 [![home](https://img.shields.io/badge/gears-home-blue?style=flat)](../../..)
 [![examples](https://img.shields.io/badge/gears-examples-green?style=flat)](../..)
 [![detector](https://img.shields.io/badge/detector-construction-orange?style=flat)](..)
-[![physics](https://img.shields.io/badge/physics-processes-red?style=flat)](../../physics#optical-processes)
+[![optical processes](https://img.shields.io/badge/optical-processes-red?style=flat)](../../physics#optical-processes)
 
 There is no tag to define the optical properties of a material or a surface in the default [Geant4][] [text geometry description][tg]. The following two tags are added in [GEARS][] to enable definition of optical materials and surfaces using [Geant4][] [text geometry description][tg] syntax:
 
