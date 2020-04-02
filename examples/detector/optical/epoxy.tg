@@ -1,0 +1,21 @@
+// C_21 H_25 Cl O_5, density=1.1 ~ 1.4 g/cm^3, molar mass=393 g/mole
+
+//:MIXT_BY_NATOMS <name> <density (units of g/cm3)> <# of components>
+//<symbol> <# of atoms> (1 line per component)
+:MIXT_BY_NATOMS epoxy 1.25 4
+C 21
+H 25
+Cl 1
+O 5
+
+:prop epoxy  
+photon_energies 2 2*eV 5*eV
+rindex 1.54 1.54
+
+// default unit for length is mm
+:volu hall BOX 500 500 500 G4_Galactic
+:volu window TUBE 0 200 0.5 epoxy
+:rotm r000 0 0 0
+:place window 1 hall r000 0 0 0 
+
+:color window  0.2 0.4 0.8
