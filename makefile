@@ -29,13 +29,13 @@ endif
 SRC=$(wildcard *.cc) # a list of all C++ source files
 EXE=$(SRC:.cc=) # a list of all executables
 
-.PHONY: all clean hdf5 xml csv
+.PHONY: all clean hdf5 xml csv install
 
 all: $(EXE)
-	@echo -e "\nBefore you run an executable, please check if you have"
-	@echo `geant4-config --libs |awk '{print $$1}'|sed 's/-L//'`
-	@echo "in your LD_LIBRARY_PATH (Linux) or DYLD_LIBRARY_PATH (MacOS),"
-	@echo and `pwd` in your PATH
+	@echo -ne "\nPlease run \"source gears.sh\" "
+	@echo before run \"gears\".
+	@echo You can also add \"source ${PWD}/gears.sh\"
+	@echo to your \~/.bash_profile to use gears everywhere
 clean:
 	$(RM) `cat .gitignore`
 hdf5 xml csv:
