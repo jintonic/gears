@@ -369,11 +369,11 @@ G4VPhysicalVolume* TextDetectorBuilder::ConstructDetector(
     G4LogicalVolume *m2=tgbVolmgr->FindG4PhysVol(physV2)->GetMotherLogical();
     // search for phyiscs volumes on the sides of the border
     G4VPhysicalVolume *v1=0, *v2=0;
-    for (size_t i=0; i<m1->GetNoDaughters(); i++) {
+    for (int i=0; i<(int)m1->GetNoDaughters(); i++) {
       v1 = m1->GetDaughter(i);
       if (v1->GetCopyNo()==copyNo1) break;
     }
-    for (size_t i=0; i<m2->GetNoDaughters(); i++) {
+    for (int i=0; i<(int)m2->GetNoDaughters(); i++) {
       v2 = m2->GetDaughter(i);
       if (v2->GetCopyNo()==copyNo2) break;
     }
