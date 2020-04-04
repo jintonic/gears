@@ -32,7 +32,7 @@ EXE=$(SRC:.cc=) # a list of all executables
 .PHONY: all clean hdf5 xml csv install
 
 all: $(EXE)
-	@echo -ne "\nPlease run \"source gears.sh\" "
+	@echo -ne "\n\x1b[31;01mPlease run \"source gears.sh\" "
 	@echo before run \"gears\".
 	@echo You can also add \"source ${PWD}/gears.sh\"
 	@echo to your \~/.bash_profile to use gears everywhere
