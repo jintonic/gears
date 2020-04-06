@@ -538,15 +538,23 @@ class RunAction : public G4UserRunAction
 };
 //______________________________________________________________________________
 //
+#include <G4EventManager.hh>
 #include <G4UserEventAction.hh>
-#include "G4UIcmdWithAnInteger.hh"
 /**
  * Book keeping before and after an event.
  */
 class EventAction : public G4UserEventAction, public G4UImessenger
 {
   public:
-    void BeginOfEventAction(const G4Event*); ///< Prepare for recording
+    void BeginOfEventAction(const G4Event*) {
+      // use G4SteppingVerbose for recording, but silently
+      if (fpEventManager->GetTrackingManager()->GetVerboseLevel()==0) {
+        fpEventManager->GetTrackingManager()->SetVerboseLevel(1);
+        G4VSteppingVerbose::GetInstance()->SetSilent(1);
+      }
+      // reset Output member variables for new record
+      ((Output*) G4VSteppingVerbose::GetInstance())->Reset(); 
+    } ///< Prepare for recording
     void EndOfEventAction(const G4Event*) {
       auto a = G4AnalysisManager::Instance(); if (a->GetFileName()=="") return;
       Output* o = ((Output*) G4VSteppingVerbose::GetInstance()); 
@@ -555,19 +563,6 @@ class EventAction : public G4UserEventAction, public G4UImessenger
       a->AddNtupleRow();
     } ///< Fill n-tuple if output file name is specified
 };
-//______________________________________________________________________________
-//
-#include <G4EventManager.hh>
-void EventAction::BeginOfEventAction(const G4Event*)
-{
-  // turn on the use of G4SteppingVerbose for recording, but silently
-  if (fpEventManager->GetTrackingManager()->GetVerboseLevel()==0) {
-    fpEventManager->GetTrackingManager()->SetVerboseLevel(1);
-    G4VSteppingVerbose::GetInstance()->SetSilent(1);
-  }
-  // reset Output member variables for new record
-  ((Output*) G4VSteppingVerbose::GetInstance())->Reset(); 
-}
 //______________________________________________________________________________
 //
 #include <G4RunManager.hh>
