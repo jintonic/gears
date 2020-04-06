@@ -11,6 +11,8 @@ using namespace std;
  */
 class Output : public G4SteppingVerbose
 {
+  protected:
+    void Record(); ///< Record simulated data
   public:
     Output(); ///< Create analysis manager to handle output
     ~Output() { delete G4AnalysisManager::Instance(); }
@@ -18,7 +20,10 @@ class Output : public G4SteppingVerbose
       Record(); } ///< Infomation of step 0 (initStep)
     void StepInfo() { G4SteppingVerbose::StepInfo();
       Record(); } ///< Infomation of steps>0 
-    void Reset(); ///< Reset record variables
+    void Reset() { trk.clear(); stp.clear(); vlm.clear(); pro.clear();
+      pdg.clear(); mom.clear(); k.clear(); p.clear(); x.clear(); y.clear();
+      z.clear(); t.clear(); l.clear(); de.clear(); dl.clear(); et.clear();
+      x0.clear(); y0.clear(); z0.clear(); t0.clear(); } ///< reset variables
 
     vector<int> trk;   ///< track ID
     vector<int> stp;   ///< step number
@@ -40,9 +45,6 @@ class Output : public G4SteppingVerbose
     vector<double> y0; ///< global y [mm]
     vector<double> z0; ///< global z [mm]
     vector<double> et; ///< Total energy deposited in a volume [keV]
-
-  protected:
-    void Record(); ///< Record simulated data
 };
 //______________________________________________________________________________
 //
@@ -95,14 +97,15 @@ void Output::Record()
   vlm.push_back(copyNo);
   pdg.push_back(fTrack->GetDefinition()->GetPDGEncoding());
   mom.push_back(fTrack->GetParentID());
-  if (stp.back()==0) {
-    if (mom.back()!=0)
+  if (stp.back()==0) { // step zero
+    if (mom.back()!=0) // not primary particle
       pro.push_back(fTrack->GetCreatorProcess()->GetProcessType()*1000
           + fTrack->GetCreatorProcess()->GetProcessSubType());
+    else pro.push_back(1000); // primary particle
   } else {
     const G4VProcess *pr = fStep->GetPostStepPoint()->GetProcessDefinedStep();
     if (pr) pro.push_back(pr->GetProcessType()*1000 + pr->GetProcessSubType());
-    else pro.push_back(-100); // not sure why pr can be zero
+    else pro.push_back(900); // not sure why pr can be zero
   }
 
   k.push_back(fTrack->GetKineticEnergy()/CLHEP::keV);
@@ -131,15 +134,6 @@ void Output::Record()
 }
 //______________________________________________________________________________
 //
-void Output::Reset()
-{
-  trk.clear(); stp.clear(); vlm.clear(); pro.clear(); pdg.clear(); mom.clear();
-  k.clear(); p.clear(); x.clear(); y.clear(); z.clear(); t.clear(); l.clear();
-  de.clear(); dl.clear();
-  et.clear(); x0.clear(); y0.clear(); z0.clear(); t0.clear();
-}
-//______________________________________________________________________________
-//
 #include <G4OpticalSurface.hh>
 /**
  * A link list of G4LogicalBorderSurface.
@@ -162,9 +156,18 @@ struct BorderSurface
  */
 class LineProcessor: public G4tgrLineProcessor
 {
+  private:
+    G4MaterialPropertiesTable* CreateMaterialPropertiesTable(
+        const vector<G4String> &words, size_t idxOfWords);
   public:
     LineProcessor(): G4tgrLineProcessor(), Border(0) {};
-    ~LineProcessor();
+    ~LineProcessor() {
+      while (Border) { // deleting G4OpticalSurface is done in Geant4
+        BorderSurface *next=Border->next;
+        delete Border;
+        Border=next;
+      }
+    }
     /**
      * Overwrite G4tgrLineProcessor::ProcessLine to add new tags.
      *
@@ -177,23 +180,8 @@ class LineProcessor: public G4tgrLineProcessor
      * otherwise, the last line will not be processed.
      */
     G4bool ProcessLine(const vector<G4String> &words);
-
     BorderSurface* Border; ///< pointer to a BorderSurface object
-
-  private:
-    G4MaterialPropertiesTable* CreateMaterialPropertiesTable(
-        const vector<G4String> &words, size_t idxOfWords);
 };
-//______________________________________________________________________________
-//
-LineProcessor::~LineProcessor()
-{
-  while (Border) { // deleting G4OpticalSurface is done in Geant4
-    BorderSurface *next=Border->next;
-    delete Border;
-    Border=next;
-  }
-}
 //______________________________________________________________________________
 //
 #include <G4NistManager.hh>
@@ -325,7 +313,8 @@ G4MaterialPropertiesTable* LineProcessor::CreateMaterialPropertiesTable(
 class TextDetectorBuilder : public G4tgbDetectorBuilder
 {
   public :
-    TextDetectorBuilder() { fLineProcessor = new LineProcessor(); }
+    TextDetectorBuilder() :
+      G4tgbDetectorBuilder() { fLineProcessor = new LineProcessor(); }
     ~TextDetectorBuilder() { delete fLineProcessor; }
     const G4tgrVolume* ReadDetector(); ///< Read text geometry input
     /**
@@ -422,7 +411,7 @@ class Detector : public G4VUserDetectorConstruction, public G4UImessenger
 };
 //______________________________________________________________________________
 //
-Detector::Detector(): G4UImessenger(), fWorld(0)
+Detector::Detector(): G4VUserDetectorConstruction(), G4UImessenger(), fWorld(0)
 {
 #ifdef hasGDML
   fCmdOut = new G4UIcmdWithAString("/geometry/export",this);
@@ -507,6 +496,8 @@ G4VPhysicalVolume* Detector::Construct()
  */
 class Generator : public G4VUserPrimaryGeneratorAction
 {
+  private:
+    G4GeneralParticleSource* fSource;
   public:
     Generator()
       : G4VUserPrimaryGeneratorAction(), fSource(0)
@@ -514,8 +505,6 @@ class Generator : public G4VUserPrimaryGeneratorAction
     virtual ~Generator() { delete fSource; }
     virtual void GeneratePrimaries(G4Event* evt)
     { fSource->GeneratePrimaryVertex(evt); } ///< add sources to an event
-  private:
-    G4GeneralParticleSource* fSource;
 };
 //______________________________________________________________________________
 //
@@ -558,6 +547,7 @@ class EventAction : public G4UserEventAction
     void EndOfEventAction(const G4Event*) {
       auto a = G4AnalysisManager::Instance(); if (a->GetFileName()=="") return;
       Output* o = ((Output*) G4VSteppingVerbose::GetInstance()); 
+      if (o->stp.size()==0) return; // skip an empty event
       a->FillNtupleIColumn(0,o->stp.size());
       a->FillNtupleIColumn(1,o->et.size()-1);
       a->AddNtupleRow();
@@ -566,22 +556,49 @@ class EventAction : public G4UserEventAction
 //______________________________________________________________________________
 //
 #include <G4UserStackingAction.hh>
+#include <G4UIcmdWithADoubleAndUnit.hh>
 /**
- * Postpone an radioactive decay to another event.
+ * Split a radioactive decay chain to different events based on a time window.
  */
-class StackingAction : public G4UserStackingAction
+class StackingAction : public G4UserStackingAction, public G4UImessenger
 {
   private:
-    double fCurrentTime;
+    double fCurrentT; ///< current time in a decay chain
+    double fTimeWindow; ///< time window to split a decay chain
+    G4UIcmdWithADoubleAndUnit *fCmdT; ///< UI cmd to set time window
   public:
-    StackingAction() : G4UserStackingAction(), fCurrentTime(0) {};
+    StackingAction() : G4UserStackingAction(), G4UImessenger(),
+    fCurrentT(0), fTimeWindow(0), fCmdT(0) {
+      fCmdT = new G4UIcmdWithADoubleAndUnit("/grdm/setTimeWindow", this);
+      fCmdT->SetGuidance("Time window to split a radioactive decay chain.");
+      fCmdT->SetGuidance("If a daughter nucleus appears after the window,");
+      fCmdT->SetGuidance("it is saved in a new entry in the output ntuple.");
+      fCmdT->SetGuidance("---Set it to <=0 to disable the splitting---");
+      fCmdT->SetParameterName("time window",false,true);
+      fCmdT->SetDefaultUnit("s");
+      fCmdT->AvailableForStates(G4State_PreInit, G4State_Idle);
+    } ///< created macro /grdm/setTimeWindow
+    ~StackingAction() { delete fCmdT; }
     G4ClassificationOfNewTrack ClassifyNewTrack(const G4Track *trk) { 
       G4ClassificationOfNewTrack stack = fUrgent;
-      if (trk->GetParentID()>0 && 
-          trk->GetGlobalTime()>fCurrentTime+1*CLHEP::second) stack=fWait;
-      fCurrentTime=trk->GetGlobalTime();
+      if (fTimeWindow<=0) return stack; // disable splitting
+      // time starts to tick at the first decay
+      if (trk->GetParentID()==1) fCurrentT=trk->GetGlobalTime();
+      if (trk->GetGlobalTime()>fCurrentT+fTimeWindow) stack=fWaiting;
+      fCurrentT=trk->GetGlobalTime(); // update current time
       return stack;
-    } ///< postpone a track
+    } ///< send a daughter nuleus to waiting stack if it appears too late
+    void NewStage() {
+      if (fTimeWindow<=0) return; // disable splitting
+      auto a = G4AnalysisManager::Instance(); if (a->GetFileName()=="") return;
+      Output* o = ((Output*) G4VSteppingVerbose::GetInstance()); 
+      a->FillNtupleIColumn(0,o->stp.size());
+      a->FillNtupleIColumn(1,o->et.size()-1);
+      a->AddNtupleRow();
+      o->Reset();
+    } ///< save parent and reset output before tracking the daughter nucleus
+    void SetNewValue(G4UIcommand* cmd, G4String value)
+    { if (cmd!=fCmdT) return; fTimeWindow = fCmdT->GetNewDoubleValue(value); }
 };
 //______________________________________________________________________________
 //
@@ -597,7 +614,7 @@ class RunManager : public G4RunManager, public G4UImessenger
     G4PhysListFactory* fFactory; ///< tool to construct a ref. list by its name
     G4UIcmdWithAString* fCmdPhys; ///< macro cmd to select a physics list
   public:
-    RunManager() : fFactory(0) {
+    RunManager() : G4RunManager(), G4UImessenger(), fFactory(0) {
       SetUserInitialization(new Detector); // needed for /run/initialize
       fCmdPhys = new G4UIcmdWithAString("/physics_lists/select",this);
       fCmdPhys->SetGuidance("Select a physics list");
