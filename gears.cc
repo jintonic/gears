@@ -520,30 +520,22 @@ class Generator : public G4VUserPrimaryGeneratorAction
 //______________________________________________________________________________
 //
 #include <G4UserRunAction.hh>
+#include <G4Run.hh>
 /**
  * Book keeping before and after a run.
  */
 class RunAction : public G4UserRunAction
 {
   public:
-    void BeginOfRunAction (const G4Run*);///< Open output file
-    void EndOfRunAction (const G4Run*);  ///< Close output file
+    void BeginOfRunAction (const G4Run*) { 
+      auto a = G4AnalysisManager::Instance();
+      if (a->GetFileName()!="") a->OpenFile();
+    } ///< Open output file
+    void EndOfRunAction (const G4Run*) {
+      auto a = G4AnalysisManager::Instance();
+      if (a->GetFileName()!="") { a->Write(); a->CloseFile(); }
+    }  ///< Close output file
 };
-//______________________________________________________________________________
-//
-#include <G4Run.hh>
-void RunAction::BeginOfRunAction(const G4Run*)
-{ 
-  auto a = G4AnalysisManager::Instance();
-  if (a->GetFileName()!="") a->OpenFile();
-}
-//______________________________________________________________________________
-//
-void RunAction::EndOfRunAction(const G4Run*)
-{
-  auto a = G4AnalysisManager::Instance();
-  if (a->GetFileName()!="") { a->Write(); a->CloseFile(); }
-}
 //______________________________________________________________________________
 //
 #include <G4UserEventAction.hh>
