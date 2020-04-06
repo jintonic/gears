@@ -1,0 +1,20 @@
+/control/verbose 1
+
+/geometry/source hall.tg
+
+/physics_lists/select QGSP_BERT_EMV
+# cmd below becomes available only when the cmd above is used
+/physics_lists/factory/addRadioactiveDecay
+# must be run after the cmds above
+/run/initialize
+
+/process/list Decay
+
+/gps/particle ion
+/gps/ion 82 210
+/gps/energy 0
+
+/tracking/verbose 2
+/analysis/setFileName output
+/event/verbose 2
+/run/beamOn 2
