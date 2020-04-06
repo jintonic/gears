@@ -1,6 +1,6 @@
 /control/verbose 1
 
-/geometry/source hall.tg
+/geometry/source HPGe.tg
 
 /physics_lists/select QGSP_BERT_EMV
 # cmd below becomes available only when the cmd above is used
@@ -10,11 +10,16 @@
 
 /process/list Decay
 
+# split decay chain to multiple events
+/grdm/setTimeWindow 1 s
+
+# Define Pb210
 /gps/particle ion
 /gps/ion 82 210
+# default energy is 1 MeV, must be set to zero
 /gps/energy 0
 
 /tracking/verbose 2
-/analysis/setFileName output
 /event/verbose 2
-/run/beamOn 2
+/analysis/setFileName output
+/run/beamOn 1
