@@ -543,7 +543,7 @@ class RunAction : public G4UserRunAction
 /**
  * Book keeping before and after an event.
  */
-class EventAction : public G4UserEventAction, public G4UImessenger
+class EventAction : public G4UserEventAction
 {
   public:
     void BeginOfEventAction(const G4Event*) {
@@ -562,6 +562,26 @@ class EventAction : public G4UserEventAction, public G4UImessenger
       a->FillNtupleIColumn(1,o->et.size()-1);
       a->AddNtupleRow();
     } ///< Fill n-tuple if output file name is specified
+};
+//______________________________________________________________________________
+//
+#include <G4UserStackingAction.hh>
+/**
+ * Postpone an radioactive decay to another event.
+ */
+class StackingAction : public G4UserStackingAction
+{
+  private:
+    double fCurrentTime;
+  public:
+    StackingAction() : G4UserStackingAction(), fCurrentTime(0) {};
+    G4ClassificationOfNewTrack ClassifyNewTrack(const G4Track *trk) { 
+      G4ClassificationOfNewTrack stack = fUrgent;
+      if (trk->GetParentID()>0 && 
+          trk->GetGlobalTime()>fCurrentTime+1*CLHEP::second) stack=fWait;
+      fCurrentTime=trk->GetGlobalTime();
+      return stack;
+    } ///< postpone a track
 };
 //______________________________________________________________________________
 //
@@ -610,6 +630,7 @@ class RunManager : public G4RunManager, public G4UImessenger
       SetUserAction(new Generator);
       SetUserAction(new RunAction);
       SetUserAction(new EventAction);
+      SetUserAction(new StackingAction);
     } ///< set physics list if it is not specified explicitly
 };
 //______________________________________________________________________________
