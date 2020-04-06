@@ -35,7 +35,7 @@ all: $(EXE)
 	@echo -ne "\n\x1b[31;01mPlease run \"source gears.sh\" "
 	@echo before run \"gears\".
 	@echo You can also add \"source ${PWD}/gears.sh\"
-	@echo to your \~/.bash_profile to use gears everywhere
+	@echo -e "to your \~/.bash_profile to use gears everywhere\x1b[0m"
 clean:
 	$(RM) `cat .gitignore`
 hdf5 xml csv:
