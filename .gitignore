@@ -47,3 +47,6 @@ gxml
 ghdf5.cc
 gcsv.cc
 gxml.cc
+
+# file system
+.nfs*
