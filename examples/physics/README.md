@@ -4,6 +4,7 @@
 [![beta](https://img.shields.io/badge/beta-interactions-yellow?style=flat)](beta)
 [![gamma](https://img.shields.io/badge/gamma-interactions-cyan?style=flat)](gamma)
 [![optical](https://img.shields.io/badge/optical-photons-red?style=flat)](#optical-processes)
+[![decay](https://img.shields.io/badge/radioactive-decay-orange?style=flat)](#radioactive-decay)
 
 ## Terminology
 
@@ -53,7 +54,7 @@ The available names are listed in [G4PhysListFactory.cc][factory]. The naming sc
   - [Optical photon tracking](#optical-processes)
 - Weak interaction
   - decay of subatomic particles
-  - [radioactive decay of nuclei](radioactive-decay-processes)
+  - [radioactive decay of nuclei](radioactive-decay)
 - Hadronic physics
   - pure strong interaction (0 to ~TeV)
   - electro- and gamma-nuclear (10 MeV to ~TeV)
@@ -81,7 +82,7 @@ anti_tritonInelastic,  anti_He3Inelastic,anti_alphaInelastic
 
 Now you can use, for example, `/process/inactivate nCapture` to disable neutron capture process in your simulation. And you can use, for example, `/process/setVerbose 20 RadioactiveDecay` to change the verbosity of the radioactive decay process.
 
-### Radioactive decay processes
+### Radioactive decay
 Radioactive decay processes can be enabled after a reference list is chosen:
 
 ```sh
@@ -104,6 +105,62 @@ Detailed control of radioactive decay is provided by the /[grdm][]/ command, for
 ~~~
 
 [grdm]:{{site.g4doc}}/Control/AllResources/Control/UIcommands/_grdm_.html
+
+Here is an example to create [Pb210][] on the surface of a cylindrical CsI detector:
+
+```sh
+ /gps/particle ion
+ /gps/ion 82 210
+ # default energy is 1 MeV, must be set to zero to let it decay at rest
+ /gps/energy 0
+
+ /gps/pos/type Surface
+ /gps/pos/shape Cylinder
+ /gps/radius 7 cm
+ /gps/halfz 2.5 cm
+```
+
+[Pb210]:https://storage.googleapis.com/groundai-web-prod/media%2Fusers%2Fuser_92756%2Fproject_309275%2Fimages%2F210Pbdecaychain.png
+
+#### Split decay chain
+Some [isotope][]s in a radioactive [decay chain][] have long [half live][]s. They decay long after the first decay on top of the chain. However, [Geant4][] simulate the whole chain in one event. It is the user's task to split different decays in the chain to different events based on the times when they happen.
+
+[isotope]:https://en.wikipedia.org/wiki/Isotope
+[decay chain]:https://en.wikipedia.org/wiki/Decay_chain
+[half live]: https://en.wikipedia.org/wiki/Half-life
+
+[GEARS][] provides a macro command `/grdm/setTimeWindow` for you to split the chain based on a time window specified by you:
+
+```sh
+ # choose a reference physics list
+ /physics_lists/select QGSP_BERT_EMV
+ # cmd below becomes available only when the cmd above is used
+ /physics_lists/factory/addRadioactiveDecay
+ # must be run after the commands above
+ /run/initialize
+
+ # If a decay that happens 1 second after its previous one,
+ # it is saved to another event in the output n-tuple
+ # The command can be run before or after /run/initialize,
+ # but only becomes available after radioactive decay is enabled
+ /grdm/setTimeWindow 1 s
+
+ # a time window <= 0 will disable splitting:
+ # /grdm/setTimeWindow 0
+ # show detailed instruction of this command:
+ help /grdm/setTimeWindow
+
+ # turn on tracking and event verboses
+ # to understand Geant4 tracking and stacking processes
+ /tracking/verbose 2
+ /event/verbose 2
+ # record output to check the splitting result
+ /analysis/setFileName output
+ # simulate just one or a few events to check result
+ /run/beamOn 1
+```
+
+Example macro and detector definition files can be found in [GEARS][][/examples/physics/decay]({{site.file}}/examples/physics/decay) folder.
 
 ### Optical processes
 Optical processes can be enabled after a reference list is chosen:
