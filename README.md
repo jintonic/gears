@@ -1,5 +1,5 @@
 [![Doxygen](https://codedocs.xyz/jintonic/gears.svg)](https://codedocs.xyz/jintonic/gears/annotated.html)
-[![License:MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
+[![License](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
 [![Examples](https://img.shields.io/badge/gears-examples-blue?style=flat)](examples)
 [![Get Started](https://img.shields.io/badge/get-started-orange?style=flat)](#getting-started)
 [![Get Involved](https://img.shields.io/badge/get-involved-ff69b4?style=flat)](#how-to-contribute)
@@ -17,7 +17,12 @@
 
 ## Features
 
-* [Single small C++ file]({{site.file}}/gears.cc), easy to manage, fast to [compile](#compilation)(a few second on a regular PC)
+* [Single small C++ file]({{site.file}}/gears.cc), easy to manage, fast to [compile](#compilation) (a few second on a regular PC)
+* [Easy switching between well maintained Geant4 reference physics lists without recompilation](examples/physics)
+  * [Individual processes can be turned on/off without recompilation](examples/physics#physics-processes)
+  * [Fast implementation of optical properties without recompilation](examples/physics#optical-properties-of-materials-and-surfaces)
+  * [Optional radioactive decay simulation](examples/physics#radioactive-decay-processes) with the possibility to [save the parent and daughter decays into different events if the later happens after a user specified time interval](examples/physics#split-decay-chain)
+* [Frequently used source spectra (AmBe, Am-241, etc.)](examples/sources#common-sources) in addition to [GPS](examples/sources)
 * [Output in multiple data format](examples/output)
   * [ROOT](examples/output#root) TTree format (default, no [ROOT][] installation is needed)
     * Build-in data compression, well suitable for large data processing
@@ -27,16 +32,13 @@
       * No need to load extra library to open
   * [HDF5][], universal data format, easy to read by different tools
   * CSV or XML, Human readable ASCII file, capable of dealing with multiple dimensional arrays
-* [Record information of step 0](examples/output#record-information-of-step-0) (initStep)
-  * This is not available from [G4UserSteppingAction][]
+* [Record information of step 0](examples/output#record-information-of-step-0) (initStep), which is not available through [G4UserSteppingAction][]
 * [simple text][tg] or [GDML][] geometry I/O
-  * Fast implementation of [detector geometry](examples/detector) without C++ programming
+  * [Fast implementation of detector geometry](examples/detector) without C++ programming
   * Create/Change geometry without re-compilation
   * Turn off data saving in a volume by assigning it a non-positive copy number
   * Turn any volume to a [sensitive detector](examples/detector#sensitive-volume) by adding "(S)" in its name
-  * [Assign optical properties in Geant4 plain text geometry description](examples/detector/optical)
-* [Macro commands](examples/physics) to select any [Geant4 reference physics list](https://geant4.web.cern.ch/node/155) that is well maintained and thoroughly tested upon each [Geant4][] release.
-* Frequently used source spectra (AmBe, Am-241, etc.) in addition to [GPS][]
+  * [Assign optical properties in Geant4 plain text geometry description](examples/detector/optical), which is not available in the official [Geant4][] release.
 * [Doxygen documentation](https://codedocs.xyz/jintonic/gears/)
 * Many [sample macros](examples) and [geometry descriptions](examples/detector) for feature demonstration
 
@@ -50,6 +52,14 @@
 * [Geant4][], version above 9 is requested due to the following inconvenience in version 9: <http://hypernews.slac.stanford.edu/HyperNews/geant4/get/hadronprocess/1242.html>.
 * (Optional) [Xerces-C++](https://xerces.apache.org/xerces-c/), to use or export detector geometries in [GDML][] format.
 * (Optional) [HDF5][], to save simulation results in [HDF5][] format.
+
+After an successful installation of [Geant4][], there should be a command line tool [geant4-config]({{site.g4doc}}/buildtools.html#other-unix-build-systems-geant4-config) available, which can be used to query some basic information of your [Geant4][] installation. [GEARS][] relies on it to find the installed [Geant4][] libraries and header files.Please run the following command to make sure that you have it available:
+
+```sh
+$ which geant4-config
+```
+
+If you get a null result, please contact the person who installed [Geant4][] in your system for help.
 
 ### Get GEARS
 
@@ -74,7 +84,11 @@ $ cd /path/to/gears
 $ git pull
 ```
 
-Note that if you change some files in your local copy, the `git pull` command will fail since [Git][] does not want to overwrite your local modification with the updated [GEARS][]. To avoid this, please copy [example macros](examples) to somewhere outside of the `gears/` directory. You can then modify them as you like without worry.
+Note that if you change some files in your local copy, the `git pull` command will fail since [Git][] does not want to overwrite your local modification with the updated [GEARS][]. To avoid this, please copy [example macros](examples) to somewhere outside of the `gears/` directory. You can then modify them as you like without worry. An easy way to check if there is any local change that may block `git pull` is:
+
+```sh
+$ git status
+```
 
 ### Compilation
 
@@ -82,12 +96,12 @@ Note that if you change some files in your local copy, the `git pull` command wi
 
 ```sh
 $ cd /path/to/gears
-$ make # compile gears.cc
-$ export PATH=/path/to/gears:$PATH # so that you can use gears everywhere
-$ export LD_LIBRARY_PATH=/path/to/geant4/libs:$LD_LIBRARY_PATH # for Linux
-$ export DYLD_LIBRARY_PATH=/path/to/geant4/libs:$DYLD_LIBRARY_PATH # for MAC
-$ gears # run gears
+$ make # compile gears.cc to generate executable: gears
+$ source gears.sh # setup environment for using gears
+$ gears # run gears in current terminal
 ```
+
+You should also add the `source gears.sh` line to your `~/.bashrc` so that you can use `gears` in any newly opened terminal. For Mac users, please check [this article](https://scriptingosx.com/2017/04/about-bash_profile-and-bashrc-on-macos/) for additional setup in your `~/.bash_profile`.
 
 ### User interface
 
@@ -156,7 +170,7 @@ You can initiate a [pull request on GitHub](https://help.github.com/en/github/co
 
 #### Indentation
 
-Two spaces instead of a tab are used to indent a line in [gears.cc]({{site.file}}/gears.cc) to insure a consistent appearance in different text editors, and to avoid wasting space in font of deeply nested code blocks. The following mode lines are added to the end of [gears.cc]({{site.file}}/gears.cc) to insure that in [Vim][] and [Emacs][]:
+Two spaces instead of a tab are used to indent a line in [gears.cc]({{site.file}}/gears.cc) to insure a consistent appearance in different text editors, and to avoid wasting space in front of deeply nested code blocks. The following mode lines are added to the end of [gears.cc]({{site.file}}/gears.cc) to insure that in [Vim][] and [Emacs][]:
 
 ```cpp
 // -*- C++; indent-tabs-mode:nil; tab-width:2 -*-
@@ -172,8 +186,8 @@ Two spaces instead of a tab are used to indent a line in [gears.cc]({{site.file}
   - add an example to show how QE can be implemented
   - add an example to show how one can use uproot to load ROOT file
   - add examples to show how one can distribute source in a volume or surface
-- new functions
-  - time chopping of radioactive decay chain
+- installation
+  - an executable for Windows
 
 [G4UserSteppingAction]:http://www-geant4.kek.jp/lxr/source/tracking/include/G4UserSteppingAction.hh
 [GDML]: https://gdml.web.cern.ch/GDML/
