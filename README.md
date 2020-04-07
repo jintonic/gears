@@ -21,7 +21,7 @@
 * [Easy switching between well maintained Geant4 reference physics lists without recompilation](examples/physics)
   * [Individual processes can be turned on/off without recompilation](examples/physics#physics-processes)
   * [Fast implementation of optical properties without recompilation](examples/physics#optical-properties-of-materials-and-surfaces)
-  * [Optional radioactive decay simulation](examples/physics#radioactive-decay-processes) with the possibility to [save the parent and daughter decays into different events if the later happens after a user specified time interval](examples/physics#split-decay-chain)
+  * [Optional radioactive decay simulation](examples/physics#radioactive-decay) with the possibility to [save the parent and daughter decays into different events if the later happens after a user specified time interval](examples/physics#split-decay-chain)
 * [Frequently used source spectra (AmBe, Am-241, etc.)](examples/sources#common-sources) in addition to [GPS](examples/sources)
 * [Output in multiple data format](examples/output)
   * [ROOT](examples/output#root) TTree format (default, no [ROOT][] installation is needed)
