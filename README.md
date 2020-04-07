@@ -87,7 +87,14 @@ $ git pull
 Note that if you change some files in your local copy, the `git pull` command will fail since [Git][] does not want to overwrite your local modification with the updated [GEARS][]. To avoid this, please copy [example macros](examples) to somewhere outside of the `gears/` directory. You can then modify them as you like without worry. An easy way to check if there is any local change that may block `git pull` is:
 
 ```sh
+# show modified files
 $ git status
+# show what are changed
+$ git diff a/changed/local/file
+# discard the local change
+$ git checkout -- a/changed/local/file
+# get latest gears
+$ git pull
 ```
 
 ### Compilation
