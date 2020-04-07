@@ -101,7 +101,7 @@ $ source gears.sh # setup environment for using gears
 $ gears # run gears in current terminal
 ```
 
-You should also add the `source gears.sh` line to your `~/.bashrc` so that you can use `gears` in any newly opened terminal. For Mac users, please check [this article](https://scriptingosx.com/2017/04/about-bash_profile-and-bashrc-on-macos/) for additional setup in your `~/.bash_profile`.
+You should also add the `source gears.sh` line to your `~/.bashrc` so that you can use `gears` in any newly opened terminal. For Mac users, you need to `source ~/.bashrc` in your `~/.bash_profile` in addition. Please check [this article](https://scriptingosx.com/2017/04/about-bash_profile-and-bashrc-on-macos/) for explanation.
 
 ### User interface
 
