@@ -8,7 +8,10 @@ export PATH=$GEARS:$PATH
 # add Geant4 libs to LD_LIBRARY_PATH
 G4INSTALL=`geant4-config --prefix`
 G4LIB=$G$INSTALL/lib64
+# for Linux
 export LD_LIBRARY_PATH=$G4LIB:$LD_LIBRARY_PATH
+# for Mac
+export DYLD_LIBRARY_PATH=$G4LIB:$DYLD_LIBRARY_PATH
 
 # print missting databases
 while read line; do
