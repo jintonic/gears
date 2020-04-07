@@ -162,6 +162,11 @@ Some [isotope][]s in a radioactive [decay chain][] have long [half live][]s. The
 
 Example macro and detector definition files can be found in [GEARS][][/examples/physics/decay]({{site.file}}/examples/physics/decay) folder.
 
+For people who want to understand how this is done, please check the [GEARS doxygen page of StakingAction](https://codedocs.xyz/jintonic/gears/classStackingAction.html) and the following [Geant4][] help pages:
+
+- <http://geant4-userdoc.web.cern.ch/geant4-userdoc/UsersGuides/ForApplicationDeveloper/html/Fundamentals/event.html#stacking-mechanism>
+- <http://geant4-userdoc.web.cern.ch/geant4-userdoc/UsersGuides/ForApplicationDeveloper/html/UserActions/optionalActions.html?highlight=stack#g4userstackingaction>
+
 ### Optical processes
 Optical processes can be enabled after a reference list is chosen:
 
