@@ -21,7 +21,7 @@
 * [Easy switching between well maintained Geant4 reference physics lists without recompilation](examples/physics)
   * [Individual processes can be turned on/off without recompilation](examples/physics#physics-processes)
   * [Fast implementation of optical properties without recompilation](examples/physics#optical-properties-of-materials-and-surfaces)
-  * [Optional radioactive decay simulation](examples/physics#radioactive-decay-processes) with the possibility to [save the parent and daughter decays into different events if the later happens after a user specified time interval](examples/physics#split-decay-chain)
+  * [Optional radioactive decay simulation](examples/physics#radioactive-decay) with the possibility to [save the parent and daughter decays into different events if the later happens after a user specified time interval](examples/physics#split-decay-chain)
 * [Frequently used source spectra (AmBe, Am-241, etc.)](examples/sources#common-sources) in addition to [GPS](examples/sources)
 * [Output in multiple data format](examples/output)
   * [ROOT](examples/output#root) TTree format (default, no [ROOT][] installation is needed)
@@ -53,7 +53,7 @@
 * (Optional) [Xerces-C++](https://xerces.apache.org/xerces-c/), to use or export detector geometries in [GDML][] format.
 * (Optional) [HDF5][], to save simulation results in [HDF5][] format.
 
-After an successful installation of [Geant4][], there should be a command line tool [geant4-config]({{site.g4doc}}/buildtools.html#other-unix-build-systems-geant4-config) available, which can be used to query some basic information of your [Geant4][] installation. [GEARS][] relies on it to find the installed [Geant4][] libraries and header files.Please run the following command to make sure that you have it available:
+After an successful installation of [Geant4][], there should be a command line tool [geant4-config](http://geant4-userdoc.web.cern.ch/geant4-userdoc/UsersGuides/InstallationGuide/html/buildtools.html#other-unix-build-systems-geant4-config) available, which can be used to query some basic information of your [Geant4][] installation. [GEARS][] relies on it to find the installed [Geant4][] libraries and header files.Please run the following command to make sure that you have it available:
 
 ```sh
 $ which geant4-config
@@ -87,7 +87,14 @@ $ git pull
 Note that if you change some files in your local copy, the `git pull` command will fail since [Git][] does not want to overwrite your local modification with the updated [GEARS][]. To avoid this, please copy [example macros](examples) to somewhere outside of the `gears/` directory. You can then modify them as you like without worry. An easy way to check if there is any local change that may block `git pull` is:
 
 ```sh
+# show modified files
 $ git status
+# show what are changed
+$ git diff a/changed/local/file
+# discard the local change
+$ git checkout -- a/changed/local/file
+# get latest gears
+$ git pull
 ```
 
 ### Compilation
@@ -101,7 +108,7 @@ $ source gears.sh # setup environment for using gears
 $ gears # run gears in current terminal
 ```
 
-You should also add the `source gears.sh` line to your `~/.bashrc` so that you can use `gears` in any newly opened terminal. For Mac users, please check [this article](https://scriptingosx.com/2017/04/about-bash_profile-and-bashrc-on-macos/) for additional setup in your `~/.bash_profile`.
+You should also add the `source gears.sh` line to your `~/.bashrc` so that you can use `gears` in any newly opened terminal. For Mac users, you need to `source ~/.bashrc` in your `~/.bash_profile` in addition. Please check [this article](https://scriptingosx.com/2017/04/about-bash_profile-and-bashrc-on-macos/) for explanation.
 
 ### User interface
 
