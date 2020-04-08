@@ -1,0 +1,16 @@
+filetype: tg
+
+detect:
+    filename: "\\.tg$"
+
+rules:
+    - identifier: "\\b(G4_Ge|G4_AIR|G4_Galactic)\\b"
+    - type: "\\b(BOX|TUBE|TUBS|HYPE|TWISTEDTRD)\\b"
+    - special: "^:(vis|volu|place|rotm|color)"
+    - symbol: "\\b(mm|cm|m|degree)\\b"
+    - comment:
+        start: "//"
+        end: "$"
+    - constant.bool: \b(ON|OFF)
+    - constant.number: ([^G][0-9]+)
+    - constant.specialChar: "\\*"
