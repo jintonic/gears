@@ -45,4 +45,4 @@ $ cp tg.yaml ~/.config/micro/syntax/
 ```
 
 [Micro]: https://micro-editor.github.io/
-[nano]: https://micro-editor.github.io/
+[nano]: https://www.nano-editor.org/
