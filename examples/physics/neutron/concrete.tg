@@ -1,0 +1,30 @@
+:P percent 0.01
+
+// concrete (cement) mixed by weight
+:MIXT_BY_WEIGHT concrete 3.9*g/cm3 11
+G4_O  55.714*$percent
+G4_Fe 28.026*$percent
+G4_H  10.293*$percent
+G4_Ca  3.090*$percent
+G4_Si  1.929*$percent
+G4_Al  0.550*$percent
+G4_Mg  0.236*$percent
+G4_S   0.092*$percent
+G4_Mn  0.044*$percent
+G4_K   0.014*$percent
+G4_Na  0.012*$percent
+
+:volu world BOX 10*m 10*m 10*m G4_Galactic
+:vis world OFF
+
+:volu concrete(S) BOX 5*m 5*m 5*m concrete
+:color concrete(S) 0.66 0.70 0.76 //Crayola
+
+:volu backing(S) BOX 1*mm 9*m 9*m G4_Galactic
+:color backing(S) 0.36 0.68 0.93  //blue jeans
+
+//rotation matrix
+:rotm r000 0 0 0 
+
+:place concrete(S) 1 world r000 5.1*m 0 0
+:place backing(S) 2 world r000 -0.05*m 0 0

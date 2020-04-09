@@ -1,0 +1,44 @@
+# print macro commands on screen
+/control/verbose 1
+# geometry must be specified before /run/initialize
+/geometry/source concrete.tg
+
+# add physics lists 
+/physics_lists/select QGSP_BERT_HP_EMV
+
+#cmd below is availabe only after the cmd above is used
+#/physics_lists/factory/addRadioactiveDecay
+
+# initialize geometry and physics
+/run/initialize
+
+# neutrons from a DT generator
+/gps/particle neutron
+/gps/energy 14 MeV
+#/gps/ang/type iso
+/gps/direction 1 0 0
+
+# visualize geometry and events for debugging
+/vis/open HepRepFile
+/vis/drawVolume
+/vis/scene/add/trajectories
+/vis/modeling/trajectories/create/drawByParticleID
+/vis/modeling/trajectories/select drawByParticleID-0
+/vis/scene/endOfEventAction accumulate 10
+
+# turn on detailed information about tracking
+/tracking/verbose 2
+# dump a few events on screen for debugging
+/run/beamOn 5
+
+# turn off screen printing for fast simulation 
+/vis/disable
+/tracking/verbose 0
+
+# turn on data recording
+/analysis/setFileName concrete
+# turn on progress report
+/run/verbose 2
+/run/printProgress 1000
+# start simulation
+/run/beamOn 1000
