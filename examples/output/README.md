@@ -167,15 +167,15 @@ The physics process generating each step point is saved in a variable `pro[n]`, 
   - 3034: WLS
   - 3035: Mie scattering
 - 4000 to 5000: hadronic
-  - 2111: hadron elastic
-  - 2121: hadron inelastic
-  - 2131: capture
-  - 2132: muon atomic capture
-  - 2141: fission
-  - 2151: hadron at rest
-  - 2142: lepton at rest
-  - 2161: charge exchange
-  - 2210: radioactive decay
+  - 4111: hadron elastic
+  - 4121: hadron inelastic
+  - 4131: capture
+  - 4132: muon atomic capture
+  - 4141: fission
+  - 4151: hadron at rest
+  - 4142: lepton at rest
+  - 4161: charge exchange
+  - 4210: radioactive decay
 - 5000 to 6000: photolepton_hadron
 - 6000 to 7000: decay
   - 6201: decay
