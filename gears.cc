@@ -21,7 +21,7 @@ class Output : public G4SteppingVerbose
     void StepInfo() { G4SteppingVerbose::StepInfo();
       Record(); } ///< Infomation of steps>0 
     void Reset() { trk.clear(); stp.clear(); vlm.clear(); pro.clear();
-      pdg.clear(); mom.clear(); k.clear(); p.clear(); p.clear(); x.clear();
+      pdg.clear(); mom.clear(); k.clear(); p.clear(); q.clear(); x.clear();
       y.clear(); z.clear(); t.clear(); l.clear(); de.clear(); dl.clear();
       et.clear(); x0.clear(); y0.clear(); z0.clear(); t0.clear(); }
 
@@ -112,7 +112,7 @@ void Output::Record()
 
   k.push_back(fTrack->GetKineticEnergy()/CLHEP::keV);
   p.push_back(fTrack->GetMomentum().mag()/CLHEP::keV);
-  q.push_back(fStep->GetPostStepPoint()->GetCharge()/CLHEP::e_SI);
+  q.push_back(fStep->GetPostStepPoint()->GetCharge());
   l.push_back(fTrack->GetTrackLength()/CLHEP::mm);
 
   de.push_back(fStep->GetTotalEnergyDeposit()/CLHEP::keV);
