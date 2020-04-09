@@ -87,7 +87,8 @@ root [] t->Show(0)
  pdg = (vector<int>*)0x34302c0
  mom = (vector<int>*)0x3972e80
  k   = (vector<double>*)0x3a907c0
- p   = (vector<double>*)0x2a307c0
+ p   = (vector<double>*)0x2f307c0
+ q   = (vector<double>*)0x2ae30c0
  t   = (vector<double>*)0x351eed0
  x   = (vector<double>*)0x2d50760
  y   = (vector<double>*)0x351a450
@@ -122,11 +123,12 @@ A step point in [GEARS][] contains the following information:
 * Energy deposited [keV] (`de` in short)
 * Kinetic energy of the particle [keV] (`k` in short)
 * Momentum of the particle [keV] (`p` in short)
-* Global time `t0` [ns]
+* Charges (`q` in short)
+* Global time `t0` [ns] (start at the beginning of event)
 * Global position `x0` [mm] (origin: center of the world)
 * Global position `y0` [mm] (origin: center of the world)
 * Global position `z0` [mm] (origin: center of the world)
-* Local time `t` [ns]
+* Local time `t` [ns] (time to previous step point)
 * Local position `x` [mm] (origin: center of the volume)
 * Local position `y` [mm] (origin: center of the volume)
 * Local position `z` [mm] (origin: center of the volume)
@@ -142,6 +144,7 @@ The physics process generating each step point is saved in a variable `pro[n]`, 
 
 - less than 1000: not defined
 - 1000 to 2000: transportation
+  - 1000: initial step (step 0)
   - 1091: transportation
 - 2000 to 3000: electromagnetic
   - 2001: Coulomb scattering
@@ -156,8 +159,13 @@ The physics process generating each step point is saved in a variable `pro[n]`, 
   - 2014: gamma conversion (pair production)
   - 2021: Cherenkov
   - 2022: scintillation
-  - 2023: syncrhotron radiation
+  - 2023: synchrotron radiation
 - 3000 to 4000: optical
+  - 3031: absorption
+  - 3032: boundary
+  - 3033: Rayleigh scattering
+  - 3034: WLS
+  - 3035: Mie scattering
 - 4000 to 5000: hadronic
   - 2111: hadron elastic
   - 2121: hadron inelastic
@@ -170,6 +178,10 @@ The physics process generating each step point is saved in a variable `pro[n]`, 
   - 2210: radioactive decay
 - 5000 to 6000: photolepton_hadron
 - 6000 to 7000: decay
+  - 6201: decay
+  - 6202: decay with spin
+  - 6203: pion decay with spin
+  - 6210: radioactive decay
 - 7000 to 8000: general
 - 8000 to 9000: Parameterisation
 - 9000 to 10000: user defined
