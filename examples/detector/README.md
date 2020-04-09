@@ -4,6 +4,7 @@
 [![boolen](https://img.shields.io/badge/boolean-operation-yellow?style=flat)](boolean)
 [![scripts](https://img.shields.io/badge/program-geometry-red?style=flat)](scripts)
 [![optical](https://img.shields.io/badge/optical-properties-cyan?style=flat)](optical)
+[![syntax](https://img.shields.io/badge/syntax-highlighting-magenta?style=flat)](syntax)
 
 ## Detector construction
 
