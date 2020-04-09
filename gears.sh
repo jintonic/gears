@@ -1,5 +1,4 @@
-#!/bin/sh
-if [ "$GEARS"X != X ]; then return; fi # only do it once
+#!/bin/bash
 
 # add gears directory to PATH
 export GEARS="$(cd "$(dirname "${BASH_SOURCE[0]}")" >/dev/null 2>&1 && pwd)"
