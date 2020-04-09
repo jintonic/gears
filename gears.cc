@@ -21,9 +21,9 @@ class Output : public G4SteppingVerbose
     void StepInfo() { G4SteppingVerbose::StepInfo();
       Record(); } ///< Infomation of steps>0 
     void Reset() { trk.clear(); stp.clear(); vlm.clear(); pro.clear();
-      pdg.clear(); mom.clear(); k.clear(); p.clear(); x.clear(); y.clear();
-      z.clear(); t.clear(); l.clear(); de.clear(); dl.clear(); et.clear();
-      x0.clear(); y0.clear(); z0.clear(); t0.clear(); } ///< reset variables
+      pdg.clear(); mom.clear(); k.clear(); p.clear(); p.clear(); x.clear();
+      y.clear(); z.clear(); t.clear(); l.clear(); de.clear(); dl.clear();
+      et.clear(); x0.clear(); y0.clear(); z0.clear(); t0.clear(); }
 
     vector<int> trk;   ///< track ID
     vector<int> stp;   ///< step number
@@ -33,6 +33,7 @@ class Output : public G4SteppingVerbose
     vector<int> mom;   ///< parent particle's PDG encoding
     vector<double> k;  ///< kinetic energy [keV]
     vector<double> p;  ///< momentum [keV]
+    vector<double> q;  ///< charge [elementary charge]
     vector<double> t;  ///< local time [ns]
     vector<double> x;  ///< local x [mm]
     vector<double> y;  ///< local y [mm]
@@ -62,6 +63,7 @@ Output::Output(): G4SteppingVerbose()
   manager->CreateNtupleIColumn("mom", mom);
   manager->CreateNtupleDColumn("k", k);
   manager->CreateNtupleDColumn("p", p);
+  manager->CreateNtupleDColumn("q", q);
   manager->CreateNtupleDColumn("t", t);
   manager->CreateNtupleDColumn("x", x);
   manager->CreateNtupleDColumn("y", y);
@@ -110,6 +112,7 @@ void Output::Record()
 
   k.push_back(fTrack->GetKineticEnergy()/CLHEP::keV);
   p.push_back(fTrack->GetMomentum().mag()/CLHEP::keV);
+  q.push_back(fStep->GetPostStepPoint()->GetCharge()/CLHEP::e_SI);
   l.push_back(fTrack->GetTrackLength()/CLHEP::mm);
 
   de.push_back(fStep->GetTotalEnergyDeposit()/CLHEP::keV);
