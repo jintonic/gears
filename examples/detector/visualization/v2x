@@ -1,4 +1,4 @@
-#!/bin/sh
+#!/bin/bash
 
 # get the latest g4_??.wrl
 for each in `ls *.wrl 2>&1`; do latest=$each; done
@@ -6,12 +6,13 @@ if [ "$latest" = directory ]; then echo "no g4_??.wrl file found"; exit; fi
 
 # get VRML to X3D converter
 JAR="VrmlMerge-0.5beta.jar"
-if [ ! -f $JAR ]; then wget http://www.deem7.com/files/$JAR; fi
+DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" >/dev/null 2>&1 && pwd)"
+if [ ! -f $DIR/$JAR ]; then wget -P $DIR http://www.deem7.com/files/$JAR; fi
 
 # convert VRML to X3D
 X3D=${latest/wrl/x3d}
 if [ ! -f $X3D ] || [ $latest -nt $X3D ]; then
-    java -jar $JAR -convert $latest $X3D
+    java -jar $DIR/$JAR -convert $latest $X3D
 fi
 
 # tune transparency in $X3D
