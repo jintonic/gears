@@ -15,7 +15,8 @@ if [ ! -f $X3D ] || [ $latest -nt $X3D ]; then
 fi
 
 # tune transparency in $X3D
-sed -i 's/"0.7"/"0.1"/g' $X3D
+sed -i.bak 's/"0.7"/"0.1"/g' $X3D
+rm *.bak
 
 # embed g4_??.x3d in g4_??.html
 cat << END > ${latest/wrl/html}
