@@ -17,11 +17,11 @@ fi
 while read line; do
   database=`echo $line | awk '{print $2}'`
   if [ $database = "NOTFOUND" ]; then echo $line; fi
-done <<< $(geant4-config --check-datasets)
+done <<< "$(geant4-config --check-datasets)"
 
 # set Geant4 database locations
 while read line; do
   database=`echo $line | awk '{print $2}'`
   folder=`echo $line | awk '{print $3}'`
   export $database=$folder
-done <<< $(geant4-config --datasets)
+done <<< "$(geant4-config --datasets)"
