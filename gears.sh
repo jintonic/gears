@@ -2,7 +2,7 @@
 
 # add gears directory to PATH
 export GEARS="$(cd "$(dirname "${BASH_SOURCE[0]}")" >/dev/null 2>&1 && pwd)"
-export PATH=$GEARS:$PATH
+export PATH=$GEARS/examples/detector/visualization:$GEARS:$PATH
 
 # add Geant4 libs to (DY)LD_LIBRARY_PATH
 G4INSTALL=`geant4-config --prefix`
