@@ -32,14 +32,16 @@ EXE=$(SRC:.cc=) # a list of all executables
 .PHONY: all clean hdf5 xml csv install
 
 all: $(EXE)
-	@echo -ne "\n\x1b[31;01mPlease run \"source gears.sh\" "
-	@echo before run \"gears\".
-	@echo You can also add \"source ${PWD}/gears.sh\"
-	@echo -e "to your ~/.bashrc to use gears everywhere\x1b[0m"
+	@echo ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+	@echo To install, please add the following line
+	@echo `tput bold` source ${PWD}/gears.sh `tput sgr0`
+	@printf "%s" "to `tput bold`~/.bashrc`tput sgr0` in Linux or "
+	@echo `tput bold`~/.bash_profile`tput sgr0` in a Mac
+	@echo ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 clean:
 	$(RM) `cat .gitignore`
 hdf5 xml csv:
-	@echo -n creating g$@.cc for output in $@ format...
+	@printf "%s" "Creating g$@.cc for output in $@ format... "
 	@sed 's/g4root/g4$@/' gears.cc > g$@.cc
 	@echo done!
-	@echo Type make to compile g$@.cc
+	@echo Please type `tput bold`make`tput sgr0` to compile g$@.cc
