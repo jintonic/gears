@@ -1,5 +1,13 @@
-#!/bin/sh
-if [ ! -f HepRApp.jar ]; then
-  wget http://www.slac.stanford.edu/~perl/HepRApp/HepRApp.jar
+#!/bin/bash
+VERSION=`java -version 2>&1 | head -n 1 | awk '{print $3}' | awk -F "." '{print $1}'`
+VERSION=${VERSION:1}
+if [ $VERSION -gt 8 ]; then
+  echo java is too new to run HepRApp. Quit.
+  exit
 fi
-java -jar HepRApp.jar -opt HepRApp.properties -file $1
+
+DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" >/dev/null 2>&1 && pwd)"
+if [ ! -f $DIR/HepRApp.jar ]; then
+  wget -P $DIR http://www.slac.stanford.edu/~perl/HepRApp/HepRApp.jar
+fi
+java -jar $DIR/HepRApp.jar -opt $DIR/HepRApp.properties -file $1
