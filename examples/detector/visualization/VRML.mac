@@ -1,3 +1,5 @@
+/control/verbose 1
+
 /geometry/source ../gears.tg
 
 /run/initialize
@@ -5,8 +7,15 @@
 /geometry/test/run
 /vis/geometry/list
 
-/control/verbose 2
+/gps/particle gamma
+/gps/energy 2 MeV
+/gps/ang/type iso
 
 /vis/open VRML2FILE
 /vis/drawVolume
 /vis/viewer/flush
+
+/vis/scene/add/trajectories
+/vis/scene/endOfEventAction accumulate 10
+
+/run/beamOn 10
