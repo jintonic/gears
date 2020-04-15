@@ -31,6 +31,28 @@ export DYLD_LIBRARY_PATH=$G4INSTALL/lib:$DYLD_LIBRARY_PATH
 source /path/to/gears/gears.sh
 ```
 
+If you encounter problems to load some shared libraries when you run a Geant4 executable, for example, `libXmu.6.dylib`, check its location in `libG4OpenGL.dylib` using:
+
+```sh
+# print shared libraries used in a library file
+$ otool -L libG4OpenGL.dylib
+libG4OpenGL.dylib:
+...
+/opt/X11/lib/libXext.6.dylib (compatibility version 11.0.0, current version 11.0.0)
+/opt/local/lib/libXmu.6.dylib (compatibility version 9.0.0, current version 9.0.0)
+/opt/X11/lib/libGL.1.dylib (compatibility version 4.0.0, current version 4.0.0)
+...
+```
+
+and then use the following trick to solve the problem:
+
+```sh
+# make a link in the location appeared in the library file
+$ mkdir /opt/local/lib
+$ cd /opt/local/lib
+$ ln -sf /opt/X11/lib/libXmu.6.dylib
+```
+
 ## Install pre-compiled ROOT in MacOS
 
 Download pre-compiled ROOT for MacOS from <https://root.cern.ch/downloading-root>. If you download the `.pkg` version, simply double click on the file to install it to `/Applications/` directory and then add the following to your `~/.bash_profile`:
