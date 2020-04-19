@@ -1,3 +1,14 @@
+# Windows 10
+
+## Install pre-compiled Geant4 in Windows
+
+## Compile GEARS
+### Install visual studio
+
+Download Visual Studio Community Edition installer. Run it. Choose to install a workload called "Desktop development with C++". It is about 2 GB and takes a long time to download and install.
+
+# macOS
+
 ## Install pre-compiled Geant4 in MacOS
 
 You can download the pre-compiled Geant4 libraries for the MacOS [here](https://geant4.web.cern.ch/support/download). By default, it will be saved to `~/Downloads`.
