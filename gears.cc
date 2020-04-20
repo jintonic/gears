@@ -83,7 +83,7 @@ Output::Output(): G4SteppingVerbose()
 #include <G4NavigationHistory.hh>
 void Output::Record()
 {
-  if (Silent==1) CopyState(); // point fTrack, fStep, etc. to right places
+  if (GetSilent()==1) CopyState(); // point fTrack, fStep, etc. to right places
 
   G4TouchableHandle handle = fStep->GetPreStepPoint()->GetTouchableHandle();
   int copyNo=handle->GetReplicaNumber();
