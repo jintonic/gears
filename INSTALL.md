@@ -4,6 +4,9 @@
 
 Download pre-compiled Geant4 in Windows 10 from <https://geant4.web.cern.ch/support/download>. When you double click it to install it, Windows will pop a window "Windows protected your PC". Select "More info" and then "Run anyway".
 
+![winSys](/assets/winSys.png)
+![winEnv](/assets/winEnv.png)
+
 ## Compile GEARS
 ### Install visual studio
 
