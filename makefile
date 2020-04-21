@@ -1,7 +1,9 @@
 # Check if geant4-config is available in your PATH.
 # It should for a proper GEANT4 installation and configuration.
-ifeq (, $(shell which geant4-config))
-  $(error "Cannot find geant4-config, please check your GEANT4 installation")
+ifneq ($(OS), Windows_NT)
+  ifeq (, $(shell which geant4-config))
+    $(error "Cannot find geant4-config, please check your GEANT4 installation")
+  endif
 endif
 
 # Setup flags used by the implicit make rule: %:%.cc
@@ -39,7 +41,7 @@ all: $(EXE)
 	@echo `tput bold`~/.bash_profile`tput sgr0` in a Mac
 	@echo --------------------------------------------------------
 clean:
-	$(RM) `cat .gitignore`
+	$(RM) -r `cat .gitignore`
 hdf5 xml csv:
 	@printf "%s" "Creating g$@.cc for output in $@ format... "
 	@sed 's/g4root/g4$@/' gears.cc > g$@.cc
