@@ -50,3 +50,7 @@ gxml.cc
 
 # file system
 .nfs*
+
+# windows
+.vs
+out
