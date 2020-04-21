@@ -4,6 +4,8 @@
 
 Download pre-compiled Geant4 in Windows 10 from <https://geant4.web.cern.ch/support/download>. When you double click it to install it, Windows will pop a window "Windows protected your PC". Select "More info" and then "Run anyway".
 
+### Set up environment variables
+
 ![winSys](/assets/winSys.png)
 ![winEnv](/assets/winEnv.png)
 
@@ -15,8 +17,8 @@ Download Visual Studio Community Edition installer. Run it. Choose to install a 
 ![vsstart](/assets/vsstart.png)
 ![vsrepos](/assets/vsrepos.png)
 ![vsconfig](/assets/vsconfig.png)
-![vsvscmakesetting](/assets/vsvscmakesetting.png)
-![vsvscmakermdebug](/assets/vsvscmakermdebug.png)
+![vscmakesetting](/assets/vscmakesetting.png)
+![vscmakermdebug](/assets/vscmakermdebug.png)
 ![vssavecmakejson](/assets/vssavecmakejson.png)
 ![vsselectgears](/assets/vsselectgears.png)
 ![vsrungears](/assets/vsrungears.png)
