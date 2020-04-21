@@ -7,7 +7,17 @@ Download pre-compiled Geant4 in Windows 10 from <https://geant4.web.cern.ch/supp
 ## Compile GEARS
 ### Install visual studio
 
-Download Visual Studio Community Edition installer. Run it. Choose to install a workload called "Desktop development with C++". It is about 2 GB and takes a long time to download and install. When you open VS the first time, choose "Visual C++" as your "Development Settings". And then "Clone and checkout code"
+Download Visual Studio Community Edition installer. Run it. Choose to install a workload called "Desktop development with C++". It is about 2 GB and takes a long time to download and install. When you open VS the first time, choose "Visual C++" as your "Development Settings". And then "Clone and checkout code":
+
+![vsstart](/assets/vsstart.png)
+![vsrepos](/assets/vsrepos.png)
+![vsconfig](/assets/vsconfig.png)
+![vsvscmakesetting](/assets/vsvscmakesetting.png)
+![vsvscmakermdebug](/assets/vsvscmakermdebug.png)
+![vssavecmakejson](/assets/vssavecmakejson.png)
+![vsselectgears](/assets/vsselectgears.png)
+![vsrungears](/assets/vsrungears.png)
+![vsdebuggears](/assets/vsdebuggears.png)
 
 # macOS
 
