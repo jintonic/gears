@@ -1,3 +1,12 @@
+# Contents
+
+- [Windows 10](#windows-10)
+  - [Install pre-compiled Geant4](#install-pre-compiled-geant4-in-windows)
+  - [Compile GEARS](#compile-gears-with-visual-studio)
+- [macOS](#macos)
+  - [Install pre-compiled Geant4](#install-pre-compiled-geant4-in-macos)
+  - [Install pre-compiled ROOT](#install-pre-compiled-root-in-macos)
+
 # Windows 10
 
 ## Install pre-compiled Geant4 in Windows
@@ -9,7 +18,7 @@ Download pre-compiled Geant4 in Windows 10 from <https://geant4.web.cern.ch/supp
 ![winSys](/assets/winSys.png)
 ![winEnv](/assets/winEnv.png)
 
-## Compile GEARS
+## Compile GEARS with Visual Studio
 ### Install visual studio
 
 Download Visual Studio Community Edition installer. Run it. Choose to install a workload called "Desktop development with C++". It is about 2 GB and takes a long time to download and install. When you open VS the first time, choose "Visual C++" as your "Development Settings". And then "Clone and checkout code":
@@ -26,9 +35,9 @@ Download Visual Studio Community Edition installer. Run it. Choose to install a 
 
 # macOS
 
-## Install pre-compiled Geant4 in MacOS
+## Install pre-compiled Geant4 in macOS
 
-You can download the pre-compiled Geant4 libraries for the MacOS [here](https://geant4.web.cern.ch/support/download). By default, it will be saved to `~/Downloads`.
+You can download the pre-compiled Geant4 libraries for the macOS [here](https://geant4.web.cern.ch/support/download). By default, it will be saved to `~/Downloads`.
 
 ```sh
 $ cd ~/Downloads/Geant4-10.6.1-Darwin/bin
@@ -37,7 +46,7 @@ $ sed -i.bak 's|/Users/gcosmo/Software/release/install|'${HOME}'/Downloads/Geant
 $ ./geant4-config --install-datasets
 ```
 
-By default, MacOS does not allow you to run Geant4 libraries in `~/Downloads/Geant4-10.6.1-Darwin/lib`. You have to follow the instruction [here](https://github.com/Jackett/Jackett/issues/5589) to make the exception:
+By default, macOS does not allow you to run Geant4 libraries in `~/Downloads/Geant4-10.6.1-Darwin/lib`. You have to follow the instruction [here](https://github.com/Jackett/Jackett/issues/5589) to make the exception:
 
 ```sh
 $ cd ~/Downloads/Geant4-10.6.1-Darwin/lib
@@ -81,9 +90,9 @@ $ cd /opt/local/lib
 $ ln -sf /opt/X11/lib/libXmu.6.dylib
 ```
 
-## Install pre-compiled ROOT in MacOS
+## Install pre-compiled ROOT in macOS
 
-Download pre-compiled ROOT for MacOS from <https://root.cern.ch/downloading-root>. If you download the `.pkg` version, simply double click on the file to install it to `/Applications/` directory and then add the following to your `~/.bash_profile`:
+Download pre-compiled ROOT for macOS from <https://root.cern.ch/downloading-root>. If you download the `.pkg` version, simply double click on the file to install it to `/Applications/` directory and then add the following to your `~/.bash_profile`:
 
 ```sh
 export ROOTSYS=/Applications/root_v6.20.04
