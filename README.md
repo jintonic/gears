@@ -1,7 +1,7 @@
 [![Doxygen](https://codedocs.xyz/jintonic/gears.svg)](https://codedocs.xyz/jintonic/gears/annotated.html)
 [![License](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
 [![Examples](https://img.shields.io/badge/gears-examples-blue?style=flat)](examples)
-[![Get Started](https://img.shields.io/badge/get-started-orange?style=flat)](#getting-started)
+[![Get Started](https://img.shields.io/badge/get-started-orange?style=flat)](install)
 [![Get Involved](https://img.shields.io/badge/get-involved-ff69b4?style=flat)](#how-to-contribute)
 
 <a href="examples/detector/visualization/gearsX3D.html"><img style="float:right;width:120px;" src="examples/detector/visualization/gears.png"/></a>
@@ -45,109 +45,6 @@
 
 [ROOT]: https://root.cern.ch
 [GPS]:{{site.g4doc}}/GettingStarted/generalParticleSource.html
-
-## Getting started
-
-### Prerequisites
-
-* [Geant4][], version above 9 is requested due to the following inconvenience in version 9: <http://hypernews.slac.stanford.edu/HyperNews/geant4/get/hadronprocess/1242.html>.
-* (Optional) [Xerces-C++](https://xerces.apache.org/xerces-c/), to use or export detector geometries in [GDML][] format.
-* (Optional) [HDF5][], to save simulation results in [HDF5][] format.
-
-After an successful installation of [Geant4][], there should be a command line tool [geant4-config](http://geant4-userdoc.web.cern.ch/geant4-userdoc/UsersGuides/InstallationGuide/html/buildtools.html#other-unix-build-systems-geant4-config) available, which can be used to query some basic information of your [Geant4][] installation. [GEARS][] relies on it to find the installed [Geant4][] libraries and header files.Please run the following command to make sure that you have it available:
-
-```sh
-$ which geant4-config
-```
-
-If you get a null result, please contact the person who installed [Geant4][] in your system for help.
-
-### Get GEARS
-
-You can download [GEARS][] as a `.tar.gz` or `.zip` file from its [homepage](http://physino.xyz/gears) or [GitHub page](https://github.com/jintonic/gears), and run the following to unzip it:
-
-```sh
-$ unzip gears-master.zip # if you downloaded the zip file
-$ tar xfvz jintonic-gears-commitID.tar.gz # if you download the tar.gz file
-$ mv jintonic-gears-commitID gears # rename the directory
-```
-
-If you know how to use [Git][], you can download the whole [GEARS repository from GitHub][GEARS]:
-
-```sh
-$ git clone https://github.com/jintonic/gears.git
-```
-
-This way, you can update your local copy from time to time using
-
-```sh
-$ cd /path/to/gears
-$ git pull
-```
-
-Note that if you change some files in your local copy, the `git pull` command will fail since [Git][] does not want to overwrite your local modification with the updated [GEARS][]. To avoid this, please copy [example macros](examples) to somewhere outside of the `gears/` directory. You can then modify them as you like without worry. An easy way to check if there is any local change that may block `git pull` is:
-
-```sh
-# show modified files
-$ git status
-# show what are changed
-$ git diff a/changed/local/file
-# discard the local change
-$ git checkout -- a/changed/local/file
-# get latest gears
-$ git pull
-```
-
-### Compilation
-
-[GEARS][] is shipped with a simple [makefile]({{site.file}}/makefile). Simply type `make` to compile [gears.cc]({{site.file}}/gears.cc) to generate a tiny executable `gears`:
-
-```sh
-$ cd /path/to/gears
-$ make # compile gears.cc to generate executable: gears
-$ source gears.sh # setup environment for using gears
-$ gears # run gears in current terminal
-```
-
-You should also add the `source gears.sh` line to your `~/.bashrc` so that you can use `gears` in any newly opened terminal. For Mac users, you need to `source ~/.bashrc` in your `~/.bash_profile` in addition. Please check [this article](https://scriptingosx.com/2017/04/about-bash_profile-and-bashrc-on-macos/) for explanation.
-
-### User interface
-
-[GEARS][] relies on [G4UIExecutive]({{site.g4doc}}/GettingStarted/graphicalUserInterface.html#how-to-select-interface-in-your-applications) to select a user interface (UI). Without any specific setup, [GEARS][] will try to run a graphic user interface (GUI) based on [Qt][]. If your [Geant4][] is not compiled with [Qt][] support, [GEARS][] will try to [use a command-line UI that behaves like a tcsh]({{site.g4doc}}/GettingStarted/graphicalUserInterface.html#g4uiterminal). Run the following command to check if your [Geant4][] is compiled with [Qt][]
-
-```sh
-$ geant4-config --help | grep qt
-```
-
-If the output is `qt[yes]`, then you should be able to use the [Qt][] based GUI. If you can't, please check if you set the environment variable `G4UI_USE_TCSH` somewhere:
-
-```sh
-$ env |grep G4UI
-```
-
-If yes, run `export G4UI_USE_QT=1` to overwrite the `G4UI_USE_TCSH` setting, and run `gears` again. It is optional to delete the latter, because if both variables are set, the latter will be ignored.
-
-Now, if you want to go back to the command-line UI, you need to `unset G4UI_USE_QT` and keep the `G4UI_USE_TCSH` setting unchanged. `export G4UI_USE_QT=0` or `export G4UI_USE_QT=false` does not do what you intend to do. In fact, you can set `G4UI_USE_QT` to any value. It will take effect as long as it is not empty. The only way to completely get rid of it is to `unset` it.
-
-If none of the environment variables is set, you can use `~/.g4session` to select your UI:
-
-```sh
-qt # the first line is for all Geant4 applications
-gears tcsh # just for gears
-```
-
-### Session mode
-
-Without any argument, `gears` will start an [interactive session]({{site.g4doc}}/GettingStarted/graphicalUserInterface.html). It accepts [commands]({{site.g4doc}}/Control/commands.html) you type in the UI.
-
-You can also put a set of commands into a [macro](examples) file, which can be used as an argument of `gears`. For example,
-
-```sh
-$ cd gears/examples/detector/visualization
-$ gears RayTracer.mac # run gears in batch mode
-```
-
-This way, `gears` will run in the batch mode. It executes commands in the macro file one by one, and quit once it finishes.
 
 ## How to contribute
 
@@ -194,11 +91,7 @@ Two spaces instead of a tab are used to indent a line in [gears.cc]({{site.file}
   - add an example to show how QE can be implemented
   - add an example to show how one can use uproot to load ROOT file
   - add examples to show how one can distribute source in a volume or surface
-- installation
-  - an executable for Windows
 
 [G4UserSteppingAction]:http://www-geant4.kek.jp/lxr/source/tracking/include/G4UserSteppingAction.hh
 [GDML]: https://gdml.web.cern.ch/GDML/
 [HDF5]: https://www.hdfgroup.org/downloads/hdf5/
-[Qt]: https://doc.qt.io/
-[Git]: https://en.wikipedia.org/wiki/Git
