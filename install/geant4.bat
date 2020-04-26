@@ -1,5 +1,6 @@
 :: scan Geant4 data directories in current folder
-:: and set environment variables accordingly
+:: and set environment variables accordingly.
+:: Place this batch file into \folder\of\Geant4\data before running it.
 :: References:
 :: https://ss64.com/nt/for.html
 :: http://geant4-userdoc.web.cern.ch/geant4-userdoc/UsersGuides/InstallationGuide/html/postinstall.html#required-environment-settings-on-windows

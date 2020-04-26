@@ -1,4 +1,4 @@
-:: Add current directory to user PATH
+:: Add gears executable folder to user PATH
 :: References:
 :: https://ss64.com/nt/for.html
 :: https://stackoverflow.com/questions/14509652/what-is-the-difference-between-and-in-a-cmd-file
