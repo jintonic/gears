@@ -73,15 +73,9 @@ $ make # compile gears.cc to generate executable: gears
 
 ### Install GEARS in Windows
 
-Press the `windows` key on your keyboard, type `environment` and <kbd>Enter</kbd> to bring up the following window:
+When [GEARS][] is successfully compiled in `Visual Studio`, its executable `gears.exe` is saved in `\path\to\gears\out\build\x64-Release\`. You need to add this folder to the Windows environment variable `path` so that you can use `gears.exe` in other directories. A batch file [gears.bat](../gears.bat) is shipped with [GEARS][] to do this for you. Open the [GEARS][] folder in your file browser, select `gears.bat`, right click on it, choose `Run as administrator` to run it. To check if it works, open a `cmd.exe` window and type `echo %path%` in it:
 
-![winSys](winSys.png)
-
-Click "Environment Variables..." to bring up the following window:
-
-![winEnv](winEnv.png)
-
-Select "PATH" and click "Edit...". Add the GEARS directory, for example, `C:\Users\YourName\source\gears` to the list.
+![winCmdPath](winCmdPath.png)
 
 ### Install GEARS in macOS or Linux
 
@@ -150,11 +144,11 @@ This way, `gears` will run in the batch mode. It executes commands in the macro 
 
 # Install Geant4
 
-[GEARS][] relies on [Geant4][]. Due to [some inconvenience in version 9](http://hypernews.slac.stanford.edu/HyperNews/geant4/get/hadronprocess/1242.html), version above 9 is requested. Optionally, the following two packages can be installed before [Geant4 installation]():
+[GEARS][] relies on [Geant4][]. Due to [some inconvenience in version 9](http://hypernews.slac.stanford.edu/HyperNews/geant4/get/hadronprocess/1242.html), a version above 9 is requested. Optionally, the following two packages can be installed before [Geant4 installation]():
 * (Optional) [Xerces-C++](https://xerces.apache.org/xerces-c/), to use or export detector geometries in [GDML][] format.
 * (Optional) [HDF5][], to save simulation results in [HDF5][] format.
 
-The [Geant4 Installation Guide](https://geant4-userdoc.web.cern.ch/geant4-userdoc/UsersGuides/InstallationGuide/html/) is your ultimate reference should you have any issue regarding [Geant4][] installation. Covered here are detailed instructions on how to install pre-compiled [Geant4][] in [Windows](#install-pre-compiled-geant4-in-windows), [macOS](#install-pre-compiled-geant4-in-macos), and CentOS7(#install-pre-compiled-geant4-in-centos) to skip a long compilation of [Geant4][], which cannot be avoid if you use other OS or need features that are not included in the pre-compiled [Geant4][].
+The [Geant4 Installation Guide](https://geant4-userdoc.web.cern.ch/geant4-userdoc/UsersGuides/InstallationGuide/html/) is your ultimate reference should you have any issue regarding [Geant4][] installation. Covered here are detailed instructions on how to install pre-compiled [Geant4][] in [Windows](#install-pre-compiled-geant4-in-windows), [macOS](#install-pre-compiled-geant4-in-macos), and [CentOS7](#install-pre-compiled-geant4-in-centos) to skip a long compilation of [Geant4][], which cannot be avoid if you use other OS or need features that are not included in the pre-compiled [Geant4][].
 
 ## Install pre-compiled Geant4 in Windows
 
@@ -162,11 +156,11 @@ Download pre-compiled Geant4 in Windows 10 from <https://geant4.web.cern.ch/supp
 
 ![wing4path](wing4path.png)
 
-A few more steps need to be done before you can start to use your [Geant4][]. They are covered in the [Geant4 Installation Guide](http://geant4-userdoc.web.cern.ch/geant4-userdoc/UsersGuides/InstallationGuide/html/postinstall.html#required-environment-settings-on-windows). Basically, you need to download [Geant4][] data files from <http://geant4.web.cern.ch/support/download>, unpack them into a directory, for example, `C:\Program Files\Geant4 10.6\share\Geant4-10.6.1\data`, and then [set environment variables](http://geant4-userdoc.web.cern.ch/geant4-userdoc/UsersGuides/InstallationGuide/html/postinstall.html#required-environment-settings-on-windows) to point to the database directories. This is a very tedious process. You can download [a windows batch file](https://en.wikipedia.org/wiki/Batch_file), [GEARS/install/geant4.bat](geant4.bat), open it with `notepad`, modify its contents based on your Geant4 database locations, save and then double click it to run it. To check if it runs successfully, press the `windows` key on your keyboard, type `environment` and <kbd>Enter</kbd> to bring up the following window:
+A few more steps need to be done before you can start to use your [Geant4][]. They are covered in the [Geant4 Installation Guide](http://geant4-userdoc.web.cern.ch/geant4-userdoc/UsersGuides/InstallationGuide/html/postinstall.html#required-environment-settings-on-windows). Basically, you need to download [Geant4][] data files from <http://geant4.web.cern.ch/support/download>, unpack them into a directory, for example, `C:\Program Files\Geant4 10.6\share\Geant4-10.6.1\data`, and then [set environment variables](http://geant4-userdoc.web.cern.ch/geant4-userdoc/UsersGuides/InstallationGuide/html/postinstall.html#required-environment-settings-on-windows) to point to the database directories. This is a very tedious process. You can download [a windows batch file](https://en.wikipedia.org/wiki/Batch_file), [GEARS/install/geant4.bat](geant4.bat), save it to the same folder where the Geant4 data are saved, select it and then right click on it, choose "Run as administrator" to run it. To check if it runs successfully, press the `windows` key on your keyboard, search for `view advanced system settings` and <kbd>Enter</kbd> to bring up the following window:
 
 ![winSys](winSys.png)
 
-Click "Environment Variables..." and check the following highlighted items:
+Click "Environment Variables..." and check the highlighted items to make sure that your Geant4 installation folder is included in the `Path` and every data folder is associated with a environment variable:
 
 ![winEnv](winEnv.png)
 
