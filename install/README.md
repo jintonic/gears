@@ -14,7 +14,15 @@
 [Geant4]: http://geant4.cern.ch
 
 ## Get GEARS
-[GEARS][] can be downloaded as a `.tar.gz` or `.zip` file from its [homepage](http://physino.xyz/gears) or [GitHub](https://github.com/jintonic/gears). In Linux, run the following commands to unzip it:
+### Get GEARS in Windows
+[GEARS][] can be downloaded as a `.zip` file from its [homepage](http://physino.xyz/gears) or [GitHub](https://github.com/jintonic/gears). Unpack it and that's it, you've got [GEARS][].
+
+If you know how to use [Git][], you can download the whole [GEARS repository from GitHub][GEARS] using either [GitHub Desktop](https://desktop.github.com/) or [Visual Studio][]. If you use [Visual Studio][], go to section [Compile GEARS with Visual Studio](#compile-gears-with-visual-studio) for detailed instruction.
+
+[Visual Studio]: https://visualstudio.microsoft.com/thank-you-downloading-visual-studio/?sku=Community
+
+### Get GEARS in macOS or Linux
+[GEARS][] can be downloaded as a `.tar.gz` or `.zip` file from its [homepage](http://physino.xyz/gears) or [GitHub](https://github.com/jintonic/gears). Run the following commands in your terminal to unzip it:
 
 ```sh
 $ unzip gears-master.zip # if you downloaded the zip file
@@ -47,19 +55,39 @@ $ git pull # get latest gears
 
 ## Compile GEARS
 
+Two compilation systems are provide for [GEARS][]. One is [CMake][]. This mechanism is provided to insure that [GEARS][] can be compiled across platforms. You can find a [CMakeLists.txt]({{site.file}}/CMakeLists.txt) file in the [GEARS][] folder, which can be detected automatically by [Visual Studio][]. The other method is to directly use a [makefile]({{site.file}}/makefile) shipped with [GEARS][], which simplifies the compilation in Linux and macOS significantly.
+
+[CMake]: https://cmake.org/
+
 ### Compile GEARS with Visual Studio
 
 Download Visual Studio Community Edition installer. Run it. Choose to install a workload called "Desktop development with C++". It is about 2 GB and takes a long time to download and install. When you open VS the first time, choose "Visual C++" as your "Development Settings". And then "Clone and checkout code":
+<img style="width:100%;" src="vsstart.png"/>
 
-![vsstart](vsstart.png)
-![vsrepos](vsrepos.png)
-![vsconfig](vsconfig.png)
+Insert the [GEARS][] [GitHub](https://github.com/jintonic/gears) repository address `https://github.com/jintonic/gears.git` in the window below, and click `Clone`:
+<img style="width:100%;" src="vsrepos.png"/>
+
+The default configuration of a new project in [Visual Studio][] 2019 is `x64-Debug` in a 64-bit Windows 10 machine. Choose in the pull down menu shown below `Manage Configurations...`:
+<img style="width:100%;" src="vsconfig.png"/>
+
+Add `x64-Release` as the new CMakeSettings in the window below.
 ![vscmakesetting](vscmakesetting.png)
+
+And delete `x64-Debug`.  The `x64-Debug` setting does not work with pre-compiled [Geant4][].
 ![vscmakermdebug](vscmakermdebug.png)
+
+Click on the save icon to save the new settings to a file called `CMakeSettings.json` in your local [GEARS][] folder:
+
 ![vssavecmakejson](vssavecmakejson.png)
+
+In the following drop-down menu, select `gears.exe`:
 ![vsselectgears](vsselectgears.png)
+
+And then press the green play button to compile [GEARS][]:
 ![vsrungears](vsrungears.png)
-![vsdebuggears](vsdebuggears.png)
+
+Upon a successful compilation, `gears.exe` will be automatically launched within [Visual Studio][]:
+<img style="width:100%;" src="vsdebuggears.png"/>
 
 ### Compile GEARS in macOS or Linux
 [GEARS][] is shipped with a simple [makefile]({{site.file}}/makefile). Simply type `make` to compile [gears.cc]({{site.file}}/gears.cc) to generate a tiny executable `gears` in the GEARS directory:
@@ -73,9 +101,11 @@ $ make # compile gears.cc to generate executable: gears
 
 ### Install GEARS in Windows
 
-When [GEARS][] is successfully compiled in `Visual Studio`, its executable `gears.exe` is saved in `\path\to\gears\out\build\x64-Release\`. You need to add this folder to the Windows environment variable `path` so that you can use `gears.exe` in other directories. A batch file [gears.bat](../gears.bat) is shipped with [GEARS][] to do this for you. Open the [GEARS][] folder in your file browser, select `gears.bat`, right click on it, choose `Run as administrator` to run it. To check if it works, open a `cmd.exe` window and type `echo %path%` in it:
+When [GEARS][] is successfully compiled in [Visual Studio][], its executable `gears.exe` is located at `\path\to\gears\out\build\x64-Release\`. You need to add this folder to the Windows environment variable `path` so that you can use `gears.exe` in other directories. A batch file [gears.bat]({{site.file}}/gears.bat) is shipped with [GEARS][] to do this for you. Open the [GEARS][] folder in your file browser, select `gears.bat`, right click on it, choose `Run as administrator` to run it. To check if it works, open a `cmd.exe` window and type `echo %path%` in it:
 
 ![winCmdPath](winCmdPath.png)
+
+The path to `gears.exe` should show up at the end of the list.
 
 ### Install GEARS in macOS or Linux
 
@@ -91,7 +121,7 @@ $ make # compile gears.cc to generate executable: gears
  --------------------------------------------------------
 ```
 
-Follow this instruction, open a new terminal when you are done, and you should be able to use the `gears` command in the new terminal now.
+Follow this instruction, open a new terminal when you are done, and you should be able to use the `gears` command in a new terminal now.
 
 For Mac users, you need to `source ~/.bashrc` in your `~/.bash_profile` in addition if you have not done so. Please check [this article](https://scriptingosx.com/2017/04/about-bash_profile-and-bashrc-on-macos/) for explanation.
 
@@ -101,7 +131,15 @@ If you use `zsh` instead of `bash`, use `~/.zshrc` instead of `~/.bashrc` or `~/
 
 ### User interface
 
-[GEARS][] relies on [G4UIExecutive]({{site.g4doc}}/GettingStarted/graphicalUserInterface.html#how-to-select-interface-in-your-applications) to select a user interface (UI). Without any specific setup, [GEARS][] will try to run a graphic user interface (GUI) based on [Qt][] or Windows GUI. If your [Geant4][] is not compiled with GUI support, [GEARS][] will try to [use a command-line UI]({{site.g4doc}}/GettingStarted/graphicalUserInterface.html#g4uiterminal). Run the following command in macOS or Linux to check if your [Geant4][] is compiled with [Qt][]
+[GEARS][] relies on [G4UIExecutive]({{site.g4doc}}/GettingStarted/graphicalUserInterface.html#how-to-select-interface-in-your-applications) to select a user interface (UI). Without any specific setup, [GEARS][] will try to run a graphic user interface (GUI) based on [Qt][] or Windows GUI. If your [Geant4][] is not compiled with GUI support, [GEARS][] will try to [use a command-line UI]({{site.g4doc}}/GettingStarted/graphicalUserInterface.html#g4uiterminal). In Windows, go to a folder where you'd like to run [GEARS][] in your file browser. Highlight the address bar, type `gears.exe`:
+
+![winLaunchGears](winLaunchGears.png)
+
+This will bring up the following GUI, which is simply a window to accept your macro commands:
+
+![winGUI](winGUI.png)
+
+In macOS or Linux, please run the following command to check if your [Geant4][] is compiled with [Qt][]:
 
 ```sh
 $ geant4-config --help | grep qt
@@ -139,6 +177,8 @@ $ gears RayTracer.mac # run gears in batch mode
 
 This way, `gears` will run in the batch mode. It executes commands in the macro file one by one, and quit once it finishes.
 
+In Windows, you can select a [Geant4][] macro file, right click on it, choose `Open with ...`, and then `Choose another app`, `More apps`, scroll down the list, choose `Look for another app in this PC` and navigate to the folder containing `gears.exe`, choose `gears.exe`. Now you can simply double click a [Geant4][] macro file to run it.
+
 [GDML]: https://gdml.web.cern.ch/GDML/
 [HDF5]: https://www.hdfgroup.org/downloads/hdf5/
 
@@ -148,7 +188,7 @@ This way, `gears` will run in the batch mode. It executes commands in the macro 
 * (Optional) [Xerces-C++](https://xerces.apache.org/xerces-c/), to use or export detector geometries in [GDML][] format.
 * (Optional) [HDF5][], to save simulation results in [HDF5][] format.
 
-The [Geant4 Installation Guide](https://geant4-userdoc.web.cern.ch/geant4-userdoc/UsersGuides/InstallationGuide/html/) is your ultimate reference should you have any issue regarding [Geant4][] installation. Covered here are detailed instructions on how to install pre-compiled [Geant4][] in [Windows](#install-pre-compiled-geant4-in-windows), [macOS](#install-pre-compiled-geant4-in-macos), and [CentOS7](#install-pre-compiled-geant4-in-centos) to skip a long compilation of [Geant4][], which cannot be avoid if you use other OS or need features that are not included in the pre-compiled [Geant4][].
+The [Geant4 Installation Guide](https://geant4-userdoc.web.cern.ch/geant4-userdoc/UsersGuides/InstallationGuide/html/) is your ultimate reference should you have any issue regarding [Geant4][] installation. Covered here are detailed instructions on how to install pre-compiled [Geant4][] in [Windows](#install-pre-compiled-geant4-in-windows), [macOS](#install-pre-compiled-geant4-in-macos), and [CentOS7](#install-pre-compiled-geant4-in-centos) to skip the long compilation of [Geant4][], which cannot be avoid if you use other OS or need features that are not included in the pre-compiled [Geant4][].
 
 ## Install pre-compiled Geant4 in Windows
 
@@ -156,17 +196,17 @@ Download pre-compiled Geant4 in Windows 10 from <https://geant4.web.cern.ch/supp
 
 ![wing4path](wing4path.png)
 
-A few more steps need to be done before you can start to use your [Geant4][]. They are covered in the [Geant4 Installation Guide](http://geant4-userdoc.web.cern.ch/geant4-userdoc/UsersGuides/InstallationGuide/html/postinstall.html#required-environment-settings-on-windows). Basically, you need to download [Geant4][] data files from <http://geant4.web.cern.ch/support/download>, unpack them into a directory, for example, `C:\Program Files\Geant4 10.6\share\Geant4-10.6.1\data`, and then [set environment variables](http://geant4-userdoc.web.cern.ch/geant4-userdoc/UsersGuides/InstallationGuide/html/postinstall.html#required-environment-settings-on-windows) to point to the database directories. This is a very tedious process. You can download [a windows batch file](https://en.wikipedia.org/wiki/Batch_file), [GEARS/install/geant4.bat](geant4.bat), save it to the same folder where the Geant4 data are saved, select it and then right click on it, choose "Run as administrator" to run it. To check if it runs successfully, press the `windows` key on your keyboard, search for `view advanced system settings` and <kbd>Enter</kbd> to bring up the following window:
+A few more steps need to be done before you can start to use your [Geant4][]. They are covered in the [Geant4 Installation Guide](http://geant4-userdoc.web.cern.ch/geant4-userdoc/UsersGuides/InstallationGuide/html/postinstall.html#required-environment-settings-on-windows). Basically, you need to download [Geant4][] data files from <http://geant4.web.cern.ch/support/download>, unpack them into a directory, for example, `C:\Program Files\Geant4 10.6\share\Geant4-10.6.1\data`, and then [set environment variables](http://geant4-userdoc.web.cern.ch/geant4-userdoc/UsersGuides/InstallationGuide/html/postinstall.html#required-environment-settings-on-windows) to point to the database directories. This is a very tedious process. You can download [a windows batch file](https://en.wikipedia.org/wiki/Batch_file), [GEARS/install/geant4.bat](geant4.bat), save it to the SAME folder where the Geant4 datasets are saved, select it and then right click on it, choose "Run as administrator" to run it. To check if it runs successfully, press the `windows` key on your keyboard, search for `view advanced system settings` and type <kbd>Enter</kbd> to bring up the following window:
 
 ![winSys](winSys.png)
 
 Click "Environment Variables..." and check the highlighted items to make sure that your Geant4 installation folder is included in the `Path` and every data folder is associated with a environment variable:
 
-![winEnv](winEnv.png)
+<img style="width:100%;" src="winEnv.png"/>
 
 ## Install pre-compiled Geant4 in macOS
 
-You can download the pre-compiled Geant4 libraries for the macOS [here](https://geant4.web.cern.ch/support/download). By default, it will be saved to `~/Downloads`.
+You can download the pre-compiled Geant4 libraries for the macOS [here](https://geant4.web.cern.ch/support/download). By default, it will be saved to `~/Downloads`. The next step is to download [Geant4 datasets](https://geant4.web.cern.ch/support/download) one by one and unpack them into a folder. This tedious process can be automated by using the [geant4-config][] script shipped with [Geant4][]. However, the one shipped with the pre-compiled [Geant4][] does not know where your data folder is. You need to run the following commands to update your [geant4-config][] and use it to install all the datasets for you:
 
 ```sh
 $ cd ~/Downloads/Geant4-10.6.1-Darwin/bin
@@ -186,7 +226,7 @@ $ xattr -w com.apple.quarantine "00c1;5e968234;Firefox;29504EDE-15EA-4CF5-A750-6
 $ xattr -w com.apple.quarantine "00c1;5e968234;Firefox;29504EDE-15EA-4CF5-A750-6B0AEB8CF5ED" libG4*.dylib
 ```
 
-Add the following to `~/.bash_profile`:
+Add the following to `~/.bash_profile` (or `~/.zshrc` if you use zsh) to finish the post-installation setups:
 
 ```sh
 export G4SYSTEM=Darwin-clang
@@ -221,13 +261,34 @@ $ ln -sf /opt/X11/lib/libXmu.6.dylib
 
 ## Install pre-compiled Geant4 in CentOS
 
-After an successful installation of [Geant4][], there should be a command line tool [geant4-config](http://geant4-userdoc.web.cern.ch/geant4-userdoc/UsersGuides/InstallationGuide/html/buildtools.html#other-unix-build-systems-geant4-config) available, which can be used to query some basic information of your [Geant4][] installation. [GEARS][] relies on it to find the installed [Geant4][] libraries and header files.Please run the following command to make sure that you have it available:
+You can download the pre-compiled Geant4 libraries for CentOS [here](https://geant4.web.cern.ch/support/download). Unpack it to a directory that you like:
 
 ```sh
-$ which geant4-config
+$ cd /path/to/your/Linux-g++8.3.0-CC7.tar.gz
+$ tar xfvz Linux-g++8.3.0-CC7.tar.gz
+$ ls
+./   ../   Geant4-10.6.1-Linux/
 ```
 
-If you get a null result, please contact the person who installed [Geant4][] in your system for help.
+The next step is to download [Geant4 datasets](https://geant4.web.cern.ch/support/download) one by one and unpack them into a folder. This tedious process can be automated by using the [geant4-config][] script shipped with [Geant4][], which can be found in `/path/to/your/geant4/bin/`.  However, the one shipped with the pre-compiled [Geant4][] does not know where your data folder is. You need to run the following commands to update your [geant4-config][] and use it to install all the datasets for you:
+
+```sh
+$ cd /path/to/your/Geant4-10.6.1-Linux/bin
+# change location of geant4 databases
+$ sed -i.bak 's|/afs/cern.ch/user/g/gunter/l/releases/web/10.6.p01/install|/path/to/your/geant4|g' geant4-config
+$ ./geant4-config --install-datasets
+```
+
+A bash script [gears.sh]({{site.file}}/gears.sh) is provided in [GEARS][] to find the location of the Geant4 datasets. Add the following to your `~/.bashrc` (or `~/.zshrc` if you use zsh) to finish the post-installation setups:
+
+```sh
+export G4SYSTEM=Linux-g++
+export G4INSTALL=/path/to/your/pre-compiled/geant4
+export PATH=$G4INSTALL/bin:$PATH
+export LD_LIBRARY_PATH=$G4INSTALL/lib:$LD_LIBRARY_PATH
+# source gears/gears.sh to export Geant4 database locations
+source /path/to/gears/gears.sh
+```
 
 # Install ROOT
 
@@ -273,3 +334,4 @@ Save and quit, open a new terminal, and you should be able to run the `root` com
 [ROOT]: https://root.cern.ch
 [uproot]: https://github.com/scikit-hep/uproot
 [Python]: https://www.python.org/
+[Geant4-config]: http://geant4-userdoc.web.cern.ch/geant4-userdoc/UsersGuides/InstallationGuide/html/buildtools.html#other-unix-build-systems-geant4-config
