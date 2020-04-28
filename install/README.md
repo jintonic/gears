@@ -251,14 +251,22 @@ and then use the following trick to solve the problem:
 
 ```sh
 # make a link in the location appeared in the library file
-$ mkdir /opt/local/lib
+$ sudo mkdir /opt/local/lib
 $ cd /opt/local/lib
-$ ln -sf /opt/X11/lib/libXmu.6.dylib
+$ sudo ln -sf /opt/X11/lib/libXmu.6.dylib
 ```
 
 ## Install pre-compiled Geant4 in CentOS
 
-You can download the pre-compiled Geant4 libraries for CentOS [here](https://geant4.web.cern.ch/support/download). Unpack it to a directory that you like:
+You can download the pre-compiled Geant4 libraries for CentOS [here](https://geant4.web.cern.ch/support/download). They were compiled with a relatively new version of `g++`, 8.3.0. Run the following command in your CentOS terminal:
+
+```sh
+$ g++ --version
+```
+
+If your g++ is much older than the version used for the pre-compiled libraries, please stop here. You may not be able to use the pre-compiled libraries due the mismatch of the compilers.
+
+Otherwise, unpack the downloaded gz file to a directory that you like:
 
 ```sh
 $ cd /path/to/your/Linux-g++8.3.0-CC7.tar.gz
