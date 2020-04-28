@@ -229,10 +229,7 @@ $ xattr -w com.apple.quarantine "00c1;5e968234;Firefox;29504EDE-15EA-4CF5-A750-6
 Add the following to `~/.bash_profile` (or `~/.zshrc` if you use zsh) to finish the post-installation setups:
 
 ```sh
-export G4SYSTEM=Darwin-clang
-export G4INSTALL=~/Downloads/Geant4-10.6.1-Darwin
-export PATH=$G4INSTALL/bin:$PATH
-export DYLD_LIBRARY_PATH=$G4INSTALL/lib:$DYLD_LIBRARY_PATH
+source ~/Downloads/Geant4-10.6.1-Darwin/bin/geant4.sh
 # source gears/gears.sh to export Geant4 database locations
 source /path/to/gears/gears.sh
 ```
@@ -282,10 +279,7 @@ $ ./geant4-config --install-datasets
 A bash script [gears.sh]({{site.file}}/gears.sh) is provided in [GEARS][] to find the location of the Geant4 datasets. Add the following to your `~/.bashrc` (or `~/.zshrc` if you use zsh) to finish the post-installation setups:
 
 ```sh
-export G4SYSTEM=Linux-g++
-export G4INSTALL=/path/to/your/pre-compiled/geant4
-export PATH=$G4INSTALL/bin:$PATH
-export LD_LIBRARY_PATH=$G4INSTALL/lib:$LD_LIBRARY_PATH
+source /path/to/your/pre-compiled/geant4/bin/geant4.sh
 # source gears/gears.sh to export Geant4 database locations
 source /path/to/gears/gears.sh
 ```
