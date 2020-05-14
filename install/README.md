@@ -251,7 +251,7 @@ and then use the following trick to solve the problem:
 
 ```sh
 # make a link in the location appeared in the library file
-$ sudo mkdir /opt/local/lib
+$ sudo mkdir -p /opt/local/lib
 $ cd /opt/local/lib
 $ sudo ln -sf /opt/X11/lib/libXmu.6.dylib
 ```
