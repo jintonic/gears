@@ -89,7 +89,7 @@ And then press the green play button to compile [GEARS][]:
 Upon a successful compilation, `gears.exe` will be automatically launched within [Visual Studio][]:
 <img style="width:100%;" src="vsdebuggears.png"/>
 
-### Compile GEARS in macOS
+### Compile GEARS in Linux
 [GEARS][] is shipped with a simple [makefile]({{site.file}}/makefile). Simply type `make` to compile [gears.cc]({{site.file}}/gears.cc) to generate a tiny executable `gears` in the GEARS directory:
 
 ```sh
