@@ -8,7 +8,7 @@
 
 # Getting started
 
-[GEARS][] can run in three major operating systems: [Windows](#compile-gears-with-visual-studio), [macOS](#compile-gears-in-macos-or-linux), and [Linux](#compile-gears-in-macos-or-linux). It depends on [Geant4][]. If you don't have [Geant4][] installed yet in your system, please read section [Install Geant4](#install-geant4) first.
+[GEARS][] can run in three major operating systems: [Windows](#compile-gears-with-visual-studio), [macOS](#compile-gears-in-macos), and [Linux](#compile-gears-in-linux). It depends on [Geant4][]. If you don't have [Geant4][] installed yet in your system, please read section [Install Geant4](#install-geant4) first.
 
 [GEARS]: https://github.com/jintonic/gears
 [Geant4]: http://geant4.cern.ch
@@ -89,13 +89,23 @@ And then press the green play button to compile [GEARS][]:
 Upon a successful compilation, `gears.exe` will be automatically launched within [Visual Studio][]:
 <img style="width:100%;" src="vsdebuggears.png"/>
 
-### Compile GEARS in macOS or Linux
+### Compile GEARS in macOS
 [GEARS][] is shipped with a simple [makefile]({{site.file}}/makefile). Simply type `make` to compile [gears.cc]({{site.file}}/gears.cc) to generate a tiny executable `gears` in the GEARS directory:
 
 ```sh
 $ cd /path/to/gears
 $ make # compile gears.cc to generate executable: gears
 ```
+
+### Compile GEARS in macOS
+
+You need to have the [commandline tools for developers](https://osxdaily.com/2014/02/12/install-command-line-tools-mac-os-x/) installed before you can compile [GEARS][] in macOS. The command to install that is:
+
+```sh
+$ xcode-select --install
+```
+
+After this, the procedure is the same as [that in Linux](#compile-gears-in-linux).
 
 ## Install GEARS
 
@@ -312,6 +322,14 @@ export DYLD_LIBRARY_PATH=$ROOTSYS/lib:$DYLD_LIBRARY_PATH
 ```
 
 Save and quit, open a new terminal, and you should be able to run the `root` command in that new terminal.
+
+If you encounter some error messages related to `/Library/Developer/CommandLineTools`, you need to use the following command to install [command line tools for developers](https://osxdaily.com/2014/02/12/install-command-line-tools-mac-os-x/):
+
+```sh
+$ xcode-select --install
+```
+
+and then try to run `root` again.
 
 ## Install pre-compiled ROOT in Linux
 Download pre-compiled ROOT for your Linux distribution from <https://root.cern.ch/downloading-root>, for example:
