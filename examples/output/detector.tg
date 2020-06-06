@@ -1,5 +1,5 @@
 // default unit for length is mm
-:volu world BOX 500 500 500 G4_AIR
+:volu world BOX 100 100 100 G4_AIR
 :color world 0.5 0.5 0.5
 
 // two germanium detectors in a vacuum chamber
@@ -7,14 +7,14 @@
 :volu vacuum  TUBE 0 50 60 G4_Galactic
 :volu planar(S) BOX 20 20 10 G4_Ge
 :volu PPC(S) TUBE 0 35 35 G4_Ge
-:color chamber 0.2 0.9 0.3
+:color chamber 0.33 0.1 0.55
 :color vacuum  0.1 0.1 0.1
-:color planar(S) 0.9 0.9 0.1
-:color PPC(S) 0.9 0.9 0.4
+:color planar(S) 0 0 0.6
+:color PPC(S) 0 0 0.5
 
 :rotm r000 0 0 0
 // place them off center to demonstrate the
-// difference between x, y, z and x0, y0, z0
+// difference between xx, yy, zz and x, y, z
 :place chamber 3 world r000 40 40 20
 :place vacuum 0 chamber r000 0 0 0
 :place planar(S) 1 vacuum r000 0 0 35
