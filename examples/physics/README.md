@@ -164,7 +164,7 @@ Some [isotope][]s in a radioactive [decay chain][] have long [half live][]s. The
 Example macro and detector definition files can be found in [GEARS][][/examples/physics/decay]({{site.file}}/examples/physics/decay) folder. The following is an example analysis code to show the recorded events in ROOT:
 
 ```cpp
-root [] t->Scan("pdg:trk:mom:stp:t/1e9:t0/1e9","","colsize=10 precision=10")
+root [] t->Scan("pdg:trk:pid:stp:dt/1e9:t/1e9","","colsize=10 precision=10")
 ```
 
 For people who want to understand how this is done, please check the [GEARS doxygen page of StakingAction](https://codedocs.xyz/jintonic/gears/classStackingAction.html) and the following [Geant4][] help pages:

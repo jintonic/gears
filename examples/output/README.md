@@ -68,7 +68,7 @@ The [ROOT][] [TTree][] offers the following features that are desired for analyz
 
 Here are some example codes that can be run in a ROOT interactive session to generate histograms:
 
-```cpp
+```sh
 $ root output.root # open the output file in root format using ROOT
 root [] .ls
 TFile**         output.root
@@ -85,23 +85,23 @@ root [] t->Show(0)
  vlm = (vector<int>*)0x2d4dba0
  pro = (vector<int>*)0x3524f60
  pdg = (vector<int>*)0x34302c0
- mom = (vector<int>*)0x3972e80
- k   = (vector<double>*)0x3a907c0
- p   = (vector<double>*)0x2f307c0
- q   = (vector<double>*)0x2ae30c0
- t   = (vector<double>*)0x351eed0
+ pid = (vector<int>*)0x3972e80
+ xx  = (vector<double>*)0x3548ce0
+ yy  = (vector<double>*)0x2d4ef10
+ zz  = (vector<double>*)0x354e600
+ dt  = (vector<double>*)0x3549db0
+ de  = (vector<double>*)0x34b2d90
+ dl  = (vector<double>*)0x2f63630
+ l   = (vector<double>*)0x2f636f0
  x   = (vector<double>*)0x2d50760
  y   = (vector<double>*)0x351a450
  z   = (vector<double>*)0x3543f10
- l   = (vector<double>*)0x2f636f0
- dl  = (vector<double>*)0x2f63630
- de  = (vector<double>*)0x34b2d90
- t0  = (vector<double>*)0x3549db0
- x0  = (vector<double>*)0x3548ce0
- y0  = (vector<double>*)0x2d4ef10
- z0  = (vector<double>*)0x354e600
+ t   = (vector<double>*)0x351eed0
+ k   = (vector<double>*)0x3a907c0
+ p   = (vector<double>*)0x2f307c0
+ q   = (vector<double>*)0x2ae30c0
  et  = (vector<double>*)0x35293f0
-root [] t->Draw("x","e*(pdg==2)")
+root [] t->Draw("x","k*(pdg==22)")
 ```
 
 ## Step point
@@ -119,20 +119,21 @@ A step point in [GEARS][] contains the following information:
 * Detector volume copy number (`vlm` in short)
 * [Process id](#process-id) (`pro` in short)
 * [Particle id](#particle-id) (`pdg` in short)
-* Particle id of the parent particle (`mom` in short)
+* Particle id of the parent particle (`pid` in short)
+* Local position `xx` [mm] (origin: center of the volume)
+* Local position `yy` [mm] (origin: center of the volume)
+* Local position `zz` [mm] (origin: center of the volume)
+* Local time `dt` [ns] (time elapsed from previous step point)
 * Energy deposited [keV] (`de` in short)
+* Step length [mm] (`dl` in short)
+* Trajectory length [mm] (`l` in short)
+* Global position `x` [mm] (origin: center of the world)
+* Global position `y` [mm] (origin: center of the world)
+* Global position `z` [mm] (origin: center of the world)
+* Global time `t` [ns] (time elapsed from the beginning of event)
 * Kinetic energy of the particle [keV] (`k` in short)
 * Momentum of the particle [keV] (`p` in short)
 * Charges (`q` in short)
-* Global time `t0` [ns] (start at the beginning of event)
-* Global position `x0` [mm] (origin: center of the world)
-* Global position `y0` [mm] (origin: center of the world)
-* Global position `z0` [mm] (origin: center of the world)
-* Local time `t` [ns] (time to previous step point)
-* Local position `x` [mm] (origin: center of the volume)
-* Local position `y` [mm] (origin: center of the volume)
-* Local position `z` [mm] (origin: center of the volume)
-
 
 They are saved in separated C++ vectors (arrays with various sizes). Such a flat data structure and very short variable names are chosen on purpose to make plotting of those variables in a [ROOT][] interactive session easy.
 
@@ -140,7 +141,7 @@ Notice that the variable `n` is the total number of step points recorded in each
 
 ### Process id
 
-The physics process generating each step point is saved in a variable `pro[n]`, where `n` is the index of the step point. It equals to (process type) * 1000 + (sub type). The Process types are defined in G4ProcessType.hh, sub types are defined in G4HadronicProcessType.hh, G4DecayProcessType.hh, G4EmProcessSubType.hh,  G4TransportationProcessType.hh, G4FastSimulationProcessType.hh, G4OpProcessSubType.hh, etc. They can be found in <http://www-geant4.kek.jp/lxr/find?string=Type.hh>.
+The physics process generating each step point is saved in a variable `pro[i]`, where `i` is the index of the step point. It equals to (process type) * 1000 + (sub type). The Process types are defined in G4ProcessType.hh, sub types are defined in G4HadronicProcessType.hh, G4DecayProcessType.hh, G4EmProcessSubType.hh,  G4TransportationProcessType.hh, G4FastSimulationProcessType.hh, G4OpProcessSubType.hh, etc. They can be found in <http://www-geant4.kek.jp/lxr/find?string=Type.hh>.
 
 - less than 1000: not defined
 - 1000 to 2000: transportation
@@ -192,7 +193,7 @@ The physics process generating each step point is saved in a variable `pro[n]`, 
 
 ### Particle id
 
-The type of particle related to a step point is saved in a variable `pdg[n]`. It is the same as the [PDG encoding](http://pdg.lbl.gov/current/mc-particle-id) of the particle. A Google search will give more information about it.
+The type of particle related to a step point is saved in a variable `pdg`. It is the same as the [PDG encoding](http://pdg.lbl.gov/current/mc-particle-id) of the particle. A Google search will give more information about it. The name `pid` is used for the parent particle's PDG encoding.
 
 ### Record information of step 0
 
@@ -243,13 +244,13 @@ One can use the following command to generate `output.root` in [GEARS][]/[exampl
 $ gears radiate.mac
 ```
 
-[radiate.mac]({{site.file}}/examples/output/radiate.mac) demonstrates how to use [Geant4][] [macro commands]({{site.g4doc}}/Control/AllResources/Control/UIcommands/_.html) to save [step points](#step-point) and [total energies in sensitive volums](#total-energy). It uses the [detector geometry](../detector) defined in [detector.tg]({{site.file}}/examples/output/detector.tg).
+[radiate.mac]({{site.file}}/examples/output/radiate.mac) demonstrates how to use [Geant4][] [macro commands]({{site.g4doc}}/Control/AllResources/Control/UIcommands/_.html) to save [step points](#step-point) and [total energies in sensitive volumes](#total-energy). It uses the [detector geometry](../detector) defined in [detector.tg]({{site.file}}/examples/output/detector.tg).
 
 Here are some sample [ROOT][] commands that one can use to generate plots from `output.root`:
 
 ```cpp
 // draw tracks of the primary particle on x-y plane in event 1
-root[] t->Draw("x0:y0", "trk==1","l", 1, 1)
+root[] t->Draw("x:y", "trk==1","l", 1, 1)
 // show physics processes creating secondary particles
 root[] t->Draw("pro","trk>1 && stp==0")
 // display hits distribution in volume with copy number 1
@@ -258,8 +259,8 @@ root[] t->Draw("x:y:z", "vlm==1")
 root[] t->Draw("pdg");
 // show physics process related to gamma-rays
 root[] t->Draw("pro", "pdg==22 && stp!=0");
-// show spatial distributions of secondary particles created by the primary one
-root[] t->Draw("x0:y0", "mom==1")
+// show spatial distributions of secondary particles
+root[] t->Draw("x:y", "trk>1")
 // plot dE/dx versus momentum
 root[] t->Draw("de/dl:p")
 // draw energy spectrum recorded by volume (detector) 1
