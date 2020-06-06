@@ -182,14 +182,14 @@ Optical processes can be enabled after a reference list is chosen:
  /physics_lists/factory/addOptical
  # must be run after the cmds above
  /run/initialize
- 
+
  /process/list Electromagnetic
    phot,              compt,               conv,                msc
    eIoni,              eBrem,        CoulombScat,            annihil
    muIoni,            muBrems,         muPairProd,              hIoni
    hBrems,          hPairProd,            ionIoni,           Cerenkov
    Scintillation
- 
+
  /process/list Optical
    OpAbsorption,   OpRayleigh,            OpMieHG,         OpBoundary
    OpWLS

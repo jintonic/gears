@@ -632,8 +632,8 @@ class RunManager : public G4RunManager, public G4UImessenger
       fFactory = new G4PhysListFactory;
       if (fFactory->IsReferencePhysList(value)==false) {
         G4cout<<"GEARS: no physics list \""<<value
-          <<"\", set to \"QGSP_BERT_EMV\""<<G4endl;
-        value = "QGSP_BERT_EMV"; // default
+          <<"\", set to \"QGSP_BERT\""<<G4endl;
+        value = "QGSP_BERT"; // default
       }
       SetUserInitialization(fFactory->GetReferencePhysList(value));
     } ///< for UI
@@ -643,7 +643,7 @@ class RunManager : public G4RunManager, public G4UImessenger
         fFactory = new G4PhysListFactory;
         G4StateManager::GetStateManager()->SetNewState(G4State_PreInit);
         // has to be called in PreInit state:
-        SetUserInitialization(fFactory->GetReferencePhysList("QGSP_BERT_EMV"));
+        SetUserInitialization(fFactory->GetReferencePhysList("QGSP_BERT"));
       }
       G4RunManager::InitializePhysics(); // call the original function
       // has to be called after physics initilization
