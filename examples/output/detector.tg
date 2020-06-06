@@ -1,21 +1,25 @@
 // default unit for length is mm
 :volu world BOX 100 100 100 G4_AIR
-:color world 0.5 0.5 0.5
+:vis world OFF
 
-// two germanium detectors in a vacuum chamber
-:volu chamber TUBE 0 52 62 G4_STAINLESS-STEEL
+// a germanium detector in a vacuum chamber
+:volu chamber TUBE 0 52 62 G4_Al
 :volu vacuum  TUBE 0 50 60 G4_Galactic
-:volu planar(S) BOX 20 20 10 G4_Ge
-:volu PPC(S) TUBE 0 35 35 G4_Ge
+:volu IRshield TUBE 0 48 58 G4_Al
+:volu inside TUBE 0 47 50 G4_Galactic
+:volu HPGe(S) TUBE 0 35 35 G4_Ge
 :color chamber 0.33 0.1 0.55
-:color vacuum  0.1 0.1 0.1
-:color planar(S) 0 0 0.6
-:color PPC(S) 0 0 0.5
+:vis vacuum  OFF
+:color IRshield 0 0 0.1
+:color inside  0 0 0.1
+:color HPGe(S) 0 0 0.8
 
+// define a rotation matrix that does no rotation
 :rotm r000 0 0 0
 // place them off center to demonstrate the
 // difference between xx, yy, zz and x, y, z
 :place chamber 3 world r000 40 40 20
 :place vacuum 0 chamber r000 0 0 0
-:place planar(S) 1 vacuum r000 0 0 35
-:place PPC(S) 2 vacuum r000 0 0 -15
+:place IRshield 2 vacuum r000 0 0 0
+:place inside 0 IRshield r000 0 0 7
+:place HPGe(S) 1 inside r000 0 0 -15

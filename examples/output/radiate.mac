@@ -2,19 +2,32 @@
 /control/verbose 1
 # geometry must be specified before /run/initialize
 /geometry/source detector.tg
+# specify a physics list
+#/physics_lists/select QGSP_BERT_EMV
 # initialize geometry and physics
 /run/initialize
 
 # change particle and its energy here
 /gps/particle gamma
 /gps/energy 2.6 MeV
+# isotropically emit gamma rays in a range
 /gps/ang/type iso
+/gps/ang/minphi 180 deg
+/gps/ang/maxphi 270 deg
+/gps/ang/mintheta 40 deg
+/gps/ang/maxtheta 150 deg
 
 # visualize geometry and events for debugging
-/vis/open HepRepFile
+/vis/open VRML2FILE
 /vis/drawVolume
 /vis/scene/add/trajectories
 /vis/scene/endOfEventAction accumulate 10
+/run/beamOn 10
+
+/vis/open HepRepFile
+/vis/drawVolume
+/vis/scene/add/axes
+/vis/scene/add/trajectories
 
 # turn on detailed information about tracking
 /tracking/verbose 2
@@ -28,6 +41,6 @@
 /analysis/setFileName output
 # turn on progress report
 /run/verbose 2
-/run/printProgress 1000
+/run/printProgress 10000
 # start simulation
 /run/beamOn 50000
