@@ -1,0 +1,23 @@
+// optical properties of CsI
+#include ../CsI.tg
+
+// default unit of length is mm
+:volu vac BOX 50 50 50 G4_Galactic
+:volu CsI BOX 20 20 20 G4_CESIUM_IODIDE
+:volu Teflon BOX 20 20 20 G4_TEFLON
+:rotm r000 0 0 0
+:place CsI 1 vac r000 -20 0 0
+:place Teflon 2 vac r000 20 0 0
+
+// optical properties of the surface between CsI & Teflon
+:surf CsI2Teflon CsI:1 Teflon:2
+  type dielectric_dielectric
+  model unified
+  finish groundFrontPainted
+  property photon_energies 2 2.5*eV 5.0*eV
+    REFLECTIVITY 1 1
+
+// visual effects
+:color CsI 0.2 0.4 0.8
+:color Teflon 0.3 0.3 0.3
+:vis vac OFF
