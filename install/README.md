@@ -239,10 +239,11 @@ $ xattr -w com.apple.quarantine "00c1;5e968234;Firefox;29504EDE-15EA-4CF5-A750-6
 Add the following to `~/.bash_profile` (or `~/.zshrc` if you use zsh) to finish the post-installation setup:
 
 ```sh
-# add ~/Downloads/Geant4-10.6.2-Darwin/bin/ to PATH
-export PATH=~/Downloads/Geant4-10.6.2-Darwin/bin/:$PATH
+export G4SYSTEM=Darwin-clang
+# add Geant4-xxx/bin/ to PATH
+export G4INSTALL=~/Downloads/Geant4-10.6.2-Darwin
+export PATH=$G4INSTALL/bin/:$PATH
 # add Geant4 libs to DYLD_LIBRARY_PATH
-export G4INSTALL=`geant4-config --prefix`
 G4LIB=`geant4-config --libs | awk '{print $1}'`
 export G4LIB=${G4LIB#-L}
 export DYLD_LIBRARY_PATH=$G4LIB:$DYLD_LIBRARY_PATH
