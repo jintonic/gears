@@ -236,11 +236,20 @@ $ xattr -w com.apple.quarantine "00c1;5e968234;Firefox;29504EDE-15EA-4CF5-A750-6
 $ xattr -w com.apple.quarantine "00c1;5e968234;Firefox;29504EDE-15EA-4CF5-A750-6B0AEB8CF5ED" libG4*.dylib
 ```
 
-Add the following to `~/.bash_profile` (or `~/.zshrc` if you use zsh) to finish the post-installation setups:
+Add the following to `~/.bash_profile` (or `~/.zshrc` if you use zsh) to finish the post-installation setup:
 
 ```sh
-# source gears/gears.sh to export Geant4 related environment variables
-source /path/to/gears/gears.sh
+ # add Geant4 libs to DYLD_LIBRARY_PATH
+ G4INSTALL=`geant4-config --prefix`
+ G4LIB=`geant4-config --libs | awk '{print $1}'`
+ G4LIB=${G4LIB#-L}
+ export DYLD_LIBRARY_PATH=$G4LIB:$DYLD_LIBRARY_PATH
+ # set Geant4 database locations
+ while read line; do
+   database=`echo $line | awk '{print $2}'`
+   folder=`echo $line | awk '{print $3}'`
+   export $database=$folder
+ done <<< "$(geant4-config --datasets)"
 ```
 
 If you encounter problems to load some shared libraries when you run a Geant4 executable, for example, `libXmu.6.dylib`, check its location in `libG4OpenGL.dylib` using:
