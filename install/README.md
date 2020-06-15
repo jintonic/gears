@@ -206,7 +206,7 @@ Download pre-compiled Geant4 in Windows 10 from <https://geant4.web.cern.ch/supp
 
 ![wing4path](wing4path.png)
 
-A few more steps need to be done before you can start to use your [Geant4][]. They are covered in the [Geant4 Installation Guide](http://geant4-userdoc.web.cern.ch/geant4-userdoc/UsersGuides/InstallationGuide/html/postinstall.html#required-environment-settings-on-windows). Basically, you need to download [Geant4][] data files from <http://geant4.web.cern.ch/support/download>, unpack them into a directory, for example, `C:\Program Files\Geant4 10.6\share\Geant4-10.6.1\data`, and then [set environment variables](http://geant4-userdoc.web.cern.ch/geant4-userdoc/UsersGuides/InstallationGuide/html/postinstall.html#required-environment-settings-on-windows) to point to the database directories. This is a very tedious process. You can download [a windows batch file](https://en.wikipedia.org/wiki/Batch_file), [GEARS/install/geant4.bat](geant4.bat), save it to the SAME folder where the Geant4 datasets are saved, select it and then right click on it, choose "Run as administrator" to run it. To check if it runs successfully, press the `windows` key on your keyboard, search for `view advanced system settings` and type <kbd>Enter</kbd> to bring up the following window:
+A few more steps need to be done before you can start to use your [Geant4][]. They are covered in the [Geant4 Installation Guide](http://geant4-userdoc.web.cern.ch/geant4-userdoc/UsersGuides/InstallationGuide/html/postinstall.html#required-environment-settings-on-windows). Basically, you need to download [Geant4][] data files from <http://geant4.web.cern.ch/support/download>, unpack them into a directory, for example, `C:\Program Files\Geant4 10.6\share\Geant4-10.6.2\data`, and then [set environment variables](http://geant4-userdoc.web.cern.ch/geant4-userdoc/UsersGuides/InstallationGuide/html/postinstall.html#required-environment-settings-on-windows) to point to the database directories. This is a very tedious process. You can download [a windows batch file](https://en.wikipedia.org/wiki/Batch_file), [GEARS/install/geant4.bat](geant4.bat), save it to the SAME folder where the Geant4 datasets are saved, select it and then right click on it, choose "Run as administrator" to run it. To check if it runs successfully, press the `windows` key on your keyboard, search for `view advanced system settings` and type <kbd>Enter</kbd> to bring up the following window:
 
 ![winSys](winSys.png)
 
@@ -219,16 +219,16 @@ Click "Environment Variables..." and check the highlighted items to make sure th
 You can download the pre-compiled Geant4 libraries for the macOS [here](https://geant4.web.cern.ch/support/download). By default, it will be saved to `~/Downloads`. The next step is to download [Geant4 datasets](https://geant4.web.cern.ch/support/download) one by one and unpack them into a folder. This tedious process can be automated by using the [geant4-config][] script shipped with [Geant4][]. However, the one shipped with the pre-compiled [Geant4][] does not know where your data folder is. You need to run the following commands to update your [geant4-config][] and use it to install all the datasets for you:
 
 ```sh
-$ cd ~/Downloads/Geant4-10.6.1-Darwin/bin
+$ cd ~/Downloads/Geant4-10.6.2-Darwin/bin
 # change location of geant4 databases
-$ sed -i.bak 's|/Users/gcosmo/Software/release/install|'${HOME}'/Downloads/Geant4-10.6.1-Darwin|g' geant4-config
+$ sed -i.bak 's|/Users/gcosmo/Software/release/install|'${HOME}'/Downloads/Geant4-10.6.2-Darwin|g' geant4-config
 $ ./geant4-config --install-datasets
 ```
 
-By default, macOS does not allow you to run Geant4 libraries in `~/Downloads/Geant4-10.6.1-Darwin/lib`. You have to follow the instruction [here](https://github.com/Jackett/Jackett/issues/5589) to make the exception:
+By default, macOS does not allow you to run Geant4 libraries in `~/Downloads/Geant4-10.6.2-Darwin/lib`. You have to follow the instruction [here](https://github.com/Jackett/Jackett/issues/5589) to make the exception:
 
 ```sh
-$ cd ~/Downloads/Geant4-10.6.1-Darwin/lib
+$ cd ~/Downloads/Geant4-10.6.2-Darwin/lib
 $ xattr -p com.apple.quarantine libG4run.dylib
 0081;5e968234;Firefox;29504EDE-15EA-4CF5-A750-6B0AEB8CF5ED
 # copy the output and change the first 4 letters from 0081 to 00c1:
@@ -239,8 +239,7 @@ $ xattr -w com.apple.quarantine "00c1;5e968234;Firefox;29504EDE-15EA-4CF5-A750-6
 Add the following to `~/.bash_profile` (or `~/.zshrc` if you use zsh) to finish the post-installation setups:
 
 ```sh
-source ~/Downloads/Geant4-10.6.1-Darwin/bin/geant4.sh
-# source gears/gears.sh to export Geant4 database locations
+# source gears/gears.sh to export Geant4 related environment variables
 source /path/to/gears/gears.sh
 ```
 
@@ -282,13 +281,13 @@ Otherwise, unpack the downloaded gz file to a directory that you like:
 $ cd /path/to/your/Linux-g++8.3.0-CC7.tar.gz
 $ tar xfvz Linux-g++8.3.0-CC7.tar.gz
 $ ls
-./   ../   Geant4-10.6.1-Linux/
+./   ../   Geant4-10.6.2-Linux/
 ```
 
 The next step is to download [Geant4 datasets](https://geant4.web.cern.ch/support/download) one by one and unpack them into a folder. This tedious process can be automated by using the [geant4-config][] script shipped with [Geant4][], which can be found in `/path/to/your/geant4/bin/`.  However, the one shipped with the pre-compiled [Geant4][] does not know where your data folder is. You need to run the following commands to update your [geant4-config][] and use it to install all the datasets for you:
 
 ```sh
-$ cd /path/to/your/Geant4-10.6.1-Linux/bin
+$ cd /path/to/your/Geant4-10.6.2-Linux/bin
 # change location of geant4 databases
 $ sed -i.bak 's|/afs/cern.ch/user/g/gunter/l/releases/web/10.6.p01/install|/path/to/your/geant4|g' geant4-config
 $ ./geant4-config --install-datasets
