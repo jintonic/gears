@@ -21,30 +21,30 @@ class Output : public G4SteppingVerbose
     void StepInfo() { G4SteppingVerbose::StepInfo();
       Record(); } ///< Infomation of steps>0 
     void Reset() { trk.clear(); stp.clear(); vlm.clear(); pro.clear();
-      pdg.clear(); mom.clear(); k.clear(); p.clear(); q.clear(); x.clear();
-      y.clear(); z.clear(); t.clear(); l.clear(); de.clear(); dl.clear();
-      et.clear(); x0.clear(); y0.clear(); z0.clear(); t0.clear(); }
+      pdg.clear(); pid.clear(); xx.clear(); yy.clear(); zz.clear(); dt.clear();
+      de.clear(); dl.clear(); l.clear(); x.clear(); y.clear(); z.clear();
+      t.clear(); k.clear(); p.clear(); q.clear(); et.clear(); }
 
     vector<int> trk;   ///< track ID
     vector<int> stp;   ///< step number
     vector<int> vlm;   ///< volume copy number
     vector<int> pro;   ///< process ID * 100 + sub-process ID
     vector<int> pdg;   ///< PDG encoding
-    vector<int> mom;   ///< parent particle's PDG encoding
+    vector<int> pid;   ///< parent particle's PDG encoding
+    vector<double> xx; ///< x [mm] (origin: center of local volume)
+    vector<double> yy; ///< y [mm] (origin: center of local volume)
+    vector<double> zz; ///< z [mm] (origin: center of local volume)
+    vector<double> dt; ///< time elapsed from previous step point [ns]
+    vector<double> de; ///< energy deposited [keV]
+    vector<double> dl; ///< step length [mm]
+    vector<double> l;  ///< length of track till this point [mm]
+    vector<double> x;  ///< x [mm] (origin: center of the world)
+    vector<double> y;  ///< y [mm] (origin: center of the world)
+    vector<double> z;  ///< z [mm] (origin: center of the world)
+    vector<double> t;  ///< time elapsed from the beginning of an event [ns]
     vector<double> k;  ///< kinetic energy [keV]
     vector<double> p;  ///< momentum [keV]
     vector<double> q;  ///< charge [elementary charge]
-    vector<double> t;  ///< local time [ns]
-    vector<double> x;  ///< local x [mm]
-    vector<double> y;  ///< local y [mm]
-    vector<double> z;  ///< local z [mm]
-    vector<double> l;  ///< length of track till this point [mm]
-    vector<double> de; ///< energy deposited [keV]
-    vector<double> dl; ///< step length [mm]
-    vector<double> t0; ///< global time [ns]
-    vector<double> x0; ///< global x [mm]
-    vector<double> y0; ///< global y [mm]
-    vector<double> z0; ///< global z [mm]
     vector<double> et; ///< Total energy deposited in a volume [keV]
 };
 //______________________________________________________________________________
@@ -60,21 +60,21 @@ Output::Output(): G4SteppingVerbose()
   manager->CreateNtupleIColumn("vlm", vlm);
   manager->CreateNtupleIColumn("pro", pro);
   manager->CreateNtupleIColumn("pdg", pdg);
-  manager->CreateNtupleIColumn("mom", mom);
-  manager->CreateNtupleDColumn("k", k);
-  manager->CreateNtupleDColumn("p", p);
-  manager->CreateNtupleDColumn("q", q);
-  manager->CreateNtupleDColumn("t", t);
+  manager->CreateNtupleIColumn("pid", pid);
+  manager->CreateNtupleDColumn("xx", xx);
+  manager->CreateNtupleDColumn("yy", yy);
+  manager->CreateNtupleDColumn("zz", zz);
+  manager->CreateNtupleDColumn("dt", dt);
+  manager->CreateNtupleDColumn("de", de);
+  manager->CreateNtupleDColumn("dl", dl);
+  manager->CreateNtupleDColumn("l", l);
   manager->CreateNtupleDColumn("x", x);
   manager->CreateNtupleDColumn("y", y);
   manager->CreateNtupleDColumn("z", z);
-  manager->CreateNtupleDColumn("l", l);
-  manager->CreateNtupleDColumn("de", de);
-  manager->CreateNtupleDColumn("dl", dl);
-  manager->CreateNtupleDColumn("t0", t0);
-  manager->CreateNtupleDColumn("x0", x0);
-  manager->CreateNtupleDColumn("y0", y0);
-  manager->CreateNtupleDColumn("z0", z0);
+  manager->CreateNtupleDColumn("t", t);
+  manager->CreateNtupleDColumn("k", k);
+  manager->CreateNtupleDColumn("p", p);
+  manager->CreateNtupleDColumn("q", q);
   manager->CreateNtupleDColumn("et", et);
   manager->FinishNtuple();
 }
@@ -98,9 +98,9 @@ void Output::Record()
   stp.push_back(fTrack->GetCurrentStepNumber());
   vlm.push_back(copyNo);
   pdg.push_back(fTrack->GetDefinition()->GetPDGEncoding());
-  mom.push_back(fTrack->GetParentID());
+  pid.push_back(fTrack->GetParentID());
   if (stp.back()==0) { // step zero
-    if (mom.back()!=0) // not primary particle
+    if (pid.back()!=0) // not primary particle
       pro.push_back(fTrack->GetCreatorProcess()->GetProcessType()*1000
           + fTrack->GetCreatorProcess()->GetProcessSubType());
     else pro.push_back(1000); // primary particle
@@ -118,17 +118,17 @@ void Output::Record()
   de.push_back(fStep->GetTotalEnergyDeposit()/CLHEP::keV);
   dl.push_back(fTrack->GetStepLength()/CLHEP::mm);
 
-  t0.push_back(fTrack->GetGlobalTime()/CLHEP::ns);
-  x0.push_back(fTrack->GetPosition().x()/CLHEP::mm);
-  y0.push_back(fTrack->GetPosition().y()/CLHEP::mm);
-  z0.push_back(fTrack->GetPosition().z()/CLHEP::mm);
+  t.push_back(fTrack->GetGlobalTime()/CLHEP::ns);
+  x.push_back(fTrack->GetPosition().x()/CLHEP::mm);
+  y.push_back(fTrack->GetPosition().y()/CLHEP::mm);
+  z.push_back(fTrack->GetPosition().z()/CLHEP::mm);
 
   G4ThreeVector pos = handle->GetHistory()->GetTopTransform()
     .TransformPoint(fStep->GetPostStepPoint()->GetPosition());
-  x.push_back(pos.x()/CLHEP::mm);
-  y.push_back(pos.y()/CLHEP::mm);
-  z.push_back(pos.z()/CLHEP::mm);
-  t.push_back(fTrack->GetLocalTime()/CLHEP::ns);
+  xx.push_back(pos.x()/CLHEP::mm);
+  yy.push_back(pos.y()/CLHEP::mm);
+  zz.push_back(pos.z()/CLHEP::mm);
+  dt.push_back(fTrack->GetLocalTime()/CLHEP::ns);
 
   if (de.back()>0 && handle->GetVolume()->GetName().contains("(S)")) {
     if (et.size()<(unsigned int)copyNo+1) et.resize((unsigned int)copyNo+1);
@@ -632,8 +632,8 @@ class RunManager : public G4RunManager, public G4UImessenger
       fFactory = new G4PhysListFactory;
       if (fFactory->IsReferencePhysList(value)==false) {
         G4cout<<"GEARS: no physics list \""<<value
-          <<"\", set to \"QGSP_BERT_EMV\""<<G4endl;
-        value = "QGSP_BERT_EMV"; // default
+          <<"\", set to \"QGSP_BERT\""<<G4endl;
+        value = "QGSP_BERT"; // default
       }
       SetUserInitialization(fFactory->GetReferencePhysList(value));
     } ///< for UI
@@ -643,7 +643,7 @@ class RunManager : public G4RunManager, public G4UImessenger
         fFactory = new G4PhysListFactory;
         G4StateManager::GetStateManager()->SetNewState(G4State_PreInit);
         // has to be called in PreInit state:
-        SetUserInitialization(fFactory->GetReferencePhysList("QGSP_BERT_EMV"));
+        SetUserInitialization(fFactory->GetReferencePhysList("QGSP_BERT"));
       }
       G4RunManager::InitializePhysics(); // call the original function
       // has to be called after physics initilization

@@ -10,7 +10,7 @@ root [] t->Draw("pro","pdg==2112 && pro>2000")
 root [] gPad->SetLogy()
 // neutrons all end up with being captured (pro==4131)
 // draw the last point of a neutron track
-root [] t->Draw("x0","pdg==2112 && pro==4131")
+root [] t->Draw("x","pdg==2112 && pro==4131")
 // draw charges of generated particles
 root [] t->Draw("q")
 // draw isotopes involved

@@ -71,10 +71,10 @@ root [] t->Draw("k[0]")
 // show results in log scale
 root [] gPad->SetLogy()
 // show penetration depth (z) of 122 keV gamma rays (trk==1) in HPGe (vlm==1)
-root [] t->Draw("z","k[0]>120 && k[0]<130 && trk==1 && vlm==1")
+root [] t->Draw("zz","k[0]>120 && k[0]<130 && trk==1 && vlm==1")
 // show penetration depth of 14 keV gamma rays on the same plot
-root [] t->Draw("z","k[0]<15 && trk==1 && vlm==1","same")
+root [] t->Draw("zz","k[0]<15 && trk==1 && vlm==1","same")
 // show penetration depth of 692 keV gamma rays on the same plot
-root [] t->Draw("z","k[0]>300 && trk==1 && vlm==1","same")
+root [] t->Draw("zz","k[0]>300 && trk==1 && vlm==1","same")
 ```
 
