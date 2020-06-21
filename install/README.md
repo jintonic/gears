@@ -225,7 +225,11 @@ $ sed -i.bak 's|/Users/gcosmo/Software/release/install|'${HOME}'/Downloads/Geant
 $ ./geant4-config --install-datasets
 ```
 
-By default, macOS does not allow you to run Geant4 libraries in `~/Downloads/Geant4-10.6.2-Darwin/lib`. You have to follow the instruction [here](https://github.com/Jackett/Jackett/issues/5589) to make the exception:
+By default, macOS does not allow you to run Geant4 libraries in `~/Downloads/Geant4-10.6.2-Darwin/lib`. The first time you run a Geant4 executable that calls some of the libraries, you will get a pop-up window like this:
+
+![macG4libPermission](macG4libPermission.png)
+
+You have to follow the instruction [here](https://github.com/Jackett/Jackett/issues/5589) to make the exception:
 
 ```sh
 $ cd ~/Downloads/Geant4-10.6.2-Darwin/lib
