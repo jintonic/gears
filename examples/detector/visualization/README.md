@@ -30,7 +30,7 @@ Follow [this instruction](/gears/install/#user-interface) to try it out in Windo
 
 ### RayTracer
 
-[RayTracer]({{site.g4doc}}/Visualization/visdrivers.html#raytracer) is included in any [Geant4][] installation, and can be used for geometries that other tools may fail to visualize. Detailed instructions on RayTracer related built-in commands can be found [here]({{site.g4doc}}/Control/AllResources/Control/UIcommands/_vis_rayTracer_.html)
+[RayTracer]({{site.g4doc}}/Visualization/visdrivers.html#raytracer) is included in any [Geant4][] installation, and can be used for geometries that other tools may fail to visualize. Detailed instructions on RayTracer related built-in commands can be found [here]({{site.g4doc}}/Control/AllResources/Control/UIcommands/_vis_rayTracer_.html).
 
 A [sample RayTracer macro]({{site.file}}/examples/detector/visualization/RayTracer.mac) is shipped with [GEARS][]. Try it out this way:
 
