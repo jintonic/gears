@@ -17,13 +17,15 @@ The [ASCIITree][] does not really visualize the detector geometry. Instead, it p
 
 If your geometry is complicated, you can specify the volume to be printed following the instruction [here]({{site.g4doc}}/Visualization/AllResources/Control/UIcommands/_vis_ASCIITree_.html).
 
-A [sample ASCIITree macro]({{site.file}}/examples/detector/visualization/ASCIITree.mac) is shipped with [GEARS][]. Try it out this way:
+A [sample ASCIITree macro]({{site.file}}/examples/detector/visualization/ASCIITree.mac) is shipped with [GEARS][]. Try it out this way in Linux or macOS:
 
 ```sh
 $ cd /path/to/gears
 $ cd examples/detector/visualization
 $ gears ASCIITree.mac
 ```
+Follow [this instruction](/install/#user-interface) to try it out in Windows.
+
 [ASCIITree]:{{site.g4doc}}/Visualization/visdrivers.html#visualization-of-detector-geometry-tree
 
 ### RayTracer
