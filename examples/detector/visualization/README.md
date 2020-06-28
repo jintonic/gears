@@ -24,7 +24,7 @@ $ cd /path/to/gears
 $ cd examples/detector/visualization
 $ gears ASCIITree.mac
 ```
-Follow [this instruction](/install/#user-interface) to try it out in Windows.
+Follow [this instruction](/gears/install/#user-interface) to try it out in Windows.
 
 [ASCIITree]:{{site.g4doc}}/Visualization/visdrivers.html#visualization-of-detector-geometry-tree
 
