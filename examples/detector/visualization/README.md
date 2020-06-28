@@ -80,6 +80,8 @@ If this is the first time you run it, it will download a `HepRApp.jar` file from
 java -jar HepRApp.jar -opt HepRApp.properties -file G4Data0.heprep
 ```
 
+Unfortunitely, `HepRApp.jar` can only be run on java version less or equal to 1.8, while current java version is 14 (as of 2020). To use the HepRApp viewer, you need to install two versions of java and switch to the older one if needed. This can be done, but the detailed procedure changes with the OS. In case of a Mac, one can follow [this link](https://stackoverflow.com/questions/24342886/how-to-install-java-8-on-mac) to install java 1.8 and [this link](https://stackoverflow.com/questions/21964709/how-to-set-or-change-the-default-java-jdk-version-on-os-x) to switch in between different versions of java.
+
 [HepRApp.properties]({{site.file}}/examples/detector/visualization/HepRApp.properties) is the configuration file for [HepRApp][]. It is also shipped with [GEARS][].
 
 [HepRApp]: https://www.slac.stanford.edu/~perl/HepRApp/

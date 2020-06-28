@@ -68,7 +68,7 @@ One can see that there are often a group of hits very close to each other around
 
 ### Impact of physics list
 
-In [range.mac]({{site.file}}/examples/physics/alpha/range.mac), 5.5 MeV alphas are shot to a CsI scintillation crystal instead of air. The simulated world is defined in [CsI.tg]({{site.file}}/examples/physics/alpha/CsI.tg). Without specifying a reference physics list (that is, to use the default one specified by GEARS, QGSP_BERT_EMV), all alpha particles deposit its full energy in just one step. The step lengths are all about 28 um. To do a detailed simulation, one needs to specify the maximal step length of alphas in CsI. This can be done manually using the macro command `/run/setCut 1 um` or to select a more suitable physics list:
+In [range.mac]({{site.file}}/examples/physics/alpha/range.mac), 5.5 MeV alphas are shot to a CsI scintillation crystal instead of air. The simulated world is defined in [CsI.tg]({{site.file}}/examples/physics/alpha/CsI.tg). Without specifying a reference physics list (that is, to use the default one specified by GEARS, QGSP_BERT), all alpha particles deposit its full energy in just one step. The step lengths are all about 28 um. To do a detailed simulation, one needs to specify the maximal step length of alphas in CsI. This can be done manually using the macro command `/run/setCut 1 um` or to select a more suitable physics list:
 
 ```sh
 # LBE: low background experiment (maximal step length: 1 um)

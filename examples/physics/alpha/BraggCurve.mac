@@ -2,7 +2,8 @@
 /control/verbose 1
 # geometry must be specified before /run/initialize
 /geometry/source air.tg
-
+# specify a physics list
+/physics_lists/select QGSP_BERT_EMV
 # initialize geometry and physics
 /run/initialize
 

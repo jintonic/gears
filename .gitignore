@@ -54,3 +54,7 @@ gxml.cc
 # windows
 .vs
 out
+
+# macOS
+.DS_Store
+.java-version
