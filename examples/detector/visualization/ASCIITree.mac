@@ -1,10 +1,14 @@
+# tell gears where is the detector definition file
 /geometry/source ../gears.tg
 
+# the following cmd must be called before any visualization
+# since it triggers the construction of the detector
 /run/initialize
 
-/geometry/test/run
-
-/vis/geometry/list
-
+# the only two cmds needed to print detector components on screen
 /vis/ASCIITree/verbose 13
 /vis/drawTree
+
+# check if there is any overlapping between detetector components
+/geometry/test/run
+
