@@ -281,6 +281,14 @@ $ cd /opt/local/lib
 $ sudo ln -sf /opt/X11/lib/libXmu.6.dylib
 ```
 
+If you have problems to run `cmake` in some of the official Geant4 examples, check if all variables in `~/Download/Geant4-10.x.x-Darwin/lib/Geant4-10.x.x/Geant4PackageCache.cmake` are set correctly. The following variables may be different from what are actually in your system:
+
+- EXPAT_INCLUDE_DIR, EXPAT_LIBRARY
+- X11_Xmu_INCLUDE_PATH, X11_Xmu_LIB
+- OPENGL_INCLUDE_DIR, OPENGL_gl_LIBRARY, OPENGL_glu_LIBRARY
+
+Manually fix them based on your system and you should be able to run `cmake` and `make` for your Geant4 examples. Note that, this has no effect on GEARS compilation since GEARS relies on `geant4-config` instead of the Geant4 Cmake files for its compilation.
+
 ## Install pre-compiled Geant4 in CentOS
 
 You can download the pre-compiled Geant4 libraries for CentOS [here](https://geant4.web.cern.ch/support/download). They were compiled with a relatively new version of `g++`, 8.3.0. Run the following command in your CentOS terminal:
