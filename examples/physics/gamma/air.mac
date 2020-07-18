@@ -6,27 +6,43 @@
 /vis/drawTree
 /geometry/test/run
 
+/gps/particle gamma
+/gps/energy 2 MeV
+/gps/pos/centre -9 0 0 m
+/gps/direction 1 0 0
+
 /vis/open OGL
 /vis/viewer/zoom 1.5
 /vis/viewer/set/background white ! ! 0
 /vis/drawVolume
 /vis/scene/add/trajectories
+/vis/scene/endOfEventAction accumulate
+
+/run/beamOn 100
+
+/control/shell rm -f *.pdf
+/vis/ogl/export air
+
+# the following needs dawn to be installed
+/control/shell dawn -c
+/control/shell rm -f *.prim *.eps *.png
+
+/vis/open DAWNFILE
+/vis/viewer/zoom 1.5
+/vis/viewer/set/background white ! ! 0
+/vis/drawVolume
+/vis/scene/add/arrow -9 0 0 -7 0 0 m
 /vis/scene/add/text -9 -0.8 0 m 20 0 0 0
 /vis/scene/add/text -4 -0.8 0 m 20 0 0 5
 /vis/scene/add/text  1 -0.8 0 m 20 0 0 10 
 /vis/scene/add/text  6 -0.8 0 m 20 0 0 15 m
-/vis/scene/add/text -5  4.4 0 m 20 0 0 2.447 MeV gamma-rays fly in air
-/vis/scene/endOfEventAction accumulate 500
+/vis/scene/add/text -10 0.5 0 m 20 0 0 2 MeV gamma
+/vis/scene/add/trajectories
+/vis/scene/endOfEventAction accumulate
 
-/gps/particle gamma
-/gps/energy 2.447 MeV
-/gps/pos/centre -9 0 0 m
-/gps/direction 1 0 0
-
-/run/beamOn 500
+# fix the result
+/random/setSeeds 23 234 53 89 157
+/run/beamOn 300
 
 # create png file
-/control/shell rm -f air*.pdf air.png
-/vis/ogl/set/exportFormat pdf
-/vis/ogl/export air
-/control/shell convert air_*.pdf -trim +repage air.png
+/control/shell convert g4_*.eps -trim +repage gammaInAir.png
