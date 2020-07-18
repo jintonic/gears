@@ -8,6 +8,7 @@
 
 /vis/open OGL
 /vis/viewer/zoom 1.5
+/vis/viewer/set/background white ! ! 0
 /vis/drawVolume
 /vis/scene/add/trajectories
 /vis/scene/add/text -9 -0.8 0 m 20 0 0 0
@@ -23,3 +24,9 @@
 /gps/direction 1 0 0
 
 /run/beamOn 500
+
+# create png file
+/control/shell rm -f air*.pdf air.png
+/vis/ogl/set/exportFormat pdf
+/vis/ogl/export air
+/control/shell convert air_*.pdf -trim +repage air.png
