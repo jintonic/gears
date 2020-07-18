@@ -15,7 +15,7 @@ sed 's|mOn [0-9]*|mOn '$num'|' scatter.mac > $M
 # run geant4 to create eps files
 export DAWN_BATCH=1
 export G4DAWNFILE_MAX_FILE_NUM=$num
-../../gears.exe $M
+../../gears $M
 
 # convert eps to png
 # eps cannot have transparent background, png can
