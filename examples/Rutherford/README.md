@@ -1,13 +1,6 @@
 ```sh
-$ cd /path/to/gears
-$ make
-$ cd examples/Rutherford
-$ ../../gears.exe
+$ ./scatter.sh
 ```
 
-Use the GUI to open one of the followings:
+[DAWN](https://geant4.kek.jp/~tanaka/DAWN/About_DAWN.html) is needed to generate eps files.
 
-- alpha.in.air.mac
-- bend.mac
-- beta.in.air.mac
-- gamma.in.air.mac
