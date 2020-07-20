@@ -10,13 +10,30 @@
 # change particle and its energy here
 /gps/particle alpha
 /gps/energy 5.5 MeV
+/gps/position -2 0 0 cm
 /gps/direction 1 0 0
 
 # visualize geometry and events for debugging
-/vis/open HepRepFile
+/control/shell dawn -c
+/control/shell rm -f *.prim *.eps alphaInAir.png
+
+/vis/open DAWNFILE
+/vis/viewer/set/background white ! ! 0
 /vis/drawVolume
+
+/vis/scene/add/arrow 0 0 0 3 0 0 cm
+/vis/scene/add/text -2 -0.5 0 cm 20 0 0 0
+/vis/scene/add/text -1 -0.5 0 cm 20 0 0 1
+/vis/scene/add/text  0 -0.5 0 cm 20 0 0 2
+/vis/scene/add/text  1 -0.5 0 cm 20 0 0 3
+/vis/scene/add/text  2 -0.5 0 cm 20 0 0 4 cm
+/vis/scene/add/text -2  0.3 0 cm 20 0 0 5.5 MeV alphas
 /vis/scene/add/trajectories
-/vis/scene/endOfEventAction accumulate 10
+/vis/scene/endOfEventAction accumulate
+
+/run/beamOn 100
+/control/shell convert g4_*.eps -trim +repage alphaInAir.png
+/vis/disable
 
 # turn on detailed information about tracking
 /tracking/verbose 2
@@ -24,7 +41,6 @@
 /run/beamOn 10
 
 # turn off screen printing for fast simulation 
-/vis/disable
 /tracking/verbose 0
 # turn on data recording
 /analysis/setFileName air

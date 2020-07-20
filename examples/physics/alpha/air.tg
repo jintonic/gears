@@ -1,9 +1,9 @@
 // default unit for length is mm
-:volu world BOX 500 500 500 G4_Galactic
+:volu world BOX 31 11 11 G4_Galactic
 :vis world OFF
 
-:volu air(S) BOX 450 450 450 G4_AIR
-:color air(S) 0.9 0.9 0.1
+:volu air(S) BOX 30 10 10 G4_AIR
+:vis air(S) OFF
 
 :rotm r000 0 0 0
 :place air(S) 1 world r000 0 0 0
