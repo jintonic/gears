@@ -3,7 +3,7 @@
 [![detector](https://img.shields.io/badge/detector-construction-orange?style=flat)](..)
 [![optical processes](https://img.shields.io/badge/optical-processes-red?style=flat)](../../physics#optical-processes)
 
-There is no tag to define the optical properties of a material or a surface in the default [Geant4][] [text geometry description][tg]. The following two tags are added in [GEARS][] to enable definition of optical materials and surfaces using [Geant4][] [text geometry description][tg] syntax:
+There is no tag to define the optical properties of a material or a surface in the default [Geant4][] [text geometry description][tg]. The following two tags are added in [GEARS][] to enable definition of optical materials and surfaces using [Geant4][] [text geometry description][tg] syntax. **NOTE** that they need to be placed at the end of a _.tg_ file to avoid interrupting the processing of known tags by [Geant4][] before [GEARS][] processes the added ones.
 
 ## Define optical properties of a material
 
