@@ -61,7 +61,7 @@ root[] t->Draw("y:x","trk==1","l",100,0)
 root[] t->Draw("y:z","trk==1")
 ```
 
-<img src="http://physino.xyz/assets/ainair.png" alt="alpha in air" style="width:50%">
+<img src="alphaInAir.png" alt="alpha in air" style="width:50%">
 <img src="endpoints.png" alt="end points of alpha tracks" style="width:40%">
 
 One can see that there are often a group of hits very close to each other around the end points of alpha tracks. This is due to the large _dE/dx_ at low energies.
