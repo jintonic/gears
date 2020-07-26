@@ -86,7 +86,7 @@ Output::Output(): G4SteppingVerbose()
 #include <G4NavigationHistory.hh>
 void Output::Record()
 {
-  if (Silent==1) // CopyState() won't be called in G4SteppingVerbose
+  if (GetSilent()==1) // CopyState() won't be called in G4SteppingVerbose
     CopyState(); // point fTrack, fStep, etc. to right places
 
   G4TouchableHandle handle = fStep->GetPreStepPoint()->GetTouchableHandle();
