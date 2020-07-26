@@ -530,6 +530,19 @@ class RunAction : public G4UserRunAction
 };
 //______________________________________________________________________________
 //
+void SaveAndResetEvent()
+{
+  auto a = G4AnalysisManager::Instance();
+  Output* o = ((Output*) G4VSteppingVerbose::GetInstance()); 
+  if (a->GetFileName()!="" && o->stp.size()!=0) {
+    a->FillNtupleIColumn(0,o->stp.size());
+    a->FillNtupleIColumn(1,o->et.size()-1);
+    a->AddNtupleRow();
+  } // save n-tuple if it is not empty and output file name is specified
+  o->Reset(); // reset Output member variables for new record
+} ///< save and then reset an event
+//______________________________________________________________________________
+//
 #include <G4EventManager.hh>
 #include <G4UserEventAction.hh>
 /**
@@ -539,22 +552,11 @@ class EventAction : public G4UserEventAction
 {
   public:
     void BeginOfEventAction(const G4Event*) {
-      // use G4SteppingVerbose for recording, but silently
-      if (fpEventManager->GetTrackingManager()->GetVerboseLevel()==0) {
+      G4VSteppingVerbose::GetInstance()->SetSilent(1);
+      if (fpEventManager->GetTrackingManager()->GetVerboseLevel()<1)
         fpEventManager->GetTrackingManager()->SetVerboseLevel(1);
-        G4VSteppingVerbose::GetInstance()->SetSilent(1);
-      }
-      // reset Output member variables for new record
-      ((Output*) G4VSteppingVerbose::GetInstance())->Reset(); 
-    } ///< Prepare for recording
-    void EndOfEventAction(const G4Event*) {
-      auto a = G4AnalysisManager::Instance(); if (a->GetFileName()=="") return;
-      Output* o = ((Output*) G4VSteppingVerbose::GetInstance()); 
-      if (o->stp.size()==0) return; // skip an empty event
-      a->FillNtupleIColumn(0,o->stp.size());
-      a->FillNtupleIColumn(1,o->et.size()-1);
-      a->AddNtupleRow();
-    } ///< Fill n-tuple if output file name is specified
+    } ///< use G4SteppingVerbose for recording, but silently
+    void EndOfEventAction(const G4Event*) { SaveAndResetEvent(); }
 };
 //______________________________________________________________________________
 //
@@ -593,12 +595,7 @@ class StackingAction : public G4UserStackingAction, public G4UImessenger
     } ///< send a daughter nucleus to waiting stack if it appears too late
     void NewStage() {
       if (fTimeWindow<=0) return; // disable splitting
-      auto a = G4AnalysisManager::Instance(); if (a->GetFileName()=="") return;
-      Output* o = ((Output*) G4VSteppingVerbose::GetInstance()); 
-      a->FillNtupleIColumn(0,o->stp.size());
-      a->FillNtupleIColumn(1,o->et.size()-1);
-      a->AddNtupleRow();
-      o->Reset();
+      SaveAndResetEvent();
     } ///< save parent and reset output before tracking the daughter nucleus
     void SetNewValue(G4UIcommand* cmd, G4String value)
     { if (cmd!=fCmdT) return; fTimeWindow = fCmdT->GetNewDoubleValue(value); }
