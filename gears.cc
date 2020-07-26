@@ -17,9 +17,9 @@ class Output : public G4SteppingVerbose
     Output(); ///< Create analysis manager to handle output
     ~Output() { delete G4AnalysisManager::Instance(); }
     void TrackingStarted() { G4SteppingVerbose::TrackingStarted();
-      Record(); } ///< Infomation of step 0 (initStep)
+      Record(); } ///< Information of step 0 (initStep)
     void StepInfo() { G4SteppingVerbose::StepInfo();
-      Record(); } ///< Infomation of steps>0 
+      Record(); } ///< Information of steps>0 
     void Reset() { trk.clear(); stp.clear(); vlm.clear(); pro.clear();
       pdg.clear(); pid.clear(); xx.clear(); yy.clear(); zz.clear(); dt.clear();
       de.clear(); dl.clear(); l.clear(); x.clear(); y.clear(); z.clear();
@@ -359,7 +359,7 @@ G4VPhysicalVolume* TextDetectorBuilder::ConstructDetector(
     int copyNo2 = atoi(border->v2.substr(border->v2.find(":")+1).data());
     G4LogicalVolume *m1=tgbVolmgr->FindG4PhysVol(physV1)->GetMotherLogical();
     G4LogicalVolume *m2=tgbVolmgr->FindG4PhysVol(physV2)->GetMotherLogical();
-    // search for phyiscs volumes on the sides of the border
+    // search for physics volumes on the sides of the border
     G4VPhysicalVolume *v1=0, *v2=0;
     for (int i=0; i<(int)m1->GetNoDaughters(); i++) {
       v1 = m1->GetDaughter(i);
@@ -391,8 +391,8 @@ G4VPhysicalVolume* TextDetectorBuilder::ConstructDetector(
  *
  * This uses two types of instructions to construct a detector: 
  *
- * - [Geant4 text geometry](http://www.geant4.org/geant4/sites/geant4.web.cern.ch/files/geant4/collaboration/working_groups/geometry/docs/textgeom/textgeom.pdf)
- * - [GDML](http://lcgapp.cern.ch/project/simu/framework/GDML/gdml.html)
+ * - [Geant4 text geometry](http://geant4-userdoc.web.cern.ch/geant4-userdoc/UsersGuides/ForApplicationDeveloper/html/Detector/Geometry/geomASCII.html)
+ * - [GDML](http://geant4-userdoc.web.cern.ch/geant4-userdoc/UsersGuides/ForApplicationDeveloper/html/Detector/Geometry/geomXML.html)
  *
  * It won't work together with HP neutron simulation if Geant4 version is lower
  * than 10 because of this bug:
@@ -590,7 +590,7 @@ class StackingAction : public G4UserStackingAction, public G4UImessenger
       if (trk->GetGlobalTime()>fCurrentT+fTimeWindow) stack=fWaiting;
       fCurrentT=trk->GetGlobalTime(); // update current time
       return stack;
-    } ///< send a daughter nuleus to waiting stack if it appears too late
+    } ///< send a daughter nucleus to waiting stack if it appears too late
     void NewStage() {
       if (fTimeWindow<=0) return; // disable splitting
       auto a = G4AnalysisManager::Instance(); if (a->GetFileName()=="") return;
@@ -646,7 +646,7 @@ class RunManager : public G4RunManager, public G4UImessenger
         SetUserInitialization(fFactory->GetReferencePhysList("QGSP_BERT"));
       }
       G4RunManager::InitializePhysics(); // call the original function
-      // has to be called after physics initilization
+      // has to be called after physics initialization
       SetUserAction(new Generator);
       SetUserAction(new RunAction);
       SetUserAction(new EventAction);
