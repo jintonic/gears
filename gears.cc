@@ -6,6 +6,7 @@
 using namespace std;
 #include <g4root.hh>
 #include <G4SteppingVerbose.hh>
+#include <G4SteppingManager.hh>
 /**
  * Output simulation results to screen or a file.
  */
@@ -24,6 +25,8 @@ class Output : public G4SteppingVerbose
       pdg.clear(); pid.clear(); xx.clear(); yy.clear(); zz.clear(); dt.clear();
       de.clear(); dl.clear(); l.clear(); x.clear(); y.clear(); z.clear();
       t.clear(); k.clear(); p.clear(); q.clear(); et.clear(); }
+    void SetSteppingVerbose(int level) { fManager->SetVerboseLevel(level); }
+    int GetSteppingVerbose() { return fManager->GetverboseLevel(); }
 
     vector<int> trk;   ///< track ID
     vector<int> stp;   ///< step number
@@ -83,7 +86,8 @@ Output::Output(): G4SteppingVerbose()
 #include <G4NavigationHistory.hh>
 void Output::Record()
 {
-  if (GetSilent()==1) CopyState(); // point fTrack, fStep, etc. to right places
+  if (Silent==1) // CopyState() won't be called in G4SteppingVerbose
+    CopyState(); // point fTrack, fStep, etc. to right places
 
   G4TouchableHandle handle = fStep->GetPreStepPoint()->GetTouchableHandle();
   int copyNo=handle->GetReplicaNumber();
@@ -520,9 +524,13 @@ class RunAction : public G4UserRunAction
 {
   public:
     void BeginOfRunAction (const G4Run*) { 
-      auto a = G4AnalysisManager::Instance();
-      if (a->GetFileName()!="") a->OpenFile();
-    } ///< Open output file
+      auto a = G4AnalysisManager::Instance(); if (a->GetFileName()=="") return; 
+      a->OpenFile();
+      Output* o = ((Output*) G4VSteppingVerbose::GetInstance()); 
+      // stop screen dump in case of /tracking/verbose 0
+      if (o->GetSteppingVerbose()==0) o->SetSilent(1);
+      o->SetSteppingVerbose(1);//enable calling StepInfo() in G4SteppingManager
+    } ///< enable output if output file name is not empty
     void EndOfRunAction (const G4Run*) {
       auto a = G4AnalysisManager::Instance();
       if (a->GetFileName()!="") { a->Write(); a->CloseFile(); }
@@ -543,21 +551,12 @@ void SaveAndResetEvent()
 } ///< save and then reset an event
 //______________________________________________________________________________
 //
-#include <G4EventManager.hh>
 #include <G4UserEventAction.hh>
 /**
  * Book keeping before and after an event.
  */
 class EventAction : public G4UserEventAction
-{
-  public:
-    void BeginOfEventAction(const G4Event*) {
-      G4VSteppingVerbose::GetInstance()->SetSilent(1);
-      if (fpEventManager->GetTrackingManager()->GetVerboseLevel()<1)
-        fpEventManager->GetTrackingManager()->SetVerboseLevel(1);
-    } ///< use G4SteppingVerbose for recording, but silently
-    void EndOfEventAction(const G4Event*) { SaveAndResetEvent(); }
-};
+{ public: void EndOfEventAction(const G4Event*) { SaveAndResetEvent(); } };
 //______________________________________________________________________________
 //
 #include <G4UserStackingAction.hh>
