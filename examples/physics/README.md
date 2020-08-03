@@ -151,7 +151,7 @@ Some [isotope][]s in a radioactive [decay chain][] have long [half live][]s. The
  # show detailed instruction of this command:
  help /grdm/setTimeWindow
 
- # turn on tracking and event verboses
+ # turn on tracking and event verbose
  # to understand Geant4 tracking and stacking processes
  /tracking/verbose 2
  /event/verbose 2
@@ -171,6 +171,8 @@ For people who want to understand how this is done, please check the [GEARS doxy
 
 - <http://geant4-userdoc.web.cern.ch/geant4-userdoc/UsersGuides/ForApplicationDeveloper/html/Fundamentals/event.html#stacking-mechanism>
 - <http://geant4-userdoc.web.cern.ch/geant4-userdoc/UsersGuides/ForApplicationDeveloper/html/UserActions/optionalActions.html?highlight=stack#g4userstackingaction>
+
+For the impatient, new particles created after the specified time window in a decay process will be tagged as `fWaiting` in `G4UserStackingAction::ClassifyNewTrack()`. This postpones the tracking of them after the call of `G4UserStackingAction::NewStage()`. One can then save and reset the current event in the `NewStage()` function so that the postponed tracks will be saved in a separate event.
 
 ### Optical processes
 Optical processes can be enabled after a reference list is chosen:
