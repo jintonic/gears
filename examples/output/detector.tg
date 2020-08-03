@@ -9,7 +9,7 @@
 :volu inside TUBE 0 47 50 G4_Galactic
 :volu HPGe(S) TUBE 0 35 35 G4_Ge
 :color chamber 0.33 0.1 0.55
-:vis vacuum  OFF
+:color vacuum 0.33 0.1 0.55
 :color IRshield 0 0 0.1
 :color inside  0 0 0.1
 :color HPGe(S) 0 0 0.8
