@@ -527,9 +527,10 @@ class RunAction : public G4UserRunAction
       auto a = G4AnalysisManager::Instance(); if (a->GetFileName()=="") return; 
       a->OpenFile();
       Output* o = ((Output*) G4VSteppingVerbose::GetInstance()); 
-      // stop screen dump in case of /tracking/verbose 0
-      if (o->GetSteppingVerbose()==0) o->SetSilent(1);
-      o->SetSteppingVerbose(1);//enable calling StepInfo() in G4SteppingManager
+      if (o->GetSteppingVerbose()==0) { // in case of /tracking/verbose 0
+        o->SetSilent(1); // avoid screen dump
+        o->SetSteppingVerbose(1);//enable calling StepInfo() in G4SteppingManager
+      }
     } ///< enable output if output file name is not empty
     void EndOfRunAction (const G4Run*) {
       auto a = G4AnalysisManager::Instance();
