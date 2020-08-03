@@ -567,12 +567,12 @@ class EventAction : public G4UserEventAction
 class StackingAction : public G4UserStackingAction, public G4UImessenger
 {
   private:
-    double fCurrentT; ///< current time in a decay chain
+    double fT0; ///< reference time for splitting decay chain
     double fTimeWindow; ///< time window to split a decay chain
     G4UIcmdWithADoubleAndUnit *fCmdT; ///< UI cmd to set time window
   public:
     StackingAction() : G4UserStackingAction(), G4UImessenger(),
-    fCurrentT(0), fTimeWindow(0), fCmdT(0) {
+    fT0(0), fTimeWindow(0), fCmdT(0) {
       fCmdT = new G4UIcmdWithADoubleAndUnit("/grdm/setTimeWindow", this);
       fCmdT->SetGuidance("Time window to split a radioactive decay chain.");
       fCmdT->SetGuidance("If a daughter nucleus appears after the window,");
@@ -584,18 +584,16 @@ class StackingAction : public G4UserStackingAction, public G4UImessenger
     } ///< created macro /grdm/setTimeWindow
     ~StackingAction() { delete fCmdT; }
     G4ClassificationOfNewTrack ClassifyNewTrack(const G4Track *trk) { 
-      G4ClassificationOfNewTrack stack = fUrgent;
-      if (fTimeWindow<=0) return stack; // disable splitting
-      // time starts to tick at the first decay
-      if (trk->GetParentID()==1) fCurrentT=trk->GetGlobalTime();
-      if (trk->GetGlobalTime()>fCurrentT+fTimeWindow) stack=fWaiting;
-      fCurrentT=trk->GetGlobalTime(); // update current time
-      return stack;
-    } ///< send a daughter nucleus to waiting stack if it appears too late
-    void NewStage() {
-      if (fTimeWindow<=0) return; // disable splitting
-      SaveAndResetEvent();
-    } ///< save parent and reset output before tracking the daughter nucleus
+      if (fTimeWindow<=0) return fUrgent; // no need to split
+      if (trk->GetGlobalTime()>fT0+fTimeWindow) return fWaiting; // split
+      else return fUrgent; // too fast to be split
+    } ///< send a daughter particle to waiting stack if it appears too late
+    void NewStage() { // called after processing urgent trk, before waiting trk
+      if (fTimeWindow<=0) return; // do nothing if no time window is specified
+      Output* o = ((Output*) G4VSteppingVerbose::GetInstance()); 
+      fT0 = o->t.back(); // update the reference time to the latest decay time
+      SaveAndResetEvent(); // end an event manually
+    } ///< save and reset output before processing waiting tracks
     void SetNewValue(G4UIcommand* cmd, G4String value)
     { if (cmd!=fCmdT) return; fTimeWindow = fCmdT->GetNewDoubleValue(value); }
 };
