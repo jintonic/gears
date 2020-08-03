@@ -2,24 +2,28 @@
 
 /geometry/source HPGe.tg
 
-/physics_lists/select QGSP_BERT_EMV
+/physics_lists/select QGSP_BERT
 # cmd below becomes available only when the cmd above is used
 /physics_lists/factory/addRadioactiveDecay
-# must be run after the cmds above
+# cmd below must be run after the cmds above
 /run/initialize
 
+# double check if radiactive decay is enabled
 /process/list Decay
 
-# split decay chain to multiple events
+# split decay chain to multiple events based on time intervals between decays
 /grdm/setTimeWindow 1 s
 
 # Define Pb210
 /gps/particle ion
 /gps/ion 82 210
-# default energy is 1 MeV, must be set to zero
+# default kinetic energy set by gps is 1 MeV,
+# must be set to zero if your ion decays at rest
 /gps/energy 0
 
 /tracking/verbose 2
+# show how a track is passed between the stacking and tracking managers
 /event/verbose 2
 /analysis/setFileName output
+# one event is enough to demonstrate the process
 /run/beamOn 1
