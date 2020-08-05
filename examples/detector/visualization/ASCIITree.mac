@@ -9,6 +9,6 @@
 /vis/ASCIITree/verbose 13
 /vis/drawTree
 
-# check if there is any overlapping between detetector components
+# check if there is any overlapping between detector components
 /geometry/test/run
 
