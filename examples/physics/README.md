@@ -232,13 +232,14 @@ At least two parameters need to be specified to [generate scintillation light]({
 
 The parameter, RAYLEIGH and ABSLENGTH, related to the transportation of [optical photons][] in a mertial also have to be [attached to the material](../detector/optical).
 
-In an ideal optical interface, the transportation of [optical photons][] can be calculated [given the refractive indices of the matierials](../detector/optical) on both sides. To simulate more complicated interfaces, please see [here]({{site.g4doc}}/TrackingAndPhysics/physicsProcess.html#boundary-process).
+In an ideal optical interface, the transportation of [optical photons][] can be calculated [given the refractive indices of the matierials](../detector/optical) on both sides. To simulate more complicated interfaces, please see [here](../detector/optical#define-optical-properties-of-a-surface).
 
 #### Example macros
 
 - [CsI3inWLS.tg]({{site.file}}/examples/detector/optical/CsI3inWLS.tg): it models a cylindrical [CsI][] crystal with a diameter of about 3 inches. It is wrapped in Teflon tape (painted with [TPB][]) on the side surface and coupled to two [PMT SiO2 windows][PMT] on its end surfaces.
 - [CerenkovInPMTwindow.mac]({{site.file}}/examples/detector/optical/CerenkovInPMTwindow.mac): an electron is shot to a PMT window from the vacuum side, generating Cereknov light in the PMT silica window.
 - [ScintillationInCsI.mac]({{site.file}}/examples/detector/optical/ScintillationInCsI.mac): a 6 keV gamma is emitted in the center of the CsI crystal generating scintillaiton light in the crystal.
+- [GroundFrontPainted.mac]({{site.file}}/examples/detector/optical/surface/GroundFrontPainted.mac) and [GroundFrontPainted.tg]({{site.file}}/examples/detector/optical/surface/GroundFrontPainted.tg): optical photons shot to an unpolished surface between a CsI crystal and PTFE reflector without an air gap in between.
 
 [optical photons]: {{site.g4doc}}/TrackingAndPhysics/physicsProcess.html#optical-photon-processes
 [CsI]:{{site.file}}/examples/detector/optical/CsI.tg
