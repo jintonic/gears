@@ -1,0 +1,23 @@
+// default unit of length is mm
+:volu vac TUBE 0 50 50 G4_Galactic
+:vis vac OFF
+
+// CsI crystal
+:volu  CsI TUBE 0 38.1 25 G4_CESIUM_IODIDE
+:color CsI 0.2 0.4 0.8
+
+// PMT window
+:volu  PMT TUBE 0 38.1 2 G4_SILICON_DIOXIDE
+:color PMT 0.3 0.3 0.3
+
+// place PMTs on the two end surfaces of CsI
+:rotm r000 0 0 0
+:place CsI 1 vac r000 0 0 0
+:place PMT 2 vac r000 0 0 -27
+:place PMT 3 vac r000 0 0  27
+
+// optical properties of CsI
+#include ../CsI.tg
+// optical properties of PMT
+#include ../SiO2.tg
+
