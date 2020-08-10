@@ -2,7 +2,7 @@
 /control/verbose 1
 
 # geometry must be specified before /run/initialize
-/geometry/source GroundFrontPainted.tg
+/geometry/source CsI2Teflon.tg
 
 # based on Geant4 example OpNovice2 (EMZ: option4 of EM)
 /physics_lists/select QGSC_BERT_EMZ
@@ -20,14 +20,13 @@
 # generate primary particle with tiny energy
 /gps/particle opticalphoton
 /gps/energy 3.5 eV
-/gps/position -10 0 0 mm
 /gps/direction 1 0 0
 
 # visualize geometry and events for debugging
 /vis/open HepRepFile
 /vis/drawVolume
 /vis/scene/add/trajectories
-/vis/scene/endOfEventAction accumulate 50
+/vis/scene/endOfEventAction accumulate
 
 # dump a few events on screen for debugging
 /tracking/verbose 2
