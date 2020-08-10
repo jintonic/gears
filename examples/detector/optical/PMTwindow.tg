@@ -1,0 +1,13 @@
+// default unit of length is mm
+:volu vacuum TUBE 0 40 10 G4_Galactic
+:vis vacuum OFF
+
+// 3" PMT window, 2 mm thick:
+:volu PMT(S) TUBE 0. 38.1 1 G4_SILICON_DIOXIDE
+:color PMT(S) 0.8 0.4 0.2
+
+:rotm r000 0 0 0
+:place PMT(S) 1 vacuum r000 0 0 0
+
+// optical properties of SiO2
+#include SiO2.tg
