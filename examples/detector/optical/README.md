@@ -51,6 +51,8 @@ Note that physics volumes from the same logical volume created by the text geome
 
 Please read [the Geant4 manual]({{site.g4doc}}/TrackingAndPhysics/physicsProcess.html#boundary-process) if you would like to learn more about the optical interface models in Geant4.
 
+You can also run example macros in the [surface/]({{site.file}}/examples/detector/optical/surface/) directory to understand the difference between different surfaces.
+
 [GEARS]: http://physino.xyz/gears
 [tg]: {{site.g4doc}}/Detector/Geometry/geomASCII.html
 [Geant4]: http://geant4.cern.ch
