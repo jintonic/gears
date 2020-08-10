@@ -2,7 +2,7 @@
 /control/verbose 1
 
 # geometry must be specified before /run/initialize
-/geometry/source CsI3inWLS.tg
+/geometry/source PMTwindow.tg
 
 # based on Geant4 example OpNovice2 (EMZ: option4 of EM)
 /physics_lists/select QGSC_BERT_EMZ
@@ -22,7 +22,7 @@
 # generate primary particle with moderate energy
 /gps/particle e-
 /gps/energy 500 keV
-/gps/position 0 0 -28 mm
+/gps/position 0 0 -2 mm
 /gps/direction 0 0 1
 
 # visualize geometry and events for debugging
