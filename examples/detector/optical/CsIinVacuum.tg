@@ -1,0 +1,13 @@
+// default unit of length is mm
+:volu vacuum TUBE 0 40 30 G4_Galactic
+:vis vacuum OFF
+
+// CsI crystal, 3" in diameter, 5 cm long:
+:volu CsI(S) TUBE 0 38.1 25 G4_CESIUM_IODIDE
+:color CsI(S) 0.2 0.4 0.8
+
+:rotm r000 0 0 0
+:place CsI(S) 1 vacuum r000 0 0 0
+
+// optical properties of CsI
+#include CsI.tg
