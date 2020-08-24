@@ -1,3 +1,18 @@
+# print macro commands on screen
+/control/verbose 1
+
+# geometry must be specified before /run/initialize
+/geometry/source Am241.tg
+
+/run/initialize
+/geometry/test/run
+
+# visualize geometry
+/vis/open HepRepFile
+/vis/drawVolume
+/vis/viewer/flush
+#If you run some other example and find that the event doesn't draw automatically at the end of the run, just issue the following command:
+
 # https://indico.in2p3.fr/event/443/session/11/contribution/15/material/slides/0.ppt
 # All energy and branching ratio is based on Isotope handbook (11th edition)
 
