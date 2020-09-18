@@ -1,0 +1,31 @@
+//AmO2 geometry
+//https://en.wikipedia.org/wiki/Americium-241#Manufacturing_process
+//https://en.wikipedia.org/wiki/Americium_dioxide
+
+:MIXT_BY_NATOMS AmO2 11.68 2
+Am 1
+O 2
+
+// holder geometry
+:rotm r0 0 0 0
+:solid base TUBE 0 3.16 1.26
+:solid inner TUBE 0 1.61 0.5
+:solid outer TUBE 1.61 3.17 1.23
+:solid top SUBTRACTION base inner r00 0 0 1.26
+:solid holder SUBTRACTION top outer r00 0 0 -1.26
+:volu holder holder G4_Al
+
+//source geometry
+:volu AmO2 TUBE 0 1.61 0.1 AmO2
+:volu gold TUBE 0 1.61 0.001 G4_Au
+:volu silver TUBE 0 1.61 0.001 G4_Ag
+
+:rotm r00 0 0 0
+:place gold 2 holder r00 0 0 0.759
+:place AmO2 3 holder r00 0 0 0.658
+:place silver 4 holder r00 0 0 0.557
+
+:color AmO2 0.04 0.8 0.16
+:color gold 0.3 0.3 0.4
+:color silver 0.6 0.2 0.2
+:color holder 0.2 0.2 0.2
