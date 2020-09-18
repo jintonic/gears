@@ -650,6 +650,7 @@ class RunManager : public G4RunManager, public G4UImessenger
 };
 //______________________________________________________________________________
 //
+#include <G4ScoringManager.hh>
 #include <G4VisExecutive.hh>
 #include <G4UIExecutive.hh>
 #include <G4UImanager.hh> // needed for g4.10 and above
@@ -661,6 +662,7 @@ int main(int argc, char **argv)
   // inherit G4SteppingVerbose instead of G4UserSteppingAction to record data
   G4VSteppingVerbose::SetInstance(new Output); // must be before run manager
   RunManager* run = new RunManager; // customized run control
+  G4ScoringManager::GetScoringManager(); // enable built-in scoring cmds
   G4VisManager* vis = new G4VisExecutive("quiet"); // visualization
   vis->Initialize();
   // select mode of execution
