@@ -11,8 +11,10 @@
 ### Geometry
 
 Instead of using geometry written in C++ as described in detail in the [Geant4 manual]({{site.g4doc}}/Detector/Geometry/geomSolids.html), [GEARS][] accepts two types of detector geometry descriptions in pure ASCII format as input:
+
 - [Geant4][] [text geometry description][tg] (recommended)
 - [GDML][] (provided for data analysis and visualization in other tools)
+
 Their difference is similar to that between [markdown][md] and [HTML][]. The simpler [text geometry description][tg] provided by [Geant4][] is recommended to be used as [GEARS][]'s input given its simplicity and readability. For example, an experimental hall filled with air and of a dimension of 10 x 10 x 10 meters can be easily implemented using the following line:
 
 ~~~
