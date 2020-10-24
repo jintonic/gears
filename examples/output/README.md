@@ -3,6 +3,7 @@
 [![Step point](https://img.shields.io/badge/step-point-red?style=flat)](#step-point)
 [![Detected energy](https://img.shields.io/badge/total-energy-magenta?style=flat)](#total-energy)
 [![Data analysis](https://img.shields.io/badge/data-analysis-orange?style=flat)](#data-analysis)
+[![Detector hits](https://img.shields.io/badge/detector-hits-blue?style=flat)](#combine-step-points-to-hits-in-detector)
 
 ## Output
 Generally speaking, the [visualization](../detector/#detector-visualization) of [detector](../detector) [geometry](../detector/#detector-construction) and the [screen dump](#screen-dump) of a [Geant4][] application can be all regarded as output of a [Geant4][] simulation. Strictly speaking, the output of a [Geant4][] simulation includes [histograms][] and/or [ntuples][] of [data][] generated during the simulation, which can be used to reveal statistical distributions of, for example, positions and energy depositions of interactions.
@@ -17,7 +18,7 @@ $ make # compile ghdf5.cc
 The output file name can be chosen using the macro command:
 
 ~~~
-/analysis/setFileName output
+/analysis/setFileName gears
 ~~~
 
 No suffix is needed for the file name. Note that the **output is disabled by default**. It will be enabled if the output file name is not empty. So this macro command also works as a switch. Without it, no output file will be created.
@@ -69,10 +70,10 @@ The [ROOT][] [TTree][] offers the following features that are desired for analyz
 Here are some example codes that can be run in a ROOT interactive session to generate histograms:
 
 ```sh
-$ root output.root # open the output file in root format using ROOT
+$ root gears.root # open the output file in root format using ROOT
 root [] .ls
-TFile**         output.root
- TFile*         output.root
+TFile**         gears.root
+ TFile*         gears.root
    KEY: TTree    t;1     Geant4 step points
 root [] t->GetEntries()
 (long long) 5000
@@ -238,7 +239,7 @@ root [] t->Draw("et[1]")
 ```
 ## Data analysis
 
-One can use the following command to generate `output.root` in [GEARS][]/[examples](..)/[output]({{site.file}}/examples/output)/:
+One can use the following command to generate `gears.root` in [GEARS][]/[examples](..)/[output]({{site.file}}/examples/output)/:
 
 ```sh
 $ gears radiate.mac
@@ -246,7 +247,7 @@ $ gears radiate.mac
 
 [radiate.mac]({{site.file}}/examples/output/radiate.mac) demonstrates how to use [Geant4][] [macro commands]({{site.g4doc}}/Control/AllResources/Control/UIcommands/_.html) to save [step points](#step-point) and [total energies in sensitive volumes](#total-energy). It uses the [detector geometry](../detector) defined in [detector.tg]({{site.file}}/examples/output/detector.tg).
 
-Here are some sample [ROOT][] commands that one can use to generate plots from `output.root`:
+Here are some sample [ROOT][] commands that one can use to generate plots from `gears.root`:
 
 ```cpp
 // draw tracks of the primary particle on x-y plane in event 1
@@ -266,3 +267,21 @@ root[] t->Draw("de/dl:p")
 // draw energy spectrum recorded by volume (detector) 1
 root[] t->Draw("et[1]")
 ```
+
+## Combine step points to hits in detector
+
+Many of the step points in a Geant4 simulation are very close to each other, especially those of charged particles, as they quickly lose energy through multiple scattering or ionizing surrounding atoms in a very small range.  The space resolution of a real-life detector is normally not enough to resolve these details. As seen by such a detector, all nearby step points act as a single hit, the energy of which is a sum of deposited energies from all these step points, the position of which is an energy-weighted average of all these step point positions. The modeling of detector response normally start with combined hits instead of the original step points directly from Geant4 to save computational power.
+
+A ROOT script [combineStepPointsToHits.C]({{site.file}}/examples/output/combineStepPointsToHits.C), is provided to demonstrate the combining procedure. It takes the output from [GEARS][] and save the combined hits to another ROOT file `hits.root`. Another ROOT script, [drawHits.C]({{site.file}}/examples/output/drawHits.C), is used to demonstrate the final result shown in the following plot.
+
+<img src="combinedHits.png" alt="combined hits" style="width:100%">
+
+These ROOT scripts can be directly executed without compilation:
+
+```sh
+$ root -q combineStepPointsToHits.C
+$ root drawHits.C
+```
+
+Note that they have to be run after you execute `gears radiate.mac`, since they need the Geant4 output as input.
+
