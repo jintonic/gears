@@ -5,26 +5,27 @@ void combineStepPointsToHits(
 		const char *output="hits.root",
 		double resolution=1/*mm*/)
 {
-	// input (GEARS output)
+	// input, which is GEARS output
 	TChain *t = new TChain("t");
 	t->Add(input);
 	int nStepPoints; // number of Geant4 step points
 	t->SetBranchAddress("n",&nStepPoints);
 	// parameters of step points
-	vector<double> *xx=0, *yy=0, *zz=0, *de=0, *vlm=0;
+	vector<double> *xx=0, *yy=0, *zz=0, *de=0;
+	vector<int> *vlm=0; // copy number of a Geant4 volume
 	TBranch *bx, *by, *bz, *be, *bv;
 	t->SetBranchAddress("xx",&xx, &bx); // local x
 	t->SetBranchAddress("yy",&yy, &by); // local y
 	t->SetBranchAddress("zz",&zz, &bz); // local z
 	t->SetBranchAddress("de",&de, &be); // energy deposition
-	t->SetBranchAddress("vlm",&vlm, &bv); // copy number of a Geant4 volume
+	t->SetBranchAddress("vlm",&vlm, &bv);
 
-	// output (combined hits)
+	// output, which contains a tree filled with combined hits
 	TFile *file = new TFile(output, "recreate");
 	TTree *tree = new TTree("h","combined hits");
 	int n; // number of combined hits
 	int evt; // id of event from Geant4 simulation
-	tree->Branch("n",&n,"n/I");
+	tree->Branch("n",  &n,  "n/I");
 	tree->Branch("evt",&evt,"evt/I");
 	// parameters of combined hits
 	double x[1000], y[1000], z[1000], e[1000];
@@ -33,8 +34,9 @@ void combineStepPointsToHits(
 	tree->Branch("z",z,"z[n]/D");
 	tree->Branch("e",e,"e[n]/D");
 
-	// main loop
-	int nevt = t->GetEntries(); // total number of simulated events
+	// main loop to combine step points
+	double dx=0, dy=0, dz=0, dr=0; // distances between step points
+	int nevt = t->GetEntries(); // total number of events simulated
 	cout<<nevt<<" events to be processed"<<endl;
 	for (evt=0; evt<nevt; evt++) {
 		if (evt%10000==0) cout<<evt<<" events processed"<<endl;
@@ -46,18 +48,16 @@ void combineStepPointsToHits(
 			if (vlm->at(i)!=1) continue; // skip step points not in the detector
 			if (n==0) {// no combined hit yet, create the 1st one
 				x[n]=xx->at(i); y[n]=yy->at(i); z[n]=zz->at(i); e[n]=de->at(i);
-				n++;
+				n++; // increase the hit index by 1
 				continue;
 			}
 			// distance between this step point and the previously combined hit
-			double dx=xx->at(i)-x[n-1];
-			double dy=yy->at(i)-y[n-1];
-			double dz=zz->at(i)-z[n-1];
-			double dr=sqrt(dx*dx+dy*dy+dz*dz);
+			dx=xx->at(i)-x[n-1]; dy=yy->at(i)-y[n-1]; dz=zz->at(i)-z[n-1];
+			dr=sqrt(dx*dx+dy*dy+dz*dz);
 			if (dr>resolution) { // create a new hit far away from the previous one
 				x[n]=xx->at(i); y[n]=yy->at(i); z[n]=zz->at(i); e[n]=de->at(i);
 				n++;
-			} else { // combine a nearly step point with the previously combined hit
+			} else { // combine a nearby step point with the previously combined hit
 				// get energy weighted position
 				x[n-1]=(x[n-1]*e[n-1]+xx->at(i)*de->at(i))/(e[n-1]+de->at(i));
 				y[n-1]=(y[n-1]*e[n-1]+yy->at(i)*de->at(i))/(e[n-1]+de->at(i));
@@ -69,6 +69,6 @@ void combineStepPointsToHits(
 	}
 
 	// save the output tree
-	tree->Write("", TObject::kWriteDelete); // write object, then delete previous
+	tree->Write("", TObject::kWriteDelete); // write tree, then delete previous
 	file->Close(); // close output file
 }
