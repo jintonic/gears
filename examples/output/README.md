@@ -105,6 +105,45 @@ root [] t->Show(0)
 root [] t->Draw("x","k*(pdg==22)")
 ```
 
+### Python
+
+[ROOT][] is less known than [Python][] outside of the high energy physics community. The good news for people who are not familiar with [ROOT][] is that [GEARS][] does not depend on [ROOT][] to compile or run, even though its output can be saved in [ROOT][] [TTree][] format, and that the analysis of [GEARS][] output can be done in [Python][] instead of [ROOT][] thanks to the [uproot][] [Python][] package. The best way to get started with analyzing [GEARS][] output in Python would be to follow the [uproot tutorial](https://uproot4.readthedocs.io/en/latest/basic.html) after the [installation of uproot](https://uproot4.readthedocs.io/en/latest/).
+
+If you are familiar with [ROOT][] and would like to migrate to [Python][] for analyzing [GEARS][] output, you can find here a brief list of [Python][] equivalence of [ROOT][] commands:
+
+- Open file:
+  - [ROOT][]:
+```sh
+$ root gears.root # open gears output in ROOT format
+```
+  - [Python][]:
+```python
+$ python
+>>> import uproot4 as up # or import uproot for older versions of uproot
+>>> file = up.open("gears.root")
+```
+- Check file contents:
+  - [ROOT][]:
+```sh
+[root] .ls
+```
+  - [Python][]:
+```python
+>>> file.classnames()
+```
+- List variables in [TTree][] [ntuples][]:
+  - [ROOT][]:
+```sh
+[root] t->Show()
+```
+  - [Python][]:
+```python
+>>> t = file['t']
+>>> t.show()
+```
+[Python]: https://www.python.org/
+[uproot]: https://github.com/scikit-hep/uproot4
+
 ## Step point
 
 [Geant4][] tracks a particle step by step as it passes through the [simulated world](../detector) until it goes out of it, gets absorbed in a material, or changes to other particles, as shown in the following figure. A step point is a point in a particle track where the particle is generated or changed.
