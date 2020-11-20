@@ -138,8 +138,31 @@ $ python
 ```
   - [Python][]:
 ```python
->>> t = file['t']
->>> t.show()
+>>> t = file['t'] # get TTree object 't' from file
+>>> t.show() # show the variables saved in the tree
+```
+- Draw the distribution of a variable as a histogram:
+  - [ROOT][]:
+```sh
+[root] t->Draw("x")
+```
+  - [Python][]:
+```python
+>>> b = t.arrays(namedecode='utf-8') # get branches from the tree
+>>> import matplotlib.pyplot as plot
+>>> plot.hist(b['x'].flatten(),bins=100) # draw leaf, x, on branch, b
+>>> plot.show()
+```
+- Draw the distribution of a selected subset of the variable as a histogram:
+  - [ROOT][]:
+```sh
+[root] t->Draw("x", "vlm==1") // draw x coordinate of step points in volume 1
+```
+  - [Python][]:
+```python
+>>> selection = b['vlm'] == 1 # select step points in volume 1
+>>> plot.hist(b['x'][selection],bins=100) # draw x coordinate of those points
+>>> plot.show()
 ```
 [Python]: https://www.python.org/
 [uproot]: https://github.com/scikit-hep/uproot4
