@@ -30,6 +30,7 @@
     * Flat tree (no nested branches or arrays) with short leaf names
       * Easy to use in TTree::Draw
       * No need to load extra library to open
+      * Can be easily analyzed in [Python][] through [Uproot][].
   * [HDF5][], universal data format, easy to read by different tools
   * CSV or XML, Human readable ASCII file, capable of dealing with multiple dimensional arrays
 * [Record information of step 0](examples/output#record-information-of-step-0) (initStep), which is not available through [G4UserSteppingAction][]
@@ -46,6 +47,8 @@
 
 [ROOT]: https://root.cern.ch
 [GPS]:{{site.g4doc}}/GettingStarted/generalParticleSource.html
+[Python]: https://www.python.org/
+[Uproot]: https://github.com/scikit-hep/uproot4
 
 ## How to contribute
 
