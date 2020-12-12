@@ -1,4 +1,4 @@
-cmake_minimum_required(VERSION 2.6 FATAL_ERROR)
+cmake_minimum_required(VERSION 2.9 FATAL_ERROR)
 
 project(gears)
 
@@ -12,3 +12,8 @@ endif()
 
 add_executable(gears gears.cc)
 target_link_libraries(gears ${Geant4_LIBRARIES})
+
+# https://stackoverflow.com/a/37994396/1801749
+set_property(DIRECTORY ${CMAKE_CURRENT_SOURCE_DIR} PROPERTY VS_STARTUP_PROJECT gears)
+# https://cmake.org/pipermail/cmake/2007-March/013081.html
+set(CMAKE_CONFIGURATION_TYPES Release CACHE STRING INTERNAL FORCE)
