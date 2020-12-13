@@ -8,7 +8,7 @@
 
 # Getting started
 
-[GEARS][] can run in three major operating systems: [Windows](#compile-gears-with-visual-studio), [macOS](#compile-gears-in-macos), and [Linux](#compile-gears-in-linux). It depends on [Geant4][]. If you don't have [Geant4][] installed yet in your system, please read section [Install Geant4](#install-geant4) first.
+[GEARS][] can run in three major operating systems: [Windows](#compile-gears-in-windows), [macOS](#compile-gears-in-macos), and [Linux](#compile-gears-in-linux). It depends on [Geant4][]. If you don't have [Geant4][] installed yet in your system, please read section [Install Geant4](#install-geant4) first.
 
 [GEARS]: https://github.com/jintonic/gears
 [Geant4]: http://geant4.cern.ch
@@ -55,13 +55,23 @@ $ git pull # get latest gears
 
 ## Compile GEARS
 
-Two compilation systems are provide for [GEARS][]. One is [CMake][]. This mechanism is provided to insure that [GEARS][] can be compiled across platforms. You can find a [CMakeLists.txt](../CMakeLists.txt) file in the [GEARS][] folder, which can be detected automatically by [Visual Studio][]. The other method is to directly use a [makefile](../makefile) shipped with [GEARS][], which simplifies the compilation in Linux and macOS significantly.
+Two compilation systems are provide for [GEARS][]. One is [CMake][]. This mechanism is provided to insure that [GEARS][] can be compiled across platforms. You can find a [CMakeLists.txt](../CMakeLists.txt) file in the [GEARS][] folder, which can be detected automatically by [CMake][] in all platforms or [Visual Studio][] in Windows. The other method is to directly use a [makefile](../makefile) shipped with [GEARS][], which simplifies the compilation in Linux and macOS significantly.
 
 [CMake]: https://cmake.org/
 
-### Compile GEARS with Visual Studio
+### Compile GEARS in Windows
 
-Download Visual Studio Community Edition installer. Run it. Choose to install a workload called "Desktop development with C++". It is about 2 GB and takes a long time to download and install. When you open VS the first time, choose "Visual C++" as your "Development Settings". And then "Clone and checkout code":
+First of all, you don't need to do this if you don't need any special features from [Geant4][], such as [GDML][] or [Qt][]. You can download [gears.exe](https://github.com/jintonic/gears/releases) directly from the [GEARS release page](https://github.com/jintonic/gears/releases), which is compiled with pre-compiled [Geant4][] libraries. If you have to compile it by yourself, here is how.
+
+Please download [Visual Studio][] Community Edition installer. Run it. Choose to install a workload called "Desktop development with C++". It is about 2 GB and takes a long time to download and install. When you open VS the first time, choose "Visual C++" as your "Development Settings".
+
+The compilation of GEARS can be done [solely with Visual Studio](#compile-gears-with-visual-studio). However, the process would become much easier if we use [CMake][] before using [Visual Studio][]. Please download and install [CMake][], and run it. Set "Where is the source code" to where [gears.cc](../gears.cc) is located, and "Where to build the binaries" to anywhere you like, but we prefer a new directory called `build` within the directory where [gears.cc](../gears.cc) is located. Press `Configure`, `Generate` and then `Open Project`. [Visual Studio][] will be open automatically. Inside [Visual Studio][], press <kbd>F5</kbd> and you are done! Upon a successful compilation, [Visual Studio][] will automatically run `gears.exe` for you. You should also be able to run `gears.exe` anywhere you want since its containing directory has been added to the Windows `%PATH%` automatically.
+
+#### Compile GEARS with Visual Studio
+
+The compilation of GEARS can be done solely with Visual Studio. It is complicated, hence is not recommended. But here is how.
+
+After opening [Visual Studio][], choose "Clone and checkout code":
 <img style="width:100%;" src="vsstart.png"/>
 
 Insert the [GEARS][] [GitHub](https://github.com/jintonic/gears) repository address `https://github.com/jintonic/gears.git` in the window below, and click `Clone`:
@@ -73,7 +83,7 @@ The default configuration of a new project in [Visual Studio][] 2019 is `x64-Deb
 Add `x64-Release` as the new CMakeSettings in the window below.
 ![vscmakesetting](vscmakesetting.png)
 
-And delete `x64-Debug`.  The `x64-Debug` setting does not work with pre-compiled [Geant4][].
+And delete `x64-Debug`.  The `x64-Debug` setting does not work.
 ![vscmakermdebug](vscmakermdebug.png)
 
 Click on the save icon to save the new settings to a file called `CMakeSettings.json` in your local [GEARS][] folder:
