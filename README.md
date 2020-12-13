@@ -11,7 +11,7 @@
 [GEARS]: https://github.com/jintonic/gears
 [Geant4]: http://geant4.cern.ch
 [Example]:{{site.g4doc}}/Examples/examples.html
-[tg]: {{site.g4doc}}/Detector/Geometry/geomASCII.html
+[tg]: {{ site.g4doc }}/Detector/Geometry/geomASCII.html
 [TUI]: {{site.g4doc}}/Control/commands.html
 [SLOC]: https://en.wikipedia.org/wiki/Source_lines_of_code
 
