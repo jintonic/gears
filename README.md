@@ -1,6 +1,3 @@
----
----
-
 [![Doxygen](https://codedocs.xyz/jintonic/gears.svg)](https://codedocs.xyz/jintonic/gears/annotated.html)
 [![License](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
 [![Examples](https://img.shields.io/badge/gears-examples-blue?style=flat)](examples)
