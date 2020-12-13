@@ -17,7 +17,7 @@ The [ASCIITree][] does not really visualize the detector geometry. Instead, it p
 
 If your geometry is complicated, you can specify the volume to be printed following the instruction [here]({{site.g4doc}}/Visualization/AllResources/Control/UIcommands/_vis_ASCIITree_.html).
 
-A [sample ASCIITree macro]({{site.file}}/examples/detector/visualization/ASCIITree.mac) is shipped with [GEARS][]. Try it out this way in Linux or macOS:
+A [sample ASCIITree macro](ASCIITree.mac) is shipped with [GEARS][]. Try it out this way in Linux or macOS:
 
 ```sh
 $ cd /path/to/gears
@@ -32,7 +32,7 @@ Follow [this instruction](/gears/install/#user-interface) to try it out in Windo
 
 [RayTracer]({{site.g4doc}}/Visualization/visdrivers.html#raytracer) is included in any [Geant4][] installation, and can be used for geometries that other tools may fail to visualize. Detailed instructions on RayTracer related built-in commands can be found [here]({{site.g4doc}}/Control/AllResources/Control/UIcommands/_vis_rayTracer_.html).
 
-A [sample RayTracer macro]({{site.file}}/examples/detector/visualization/RayTracer.mac) is shipped with [GEARS][]. Try it out this way:
+A [sample RayTracer macro](RayTracer.mac) is shipped with [GEARS][]. Try it out this way:
 
 ```sh
 $ cd /path/to/gears
@@ -46,7 +46,7 @@ It generates a `g4RayTracer.viewer-0_0000.jpeg` file in the same directory.
 
 [VRML][] is available in any [Geant4][] installation. It is used to generate files in VRML format, which can be viewed using an external program, such as [ORBISNAP][], [FreeWRL][], [OpenVRML][], [view3dscene][], [3D builder](https://www.microsoft.com/en-us/p/3d-builder/9wzdncrfj3t6) (default Windows 10 App),  etc., or be converted to its succeeder [X3D][], which can be viewed directly in a modern web browser that supports WebGL.
 
-A [sample VRML macro]({{site.file}}/examples/detector/visualization/VRML.mac) is shipped with [GEARS][]. Try it out this way:
+A [sample VRML macro](VRML.mac) is shipped with [GEARS][]. Try it out this way:
 
 ```sh
 $ cd /path/to/gears
@@ -62,7 +62,7 @@ A shell script [v2x][] is shipped in the same directory to convert the latest `g
 
 [HepRepFile]({{site.g4doc}}/Visualization/visdrivers.html#heprepfile) is available in any [Geant4][] installation. It can be used to generate `G4Data*.heprep` files, which can be viewed using an external program called [HepRApp][] in wireframe mode, that is, no surface, only outlines.
 
-A [sample HepRepFile macro]({{site.file}}/examples/detector/visualization/HepRepFile.mac) is shipped with [GEARS][]. Try it out this way:
+A [sample HepRepFile macro](HepRepFile.mac) is shipped with [GEARS][]. Try it out this way:
 
 ```sh
 $ cd /path/to/gears
@@ -70,7 +70,7 @@ $ cd examples/detector/visualization
 $ gears HepRepFile.mac
 ```
 
-It generates `G4Data0.heprep` in the same directory. A shell script [hv]({{site.file}}/examples/detector/visualization/hv) is shipped with [GEARS][]. Run it this way:
+It generates `G4Data0.heprep` in the same directory. A shell script [hv](hv) is shipped with [GEARS][]. Run it this way:
 
 ```sh
 $ ./hv G4Data0.heprep
@@ -84,7 +84,7 @@ java -jar HepRApp.jar -opt HepRApp.properties -file G4Data0.heprep
 
 Unfortunately, `HepRApp.jar` can only be run on java version less or equal to 1.8, while current java version is 14 (as of 2020). To use the HepRApp viewer, you need to install two versions of java and switch to the older one if needed. This can be done, but the detailed procedure changes with the OS. In case of a Mac, one can follow [this link](https://stackoverflow.com/questions/24342886/how-to-install-java-8-on-mac) to install java 1.8 and [this link](https://stackoverflow.com/questions/21964709/how-to-set-or-change-the-default-java-jdk-version-on-os-x) to switch in between different versions of java. In case of Ubuntu, please refer to [this link](https://docs.datastax.com/en/jdk-install/doc/jdk-install/installOpenJdkDeb.html). In case of Windows, simply download jdk8 from the [oracle website](https://www.oracle.com/java/technologies/javase/javase-jdk8-downloads.html).
 
-[HepRApp.properties]({{site.file}}/examples/detector/visualization/HepRApp.properties) is the configuration file for [HepRApp][]. It is also shipped with [GEARS][].
+[HepRApp.properties](HepRApp.properties) is the configuration file for [HepRApp][]. It is also shipped with [GEARS][].
 
 [HepRApp]: https://www.slac.stanford.edu/~perl/HepRApp/
 
@@ -92,7 +92,7 @@ Unfortunately, `HepRApp.jar` can only be run on java version less or equal to 1.
 
 [HepRepXML]({{site.g4doc}}/Visualization/visdrivers.html#heprepxml) is available in any [Geant4][] installation. It is used to generate binary HepRep (`.bheprep`) or XML HepRep (`.heprep`) file, which can be viewed using an external program called [JAS3][] with the [WIRED4][] plugin.
 
-A [sample HepRepXML macro]({{site.file}}/examples/detector/visualization/HepRepXML.mac) is shipped with [GEARS][]. Try it out this way:
+A [sample HepRepXML macro](HepRepXML.mac) is shipped with [GEARS][]. Try it out this way:
 
 ```sh
 $ cd /path/to/gears
@@ -109,7 +109,7 @@ It generates `scene-0.heprep.zip` in the same directory, which can be directly o
 
 [DAWNFILE]({{site.g4doc}}/Visualization/visdrivers.html#dawn) is available in any [Geant4][] installation. It can be used to generate `g4_*.prim` files, which can be converted to an EPS file using an external program called [dawn](https://geant4.kek.jp/~tanaka/DAWN/About_DAWN.html).
 
-A [sample DAWNFILE macro]({{site.file}}/examples/detector/visualization/DAWN.mac) is shipped with [GEARS][]. Try it out this way:
+A [sample DAWNFILE macro](DAWN.mac) is shipped with [GEARS][]. Try it out this way:
 
 ```sh
 $ cd /path/to/gears
@@ -121,7 +121,7 @@ $ gears DAWN.mac
 
 [OpenGL][] is included in most [Geant4][] installations. Detailed instructions on OpenGL related built-in commands can be found [here]({{site.g4doc}}/Control/AllResources/Control/UIcommands/_vis_ogl_.html)
 
-A [sample OpenGL macro]({{site.file}}/examples/detector/visualization/OpenGL.mac) is shipped with [GEARS][]. Try it out this way:
+A [sample OpenGL macro](OpenGL.mac) is shipped with [GEARS][]. Try it out this way:
 
 ```sh
 $ cd /path/to/gears

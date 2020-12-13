@@ -18,7 +18,7 @@ Neutrons interact with matter mainly through the following processes:
 
 ### A comprehensive example
 
-In [DT.mac][], 14 MeV neutrons from a DT generator are shot to a concrete block defined in [concrete.tg][]. Example analysis code:
+In [DT.mac](DT.mac), 14 MeV neutrons from a DT generator are shot to a concrete block defined in [concrete.tg](concrete.tg). Example analysis code:
 
 ```cpp
 // check which interaction is dominant
@@ -33,5 +33,3 @@ root [] t->Draw("q")
 root [] t->Draw("pdg", "pdg>10000")
 ```
 
-[DT.mac]:{{site.file}}/examples/physics/neutron/DT.mac
-[concrete.tg]:{{site.file}}/examples/physics/neutron/concrete.tg

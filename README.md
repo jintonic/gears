@@ -79,7 +79,7 @@ You can initiate a [pull request on GitHub](https://help.github.com/en/github/co
 
 #### Indentation
 
-Two spaces instead of a tab are used to indent a line in [gears.cc]({{site.file}}/gears.cc) to insure a consistent appearance in different text editors, and to avoid wasting space in front of deeply nested code blocks. The following mode lines are added to the end of [gears.cc]({{site.file}}/gears.cc) to insure that in [Vim][] and [Emacs][]:
+Two spaces instead of a tab are used to indent a line in [gears.cc](gears.cc) to insure a consistent appearance in different text editors, and to avoid wasting space in front of deeply nested code blocks. The following mode lines are added to the end of [gears.cc](gears.cc) to insure that in [Vim][] and [Emacs][]:
 
 ```cpp
 // -*- C++; indent-tabs-mode:nil; tab-width:2 -*-

@@ -301,13 +301,13 @@ root [] t->Draw("et[1]")
 ```
 ## Data analysis
 
-One can use the following command to generate `gears.root` in [GEARS][]/[examples](..)/[output]({{site.file}}/examples/output)/:
+One can use the following command to generate `gears.root` in [GEARS][]/[examples](..)/[output](.)/:
 
 ```sh
 $ gears radiate.mac
 ```
 
-[radiate.mac]({{site.file}}/examples/output/radiate.mac) demonstrates how to use [Geant4][] [macro commands]({{site.g4doc}}/Control/AllResources/Control/UIcommands/_.html) to save [step points](#step-point) and [total energies in sensitive volumes](#total-energy). It uses the [detector geometry](../detector) defined in [detector.tg]({{site.file}}/examples/output/detector.tg).
+[radiate.mac](radiate.mac) demonstrates how to use [Geant4][] [macro commands]({{site.g4doc}}/Control/AllResources/Control/UIcommands/_.html) to save [step points](#step-point) and [total energies in sensitive volumes](#total-energy). It uses the [detector geometry](../detector) defined in [detector.tg](detector.tg).
 
 Here are some sample [ROOT][] commands that one can use to generate plots from `gears.root`:
 
@@ -334,7 +334,7 @@ root[] t->Draw("et[1]")
 
 Many of the step points in a Geant4 simulation are very close to each other, especially those of charged particles, as they quickly lose energy through multiple scattering or ionizing surrounding atoms in a very small range.  The space resolution of a real-life detector is normally not enough to resolve these details. As seen by such a detector, all nearby step points act as a single hit, the energy of which is a sum of deposited energies from all these step points, the position of which is an energy-weighted average of all these step point positions. The modeling of detector response normally start with combined hits instead of the original step points directly from Geant4 to save computational power.
 
-A ROOT script [combineStepPointsToHits.C]({{site.file}}/examples/output/combineStepPointsToHits.C), is provided to demonstrate the combining procedure. It takes the output from [GEARS][] and save the combined hits to another ROOT file `hits.root`. Another ROOT script, [drawHits.C]({{site.file}}/examples/output/drawHits.C), is used to demonstrate the final result shown in the following plot.
+A ROOT script [combineStepPointsToHits.C](combineStepPointsToHits.C), is provided to demonstrate the combining procedure. It takes the output from [GEARS][] and save the combined hits to another ROOT file `hits.root`. Another ROOT script, [drawHits.C](drawHits.C), is used to demonstrate the final result shown in the following plot.
 
 <img src="combinedHits.png" alt="combined hits" style="width:100%">
 

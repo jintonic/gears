@@ -7,7 +7,7 @@ One can hard code the optical properties of a material or a surface in C++, whic
 
 The following two tags are added in [GEARS][] to enable definition of optical materials and surfaces using [Geant4][] [text geometry description][tg] syntax. **NOTE** that they need to be placed at the end of a _.tg_ file to avoid interrupting the processing of known tags by [Geant4][] before [GEARS][] processes the added ones.
 
-More than 40% of the ~550 lines of C++ code in [gears.cc]({{site.file}}/gears.cc) is used to implement this new feature. If it is absorbed in future [Geant4][] releases, [gears.cc]({{site.file}}/gears.cc) can become a lot smaller.
+More than 40% of the ~550 lines of C++ code in [gears.cc](../../../gears.cc) is used to implement this new feature. If it is absorbed in future [Geant4][] releases, [gears.cc](../../../gears.cc) can become a lot smaller.
 
 ## Define optical properties of a material
 
@@ -51,7 +51,7 @@ Note that physics volumes from the same logical volume created by the text geome
 
 Please read [the Geant4 manual]({{site.g4doc}}/TrackingAndPhysics/physicsProcess.html#boundary-process) if you would like to learn more about the optical interface models in Geant4.
 
-You can also run example macros in the [surface/]({{site.file}}/examples/detector/optical/surface/) directory to understand the difference between different surfaces.
+You can also run example macros in the [surface/](surface/) directory to understand the difference between different surfaces.
 
 [GEARS]: http://physino.xyz/gears
 [tg]: {{site.g4doc}}/Detector/Geometry/geomASCII.html

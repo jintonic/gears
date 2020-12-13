@@ -43,27 +43,27 @@ An ASCII version of the manual of [gps][] macros is available [here]({{site.xyz}
 
 ### Am241
 
-Am241 is a complicated source. It is an alpha, X-ray and gamma emitter at the same time. A mac file is inclued [here]({{site.file}}/examples/sources/Am241.mac) to demonstrate the definition of multiple particles from a source.
+Am241 is a complicated source. It is an alpha, X-ray and gamma emitter at the same time. A mac file is include [here](Am241.mac) to demonstrate the definition of multiple particles from a source.
 
 ### AmBe
 
-The alpha partiles emitted from Am241 can be used to bonbust Be and generate neutrons up to about 12 MeV. The measured neutron energy spectrum can be found in the literature. A mac file is included [here]({{site.file}}/examples/sources/AmBe/AmBe.mac) to demonstrate how to generate neutrons based on an energy spectrum.
+The alpha partiles emitted from Am241 can be used to bonbust Be and generate neutrons up to about 12 MeV. The measured neutron energy spectrum can be found in the literature. A mac file is included [here](AmBe/AmBe.mac) to demonstrate how to generate neutrons based on an energy spectrum.
 
 ### Ar39
 
-Ar39 is a beta emitter. It is a common background for examples ulitize liquid argon as detecting material. Its measured beta spectrum is implemented in [this mac file]({{site.file}}/examples/sources/Ar39.mac).
+Ar39 is a beta emitter. It is a common background for examples ulitize liquid argon as detecting material. Its measured beta spectrum is implemented in [this mac file](Ar39.mac).
 
 ### Co57
 
-Co57 is a common low-energy calibration source. It emits a few x and gamma-rays as shown in [this mac file]({{site.file}}/examples/sources/Co57.mac).
+Co57 is a common low-energy calibration source. It emits a few x and gamma-rays as shown in [this mac file](Co57.mac).
 
 ### Fe55
 
-Fe55 is an other commonly used low-energy calibration source. It emits a few x-rays around 6 keV as shown in [this mac file]({{site.file}}/examples/sources/Fe55.mac).
+Fe55 is an other commonly used low-energy calibration source. It emits a few x-rays around 6 keV as shown in [this mac file](Fe55.mac).
 
 ## Retrieve information of primary particles
 
-[Co57HPGe.mac]({{site.file}}/examples/sources/Co57HPGe.mac) modifies some default settings of a Co57 source defined in [Co57.mac]({{site.file}}/examples/sources/Co57.mac) and shoots the emitted photons to a HPGe detector defined in [HPGe.tg]({{site.file}}/examples/sources/HPGe.tg). The following commands show how to retrieve information of the primary particles in this simulation and use it to make event selections:
+[Co57HPGe.mac](Co57HPGe.mac) modifies some default settings of a Co57 source defined in [Co57.mac](Co57.mac) and shoots the emitted photons to a HPGe detector defined in [HPGe.tg](HPGe.tg). The following commands show how to retrieve information of the primary particles in this simulation and use it to make event selections:
 
 ```cpp
 // check primary particle energy distribution

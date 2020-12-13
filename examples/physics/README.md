@@ -161,7 +161,7 @@ Some [isotope][]s in a radioactive [decay chain][] have long [half live][]s. The
  /run/beamOn 1
 ```
 
-Example macro and detector definition files can be found in [GEARS][][/examples/physics/decay]({{site.file}}/examples/physics/decay) folder. The following is an example analysis code to show the recorded events in ROOT:
+Example macro and detector definition files can be found in [GEARS][][/examples/physics/decay](decay) folder. The following is an example analysis code to show the recorded events in ROOT:
 
 ```cpp
 root [] t->Scan("pdg:trk:pid:stp:dt/1e9:t/1e9","","colsize=10 precision=10")
@@ -236,12 +236,12 @@ In an ideal optical interface, the transportation of [optical photons][] can be 
 
 #### Example macros
 
-- [CsI3inWLS.tg]({{site.file}}/examples/detector/optical/CsI3inWLS.tg): it models a cylindrical [CsI][] crystal with a diameter of about 3 inches. It is wrapped in Teflon tape (painted with [TPB][]) on the side surface and coupled to two [PMT SiO2 windows][PMT] on its end surfaces.
-- [CerenkovInPMTwindow.mac]({{site.file}}/examples/detector/optical/CerenkovInPMTwindow.mac): an electron is shot to a PMT window from the vacuum side, generating Cereknov light in the PMT silica window.
-- [ScintillationInCsI.mac]({{site.file}}/examples/detector/optical/ScintillationInCsI.mac): a 6 keV gamma is emitted in the center of the CsI crystal generating scintillaiton light in the crystal.
-- [GroundFrontPainted.mac]({{site.file}}/examples/detector/optical/surface/GroundFrontPainted.mac) and [GroundFrontPainted.tg]({{site.file}}/examples/detector/optical/surface/GroundFrontPainted.tg): optical photons shot to an unpolished surface between a CsI crystal and PTFE reflector without an air gap in between.
+- [CsI3inWLS.tg](../detector/optical/CsI3inWLS.tg): it models a cylindrical [CsI][] crystal with a diameter of about 3 inches. It is wrapped in Teflon tape (painted with [TPB][]) on the side surface and coupled to two [PMT SiO2 windows][PMT] on its end surfaces.
+- [CerenkovInPMTwindow.mac](../detector/optical/CerenkovInPMTwindow.mac): an electron is shot to a PMT window from the vacuum side, generating Cereknov light in the PMT silica window.
+- [ScintillationInCsI.mac](../detector/optical/ScintillationInCsI.mac): a 6 keV gamma is emitted in the center of the CsI crystal generating scintillaiton light in the crystal.
+- [groundFrontPainted.mac](../detector/optical/surface/groundFrontPainted.mac) and [CsI2Teflon.tg](../detector/optical/surface/CsI2Teflon.tg): optical photons shot to an unpolished surface between a CsI crystal and PTFE reflector without an air gap in between.
 
 [optical photons]: {{site.g4doc}}/TrackingAndPhysics/physicsProcess.html#optical-photon-processes
-[CsI]:{{site.file}}/examples/detector/optical/CsI.tg
-[TPB]:{{site.file}}/examples/detector/optical/TPB.tg
-[PMT]:{{site.file}}/examples/detector/optical/SiO2.tg
+[CsI]:../detector/optical/CsI.tg
+[TPB]:../detector/optical/TPB.tg
+[PMT]:../detector/optical/SiO2.tg

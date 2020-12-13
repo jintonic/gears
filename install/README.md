@@ -55,7 +55,7 @@ $ git pull # get latest gears
 
 ## Compile GEARS
 
-Two compilation systems are provide for [GEARS][]. One is [CMake][]. This mechanism is provided to insure that [GEARS][] can be compiled across platforms. You can find a [CMakeLists.txt]({{site.file}}/CMakeLists.txt) file in the [GEARS][] folder, which can be detected automatically by [Visual Studio][]. The other method is to directly use a [makefile]({{site.file}}/makefile) shipped with [GEARS][], which simplifies the compilation in Linux and macOS significantly.
+Two compilation systems are provide for [GEARS][]. One is [CMake][]. This mechanism is provided to insure that [GEARS][] can be compiled across platforms. You can find a [CMakeLists.txt](../CMakeLists.txt) file in the [GEARS][] folder, which can be detected automatically by [Visual Studio][]. The other method is to directly use a [makefile](../makefile) shipped with [GEARS][], which simplifies the compilation in Linux and macOS significantly.
 
 [CMake]: https://cmake.org/
 
@@ -90,7 +90,7 @@ Upon a successful compilation, `gears.exe` will be automatically launched within
 <img style="width:100%;" src="vsdebuggears.png"/>
 
 ### Compile GEARS in Linux
-[GEARS][] is shipped with a simple [makefile]({{site.file}}/makefile). Simply type `make` to compile [gears.cc]({{site.file}}/gears.cc) to generate a tiny executable `gears` in the GEARS directory:
+[GEARS][] is shipped with a simple [makefile](../makefile). Simply type `make` to compile [gears.cc](../gears.cc) to generate a tiny executable `gears` in the GEARS directory:
 
 ```sh
 $ cd /path/to/gears
@@ -111,7 +111,7 @@ After this, the procedure is the same as [that in Linux](#compile-gears-in-linux
 
 ### Install GEARS in Windows
 
-When [GEARS][] is successfully compiled in [Visual Studio][], its executable `gears.exe` is located at `\path\to\gears\out\build\x64-Release\`. You need to add this folder to the Windows environment variable `path` so that you can use `gears.exe` in other directories. A batch file [gears.bat]({{site.file}}/gears.bat) is shipped with [GEARS][] to do this for you. Open the [GEARS][] folder in your file browser, select `gears.bat`, right click on it, choose `Run as administrator` to run it. To check if it works, open a `cmd.exe` window and type `echo %path%` in it:
+When [GEARS][] is successfully compiled in [Visual Studio][], its executable `gears.exe` is located at `\path\to\gears\out\build\x64-Release\`. You need to add this folder to the Windows environment variable `path` so that you can use `gears.exe` in other directories. A batch file [gears.bat](gears.bat) is shipped with [GEARS][] to do this for you. Open the [GEARS][] folder in your file browser, select `gears.bat`, right click on it, choose `Run as administrator` to run it. To check if it works, open a `cmd.exe` window and type `echo %path%` in it:
 
 ![winCmdPath](winCmdPath.png)
 
@@ -317,7 +317,7 @@ $ sed -i.bak 's|/afs/cern.ch/user/g/gunter/l/releases/web/10.6.p01/install|/path
 $ ./geant4-config --install-datasets
 ```
 
-A bash script [gears.sh]({{site.file}}/gears.sh) is provided in [GEARS][] to find the location of the Geant4 datasets. Add the following to your `~/.bashrc` (or `~/.zshrc` if you use zsh) to finish the post-installation setups:
+A bash script [gears.sh](../gears.sh) is provided in [GEARS][] to find the location of the Geant4 datasets. Add the following to your `~/.bashrc` (or `~/.zshrc` if you use zsh) to finish the post-installation setups:
 
 ```sh
 source /path/to/your/pre-compiled/geant4/bin/geant4.sh
