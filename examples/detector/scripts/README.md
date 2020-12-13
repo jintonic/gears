@@ -28,6 +28,6 @@ It demonstrate how to place a smaller solid directly inside a bigger one. The fi
 
 ![onion.png](onion.png)
 
-[tg]: {{site.g4doc}}/Detector/Geometry/geomASCII.html
+[tg]: http://geant4-userdoc.web.cern.ch/geant4-userdoc/UsersGuides/ForApplicationDeveloper/html/Detector/Geometry/geomASCII.html
 [dawn]:https://geant4.kek.jp/~tanaka/DAWN/About_DAWN.html
 [convert]:https://imagemagick.org/script/convert.php

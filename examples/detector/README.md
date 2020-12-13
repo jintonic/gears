@@ -10,7 +10,7 @@
 
 ### Geometry
 
-Instead of using geometry written in C++ as described in detail in the [Geant4 manual]({{site.g4doc}}/Detector/Geometry/geomSolids.html), [GEARS][] accepts two types of detector geometry descriptions in pure ASCII format as input:
+Instead of using geometry written in C++ as described in detail in the [Geant4 manual](http://geant4-userdoc.web.cern.ch/geant4-userdoc/UsersGuides/ForApplicationDeveloper/html/Detector/Geometry/geomSolids.html), [GEARS][] accepts two types of detector geometry descriptions in pure ASCII format as input:
 
 - [Geant4][] [text geometry description][tg] (recommended)
 - [GDML][] (provided for data analysis and visualization in other tools)
@@ -74,11 +74,11 @@ The [NIST][] material table provided by [Geant4][] contains all elements (C, H, 
 To construct more complicated material please refer to the [manual of the text geometry description][tg].
 
 [GEARS]: http://physino.xyz/gears
-[tg]: {{site.g4doc}}/Detector/Geometry/geomASCII.html
+[tg]: http://geant4-userdoc.web.cern.ch/geant4-userdoc/UsersGuides/ForApplicationDeveloper/html/Detector/Geometry/geomASCII.html
 [Geant4]: http://geant4.cern.ch
-[NIST]: {{site.g4doc}}/Appendix/materialNames.html
-[run]: {{site.g4doc}}/Control/AllResources/Control/UIcommands/_run_.html
-[listMaterials]: {{site.g4doc}}/Control/AllResources/Control/UIcommands/_material_nist_.html
+[NIST]: http://geant4-userdoc.web.cern.ch/geant4-userdoc/UsersGuides/ForApplicationDeveloper/html/Appendix/materialNames.html
+[run]: http://geant4-userdoc.web.cern.ch/geant4-userdoc/UsersGuides/ForApplicationDeveloper/html/Control/AllResources/Control/UIcommands/_run_.html
+[listMaterials]: http://geant4-userdoc.web.cern.ch/geant4-userdoc/UsersGuides/ForApplicationDeveloper/html/Control/AllResources/Control/UIcommands/_material_nist_.html
 [GDML]: https://gdml.web.cern.ch/GDML/
 [md]: https://en.wikipedia.org/wiki/Markdown
 [HTML]: https://www.w3schools.com/html/

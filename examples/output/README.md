@@ -8,7 +8,7 @@
 ## Output
 Generally speaking, the [visualization](../detector/#detector-visualization) of [detector](../detector) [geometry](../detector/#detector-construction) and the [screen dump](#screen-dump) of a [Geant4][] application can be all regarded as output of a [Geant4][] simulation. Strictly speaking, the output of a [Geant4][] simulation includes [histograms][] and/or [ntuples][] of [data][] generated during the simulation, which can be used to reveal statistical distributions of, for example, positions and energy depositions of interactions.
 
-[GEARS][] utilizes [Geant4 analysis managers]({{site.g4doc}}/Analysis/managers.html) to provide four output formats: [ROOT][] (default), [HDF5][], CSV, and [AIDA][] XML. The output file format can be chosen using the following command:
+[GEARS][] utilizes [Geant4 analysis managers](http://geant4-userdoc.web.cern.ch/geant4-userdoc/UsersGuides/ForApplicationDeveloper/html/Analysis/managers.html) to provide four output formats: [ROOT][] (default), [HDF5][], CSV, and [AIDA][] XML. The output file format can be chosen using the following command:
 
 ~~~sh
 $ make hdf5 # create ghdf5.cc from gears.cc
@@ -34,7 +34,7 @@ No suffix is needed for the file name. Note that the **output is disabled by def
 
 ### Screen dump
 
-[Geant4][] can print out on screen detailed information of a simulation if you increase the verbose level of tracking using the macro command [/tracking/verbose]({{site.g4doc}}/Control/AllResources/Control/UIcommands/_tracking_.html), for example,
+[Geant4][] can print out on screen detailed information of a simulation if you increase the verbose level of tracking using the macro command [/tracking/verbose](http://geant4-userdoc.web.cern.ch/geant4-userdoc/UsersGuides/ForApplicationDeveloper/html/Control/AllResources/Control/UIcommands/_tracking_.html), for example,
 
 ```sh
  # turn on detailed information about tracking
@@ -307,7 +307,7 @@ One can use the following command to generate `gears.root` in [GEARS][]/[example
 $ gears radiate.mac
 ```
 
-[radiate.mac](radiate.mac) demonstrates how to use [Geant4][] [macro commands]({{site.g4doc}}/Control/AllResources/Control/UIcommands/_.html) to save [step points](#step-point) and [total energies in sensitive volumes](#total-energy). It uses the [detector geometry](../detector) defined in [detector.tg](detector.tg).
+[radiate.mac](radiate.mac) demonstrates how to use [Geant4][] [macro commands](http://geant4-userdoc.web.cern.ch/geant4-userdoc/UsersGuides/ForApplicationDeveloper/html/Control/AllResources/Control/UIcommands/_.html) to save [step points](#step-point) and [total energies in sensitive volumes](#total-energy). It uses the [detector geometry](../detector) defined in [detector.tg](detector.tg).
 
 Here are some sample [ROOT][] commands that one can use to generate plots from `gears.root`:
 

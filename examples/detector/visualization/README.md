@@ -4,7 +4,7 @@
 
 ## Visualization of detector geometry
 
-The [visualization chapter]({{site.g4doc}}/Visualization/visualization.html) of the [Geant4 Book For Application Developers]({{site.g4doc}}) documents in detail how to visualize a detector using various tools.
+The [visualization chapter](http://geant4-userdoc.web.cern.ch/geant4-userdoc/UsersGuides/ForApplicationDeveloper/html/Visualization/visualization.html) of the [Geant4 Book For Application Developers](http://geant4-userdoc.web.cern.ch/geant4-userdoc/UsersGuides/ForApplicationDeveloper/html) documents in detail how to visualize a detector using various tools.
 
 ### ASCIITree
 
@@ -15,7 +15,7 @@ The [ASCIITree][] does not really visualize the detector geometry. Instead, it p
 /vis/drawTree
 ```
 
-If your geometry is complicated, you can specify the volume to be printed following the instruction [here]({{site.g4doc}}/Visualization/AllResources/Control/UIcommands/_vis_ASCIITree_.html).
+If your geometry is complicated, you can specify the volume to be printed following the instruction [here](http://geant4-userdoc.web.cern.ch/geant4-userdoc/UsersGuides/ForApplicationDeveloper/html/Visualization/AllResources/Control/UIcommands/_vis_ASCIITree_.html).
 
 A [sample ASCIITree macro](ASCIITree.mac) is shipped with [GEARS][]. Try it out this way in Linux or macOS:
 
@@ -26,11 +26,11 @@ $ gears ASCIITree.mac
 ```
 Follow [this instruction](/gears/install/#user-interface) to try it out in Windows.
 
-[ASCIITree]:{{site.g4doc}}/Visualization/visdrivers.html#visualization-of-detector-geometry-tree
+[ASCIITree]:http://geant4-userdoc.web.cern.ch/geant4-userdoc/UsersGuides/ForApplicationDeveloper/html/Visualization/visdrivers.html#visualization-of-detector-geometry-tree
 
 ### RayTracer
 
-[RayTracer]({{site.g4doc}}/Visualization/visdrivers.html#raytracer) is included in any [Geant4][] installation, and can be used for geometries that other tools may fail to visualize. Detailed instructions on RayTracer related built-in commands can be found [here]({{site.g4doc}}/Control/AllResources/Control/UIcommands/_vis_rayTracer_.html).
+[RayTracer](http://geant4-userdoc.web.cern.ch/geant4-userdoc/UsersGuides/ForApplicationDeveloper/html/Visualization/visdrivers.html#raytracer) is included in any [Geant4][] installation, and can be used for geometries that other tools may fail to visualize. Detailed instructions on RayTracer related built-in commands can be found [here](http://geant4-userdoc.web.cern.ch/geant4-userdoc/UsersGuides/ForApplicationDeveloper/html/Control/AllResources/Control/UIcommands/_vis_rayTracer_.html).
 
 A [sample RayTracer macro](RayTracer.mac) is shipped with [GEARS][]. Try it out this way:
 
@@ -60,7 +60,7 @@ A shell script [v2x][] is shipped in the same directory to convert the latest `g
 
 ### HepRepFile
 
-[HepRepFile]({{site.g4doc}}/Visualization/visdrivers.html#heprepfile) is available in any [Geant4][] installation. It can be used to generate `G4Data*.heprep` files, which can be viewed using an external program called [HepRApp][] in wireframe mode, that is, no surface, only outlines.
+[HepRepFile](http://geant4-userdoc.web.cern.ch/geant4-userdoc/UsersGuides/ForApplicationDeveloper/html/Visualization/visdrivers.html#heprepfile) is available in any [Geant4][] installation. It can be used to generate `G4Data*.heprep` files, which can be viewed using an external program called [HepRApp][] in wireframe mode, that is, no surface, only outlines.
 
 A [sample HepRepFile macro](HepRepFile.mac) is shipped with [GEARS][]. Try it out this way:
 
@@ -90,7 +90,7 @@ Unfortunately, `HepRApp.jar` can only be run on java version less or equal to 1.
 
 ### HepRepXML
 
-[HepRepXML]({{site.g4doc}}/Visualization/visdrivers.html#heprepxml) is available in any [Geant4][] installation. It is used to generate binary HepRep (`.bheprep`) or XML HepRep (`.heprep`) file, which can be viewed using an external program called [JAS3][] with the [WIRED4][] plugin.
+[HepRepXML](http://geant4-userdoc.web.cern.ch/geant4-userdoc/UsersGuides/ForApplicationDeveloper/html/Visualization/visdrivers.html#heprepxml) is available in any [Geant4][] installation. It is used to generate binary HepRep (`.bheprep`) or XML HepRep (`.heprep`) file, which can be viewed using an external program called [JAS3][] with the [WIRED4][] plugin.
 
 A [sample HepRepXML macro](HepRepXML.mac) is shipped with [GEARS][]. Try it out this way:
 
@@ -107,7 +107,7 @@ It generates `scene-0.heprep.zip` in the same directory, which can be directly o
 
 ### DAWNFILE
 
-[DAWNFILE]({{site.g4doc}}/Visualization/visdrivers.html#dawn) is available in any [Geant4][] installation. It can be used to generate `g4_*.prim` files, which can be converted to an EPS file using an external program called [dawn](https://geant4.kek.jp/~tanaka/DAWN/About_DAWN.html).
+[DAWNFILE](http://geant4-userdoc.web.cern.ch/geant4-userdoc/UsersGuides/ForApplicationDeveloper/html/Visualization/visdrivers.html#dawn) is available in any [Geant4][] installation. It can be used to generate `g4_*.prim` files, which can be converted to an EPS file using an external program called [dawn](https://geant4.kek.jp/~tanaka/DAWN/About_DAWN.html).
 
 A [sample DAWNFILE macro](DAWN.mac) is shipped with [GEARS][]. Try it out this way:
 
@@ -119,7 +119,7 @@ $ gears DAWN.mac
 
 ### OpenGL
 
-[OpenGL][] is included in most [Geant4][] installations. Detailed instructions on OpenGL related built-in commands can be found [here]({{site.g4doc}}/Control/AllResources/Control/UIcommands/_vis_ogl_.html)
+[OpenGL][] is included in most [Geant4][] installations. Detailed instructions on OpenGL related built-in commands can be found [here](http://geant4-userdoc.web.cern.ch/geant4-userdoc/UsersGuides/ForApplicationDeveloper/html/Control/AllResources/Control/UIcommands/_vis_ogl_.html)
 
 A [sample OpenGL macro](OpenGL.mac) is shipped with [GEARS][]. Try it out this way:
 
@@ -131,7 +131,7 @@ $ gears OpenGL.mac
 
 It generates a `gears_????.pdf` file in the same directory.
 
-Note that even if you run it in batch mode, the [Geant4][] [UI][] session must be set to [Qt][] instead of [tcsh][]. Otherwise [OpenGL][] won't work. It can also be run in the [interactive mode]({{site.g4doc}}/GettingStarted/graphicalUserInterface.html), where you can use your mouse to rotate the visualized geometry.
+Note that even if you run it in batch mode, the [Geant4][] [UI][] session must be set to [Qt][] instead of [tcsh][]. Otherwise [OpenGL][] won't work. It can also be run in the [interactive mode](http://geant4-userdoc.web.cern.ch/geant4-userdoc/UsersGuides/ForApplicationDeveloper/html/GettingStarted/graphicalUserInterface.html), where you can use your mouse to rotate the visualized geometry.
 
 For Mac users, you may need to run
 
@@ -152,10 +152,10 @@ References:
 - <https://www.hoffman2.idre.ucla.edu/access/x11_forwarding/#Mac_OS_X>
 - <https://www.xquartz.org/releases/XQuartz-2.7.10.html>
 
-[OpenGL]:{{site.g4doc}}/Visualization/visdrivers.html#opengl
+[OpenGL]:http://geant4-userdoc.web.cern.ch/geant4-userdoc/UsersGuides/ForApplicationDeveloper/html/Visualization/visdrivers.html#opengl
 [UI]:../../../#user-interface
-[Qt]:{{site.g4doc}}/GettingStarted/graphicalUserInterface.html#g4uixm-g4uiqt-and-g4uiwin32-classes
-[tcsh]:{{site.g4doc}}/GettingStarted/graphicalUserInterface.html#g4uiterminal
+[Qt]:http://geant4-userdoc.web.cern.ch/geant4-userdoc/UsersGuides/ForApplicationDeveloper/html/GettingStarted/graphicalUserInterface.html#g4uixm-g4uiqt-and-g4uiwin32-classes
+[tcsh]:http://geant4-userdoc.web.cern.ch/geant4-userdoc/UsersGuides/ForApplicationDeveloper/html/GettingStarted/graphicalUserInterface.html#g4uiterminal
 
 [GEARS]: http://physino.xyz/gears
 [Geant4]: http://geant4.cern.ch

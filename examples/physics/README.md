@@ -17,9 +17,9 @@
 6. [reference lists][]: a subset of the [pre-packaged lists][] that are well-maintained and tested
 7. [factory][]: a [Geant4][] class that can be used to call [pre-packaged lists][] by their names
 
-[physics list]:{{site.g4doc}}/UserActions/mandatoryActions.html#physics-lists
-[modular lists]:{{site.g4doc}}/UserActions/mandatoryActions.html#building-physics-list-from-physics-builders
-[pre-packaged lists]: {{site.g4git}}/physics_lists/lists/include
+[physics list]:http://geant4-userdoc.web.cern.ch/geant4-userdoc/UsersGuides/ForApplicationDeveloper/html/UserActions/mandatoryActions.html#physics-lists
+[modular lists]:http://geant4-userdoc.web.cern.ch/geant4-userdoc/UsersGuides/ForApplicationDeveloper/html/UserActions/mandatoryActions.html#building-physics-list-from-physics-builders
+[pre-packaged lists]:https://gitlab.cern.ch/geant4/geant4/tree/master/source/physics_lists/lists/include
 [reference lists]: https://geant4.web.cern.ch/node/155
 [factory]:https://geant4.kek.jp/lxr/source/physics_lists/lists/src/G4PhysListFactory.cc#L79
 
@@ -47,7 +47,7 @@ The available names are listed in [G4PhysListFactory.cc][factory]. The naming sc
 
 ## Physics processes
 
-[Major categories of processes]({{site.g4doc}}/TrackingAndPhysics/physicsProcess.html) provided in [Geant4][] include:
+[Major categories of processes](http://geant4-userdoc.web.cern.ch/geant4-userdoc/UsersGuides/ForApplicationDeveloper/html/TrackingAndPhysics/physicsProcess.html) provided in [Geant4][] include:
 
 - Electromagnitism (EM)
   - Standard processes (~1 keV to ~PeV)
@@ -105,7 +105,7 @@ Detailed control of radioactive decay is provided by the /[grdm][]/ command, for
 /grdm/nucleusLimits 1 80 # enabled radioactive decay only when z in [1, 80]
 ~~~
 
-[grdm]:{{site.g4doc}}/Control/AllResources/Control/UIcommands/_grdm_.html
+[grdm]:http://geant4-userdoc.web.cern.ch/geant4-userdoc/UsersGuides/ForApplicationDeveloper/html/Control/AllResources/Control/UIcommands/_grdm_.html
 
 Here is an example to create [Pb210][] on the surface of a cylindrical CsI detector:
 
@@ -209,7 +209,7 @@ Individual optical processes can be toggled by the following commands:
 /process/optical/processActivation OpWLS true/false
 ~~~
 
-More built-in commands related to optical processes can be found [here]({{site.g4doc}}/Control/AllResources/Control/UIcommands/_process_optical_.html). Example usages can be found [here]({{site.g4doc}}/Examples/ExtendedCodes.html#optical-photons).
+More built-in commands related to optical processes can be found [here](http://geant4-userdoc.web.cern.ch/geant4-userdoc/UsersGuides/ForApplicationDeveloper/html/Control/AllResources/Control/UIcommands/_process_optical_.html). Example usages can be found [here](http://geant4-userdoc.web.cern.ch/geant4-userdoc/UsersGuides/ForApplicationDeveloper/html/Examples/ExtendedCodes.html#optical-photons).
 
 It is useful to categorize the processes the following way:
 
@@ -226,9 +226,9 @@ It is useful to categorize the processes the following way:
 It is also important to understand that [optical photons][] are treated differently from gamma and x-rays in [Geant4][], since completely different physics processes are assigned to them.
 
 #### Optical properties of materials and surfaces
-To [generate Cerenkov light]({{site.g4doc}}/TrackingAndPhysics/physicsProcess.html#generation-of-photons-in-processes-electromagnetic-xrays-cerenkov-effect), one HAS TO specify the refractive index of the material where the light is generated. In [GEARS][], this is [done in the detector geometry description file](../detector/optical).
+To [generate Cerenkov light](http://geant4-userdoc.web.cern.ch/geant4-userdoc/UsersGuides/ForApplicationDeveloper/html/TrackingAndPhysics/physicsProcess.html#generation-of-photons-in-processes-electromagnetic-xrays-cerenkov-effect), one HAS TO specify the refractive index of the material where the light is generated. In [GEARS][], this is [done in the detector geometry description file](../detector/optical).
 
-At least two parameters need to be specified to [generate scintillation light]({{site.g4doc}}/TrackingAndPhysics/physicsProcess.html#generation-of-photons-in-processes-electromagnetic-xrays-scintillation): the light yield, i.e., the number of photons per unit energy deposition (SCINTILLATIONYIELD), and the variation of the number of generated photons (RESOLUTIONSCALE). The parameters need to be attached to the material that scintillates, they are hence [specified in the detector geometry description file](../detector/optical) as well.
+At least two parameters need to be specified to [generate scintillation light](http://geant4-userdoc.web.cern.ch/geant4-userdoc/UsersGuides/ForApplicationDeveloper/html/TrackingAndPhysics/physicsProcess.html#generation-of-photons-in-processes-electromagnetic-xrays-scintillation): the light yield, i.e., the number of photons per unit energy deposition (SCINTILLATIONYIELD), and the variation of the number of generated photons (RESOLUTIONSCALE). The parameters need to be attached to the material that scintillates, they are hence [specified in the detector geometry description file](../detector/optical) as well.
 
 The parameter, RAYLEIGH and ABSLENGTH, related to the transportation of [optical photons][] in a mertial also have to be [attached to the material](../detector/optical).
 
@@ -241,7 +241,7 @@ In an ideal optical interface, the transportation of [optical photons][] can be 
 - [ScintillationInCsI.mac](../detector/optical/ScintillationInCsI.mac): a 6 keV gamma is emitted in the center of the CsI crystal generating scintillaiton light in the crystal.
 - [groundFrontPainted.mac](../detector/optical/surface/groundFrontPainted.mac) and [CsI2Teflon.tg](../detector/optical/surface/CsI2Teflon.tg): optical photons shot to an unpolished surface between a CsI crystal and PTFE reflector without an air gap in between.
 
-[optical photons]: {{site.g4doc}}/TrackingAndPhysics/physicsProcess.html#optical-photon-processes
+[optical photons]: http://geant4-userdoc.web.cern.ch/geant4-userdoc/UsersGuides/ForApplicationDeveloper/html/TrackingAndPhysics/physicsProcess.html#optical-photon-processes
 [CsI]:../detector/optical/CsI.tg
 [TPB]:../detector/optical/TPB.tg
 [PMT]:../detector/optical/SiO2.tg

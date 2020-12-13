@@ -49,12 +49,12 @@ One can use the following syntax to define a [G4LogicalBorderSurface][] in case 
 
 Note that physics volumes from the same logical volume created by the text geometry processor share the same name as their logical volume. Since [G4LogicalBorderSurface][] requires pointers to the two physical volumes beside, a unique copy number has to be attached to the volume name to uniquely identify the physics volume.
 
-Please read [the Geant4 manual]({{site.g4doc}}/TrackingAndPhysics/physicsProcess.html#boundary-process) if you would like to learn more about the optical interface models in Geant4.
+Please read [the Geant4 manual](http://geant4-userdoc.web.cern.ch/geant4-userdoc/UsersGuides/ForApplicationDeveloper/html/TrackingAndPhysics/physicsProcess.html#boundary-process) if you would like to learn more about the optical interface models in Geant4.
 
 You can also run example macros in the [surface/](surface/) directory to understand the difference between different surfaces.
 
 [GEARS]: http://physino.xyz/gears
-[tg]: {{site.g4doc}}/Detector/Geometry/geomASCII.html
+[tg]: http://geant4-userdoc.web.cern.ch/geant4-userdoc/UsersGuides/ForApplicationDeveloper/html/Detector/Geometry/geomASCII.html
 [Geant4]: http://geant4.cern.ch
 [GDML]: https://gdml.web.cern.ch/GDML/
 [G4OpBoundaryProcess]: http://www-geant4.kek.jp/lxr/source//processes/optical/include/G4OpBoundaryProcess.hh

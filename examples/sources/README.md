@@ -4,20 +4,20 @@
 
 [GEARS][] uses the [Geant4][] [general particle source][gps] to generate the [primary particles][], from which a [Geant4][] simulation starts (see [this plot](../output#step-point) to understand the general concept). The up-to-date examples of [gps][] are shipped together with the [Geant4][] source code in the folder:
 
-- [geant4/examples/extended/eventgenerator/exgps/macros]({{site.g4git}}/../examples/extended/eventgenerator/exgps/macros)
+- [geant4/examples/extended/eventgenerator/exgps/macros](https://gitlab.cern.ch/geant4/geant4/tree/master/examples/extended/eventgenerator/exgps/macros)
 
 An [outdated webpage](http://hurel.hanyang.ac.kr/Geant4/Geant4_GPS/reat.space.qinetiq.com/gps/examples/examples.html) shows most of the examples contained in the folder above. In addition, it also shows resulted distribution plots, which are very helpful to understand the real effects of the [gps][] macro commands.
 
-[Geant4][] also provide a much simpler particle source ([particle gun]({{site.g4doc}}/Control/AllResources/Control/UIcommands/_gun_.html)), which is less powerful, but covers some basic user cases.
+[Geant4][] also provide a much simpler particle source ([particle gun](http://geant4-userdoc.web.cern.ch/geant4-userdoc/UsersGuides/ForApplicationDeveloper/html/Control/AllResources/Control/UIcommands/_gun_.html)), which is less powerful, but covers some basic user cases.
 
 [GEARS]: http://physino.xyz/gears
 [Geant4]: http://geant4.cern.ch
-[gps]:{{site.g4doc}}/GettingStarted/generalParticleSource.html
-[primary particles]: {{site.g4doc}}/Fundamentals/eventGenerator.html
+[gps]:http://geant4-userdoc.web.cern.ch/geant4-userdoc/UsersGuides/ForApplicationDeveloper/html/GettingStarted/generalParticleSource.html
+[primary particles]: http://geant4-userdoc.web.cern.ch/geant4-userdoc/UsersGuides/ForApplicationDeveloper/html/Fundamentals/eventGenerator.html
 
 ## GPS macros
 
-An ASCII version of the manual of [gps][] macros is available [here]({{site.xyz}}/examples/sources/gps.txt).
+An ASCII version of the manual of [gps][] macros is available [here](gps.txt).
 
 ### Source in a volume
 
