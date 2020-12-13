@@ -13,7 +13,13 @@ endif()
 add_executable(gears gears.cc)
 target_link_libraries(gears ${Geant4_LIBRARIES})
 
-# https://stackoverflow.com/a/37994396/1801749
-set_property(DIRECTORY ${CMAKE_CURRENT_SOURCE_DIR} PROPERTY VS_STARTUP_PROJECT gears)
+# remove Debug and other unnecessary configurations
 # https://cmake.org/pipermail/cmake/2007-March/013081.html
 set(CMAKE_CONFIGURATION_TYPES Release CACHE STRING INTERNAL FORCE)
+
+if(WIN32)
+    add_custom_command(TARGET gears POST_BUILD COMMAND powershell.exe Release/gears.bat)
+    # https://stackoverflow.com/a/37994396/1801749
+    set_property(DIRECTORY PROPERTY VS_STARTUP_PROJECT gears)
+    configure_file(install/gears.bat Release/gears.bat COPYONLY)
+endif()
