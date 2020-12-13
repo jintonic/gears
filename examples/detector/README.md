@@ -21,7 +21,7 @@ Their difference is similar to that between [markdown][md] and [HTML][]. The sim
 :volume hall BOX 5*m 5*m 5*m G4_AIR
 ~~~
 
-For more examples, please check `*.tg` files in the [examples/detector](examples/detector) directory, such as [examples/detector/gears.tg](examples/detector/gears.tg) and [examples/detector/solids.tg](examples/detector/solids.tg). The suffix of *.tg* indicates that they are [text geometry][tg] description files. A [Geant4][] macro command `/geometry/source` is added to load geometry files:
+For more examples, please check `*.tg` files in the [examples/detector](.) directory, such as [examples/detector/gears.tg](gears.tg) and [examples/detector/solids.tg](solids.tg). The suffix of *.tg* indicates that they are [text geometry][tg] description files. A [Geant4][] macro command `/geometry/source` is added to load geometry files:
 
 ~~~sh
 /geometry/source gears.tg
