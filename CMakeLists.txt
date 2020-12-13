@@ -18,8 +18,8 @@ target_link_libraries(gears ${Geant4_LIBRARIES})
 set(CMAKE_CONFIGURATION_TYPES Release CACHE STRING INTERNAL FORCE)
 
 if(WIN32)
-    add_custom_command(TARGET gears POST_BUILD COMMAND powershell.exe Release/gears.bat)
     # https://stackoverflow.com/a/37994396/1801749
     set_property(DIRECTORY PROPERTY VS_STARTUP_PROJECT gears)
     configure_file(install/gears.bat Release/gears.bat COPYONLY)
+    add_custom_command(TARGET gears POST_BUILD COMMAND powershell.exe Release/gears.bat)
 endif()
