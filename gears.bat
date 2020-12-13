@@ -10,10 +10,9 @@ for /f "skip=2 tokens=1-2*" %%G in ('Reg Query HKCU\Environment /V PATH 2^>Nul')
 
 set new_path=%user_path:gears=%
 if "%new_path%"=="%user_path%" (
-  echo Add %~dp0out\build\x64-Release to user PATH
-  setx path "%user_path%;%~dp0out\build\x64-Release"
+  echo Add %~dp0 to user PATH
+  setx path %user_path%%~dp0
 ) else (
-  echo It seems %~dp0out\build\x64-Release is already in PATH:
+  echo It seems %~dp0 is already in PATH:
   echo %user_path%
 )
-pause
