@@ -17,7 +17,7 @@
 
 ## Features
 
-* [Single small C++ file]({{site.file}}/gears.cc), easy to manage, fast to [compile](#compilation) (a few second on a regular PC)
+* [Single small C++ file](gears.cc), easy to manage, fast to [compile](#compilation) (a few second on a regular PC)
 * [Easy switching between well maintained Geant4 reference physics lists without recompilation](examples/physics)
   * [Individual processes can be turned on/off without recompilation](examples/physics#physics-processes)
   * [Fast implementation of optical properties without recompilation](examples/physics#optical-properties-of-materials-and-surfaces)
