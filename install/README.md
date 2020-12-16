@@ -65,7 +65,39 @@ First of all, you don't need to do this if you don't need any special features f
 
 Please download [Visual Studio][] Community Edition installer. Run it. Choose to install a workload called "Desktop development with C++". It is about 2 GB and takes a long time to download and install. When you open VS the first time, choose "Visual C++" as your "Development Settings".
 
-The compilation of GEARS can be done [solely with Visual Studio](#compile-gears-with-visual-studio). However, the process would become much easier if we use [CMake][] before using [Visual Studio][]. Please download and install [CMake][], and run it. Set "Where is the source code" to where [gears.cc](../gears.cc) is located, and "Where to build the binaries" to anywhere you like, but we prefer a new directory called `build` within the directory where [gears.cc](../gears.cc) is located. Press `Configure`, `Generate` and then `Open Project`. [Visual Studio][] will be open automatically. Inside [Visual Studio][], press <kbd>F5</kbd> and you are done! Upon a successful compilation, [Visual Studio][] will automatically run `gears.exe` for you. You should also be able to run `gears.exe` anywhere you want since its containing directory has been added to the Windows `%PATH%` automatically.
+The compilation of GEARS can be done [solely with Visual Studio](#compile-gears-with-visual-studio). However, the process would become much easier if we use [CMake][] before using [Visual Studio][]. Please download and install [CMake][]. The only thing we need to pay attention during the installation is to "Add CMake to the system PATH":
+
+<img style="width:100%;" src="cmakeInstallOpt.png"/>
+
+Now we can run `CMake`, set "Where is the source code" to where [gears.cc](../gears.cc) is located, and "Where to build the binaries" to anywhere you like, but we prefer a new directory called `build` within the directory where [gears.cc](../gears.cc) is located:
+
+<img style="width:100%;" src="cmakebuilddir.png"/>
+
+Press the `Configure` bottom, you will be prompt to "Specify the generator for this project". `CMake` should be able to select [Visual Studio][] automatically. You just need to press the `Finish` bottom to confirm it:
+
+<img style="width:100%;" src="cmakegenerator.png"/>
+
+Now, you should be able to see the following window:
+
+<img style="width:100%;" src="cmakeconf.png"/>
+
+If your [Geant4][] is installed correctly, `CMake` should be able to find it and set `Geant4_DIR` correctly. If not, you can still manually modify it in this window.
+
+Now press `Generate` and then `Open Project`. [Visual Studio][] will be open automatically. If this is the first time you call [Visual Studio][] from within `CMake`, you may see the following window:
+
+<img style="width:100%;" src="cmake2VS.png"/>
+
+Press OK to confirm that you'd like to use [Visual Studio][] to open the `.sln` files created by `CMake`.
+
+Inside [Visual Studio][], press the bottom shown in the following screenshot:
+
+<img style="width:100%;" src="compileGearsInVS.png"/>
+
+Upon a successful compilation, [Visual Studio][] will automatically run `gears.exe` for you:
+
+<img style="width:100%;" src="vsdebuggears.png"/>
+
+You should also be able to run `gears.exe` anywhere you want since its containing directory has been added to the Windows `%PATH%` automatically by `CMake`.
 
 #### Compile GEARS with Visual Studio
 
@@ -121,7 +153,7 @@ After this, the procedure is the same as [that in Linux](#compile-gears-in-linux
 
 ### Install GEARS in Windows
 
-When [GEARS][] is successfully compiled in [Visual Studio][], its executable `gears.exe` is located at `\path\to\gears\out\build\x64-Release\`. You need to add this folder to the Windows environment variable `path` so that you can use `gears.exe` in other directories. A batch file [gears.bat](gears.bat) is shipped with [GEARS][] to do this for you. Open the [GEARS][] folder in your file browser, select `gears.bat`, right click on it, choose `Run as administrator` to run it. To check if it works, open a `cmd.exe` window and type `echo %path%` in it:
+If you compiled [GEARS][] using [CMake][] and then [Visual Studio][], you don't have to do anything extra, `gears.exe` has been installed automatically for you. If you only used [Visual Studio][] to compile [GEARS][], the executable `gears.exe` is located at `\path\to\gears\out\build\x64-Release\`. You need to add this folder to the Windows environment variable `path` so that you can use `gears.exe` in other directories. A batch file [gears.bat](gears.bat) is shipped with [GEARS][] to do this for you. Open the [GEARS][] folder in your file browser, copy `gears.bat` to `out\build\x64-Release`, right click on it, choose `Run as administrator` to run it. To check if it works, open a `cmd.exe` window and type `echo %path%` in it:
 
 ![winCmdPath](winCmdPath.png)
 
