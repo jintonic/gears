@@ -1,7 +1,6 @@
 /geometry/source TUNL.tg
 
-/physics_lists/enable HadronElastic
-/physics_lists/enable HadronInelastic
+/physics_lists/select LBE_LIV_HP
 
 /run/initialize
 
