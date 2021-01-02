@@ -13,7 +13,7 @@ else # Linux
   export LD_LIBRARY_PATH=$G4LIB:$LD_LIBRARY_PATH
 fi
 
-# print missting databases
+# print missing databases
 while read line; do
   database=`echo $line | awk '{print $2}'`
   if [ $database = "NOTFOUND" ]; then echo $line; fi
