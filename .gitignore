@@ -59,3 +59,8 @@ build
 # macOS
 .DS_Store
 .java-version
+
+# CMake
+CMakeCache.txt
+CMakeFiles
+cmake_install.cmake
