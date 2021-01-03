@@ -4,7 +4,7 @@
 [![Get Started](https://img.shields.io/badge/get-started-orange?style=flat)](install)
 [![Get Involved](https://img.shields.io/badge/get-involved-ff69b4?style=flat)](#how-to-contribute)
 
-<a href="examples/detector/visualization/gearsX3D.html"><img style="float:right;width:120px;" src="examples/detector/visualization/gears.png"/></a>
+<a href="examples/detector/visualization/gearsX3D.html"><img align="right" width="120px" src="examples/detector/visualization/gears.png"/></a>
 
 [GEARS][] is a [Geant4][] [Example][] Application with [Rich features](#features) yet Small footprint. The entire C++ coding is minimized down to a single file with about 550 [SLOC][]. This is achieved mainly by utilizing [Geant4][] plain [text geometry description][tg], [built-in UI commands][TUI] (macros), and C++ inheritance. It is ideal for student training and fast implementation of small to medium-sized experiments.
 
