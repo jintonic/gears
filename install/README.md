@@ -55,7 +55,7 @@ $ git pull # get latest gears
 
 ## Compile GEARS
 
-Two compilation systems are provide for [GEARS][]. One is [CMake][]. This mechanism is provided to insure that [GEARS][] can be compiled across platforms. You can find a [CMakeLists.txt](../CMakeLists.txt) file in the [GEARS][] folder, which can be detected automatically by [CMake][] in all platforms or [Visual Studio][] in Windows. The other method is to directly use a [makefile](../makefile) shipped with [GEARS][], which simplifies the compilation in Linux and macOS significantly.
+Two compilation systems are provide for [GEARS][]. One is [CMake][]. This mechanism is provided to insure that [GEARS][] can be compiled across platforms. You can find a [CMakeLists.txt](../CMakeLists.txt) file in the [GEARS][] folder, which can be detected automatically by [CMake][] in all platforms or [Visual Studio][] in Windows. The other method is to directly use a [Makefile](../Makefile) shipped with [GEARS][], which simplifies the compilation in Linux and macOS significantly.
 
 [CMake]: https://cmake.org/
 
@@ -132,7 +132,7 @@ Upon a successful compilation, `gears.exe` will be automatically launched within
 <img style="width:100%;" src="vsdebuggears.png"/>
 
 ### Compile GEARS in Linux
-[GEARS][] is shipped with a simple [makefile](../makefile). Simply type `make` to compile [gears.cc](../gears.cc) to generate a tiny executable `gears` in the GEARS directory:
+[GEARS][] is shipped with a simple [Makefile](../Makefile). Simply type `make` to compile [gears.cc](../gears.cc) to generate a tiny executable `gears` in the GEARS directory:
 
 ```sh
 $ cd /path/to/gears
