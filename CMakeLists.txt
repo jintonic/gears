@@ -30,9 +30,9 @@ if(WIN32)
   add_custom_command(TARGET gears POST_BUILD COMMAND powershell.exe Release/gears.bat)
 else()
   add_custom_target(setup ALL echo
-    COMMAND echo Please add the following line:
-    COMMAND echo `tput bold`source ${CMAKE_CURRENT_SOURCE_DIR}/gears.sh`tput sgr0`
+    COMMAND echo To install, please add the following line:
+    COMMAND echo `tput bold` source ${CMAKE_CURRENT_SOURCE_DIR}/gears.sh`tput sgr0`
     COMMAND echo to `tput bold`~/.bashrc`tput sgr0` in Linux or `tput bold`~/.bash_profile`tput sgr0` in a Mac
-    COMMAND echo or `tput bold`~/.zshrc`tput sgr0` if you use zsh
+    COMMAND echo or `tput bold`~/.zshrc`tput sgr0` if you use zsh instead of bash
     COMMAND echo)
 endif()
