@@ -55,6 +55,7 @@ gxml.cc
 .vs
 out
 build
+Release
 
 # macOS
 .DS_Store
