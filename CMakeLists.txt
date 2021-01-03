@@ -4,6 +4,7 @@ project(gears)
 
 # http://geant4-userdoc.web.cern.ch/geant4-userdoc/UsersGuides/InstallationGuide/html/buildtools.html#cmake-build-system-geant4config-cmake
 find_package(Geant4 10.0 REQUIRED ui_all vis_all)
+find_package(Geant4 10.0 QUIET OPTIONAL_COMPONENTS qt gdml)
 include(${Geant4_USE_FILE})
 
 if(XercesC_INCLUDE_DIR)
