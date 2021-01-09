@@ -30,7 +30,8 @@ if(WIN32)
   # https://stackoverflow.com/a/37994396/1801749
   set_property(DIRECTORY PROPERTY VS_STARTUP_PROJECT gears)
   # automacially add \path\to\gears to user PATH environment variable
-  add_custom_command(TARGET gears POST_BUILD COMMAND powershell.exe gears.bat)
+  add_custom_command(TARGET gears POST_BUILD
+    COMMAND cmd /c ${CMAKE_CURRENT_SOURCE_DIR}/gears.bat)
 else()
   add_custom_target(setup ALL echo
     COMMAND echo To install, please add the following line:
