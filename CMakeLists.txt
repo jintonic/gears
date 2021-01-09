@@ -2,14 +2,11 @@ cmake_minimum_required(VERSION 2.9 FATAL_ERROR)
 
 project(gears)
 
-# http://geant4-userdoc.web.cern.ch/geant4-userdoc/UsersGuides/InstallationGuide/html/buildtools.html#cmake-build-system-geant4config-cmake
+# http://geant4-userdoc.web.cern.ch/geant4-userdoc/UsersGuides/InstallationGuide/html/buildtools.html
 find_package(Geant4 10.0 REQUIRED ui_all vis_all)
-include(${Geant4_USE_FILE})
+include(${Geant4_USE_FILE}) # auto configure includes & flags
 
-# remove Debug and other unnecessary configurations
-# https://cmake.org/pipermail/cmake/2007-March/013081.html
-set(CMAKE_CONFIGURATION_TYPES "Release" CACHE INTERNAL "")
-
+# enable GDML if XercesC_INCLUDE_DIR is defined by Geant4
 if(XercesC_INCLUDE_DIR)
   add_definitions(-DhasGDML)
 endif()
@@ -27,6 +24,9 @@ mark_as_advanced(FORCE CMAKE_INSTALL_PREFIX X11_xcb_icccm_INCLUDE_PATH
   X11_xcb_xfixes_INCLUDE_PATH X11_xcb_xfixes_LIB)
 
 if(WIN32)
+  # remove Debug and other unnecessary configurations
+  # https://cmake.org/pipermail/cmake/2007-March/013081.html
+  set(CMAKE_CONFIGURATION_TYPES "Release" CACHE INTERNAL "")
   # https://stackoverflow.com/a/37994396/1801749
   set_property(DIRECTORY PROPERTY VS_STARTUP_PROJECT gears)
   # automacially add \path\to\gears to user PATH environment variable
