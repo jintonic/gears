@@ -38,5 +38,4 @@ else()
     COMMAND echo to `tput bold`~/.bashrc`tput sgr0` in Linux or `tput bold`~/.bash_profile`tput sgr0` in a Mac
     COMMAND echo or `tput bold`~/.zshrc`tput sgr0` if you use zsh instead of bash
     COMMAND echo)
-  add_custom_command(TARGET gears POST_BUILD COMMAND . gears.sh COMMENT "source gears.sh")
 endif()
