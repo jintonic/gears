@@ -7,7 +7,7 @@ export PATH=$GEARS/examples/detector/visualization:$GEARS:$PATH
 # add Geant4 libs to (DY)LD_LIBRARY_PATH
 G4LIB=`geant4-config --libs | awk '{print $1}'`
 G4LIB=${G4LIB#-L}
-if [[ "$OSTYPE" == "darwin" ]]; then # Mac OSX
+if [[ "$OSTYPE" == *"darwin"* ]]; then # Mac OSX
   export DYLD_LIBRARY_PATH=$G4LIB:$DYLD_LIBRARY_PATH
 else # Linux
   export LD_LIBRARY_PATH=$G4LIB:$LD_LIBRARY_PATH
