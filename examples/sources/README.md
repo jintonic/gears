@@ -22,6 +22,14 @@ An ASCII version of the manual of [gps][] macros is available [here](gps.txt).
 ### Source in a volume
 
 ```sh
+# define a shape that is slightly larger than <physics_volume_name>
+/gps/pos/type Volume
+/gps/pos/shape Cylinder
+/gps/pos/radius 2 cm
+/gps/pos/halfz 3 cm
+# place it very close to <physics_volume_name>
+/gps/pos/centre 3 2 0 cm
+# GPS will generate particles only in <physics_volume_name>
 /gps/pos/confine physics_volume_name
 ```
 
