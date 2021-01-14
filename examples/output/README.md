@@ -182,7 +182,7 @@ A step point in [GEARS][] contains the following information:
 * Detector volume copy number (`vlm` in short)
 * [Process id](#process-id) (`pro` in short)
 * [Particle id](#particle-id) (`pdg` in short)
-* Particle id of the parent particle (`pid` in short)
+* Track id of the parent particle (`pid` in short)
 * Local position `xx` [mm] (origin: center of the volume)
 * Local position `yy` [mm] (origin: center of the volume)
 * Local position `zz` [mm] (origin: center of the volume)
@@ -256,7 +256,7 @@ The physics process generating each step point is saved in a variable `pro[i]`, 
 
 ### Particle id
 
-The type of particle related to a step point is saved in a variable `pdg`. It is the same as the [PDG encoding](http://pdg.lbl.gov/current/mc-particle-id) of the particle. A Google search will give more information about it. The name `pid` is used for the parent particle's PDG encoding.
+The type of particle related to a step point is saved in a variable `pdg`. It is the same as the [PDG encoding](http://pdg.lbl.gov/current/mc-particle-id) of the particle. A Google search will give more information about it. The name `pid` is used for the parent particle's track id.
 
 ### Record information of step 0
 
