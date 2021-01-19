@@ -1,0 +1,9 @@
+Bootstrap:docker  
+From:ubuntu:latest
+
+%labels
+MAINTAINER jintonic
+
+%post  
+apt-get -y update
+apt-get -y install vim
