@@ -50,3 +50,13 @@ $ cp tg.yaml ~/.config/micro/syntax/
 
 [Micro]: https://micro-editor.github.io/
 [nano]: https://www.nano-editor.org/
+
+### Sublime Text
+
+[tg.sublime-syntax](tg.sublime-syntax) defines syntax highlighting rules for displaying `.tg` files in [Sublime Text Editor][], which is great in indexing and multiple selection. To install it, simply do
+
+```sh
+$ cp tg.sublime-syntax ~/.config/sublime-text-3/Packages/User/
+```
+
+[Sublime Text Editor]: https://www.sublimetext.com/
