@@ -40,7 +40,7 @@
   * Turn off data saving in a volume by assigning it a non-positive copy number
   * Turn any volume to a [sensitive detector](examples/detector#sensitive-volume) by adding "(S)" in its name
   * [Assign optical properties in Geant4 plain text geometry description](examples/detector/optical), which is not available in the official [Geant4][] release
-  * [Syntax highlighting of the simple text geometry description files](examples/detector/syntax) in [Emacs](examples/detector/syntax#emacs), [Vim](examples/detector/syntax#vim) and [Micro](examples/detector/syntax#micro)
+  * [Syntax highlighting of the simple text geometry description files](examples/detector/syntax) in [Emacs](examples/detector/syntax#emacs), [Vim](examples/detector/syntax#vim), [Micro](examples/detector/syntax#micro), and [Sublime Text](examples/detector/syntax#sublime-text)
 * [Creating 3D mesh to record and visualize physical variables in it without any change of the C++ code](http://geant4-userdoc.web.cern.ch/geant4-userdoc/UsersGuides/ForApplicationDeveloper/html/Detector/commandScore.html)
 * [Doxygen documentation](https://codedocs.xyz/jintonic/gears/)
 * Many [sample macros](examples) and [geometry descriptions](examples/detector) for feature demonstration
