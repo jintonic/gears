@@ -24,9 +24,9 @@ More than 40% of the ~550 lines of C++ code in [gears.cc](../../../gears.cc) is 
 //:prop <material> photon_energies <int(array size)> <energy array>
 //  <wavelength-dependent_property> <property values>
 :prop pureCsIat77K
-  photon_energies 2 2.034*eV, 3.025*eV, 4.136*eV
-  RINDEX 1.34, 1.35, 1.36
-  ABSLENGTH 1.0*meter, 1.1*meter, 1.2*meter
+  photon_energies 2 2.034*eV 3.025*eV 4.136*eV
+  RINDEX 1.34 1.35 1.36
+  ABSLENGTH 1.0*meter 1.1*meter 1.2*meter
 ~~~
 
 ## Define optical properties of a surface
