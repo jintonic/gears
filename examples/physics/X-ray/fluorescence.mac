@@ -1,0 +1,29 @@
+/geometry/source foil.tg
+
+# https://geant4.web.cern.ch/node/1620
+/physics_lists/select LBE_LIV
+# /process/em/ only exists with radioactive decay being enabled
+/physics_lists/factory/addRadioactiveDecay
+# PIXE must be used to enable the creation of characteristic X-rays
+/process/em/pixe true
+/run/initialize
+
+/process/em/printParameters
+
+/gps/particle alpha
+/gps/energy 5.5 MeV
+/gps/pos/centre -1 0 0 mm
+/gps/direction 1 0 0
+
+/vis/open HepRepFile
+/vis/drawVolume
+/vis/scene/add/trajectories
+/vis/scene/endOfEventAction accumulate
+
+/tracking/verbose 2
+/run/beamOn 10
+
+/vis/disable
+/tracking/verbose 0
+/analysis/setFileName fluorescence
+/run/beamOn 10000

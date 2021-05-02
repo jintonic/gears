@@ -6,6 +6,7 @@
 [![neutron](https://img.shields.io/badge/neutron-interactions-brown?style=flat)](neutron)
 [![optical](https://img.shields.io/badge/optical-photons-red?style=flat)](#optical-processes)
 [![decay](https://img.shields.io/badge/radioactive-decay-orange?style=flat)](#radioactive-decay)
+[![X-ray](https://img.shields.io/badge/X--ray-creation-green?style=flat)](X-ray)
 
 ## Terminology
 
@@ -173,6 +174,26 @@ For people who want to understand how this is done, please check the [GEARS doxy
 - <http://geant4-userdoc.web.cern.ch/geant4-userdoc/UsersGuides/ForApplicationDeveloper/html/UserActions/optionalActions.html?highlight=stack#g4userstackingaction>
 
 For the impatient, new particles created after the specified time window in a decay process will be tagged as `fWaiting` in `G4UserStackingAction::ClassifyNewTrack()`. This postpones the tracking of them after the call of `G4UserStackingAction::NewStage()`. One can then save and reset the current event in the `NewStage()` function so that the postponed tracks will be saved in a separate event.
+
+#### Stop decay chain
+If the half life of a daughter nucleus is longer than a measurement duration, there is no need to simulate its decay anymore. In this case, instead of splitting its decay to another event, we should simply stop its radioactive decay completely. This is done using a Geant4 macro command `/grdm/nucleusLimits`, for example,
+
+```sh
+# enable radioactive decay physics
+/physics_lists/select QGSP_BERT
+/physics_lists/factory/addRadioactiveDecay
+
+/run/initialize
+
+# start with the alpha decay of Am-241
+/gps/particle ion
+/gps/ion 95 241
+/gps/energy 0
+# since Np-237, the daughter of Am-241, is not in the following range,
+# it will not alpha-decay into its daughter nucleus in this simulation.
+# The simulation will stop when Np-237 decays into its ground state.
+/grdm/nucleusLimits 241 241 95 95
+```
 
 ### Optical processes
 Optical processes can be enabled after a reference list is chosen:

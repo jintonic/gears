@@ -275,7 +275,7 @@ G4MaterialPropertiesTable* LineProcessor::CreateMaterialPropertiesTable(
 {
   bool photonEnergyUnDefined=true;
   int cnt=0; // number of photon energy values
-  double *energies; // photon energy values
+  double *energies=NULL; // photon energy values
   G4MaterialPropertiesTable *table = new G4MaterialPropertiesTable();
   for (size_t i=idxOfWords; i<words.size(); i++) {
     G4String property = words[i]; property.toUpper();

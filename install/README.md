@@ -55,7 +55,7 @@ $ git pull # get latest gears
 
 ## Compile GEARS
 
-Two compilation systems are provide for [GEARS][]. One is [CMake][]. This mechanism is provided to insure that [GEARS][] can be compiled across platforms. You can find a [CMakeLists.txt](../CMakeLists.txt) file in the [GEARS][] folder, which can be detected automatically by [CMake][] in all platforms or [Visual Studio][] in Windows. The other method is to directly use a [makefile](../makefile) shipped with [GEARS][], which simplifies the compilation in Linux and macOS significantly.
+Two compilation systems are provide for [GEARS][]. One is [CMake][]. This mechanism is provided to insure that [GEARS][] can be compiled across platforms. You can find a [CMakeLists.txt](../CMakeLists.txt) file in the [GEARS][] folder, which can be detected automatically by [CMake][] in all platforms or [Visual Studio][] in Windows. The other method is to directly use a [Makefile](../Makefile) shipped with [GEARS][], which simplifies the compilation in Linux and macOS significantly.
 
 [CMake]: https://cmake.org/
 
@@ -132,7 +132,7 @@ Upon a successful compilation, `gears.exe` will be automatically launched within
 <img style="width:100%;" src="vsdebuggears.png"/>
 
 ### Compile GEARS in Linux
-[GEARS][] is shipped with a simple [makefile](../makefile). Simply type `make` to compile [gears.cc](../gears.cc) to generate a tiny executable `gears` in the GEARS directory:
+[GEARS][] is shipped with a simple [Makefile](../Makefile). Simply type `make` to compile [gears.cc](../gears.cc) to generate a tiny executable `gears` in the GEARS directory:
 
 ```sh
 $ cd /path/to/gears
@@ -170,12 +170,13 @@ $ make # compile gears.cc to generate executable: gears
  To install, please add the following line
     source /path/to/gears/gears.sh
  to ~/.bashrc in Linux or ~/.bash_profile in a Mac
+ (or ~/.zshrc if you use zsh instead of bash)
  --------------------------------------------------------
 ```
 
 Follow this instruction, open a new terminal when you are done, and you should be able to use the `gears` command in a new terminal now.
 
-For Mac users, you need to `source ~/.bashrc` in your `~/.bash_profile` in addition if you have not done so. Please check [this article](https://scriptingosx.com/2017/04/about-bash_profile-and-bashrc-on-macos/) for explanation.
+For Mac users, you need to use `~/.bash_profile` instead of `~/.bashrc`. Please check [this article](https://scriptingosx.com/2017/04/about-bash_profile-and-bashrc-on-macos/) for explanation. Alternatively, you can add `source ~/.bashrc` in your `~/.bash_profile` and still add `source /path/to/gears/gears.sh` to `~/.bashrc`.
 
 If you use `zsh` instead of `bash`, use `~/.zshrc` instead of `~/.bashrc` or `~/.bash_profile`.
 
