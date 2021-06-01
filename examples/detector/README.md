@@ -18,7 +18,7 @@ Instead of using geometry written in C++ as described in detail in the [Geant4 m
 Their difference is similar to that between [markdown][md] and [HTML][]. The simpler [text geometry description][tg] provided by [Geant4][] is recommended to be used as [GEARS][]'s input given its simplicity and readability. For example, an experimental hall filled with air and of a dimension of 10 x 10 x 10 meters can be easily implemented using the following line:
 
 ~~~
-:volume hall BOX 5*m 5*m 5*m G4_AIR
+:volu hall BOX 5*m 5*m 5*m G4_AIR
 ~~~
 
 For more examples, please check `*.tg` files in the [examples/detector](.) directory, such as [examples/detector/gears.tg](gears.tg) and [examples/detector/solids.tg](solids.tg). The suffix of *.tg* indicates that they are [text geometry][tg] description files. A [Geant4][] macro command `/geometry/source` is added to load geometry files:
