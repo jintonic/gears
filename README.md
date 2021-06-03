@@ -1,7 +1,7 @@
 [![Doxygen](https://codedocs.xyz/jintonic/gears.svg)](https://codedocs.xyz/jintonic/gears/annotated.html)
 [![License](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
 [![Examples](https://img.shields.io/badge/gears-examples-blue?style=flat)](examples)
-[![Get Started](https://img.shields.io/badge/get-started-orange?style=flat)](install)
+[![Get Started](https://img.shields.io/badge/get-started-orange?style=flat)](INSTALL)
 [![Get Involved](https://img.shields.io/badge/get-involved-ff69b4?style=flat)](#how-to-contribute)
 
 <a href="examples/detector/visualization/gearsX3D.html"><img align="right" width="120px" src="examples/detector/visualization/gears.png"/></a>
@@ -17,7 +17,7 @@
 
 ## Features
 
-* [Single small C++ file](gears.cc), easy to manage, fast to [compile](install#compile-gears) (a few second on a regular PC)
+* [Single small C++ file](gears.cc), easy to manage, fast to [compile](INSTALL#compile-gears) (a few second on a regular PC)
 * [Easy switching between well maintained Geant4 reference physics lists without recompilation](examples/physics)
   * [Individual processes can be turned on/off without recompilation](examples/physics#physics-processes)
   * [Fast implementation of optical properties without recompilation](examples/physics#optical-properties-of-materials-and-surfaces)
