@@ -280,7 +280,7 @@ G4MaterialPropertiesTable* LineProcessor::CreateMaterialPropertiesTable(
   for (size_t i=idxOfWords; i<words.size(); i++) {
     G4String property = words[i]; property.toUpper();
     if (property.contains("SCINTILLATIONYIELD") || property=="RESOLUTIONSCALE"
-        || property.contains("FASTTIMECONSTANT") || property=="YIELDRATIO") {
+        || property.contains("TIMECONSTANT") || property=="YIELDRATIO") {
       table->AddConstProperty(property, G4tgrUtils::GetDouble(words[i+1]));
       G4cout<<"GEARS: "<<property<<"="<<words[i+1]<<G4endl;
       i++; // property value has been used
