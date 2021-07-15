@@ -40,11 +40,11 @@ $ cd examples/detector/visualization
 $ gears RayTracer.mac
 ```
 
-It generates a `g4RayTracer.viewer-0_0000.jpeg` file in the same directory.
+It generates a `g4RayTracer.viewer-0_0000.jpeg` file in the same directory. Note that the working principle of RayTracer is to shoot many rays (360000 by default) through the detector geometry and draw their intersecting points to reveal the geometry surfaces. Because of this, it takes more time than other methods to finish. It cannot be used to show particle trajectories, the world geometry, nor any cross section. Its advantage is to show complex geometry that other visualization method may fail.
 
 ### VRML
 
-[VRML][] is available in any [Geant4][] installation. It is used to generate files in VRML format, which can be viewed using an external program, such as [ORBISNAP][], [FreeWRL][], [OpenVRML][], [view3dscene][], [3D builder](https://www.microsoft.com/en-us/p/3d-builder/9wzdncrfj3t6) (default Windows 10 App),  etc., or be converted to its succeeder [X3D][], which can be viewed directly in a modern web browser that supports WebGL.
+[VRML][] is available in any [Geant4][] installation. It is used to generate files in VRML format, which can be viewed using an external program, such as [ORBISNAP][], [FreeWRL][] (handy for MacOS), [OpenVRML][], [view3dscene][] (only for Linux and Windows), [3D builder](https://www.microsoft.com/en-us/p/3d-builder/9wzdncrfj3t6) (default Windows 10 App),  etc., or be converted to its succeeder [X3D][], which can be viewed directly in a modern web browser that supports WebGL.
 
 A [sample VRML macro](VRML.mac) is shipped with [GEARS][]. Try it out this way:
 
@@ -162,7 +162,7 @@ References:
 [VRML]:http://geant4-userdoc.web.cern.ch/geant4-userdoc/UsersGuides/ForApplicationDeveloper/html/Visualization/visdrivers.html#vrml
 [ORBISNAP]:https://www.orbisnap.com/download2.html
 [OpenVRML]:https://sourceforge.net/projects/openvrml/
-[FreeWRL]: https://sourceforge.net/projects/freewrl/
+[FreeWRL]: http://freewrl.sourceforge.net/download.html
 [view3dscene]:https://castle-engine.sourceforge.io/view3dscene.php
 [X3D]:https://stackoverflow.com/questions/14849593/vrml-to-x3d-conversion
 [v2x]:https://github.com/jintonic/gears/blob/master/examples/detector/visualization/v2x
