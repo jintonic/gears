@@ -27,7 +27,7 @@ An ASCII version of the manual of [gps][] macros is available [here](gps.txt).
 /gps/pos/shape Cylinder
 /gps/pos/radius 2 cm
 /gps/pos/halfz 3 cm
-# place it very close to <physics_volume_name>
+# place it to a position so that it can fully contain <physics_volume_name>
 /gps/pos/centre 3 2 0 cm
 # GPS will generate particles only in <physics_volume_name>
 /gps/pos/confine physics_volume_name
