@@ -16,6 +16,22 @@ Neutrons interact with matter mainly through the following processes:
 [Inelastic scattering]: https://www.glossary.oilfield.slb.com/en/Terms/i/inelastic_neutron_scattering.aspx
 [Fission]: https://en.wikipedia.org/wiki/Nuclear_fission
 
+### Gd(n,gamma)
+
+The default HP (high precision) neutron model used in [Geant4][] does not handle Gd(n,gamma) correctly. This is described in detail in <https://indico.cern.ch/event/746466/contributions/3345714/>. An alternative model is called photon evaporation, which can be activated by setting up an environment variable:
+
+```sh
+export G4NEUTRONHP_USE_ONLY_PHOTONEVAPORATION=1
+```
+
+(Note that this will be replaced by a macro command in Geant4 version 11). The dataset used by this model is
+
+```sh
+export G4LEVELGAMMADATA=/path/to/Geant4/installtion/folder/share/Geant4-??.?.?/data/PhotonEvaporation?.?
+```
+
+Example simulation and analysis codes can be found in <https://github.com/jintonic/gears/tree/master/examples/physics/neutron/Gd>.
+
 ### A comprehensive example
 
 In [DT.mac](DT.mac), 14 MeV neutrons from a DT generator are shot to a concrete block defined in [concrete.tg](concrete.tg). Example analysis code:
