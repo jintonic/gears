@@ -18,7 +18,7 @@ Neutrons interact with matter mainly through the following processes:
 
 ### Gd(n,gamma)
 
-The default HP (high precision) neutron model used in [Geant4][] does not handle Gd(n,gamma) correctly. This is described in detail in <https://indico.cern.ch/event/746466/contributions/3345714/>. An alternative model is called photon evaporation, which can be activated by setting up an environment variable:
+The default HP (high precision) neutron model used in Geant4 does not handle Gd(n,gamma) correctly. This is described in detail in <https://indico.cern.ch/event/746466/contributions/3345714/>. An alternative model is called photon evaporation, which can be activated by setting up an environment variable:
 
 ```sh
 export G4NEUTRONHP_USE_ONLY_PHOTONEVAPORATION=1
@@ -30,7 +30,7 @@ export G4NEUTRONHP_USE_ONLY_PHOTONEVAPORATION=1
 export G4LEVELGAMMADATA=/path/to/Geant4/installtion/folder/share/Geant4-??.?.?/data/PhotonEvaporation?.?
 ```
 
-Example simulation and analysis codes can be found in <https://github.com/jintonic/gears/tree/master/examples/physics/neutron/Gd>.
+Example simulation and analysis codes can be found in <https://github.com/jintonic/gears/tree/master/examples/physics/neutron/Gd>. As for Geant4.10.7, the simulated gamma-ray spectrum is not satisfactory compared to data described in <https://academic.oup.com/ptep/article/2020/4/043D02/5819518>.
 
 ### A comprehensive example
 
