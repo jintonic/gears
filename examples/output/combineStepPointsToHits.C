@@ -43,6 +43,7 @@ void combineStepPointsToHits(
 		t->GetEntry(evt); // get information of step points from input tree
 
 		n = 0; // reset counter of combined hits for a new event
+		for (int i=0; i<1000; i++) { x[i]=y[i]=z[i]=e[i]=0; } // reset hit information
 		for (int i=0; i<nStepPoints; i++) { // loop over step points
 			if (de->at(i)==0) continue; // skip step points with no energy deposition
 			if (vlm->at(i)!=1) continue; // skip step points not in the detector
