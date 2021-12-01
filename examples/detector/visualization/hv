@@ -10,4 +10,4 @@ DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" >/dev/null 2>&1 && pwd)"
 if [ ! -f $DIR/HepRApp.jar ]; then
   wget -P $DIR http://www.slac.stanford.edu/~perl/HepRApp/HepRApp.jar
 fi
-java -jar $DIR/HepRApp.jar -opt $DIR/HepRApp.properties -file $1
+java -jar $DIR/HepRApp.jar -opt ~/.heprapprc -file $1
