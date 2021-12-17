@@ -43,7 +43,7 @@
 # turn off screen printing for fast simulation 
 /tracking/verbose 0
 # turn on data recording
-/analysis/setFileName air
+/analysis/setFileName air.root
 # turn on progress report
 /run/verbose 2
 /run/printProgress 1000

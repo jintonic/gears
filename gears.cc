@@ -4,7 +4,7 @@
  */
 #include <vector>
 using namespace std;
-#include <g4root.hh>
+#include <G4AnalysisManager.hh>
 #include <G4SteppingVerbose.hh>
 #include <G4SteppingManager.hh>
 /**
