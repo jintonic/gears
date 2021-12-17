@@ -24,6 +24,6 @@
 /tracking/verbose 2
 # show how a track is passed between the stacking and tracking managers
 /event/verbose 2
-/analysis/setFileName output
+/analysis/setFileName output.root
 # one event is enough to demonstrate the process
 /run/beamOn 1

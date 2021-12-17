@@ -1,6 +1,7 @@
 /geometry/source CsI3inWLS.tg
 
-/physics_lists/enable Optical
+/physics_lists/select QGSC_BERT_EMZ
+/physics_lists/factory/addOptical
 /process/optical/processActivation Scintillation
 /process/optical/processActivation OpBoundary
 /process/optical/processActivation OpAbsorption false

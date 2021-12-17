@@ -38,7 +38,7 @@
 /vis/disable
 /tracking/verbose 0
 # turn on data recording
-/analysis/setFileName gears
+/analysis/setFileName gears.root
 # turn on progress report
 /run/verbose 2
 /run/printProgress 10000

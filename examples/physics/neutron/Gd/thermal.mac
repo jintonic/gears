@@ -13,7 +13,7 @@
 /tracking/verbose 1
 /run/beamOn 1
 
-/analysis/setFileName output
+/analysis/setFileName output.root
 
 /tracking/verbose 0
 /run/verbose 2
