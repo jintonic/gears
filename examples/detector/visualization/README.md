@@ -24,7 +24,7 @@ $ cd /path/to/gears
 $ cd examples/detector/visualization
 $ gears ASCIITree.mac
 ```
-Follow [this instruction](/gears/install/#user-interface) to try it out in Windows.
+Follow [this instruction][UI] to try it out in Windows.
 
 [ASCIITree]:http://geant4-userdoc.web.cern.ch/geant4-userdoc/UsersGuides/ForApplicationDeveloper/html/Visualization/visdrivers.html#visualization-of-detector-geometry-tree
 
@@ -155,7 +155,7 @@ References:
 - <https://www.xquartz.org/releases/XQuartz-2.7.10.html>
 
 [OpenGL]:http://geant4-userdoc.web.cern.ch/geant4-userdoc/UsersGuides/ForApplicationDeveloper/html/Visualization/visdrivers.html#opengl
-[UI]:../../../#user-interface
+[UI]:/gears/INSTALL/user-interface
 [Qt]:http://geant4-userdoc.web.cern.ch/geant4-userdoc/UsersGuides/ForApplicationDeveloper/html/GettingStarted/graphicalUserInterface.html#g4uixm-g4uiqt-and-g4uiwin32-classes
 [tcsh]:http://geant4-userdoc.web.cern.ch/geant4-userdoc/UsersGuides/ForApplicationDeveloper/html/GettingStarted/graphicalUserInterface.html#g4uiterminal
 
