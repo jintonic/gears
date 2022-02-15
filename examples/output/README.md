@@ -256,7 +256,7 @@ The physics process generating each step point is saved in a variable `pro[i]`, 
 
 ### Particle id
 
-The type of particle related to a step point is saved in a variable `pdg`. It is the same as the [PDG encoding](http://pdg.lbl.gov/current/mc-particle-id) of the particle. A Google search will give more information about it. The name `pid` is used for the parent particle's track id.
+The type of particle related to a step point is saved in a variable `pdg`. It is the same as the [PDG encoding](http://pdg.lbl.gov/current/mc-particle-id) of the particle. A Google search will give more information about it. The name `pid` is used for the parent particle's track id. A complete list of nuclei PDG encoding can be found [here](https://twiki.cern.ch/twiki/pub/Geant4/ExtendingFnalDb/Nuclei.txt).
 
 ### Record information of step 0
 
