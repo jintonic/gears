@@ -10,7 +10,7 @@
 
 ### Geometry
 
-Instead of using geometry written in C++ as described in detail in the [Geant4 manual]({{site.g4doc}}/Detector/Geometry/geomSolids.html), [GEARS][] accepts two types of detector geometry descriptions in pure ASCII format as input:
+Instead of using geometry written in C++ as described in detail in the [Geant4 manual](http://geant4-userdoc.web.cern.ch/geant4-userdoc/UsersGuides/ForApplicationDeveloper/html/Detector/Geometry/geomSolids.html), [GEARS][] accepts two types of detector geometry descriptions in pure ASCII format as input:
 
 - [Geant4][] [text geometry description][tg] (recommended)
 - [GDML][] (provided for data analysis and visualization in other tools)
@@ -18,10 +18,10 @@ Instead of using geometry written in C++ as described in detail in the [Geant4 m
 Their difference is similar to that between [markdown][md] and [HTML][]. The simpler [text geometry description][tg] provided by [Geant4][] is recommended to be used as [GEARS][]'s input given its simplicity and readability. For example, an experimental hall filled with air and of a dimension of 10 x 10 x 10 meters can be easily implemented using the following line:
 
 ~~~
-:volume hall BOX 5*m 5*m 5*m G4_AIR
+:volu hall BOX 5*m 5*m 5*m G4_AIR
 ~~~
 
-For more examples, please check `*.tg` files in the [examples/detector]({{site.file}}/examples/detector) directory, such as [examples/detector/gears.tg]({{site.file}}/examples/detector/gears.tg) and [examples/detector/solids.tg]({{site.file}}/examples/detector/solids.tg). The suffix of *.tg* indicates that they are [text geometry][tg] description files. A [Geant4][] macro command `/geometry/source` is added to load geometry files:
+For more examples, please check `*.tg` files in the [examples/detector](.) directory, such as [examples/detector/gears.tg](gears.tg) and [examples/detector/solids.tg](solids.tg). The suffix of *.tg* indicates that they are [text geometry][tg] description files. A [Geant4][] macro command `/geometry/source` is added to load geometry files:
 
 ~~~sh
 /geometry/source gears.tg
@@ -74,11 +74,11 @@ The [NIST][] material table provided by [Geant4][] contains all elements (C, H, 
 To construct more complicated material please refer to the [manual of the text geometry description][tg].
 
 [GEARS]: http://physino.xyz/gears
-[tg]: {{site.g4doc}}/Detector/Geometry/geomASCII.html
+[tg]: http://geant4-userdoc.web.cern.ch/geant4-userdoc/UsersGuides/ForApplicationDeveloper/html/Detector/Geometry/geomASCII.html
 [Geant4]: http://geant4.cern.ch
-[NIST]: {{site.g4doc}}/Appendix/materialNames.html
-[run]: {{site.g4doc}}/Control/AllResources/Control/UIcommands/_run_.html
-[listMaterials]: {{site.g4doc}}/Control/AllResources/Control/UIcommands/_material_nist_.html
+[NIST]: http://geant4-userdoc.web.cern.ch/geant4-userdoc/UsersGuides/ForApplicationDeveloper/html/Appendix/materialNames.html
+[run]: http://geant4-userdoc.web.cern.ch/geant4-userdoc/UsersGuides/ForApplicationDeveloper/html/Control/AllResources/Control/UIcommands/_run_.html
+[listMaterials]: http://geant4-userdoc.web.cern.ch/geant4-userdoc/UsersGuides/ForApplicationDeveloper/html/Control/AllResources/Control/UIcommands/_material_nist_.html
 [GDML]: https://gdml.web.cern.ch/GDML/
 [md]: https://en.wikipedia.org/wiki/Markdown
 [HTML]: https://www.w3schools.com/html/

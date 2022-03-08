@@ -1,0 +1,10 @@
+Bootstrap:docker  
+From:ubuntu:latest
+
+%labels
+MAINTAINER jintonic
+
+%post  
+apt-get -y update
+apt-get -y install rxvt-unicode vim vifm screen sc tmux w3m build-essential git cmake libx11-dev python3
+git clone https://github.com/spack/spack.git

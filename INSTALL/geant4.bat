@@ -81,5 +81,11 @@ for /D %%i in ("*") do (
     echo setx G4SAIDXSDATA "%~dp0%%i"
     setx G4SAIDXSDATA "%~dp0%%i"
   )
+  set dir=%%i
+  set dir=!dir:G4TENDL=!
+  if not %%i==!dir! (
+    echo setx G4TENDL "%~dp0%%i"
+    setx G4TENDL "%~dp0%%i"
+  )
 )
 pause

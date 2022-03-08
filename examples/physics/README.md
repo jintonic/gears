@@ -6,6 +6,7 @@
 [![neutron](https://img.shields.io/badge/neutron-interactions-brown?style=flat)](neutron)
 [![optical](https://img.shields.io/badge/optical-photons-red?style=flat)](#optical-processes)
 [![decay](https://img.shields.io/badge/radioactive-decay-orange?style=flat)](#radioactive-decay)
+[![X-ray](https://img.shields.io/badge/X--ray-creation-green?style=flat)](X-ray)
 
 ## Terminology
 
@@ -17,9 +18,9 @@
 6. [reference lists][]: a subset of the [pre-packaged lists][] that are well-maintained and tested
 7. [factory][]: a [Geant4][] class that can be used to call [pre-packaged lists][] by their names
 
-[physics list]:{{site.g4doc}}/UserActions/mandatoryActions.html#physics-lists
-[modular lists]:{{site.g4doc}}/UserActions/mandatoryActions.html#building-physics-list-from-physics-builders
-[pre-packaged lists]: {{site.g4git}}/physics_lists/lists/include
+[physics list]:http://geant4-userdoc.web.cern.ch/geant4-userdoc/UsersGuides/ForApplicationDeveloper/html/UserActions/mandatoryActions.html#physics-lists
+[modular lists]:http://geant4-userdoc.web.cern.ch/geant4-userdoc/UsersGuides/ForApplicationDeveloper/html/UserActions/mandatoryActions.html#building-physics-list-from-physics-builders
+[pre-packaged lists]:https://gitlab.cern.ch/geant4/geant4/tree/master/source/physics_lists/lists/include
 [reference lists]: https://geant4.web.cern.ch/node/155
 [factory]:https://geant4.kek.jp/lxr/source/physics_lists/lists/src/G4PhysListFactory.cc#L79
 
@@ -47,7 +48,7 @@ The available names are listed in [G4PhysListFactory.cc][factory]. The naming sc
 
 ## Physics processes
 
-[Major categories of processes]({{site.g4doc}}/TrackingAndPhysics/physicsProcess.html) provided in [Geant4][] include:
+[Major categories of processes](http://geant4-userdoc.web.cern.ch/geant4-userdoc/UsersGuides/ForApplicationDeveloper/html/TrackingAndPhysics/physicsProcess.html) provided in [Geant4][] include:
 
 - Electromagnitism (EM)
   - Standard processes (~1 keV to ~PeV)
@@ -105,7 +106,7 @@ Detailed control of radioactive decay is provided by the /[grdm][]/ command, for
 /grdm/nucleusLimits 1 80 # enabled radioactive decay only when z in [1, 80]
 ~~~
 
-[grdm]:{{site.g4doc}}/Control/AllResources/Control/UIcommands/_grdm_.html
+[grdm]:http://geant4-userdoc.web.cern.ch/geant4-userdoc/UsersGuides/ForApplicationDeveloper/html/Control/AllResources/Control/UIcommands/_grdm_.html
 
 Here is an example to create [Pb210][] on the surface of a cylindrical CsI detector:
 
@@ -161,7 +162,7 @@ Some [isotope][]s in a radioactive [decay chain][] have long [half live][]s. The
  /run/beamOn 1
 ```
 
-Example macro and detector definition files can be found in [GEARS][][/examples/physics/decay]({{site.file}}/examples/physics/decay) folder. The following is an example analysis code to show the recorded events in ROOT:
+Example macro and detector definition files can be found in [GEARS][][/examples/physics/decay](decay) folder. The following is an example analysis code to show the recorded events in ROOT:
 
 ```cpp
 root [] t->Scan("pdg:trk:pid:stp:dt/1e9:t/1e9","","colsize=10 precision=10")
@@ -173,6 +174,26 @@ For people who want to understand how this is done, please check the [GEARS doxy
 - <http://geant4-userdoc.web.cern.ch/geant4-userdoc/UsersGuides/ForApplicationDeveloper/html/UserActions/optionalActions.html?highlight=stack#g4userstackingaction>
 
 For the impatient, new particles created after the specified time window in a decay process will be tagged as `fWaiting` in `G4UserStackingAction::ClassifyNewTrack()`. This postpones the tracking of them after the call of `G4UserStackingAction::NewStage()`. One can then save and reset the current event in the `NewStage()` function so that the postponed tracks will be saved in a separate event.
+
+#### Stop decay chain
+If the half life of a daughter nucleus is longer than a measurement duration, there is no need to simulate its decay anymore. In this case, instead of splitting its decay to another event, we should simply stop its radioactive decay completely. This is done using a Geant4 macro command `/grdm/nucleusLimits`, for example,
+
+```sh
+# enable radioactive decay physics
+/physics_lists/select QGSP_BERT
+/physics_lists/factory/addRadioactiveDecay
+
+/run/initialize
+
+# start with the alpha decay of Am-241
+/gps/particle ion
+/gps/ion 95 241
+/gps/energy 0
+# since Np-237, the daughter of Am-241, is not in the following range,
+# it will not alpha-decay into its daughter nucleus in this simulation.
+# The simulation will stop when Np-237 decays into its ground state.
+/grdm/nucleusLimits 241 241 95 95
+```
 
 ### Optical processes
 Optical processes can be enabled after a reference list is chosen:
@@ -209,7 +230,7 @@ Individual optical processes can be toggled by the following commands:
 /process/optical/processActivation OpWLS true/false
 ~~~
 
-More built-in commands related to optical processes can be found [here]({{site.g4doc}}/Control/AllResources/Control/UIcommands/_process_optical_.html). Example usages can be found [here]({{site.g4doc}}/Examples/ExtendedCodes.html#optical-photons).
+More built-in commands related to optical processes can be found [here](http://geant4-userdoc.web.cern.ch/geant4-userdoc/UsersGuides/ForApplicationDeveloper/html/Control/AllResources/Control/UIcommands/_process_optical_.html). Example usages can be found [here](http://geant4-userdoc.web.cern.ch/geant4-userdoc/UsersGuides/ForApplicationDeveloper/html/Examples/ExtendedCodes.html#optical-photons).
 
 It is useful to categorize the processes the following way:
 
@@ -226,9 +247,9 @@ It is useful to categorize the processes the following way:
 It is also important to understand that [optical photons][] are treated differently from gamma and x-rays in [Geant4][], since completely different physics processes are assigned to them.
 
 #### Optical properties of materials and surfaces
-To [generate Cerenkov light]({{site.g4doc}}/TrackingAndPhysics/physicsProcess.html#generation-of-photons-in-processes-electromagnetic-xrays-cerenkov-effect), one HAS TO specify the refractive index of the material where the light is generated. In [GEARS][], this is [done in the detector geometry description file](../detector/optical).
+To [generate Cerenkov light](http://geant4-userdoc.web.cern.ch/geant4-userdoc/UsersGuides/ForApplicationDeveloper/html/TrackingAndPhysics/physicsProcess.html#generation-of-photons-in-processes-electromagnetic-xrays-cerenkov-effect), one HAS TO specify the refractive index of the material where the light is generated. In [GEARS][], this is [done in the detector geometry description file](../detector/optical).
 
-At least two parameters need to be specified to [generate scintillation light]({{site.g4doc}}/TrackingAndPhysics/physicsProcess.html#generation-of-photons-in-processes-electromagnetic-xrays-scintillation): the light yield, i.e., the number of photons per unit energy deposition (SCINTILLATIONYIELD), and the variation of the number of generated photons (RESOLUTIONSCALE). The parameters need to be attached to the material that scintillates, they are hence [specified in the detector geometry description file](../detector/optical) as well.
+At least two parameters need to be specified to [generate scintillation light](http://geant4-userdoc.web.cern.ch/geant4-userdoc/UsersGuides/ForApplicationDeveloper/html/TrackingAndPhysics/physicsProcess.html#generation-of-photons-in-processes-electromagnetic-xrays-scintillation): the light yield, i.e., the number of photons per unit energy deposition (SCINTILLATIONYIELD), and the variation of the number of generated photons (RESOLUTIONSCALE). The parameters need to be attached to the material that scintillates, they are hence [specified in the detector geometry description file](../detector/optical) as well.
 
 The parameter, RAYLEIGH and ABSLENGTH, related to the transportation of [optical photons][] in a mertial also have to be [attached to the material](../detector/optical).
 
@@ -236,12 +257,12 @@ In an ideal optical interface, the transportation of [optical photons][] can be 
 
 #### Example macros
 
-- [CsI3inWLS.tg]({{site.file}}/examples/detector/optical/CsI3inWLS.tg): it models a cylindrical [CsI][] crystal with a diameter of about 3 inches. It is wrapped in Teflon tape (painted with [TPB][]) on the side surface and coupled to two [PMT SiO2 windows][PMT] on its end surfaces.
-- [CerenkovInPMTwindow.mac]({{site.file}}/examples/detector/optical/CerenkovInPMTwindow.mac): an electron is shot to a PMT window from the vacuum side, generating Cereknov light in the PMT silica window.
-- [ScintillationInCsI.mac]({{site.file}}/examples/detector/optical/ScintillationInCsI.mac): a 6 keV gamma is emitted in the center of the CsI crystal generating scintillaiton light in the crystal.
-- [GroundFrontPainted.mac]({{site.file}}/examples/detector/optical/surface/GroundFrontPainted.mac) and [GroundFrontPainted.tg]({{site.file}}/examples/detector/optical/surface/GroundFrontPainted.tg): optical photons shot to an unpolished surface between a CsI crystal and PTFE reflector without an air gap in between.
+- [CsI3inWLS.tg](../detector/optical/CsI3inWLS.tg): it models a cylindrical [CsI][] crystal with a diameter of about 3 inches. It is wrapped in Teflon tape (painted with [TPB][]) on the side surface and coupled to two [PMT SiO2 windows][PMT] on its end surfaces.
+- [CerenkovInPMTwindow.mac](../detector/optical/CerenkovInPMTwindow.mac): an electron is shot to a PMT window from the vacuum side, generating Cereknov light in the PMT silica window.
+- [ScintillationInCsI.mac](../detector/optical/ScintillationInCsI.mac): a 6 keV gamma is emitted in the center of the CsI crystal generating scintillaiton light in the crystal.
+- [groundFrontPainted.mac](../detector/optical/surface/groundFrontPainted.mac) and [CsI2Teflon.tg](../detector/optical/surface/CsI2Teflon.tg): optical photons shot to an unpolished surface between a CsI crystal and PTFE reflector without an air gap in between.
 
-[optical photons]: {{site.g4doc}}/TrackingAndPhysics/physicsProcess.html#optical-photon-processes
-[CsI]:{{site.file}}/examples/detector/optical/CsI.tg
-[TPB]:{{site.file}}/examples/detector/optical/TPB.tg
-[PMT]:{{site.file}}/examples/detector/optical/SiO2.tg
+[optical photons]: http://geant4-userdoc.web.cern.ch/geant4-userdoc/UsersGuides/ForApplicationDeveloper/html/TrackingAndPhysics/physicsProcess.html#optical-photon-processes
+[CsI]:../detector/optical/CsI.tg
+[TPB]:../detector/optical/TPB.tg
+[PMT]:../detector/optical/SiO2.tg

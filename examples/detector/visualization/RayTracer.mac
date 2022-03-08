@@ -1,3 +1,5 @@
+/control/verbose 2
+
 /geometry/source ../gears.tg
 
 /run/initialize

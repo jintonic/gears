@@ -1,0 +1,21 @@
+/geometry/source Gd.tg
+
+// HP (high precision) neutron model is needed
+/physics_lists/select QGSP_BERT_HP
+
+/run/initialize
+
+/process/list
+
+/gps/particle neutron
+/gps/energy 0.005 eV
+
+/tracking/verbose 1
+/run/beamOn 1
+
+/analysis/setFileName output.root
+
+/tracking/verbose 0
+/run/verbose 2
+/run/printProgress 100
+/run/beamOn 1000

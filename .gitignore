@@ -24,6 +24,7 @@ user.properties
 
 # Executables
 gears
+gears.exe
 ghdf5
 gcsv
 gxml
@@ -54,7 +55,14 @@ gxml.cc
 # windows
 .vs
 out
+build
+Release
 
 # macOS
 .DS_Store
 .java-version
+
+# CMake
+CMakeCache.txt
+CMakeFiles
+cmake_install.cmake

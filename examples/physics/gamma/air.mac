@@ -21,7 +21,7 @@
 /run/beamOn 100
 
 /control/shell rm -f *.pdf
-/vis/ogl/export air
+/vis/ogl/export air.pdf
 
 # the following needs dawn to be installed
 /control/shell dawn -c

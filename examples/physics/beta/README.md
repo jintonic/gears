@@ -19,6 +19,6 @@ $ cd /path/to/gears/examples/physics/beta
 $ gears air.mac
 ```
 
-The contents of the macro file [air.mac](air.mac) can be viewed online [here]({{site.file}}/examples/physics/beta/air.mac).
+The contents of the macro file [air.mac](air.mac) can be viewed online [here](air.mac).
 
 ![beta in air](betaInAir.png)

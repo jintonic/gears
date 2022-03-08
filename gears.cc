@@ -4,7 +4,7 @@
  */
 #include <vector>
 using namespace std;
-#include <g4root.hh>
+#include <G4AnalysisManager.hh>
 #include <G4SteppingVerbose.hh>
 #include <G4SteppingManager.hh>
 /**
@@ -275,13 +275,12 @@ G4MaterialPropertiesTable* LineProcessor::CreateMaterialPropertiesTable(
 {
   bool photonEnergyUnDefined=true;
   int cnt=0; // number of photon energy values
-  double *energies; // photon energy values
+  double *energies=NULL; // photon energy values
   G4MaterialPropertiesTable *table = new G4MaterialPropertiesTable();
   for (size_t i=idxOfWords; i<words.size(); i++) {
     G4String property = words[i]; property.toUpper();
-    if (property=="SCINTILLATIONYIELD" || property=="RESOLUTIONSCALE"
-        || property=="FASTTIMECONSTANT" || property=="SLOWTIMECONSTANT"
-        || property=="YIELDRATIO" || property=="WLSTIMECONSTANT") {
+    if (property.contains("SCINTILLATIONYIELD") || property=="RESOLUTIONSCALE"
+        || property.contains("TIMECONSTANT") || property=="YIELDRATIO") {
       table->AddConstProperty(property, G4tgrUtils::GetDouble(words[i+1]));
       G4cout<<"GEARS: "<<property<<"="<<words[i+1]<<G4endl;
       i++; // property value has been used

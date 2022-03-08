@@ -3,7 +3,7 @@
 :vis world OFF
 
 :volu air(S) BOX 30 10 10 G4_AIR
-:vis air(S) OFF
+:color air(S) 0.5 0.5 0.5
 
 :rotm r000 0 0 0
 :place air(S) 1 world r000 0 0 0

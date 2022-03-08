@@ -10,10 +10,5 @@ plugins:
   - jekyll-mentions
   - jekyll-seo-tag
 
-g4doc: http://geant4-userdoc.web.cern.ch/geant4-userdoc/UsersGuides/ForApplicationDeveloper/html
-g4git: https://gitlab.cern.ch/geant4/geant4/tree/master/source
-xyz: http://physino.xyz/gears
-file: https://github.com/jintonic/gears/blob/master
-
 # the slate theme already contains the script to use this id
 google_analytics: UA-61659360-3

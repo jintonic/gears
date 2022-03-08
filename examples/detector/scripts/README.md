@@ -4,7 +4,7 @@
 
 ## Create text geometry using SHELL script
 
-[tracker.sh][] is an example shell script to create a [text geometry][tg] file `tracker.tg`, which is used in [bend.mac][].
+[tracker.sh](tracker.sh) is an example shell script to create a [text geometry][tg] file `tracker.tg`, which is used in [bend.mac](bend.mac)
 
 ```sh
 $ ./tracker.sh # create tracker.tg
@@ -15,9 +15,9 @@ You need to have [dawn][] installed to convert the output `g4_0000.prim` to `g4_
 
 ![tracker.png](tracker.png)
 
-[LINEAR_X.tg][] shows another way to create the same geometry. The problem of this approach is that the copy number cannot start with any number other than 0.
+[LINEAR_X.tg](LINEAR_X.tg) shows another way to create the same geometry. The problem of this approach is that the copy number cannot start with any number other than 0.
 
-[onion.sh][] is an another example shell script to create a [text geometry][tg] file `onion.tg`, which is used in [onion.mac][].
+[onion.sh](onion.sh) is an another example shell script to create a [text geometry][tg] file `onion.tg`, which is used in [onion.mac](onion.mac)
 
 ```sh
 $ ./onion.sh # create onion.tg
@@ -28,11 +28,6 @@ It demonstrate how to place a smaller solid directly inside a bigger one. The fi
 
 ![onion.png](onion.png)
 
-[tracker.sh]:{{site.file}}/examples/detector/scripts/tracker.sh
-[bend.mac]:{{site.file}}/examples/detector/scripts/bend.mac
-[tg]: {{site.g4doc}}/Detector/Geometry/geomASCII.html
+[tg]: http://geant4-userdoc.web.cern.ch/geant4-userdoc/UsersGuides/ForApplicationDeveloper/html/Detector/Geometry/geomASCII.html
 [dawn]:https://geant4.kek.jp/~tanaka/DAWN/About_DAWN.html
-[LINEAR_X.tg]:{{site.file}}/examples/detector/scripts/LINEAR_X.tg
 [convert]:https://imagemagick.org/script/convert.php
-[onion.sh]:{{site.file}}/examples/detector/scripts/onion.sh
-[onion.mac]:{{site.file}}/examples/detector/scripts/onion.mac

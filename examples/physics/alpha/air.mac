@@ -1,4 +1,4 @@
-/geometry/source hall.tg
+/geometry/source air.tg
 
 /run/initialize
 
@@ -6,8 +6,8 @@
 /vis/drawTree
 /geometry/test/run
 
-/vis/open OGL
-/vis/viewer/zoom 400
+/vis/open HepRepFile
+/vis/viewer/zoom 450
 /vis/drawVolume
 /vis/scene/add/trajectories
 /vis/scene/add/text -3 -0.4 0 cm 20 0 0 0
@@ -26,3 +26,6 @@
 
 /random/setSeeds 12 43
 /run/beamOn 100
+
+/vis/open OGL
+

@@ -25,6 +25,6 @@ $ cd /path/to/gears/examples/physics/gamma
 $ gears air.mac
 ```
 
-The contents of the macro file [air.mac](air.mac) can be viewed online [here]({{site.file}}/examples/physics/gamma/air.mac).
+The contents of the macro file [air.mac](air.mac) can be viewed online [here](air.mac).
 
 ![gamma in air](gammaInAir.png)

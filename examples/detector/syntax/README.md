@@ -6,7 +6,7 @@
 
 ### Emacs
 
-[tg-mode.el]({{site.file}}/examples/detector/syntax/tg-mode.el) defines a major mode for editing `.tg` files in [Emacs][]. You can [install it manually](http://ergoemacs.org/emacs/emacs_installing_packages.html) in two steps. First,
+[tg-mode.el](tg-mode.el) defines a major mode for editing `.tg` files in [Emacs][]. You can [install it manually](http://ergoemacs.org/emacs/emacs_installing_packages.html) in two steps. First,
 
 ```sh
 $ mkdir -p ~/.emacs.d/lisp/
@@ -24,7 +24,7 @@ Secondly, add the following two lines to your `~/.emacs`:
 
 ### Vim
 
-[tg.vim]({{site.file}}/examples/detector/syntax/tg.vim) defines syntax highlighting rules for displaying `.tg` files in [Vim][]. You can install it in two steps as well. First,
+[tg.vim](tg.vim) defines syntax highlighting rules for displaying `.tg` files in [Vim][]. You can install it in two steps as well. First,
 
 ```sh
 $ mkdir -p ~/.vim/after/syntax/
@@ -41,7 +41,7 @@ au BufNewFile,BufRead *.tg set filetype=tg
 
 ### Micro
 
-[tg.yaml]({{site.file}}/examples/detector/syntax/tg.yaml) defines syntax highlighting rules for displaying `.tg` files in [Micro][], a modern replacement of the [nano][] editor. To install it, you simply do
+[tg.yaml](tg.yaml) defines syntax highlighting rules for displaying `.tg` files in [Micro][], a modern replacement of the [nano][] editor. To install it, you simply do
 
 ```sh
 $ mkdir -p ~/.config/micro/syntax/
@@ -50,3 +50,13 @@ $ cp tg.yaml ~/.config/micro/syntax/
 
 [Micro]: https://micro-editor.github.io/
 [nano]: https://www.nano-editor.org/
+
+### Sublime Text
+
+[tg.sublime-syntax](tg.sublime-syntax) defines syntax highlighting rules for displaying `.tg` files in [Sublime Text Editor][], which is great in indexing and multiple selection. To install it, simply do
+
+```sh
+$ cp tg.sublime-syntax ~/.config/sublime-text-3/Packages/User/
+```
+
+[Sublime Text Editor]: https://www.sublimetext.com/
