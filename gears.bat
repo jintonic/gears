@@ -6,6 +6,13 @@
 
 @echo OFF
 
+if not exist out\build\x64-Release\gears.exe (
+    if not exist build\Release\gears.exe (
+        echo cannot find gears.exe, please compile it first
+        pause & exit /b
+    )
+)
+
 for /f "skip=2 tokens=1-2*" %%G in ('Reg Query HKCU\Environment /V PATH 2^>Nul') do set user_path=%%I
 
 set new_path=%user_path:gears=%
