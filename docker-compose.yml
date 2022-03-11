@@ -1,0 +1,8 @@
+services:
+  # https://stackoverflow.com/a/65922105
+  sh: # docker-compose run sh
+    image: gears
+    command: /usr/bin/bash
+    hostname: Geant4-11.0.1 # https://stackoverflow.com/a/54700656
+    volumes:
+      - .:/root/gears
