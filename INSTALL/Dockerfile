@@ -14,6 +14,7 @@ RUN dnf update -y \
   && git clone https://github.com/jintonic/gears.git \
   && cd gears && make && mv gears /usr/bin
 
+ENV PS1="\u@\H:\w \$ "
 ENV G4NEUTRONHPDATA="/usr/share/Geant4-11.0.1/data/G4NDL4.6"
 ENV G4LEDATA="/usr/share/Geant4-11.0.1/data/G4EMLOW8.0"
 ENV G4LEVELGAMMADATA="/usr/share/Geant4-11.0.1/data/PhotonEvaporation5.7"
@@ -26,5 +27,5 @@ ENV G4ABLADATA="/usr/share/Geant4-11.0.1/data/G4ABLA3.1"
 ENV G4INCLDATA="/usr/share/Geant4-11.0.1/data/G4INCL1.0"
 ENV G4ENSDFSTATEDATA="/usr/share/Geant4-11.0.1/data/G4ENSDFSTATE2.3"
 
-WORKDIR gears/examples
+WORKDIR /root/gears
 CMD ["gears"]
