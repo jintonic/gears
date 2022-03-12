@@ -1,10 +1,14 @@
-Bootstrap:docker  
-From:ubuntu:latest
+BootStrap: docker
+From: physino/gears
+
+%help
+Container of GEARS with the latest Geant4 and ROOT on Fedora
 
 %labels
-MAINTAINER jintonic
+Author jintonic@physino.xyz
+Geant4 11.0.p01
+ROOT 6.26/00
 
-%post  
-apt-get -y update
-apt-get -y install rxvt-unicode vim vifm screen sc tmux w3m build-essential git cmake libx11-dev python3
-git clone https://github.com/spack/spack.git
+%runscript
+gears "$@"
+
