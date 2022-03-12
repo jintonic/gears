@@ -1,4 +1,4 @@
-The latest [GEARS] required [Geant4.11](https://geant4.web.cern.ch/support/download). If you are still using Geant4.10, please download [v1.5.1](https://github.com/jintonic/gears/releases/tag/v1.5.1) of [GEARS] from the [Release](https://github.com/jintonic/gears/releases) page.
+The latest [GEARS][] required [Geant4.11](https://geant4.web.cern.ch/support/download). If you are still using Geant4.10, please download [v1.5.1](https://github.com/jintonic/gears/releases/tag/v1.5.1) of [GEARS][] from the [Release](https://github.com/jintonic/gears/releases) page.
 
 [![Doxygen](https://codedocs.xyz/jintonic/gears.svg)](https://codedocs.xyz/jintonic/gears/annotated.html)
 [![License](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
