@@ -1,4 +1,4 @@
-The latest [GEARS] required [Geant4.11](https://geant4.web.cern.ch/support/download). If you are still using Geant4.10, please download [v1.5.1](https://github.com/jintonic/gears/releases/tag/v1.5.1) of [GEARS] from the [Release](https://github.com/jintonic/gears/releases) page.
+The latest [GEARS][] required [Geant4.11](https://geant4.web.cern.ch/support/download). If you are still using Geant4.10, please download [v1.5.1](https://github.com/jintonic/gears/releases/tag/v1.5.1) of [GEARS][] from the [Release](https://github.com/jintonic/gears/releases) page.
 
 [![Doxygen](https://codedocs.xyz/jintonic/gears.svg)](https://codedocs.xyz/jintonic/gears/annotated.html)
 [![License](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
@@ -6,6 +6,7 @@ The latest [GEARS] required [Geant4.11](https://geant4.web.cern.ch/support/downl
 [![Get Started](https://img.shields.io/badge/get-started-orange?style=flat)](INSTALL)
 [![Get Involved](https://img.shields.io/badge/get-involved-ff69b4?style=flat)](#how-to-contribute)
 [![Docker image](https://img.shields.io/badge/docker-image-red?style=flat)](https://hub.docker.com/r/physino/gears)
+[![Singularity image](https://img.shields.io/badge/singularity-image-green?style=flat)](https://cloud.sylabs.io/library/jintonic/geant4/gears)
 
 <a href="examples/detector/visualization/gearsX3D.html"><img align="right" width="120px" src="examples/detector/visualization/gears.png"/></a>
 
