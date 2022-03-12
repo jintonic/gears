@@ -1,3 +1,6 @@
+# container
+*.sif
+
 # webpage related
 _site
 *jekyll*
