@@ -4,5 +4,9 @@ services:
     image: physino/gears
     command: /usr/bin/bash
     hostname: Geant4-11.0.1 # https://stackoverflow.com/a/54700656
+    # https://gist.github.com/paul-krohn/e45f96181b1cf5e536325d1bdee6c949
+    environment:
+      - DISPLAY=host.docker.internal:0
     volumes:
+      - /tmp/.X11-unix:/tmp/.X11-unix
       - .:/root/gears
