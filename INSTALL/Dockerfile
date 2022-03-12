@@ -1,7 +1,10 @@
 FROM fedora:latest
 
 RUN dnf update -y \
-  && dnf install -y langpacks-en glibc-langpack-en binutils cmake gcc-c++ git gsl-devel libAfterImage-devel libX11-devel libXmu-devel libXext-devel libXft-devel libXpm-devel expat-devel libtiff-devel libxml2-devel lz4-devel make ncurses-libs numpy openjpeg-devel openssl openssl-devel python3-root root wget vim screen tmux vifm w3m sc ImageMagick gitk tig emacs \
+  && dnf install -y langpacks-en glibc-langpack-en binutils cmake gcc-c++ git gitk tig \
+  && mesa-libGL-devel libAfterImage-devel libX11-devel libXmu-devel libXext-devel libXft-devel libXpm-devel \
+  && gsl-devel expat-devel libtiff-devel libxml2-devel lz4-devel openjpeg-devel openssl openssl-devel \
+  && make ncurses-libs numpy python3-root root wget vim emacs screen tmux vifm w3m sc ImageMagick \
   && wget http://geant4-data.web.cern.ch/releases/lib_11.0.1/Linux-g++8.3.0-CC7.tar.gz \
   && tar xfvz Linux-g++8.3.0-CC7.tar.gz && rm -r Linux-g++8.3.0-CC7.tar.gz \
   && mv Geant4-11.0.1-Linux/bin/* usr/bin && mv Geant4-11.0.1-Linux/lib64/* usr/lib64 \
