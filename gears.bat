@@ -3,6 +3,13 @@
 :: https://ss64.com/nt/for.html
 @echo OFF
 
+if not exist out\build\x64-Release\gears.exe (
+    if not exist build\Release\gears.exe (
+        echo cannot find gears.exe, please compile it first
+        pause & exit /b
+    )
+)
+
 :: https://stackoverflow.com/questions/46712814
 :: https://stackoverflow.com/questions/14509652
 for /f "skip=2 tokens=1-2*" %%G in ('Reg Query HKCU\Environment /V PATH 2^>Nul') do set user_path=%%I
