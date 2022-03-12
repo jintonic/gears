@@ -134,7 +134,7 @@ void Output::Record()
   zz.push_back(pos.z()/CLHEP::mm);
   dt.push_back(fTrack->GetLocalTime()/CLHEP::ns);
 
-  if (de.back()>0 && handle->GetVolume()->GetName().contains("(S)")) {
+  if (de.back()>0 && G4StrUtil::contains(handle->GetVolume()->GetName(),"(S)")) {
     if (et.size()<(unsigned int)copyNo+1) et.resize((unsigned int)copyNo+1);
     et[copyNo]+=de.back(); et[0]+=de.back();
   }
@@ -201,8 +201,7 @@ G4bool LineProcessor::ProcessLine(const vector<G4String> &words)
   if (processed) return true; // no new tags involved
 
   // process added tags: prop & surf
-  G4String tag = words[0];
-  tag.toLower(); // to lower cases
+  G4String tag = words[0]; G4StrUtil::to_lower(tag); // to lower cases
   if (tag.substr(0,5)==":prop") { // set optical properties of a material
     G4NistManager *mgr = G4NistManager::Instance(); mgr->SetVerbose(2);
     G4Material *m = mgr->FindOrBuildMaterial(words[1]);
@@ -223,36 +222,33 @@ G4bool LineProcessor::ProcessLine(const vector<G4String> &words)
     // loop over optical surface setup lines
     while (i<words.size()) {
       G4String setting = words[i], value = words[i+1];
-      setting.toLower(); value.toLower();
+      G4StrUtil::to_lower(setting); G4StrUtil::to_lower(value);
       if (setting=="property") {
-        i++;
-        break;
-      } else if(setting=="type") {
-        if (value=="dielectric_metal")
-          bdr->optic->SetType(dielectric_metal);
-        else if(value=="dielectric_dielectric")
+        i++; break;
+      } else if (setting=="type") {
+        if (value=="dielectric_metal") bdr->optic->SetType(dielectric_metal);
+        else if (value=="dielectric_dielectric")
           bdr->optic->SetType(dielectric_dielectric);
-        else if(value=="firsov") bdr->optic->SetType(firsov);
-        else if(value=="x_ray") bdr->optic->SetType(x_ray);
+        else if (value=="firsov") bdr->optic->SetType(firsov);
+        else if (value=="x_ray") bdr->optic->SetType(x_ray);
         else G4cout<<"GERAS: Ignore unknown surface type "<<value<<G4endl;
-      } else if(setting=="model") {
+      } else if (setting=="model") {
         if (value=="glisur") bdr->optic->SetModel(glisur);
-        else if(value=="unified") bdr->optic->SetModel(unified);
+        else if (value=="unified") bdr->optic->SetModel(unified);
         else G4cout<<"GERAS: Ignore unknown surface model "<<value<<G4endl;
-      } else if(setting=="finish") {
-        if(value=="polished") bdr->optic->SetFinish(polished);
-        else if(value=="polishedfrontpainted")
+      } else if (setting=="finish") {
+        if (value=="polished") bdr->optic->SetFinish(polished);
+        else if (value=="polishedfrontpainted")
           bdr->optic->SetFinish(polishedfrontpainted);
-        else if(value=="polishedbackpainted")
+        else if (value=="polishedbackpainted")
           bdr->optic->SetFinish(polishedbackpainted);
-        else if(value=="ground") bdr->optic->SetFinish(ground);
-        else if(value=="groundfrontpainted")
+        else if (value=="ground") bdr->optic->SetFinish(ground);
+        else if (value=="groundfrontpainted")
           bdr->optic->SetFinish(groundfrontpainted);
-        else if(value=="groundbackpainted")
+        else if (value=="groundbackpainted")
           bdr->optic->SetFinish(groundbackpainted);
-        else
-          G4cout<<"GERAS: Ignore unknown surface finish "<<value<<G4endl;
-      } else if(setting=="sigma_alpha") {
+        else G4cout<<"GERAS: Ignore unknown surface finish "<<value<<G4endl;
+      } else if (setting=="sigma_alpha") {
         bdr->optic->SetSigmaAlpha(G4UIcommand::ConvertToInt(value));
       } else
         G4cout<<"GERAS: Ignore unknown surface setting "<<value<<G4endl;
@@ -278,9 +274,10 @@ G4MaterialPropertiesTable* LineProcessor::CreateMaterialPropertiesTable(
   double *energies=NULL; // photon energy values
   G4MaterialPropertiesTable *table = new G4MaterialPropertiesTable();
   for (size_t i=idxOfWords; i<words.size(); i++) {
-    G4String property = words[i]; property.toUpper();
-    if (property.contains("SCINTILLATIONYIELD") || property=="RESOLUTIONSCALE"
-        || property.contains("TIMECONSTANT") || property=="YIELDRATIO") {
+    G4String property = words[i]; G4StrUtil::to_upper(property);
+    if (G4StrUtil::contains(property,"TIMECONSTANT") ||
+        G4StrUtil::contains(property,"SCINTILLATIONYIELD") ||
+        property=="RESOLUTIONSCALE" || property=="YIELDRATIO") {
       table->AddConstProperty(property, G4tgrUtils::GetDouble(words[i+1]));
       G4cout<<"GEARS: "<<property<<"="<<words[i+1]<<G4endl;
       i++; // property value has been used
@@ -298,8 +295,7 @@ G4MaterialPropertiesTable* LineProcessor::CreateMaterialPropertiesTable(
         break;
       }
       double *values = new double[cnt];
-      for (int j=0; j<cnt; j++) 
-        values[j]=G4tgrUtils::GetDouble(words[i+1+j]);
+      for (int j=0; j<cnt; j++) values[j]=G4tgrUtils::GetDouble(words[i+1+j]);
       G4cout<<"GEARS: "<<property<<"="<<values[0]<<", "
         <<values[1]<<"..."<<G4endl;
       table->AddProperty(property, energies, values, cnt);
