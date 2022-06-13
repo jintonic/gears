@@ -5,10 +5,6 @@
 :: turn off printing out commands on screen
 @echo off
 
-:: use native Windows GUI instead of csh
-echo setx G4UI_USE_WIN32 1
-setx G4UI_USE_WIN32 1
-
 :: feel free to change version numbers as needed
 :: the following numbers are set for Geant4 11.0
 set url=http://cern.ch/geant4-data/datasets
@@ -79,15 +75,15 @@ RealSurface2.2
     echo setx G4TENDLDATA "%~dp0%%a"
     setx G4TENDLDATA "%~dp0%%a"
   )
-  if !dataset!==PhotonEvaporation (
+  if !dataset!==G4PhotonEvaporation (
     echo setx G4LEVELGAMMADATA "%~dp0%%a"
     setx G4LEVELGAMMADATA "%~dp0%%a"
   )
-  if !dataset!==RadioactiveDecay (
+  if !dataset!==G4RadioactiveDecay (
     echo setx G4RADIOACTIVEDATA "%~dp0%%a"
     setx G4RADIOACTIVEDATA "%~dp0%%a"
   )
-  if !dataset!==RealSurface (
+  if !dataset!==G4RealSurface (
     echo setx G4REALSURFACEDATA "%~dp0%%a"
     setx G4REALSURFACEDATA "%~dp0%%a"
   )
