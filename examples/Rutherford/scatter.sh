@@ -13,9 +13,7 @@ M=animate.mac
 sed 's|mOn [0-9]*|mOn '$num'|' scatter.mac > $M
 
 # run geant4 to create eps files
-export DAWN_BATCH=1
-export G4DAWNFILE_MAX_FILE_NUM=$num
-../../gears $M
+DAWN_BATCH=1 G4DAWNFILE_MAX_FILE_NUM=$num ../../gears $M
 
 # convert eps to png
 # eps cannot have transparent background, png can
@@ -37,6 +35,4 @@ CMD="convert -delay 8 -dispose None g4*.png merged.gif"
 echo $CMD
 $CMD
 
-if [ -f merged.gif ]; then
-  rm -f $M g4*.* .DAWN*
-fi
+if [ -f merged.gif ]; then rm -f $M g4*.* .DAWN*; fi
