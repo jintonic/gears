@@ -11,6 +11,10 @@ The stopping power of a material to a particle is defined as the energy loss in 
 ## Cosmic ray muons
 According to [HyperPhysics][], the average energy of muons reaching sea level is about 4 GeV. They are called [minimum ionizing particles][mip], as their [dE/dx in air](https://pdg.lbl.gov/2022/web/viewer.html?file=../figures/passage/figures/dedx_table_98.pdf) is around its minimum . A muon loses about 2 GeV passing through the atmosphere, its original energy is then about 6 GeV.
 
+### Scintillating panels
+
+<a href="examples/physics/muon/mu+panels.html"><img align="right" width="120px" src="examples/physics/muon/panels.png"/></a>
+
 [panels.tg](panels.tg) contains a portion of a plastic scintillation panel. [mu+.mac](mu+.mac) shoots 6 GeV muons to it. The simulation result is saved in a ROOT file [mu+.root](https://drive.google.com/uc?id=1XHtoVBUozrRWhESWhmUg3IszrxXbGlvf).
 
 ### dE/dx plot
