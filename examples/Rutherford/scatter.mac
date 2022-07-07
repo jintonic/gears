@@ -10,11 +10,12 @@
 /vis/viewer/set/style surface
 /vis/drawVolume
 /vis/scene/add/trajectories
-/vis/scene/endOfEventAction accumulate 1000000
+/vis/scene/endOfEventAction accumulate 10
 
 /gps/particle alpha
 /gps/energy 5.5 MeV
 /gps/pos/centre -0.1 0 0 cm
 /gps/direction 1 0 0
 
+/run/verbose 2
 /run/beamOn 1000000
