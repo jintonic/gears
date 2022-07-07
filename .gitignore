@@ -69,3 +69,6 @@ Release
 CMakeCache.txt
 CMakeFiles
 cmake_install.cmake
+
+# jupyter notebook
+*ipynb_checkpoints
