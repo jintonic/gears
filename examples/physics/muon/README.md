@@ -13,7 +13,7 @@ According to [HyperPhysics][], the average energy of muons reaching sea level is
 
 ### Scintillating panels
 
-<a href="mu+panels.html"><img align="right" width="120px" src="panels.png"/></a>
+<a href="http://physino.xyz/gears/examples/physics/muon/mu+panels.html"><img align="right" width="120px" src="panels.png"/></a>
 
 [panels.tg](panels.tg) contains a portion of a plastic scintillation panel. [mu+.mac](mu+.mac) shoots 6 GeV muons to it. The simulation result is saved in a ROOT file [mu+.root](https://drive.google.com/uc?id=1XHtoVBUozrRWhESWhmUg3IszrxXbGlvf).
 
