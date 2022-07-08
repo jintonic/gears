@@ -15,14 +15,14 @@ H 21
 :color panel(S) 0 0.8 1 
 
 :rotm r000 0 0 0
-:place panel(S) 1  air(S) r000  0 0 0
-:place panel(S) 2  air(S) r000 10 0 0
-:place panel(S) 3  air(S) r000 20 0 0
-:place panel(S) 4  air(S) r000 30 0 0
-:place panel(S) 5  air(S) r000 40 0 0
-:place panel(S) 6  air(S) r000 50 0 0
-:place panel(S) 7  air(S) r000 60 0 0
-:place panel(S) 8  air(S) r000 70 0 0
-:place panel(S) 9  air(S) r000 80 0 0
-:place panel(S) 10 air(S) r000 90 0 0
-:place air(S)   11 world  r000  0 0 0
+:place panel(S) 1  air(S) r000   0 0 0
+:place panel(S) 2  air(S) r000  20 0 0
+:place panel(S) 3  air(S) r000  40 0 0
+:place panel(S) 4  air(S) r000  60 0 0
+:place panel(S) 5  air(S) r000  80 0 0
+:place panel(S) 6  air(S) r000 100 0 0
+:place panel(S) 7  air(S) r000 120 0 0
+:place panel(S) 8  air(S) r000 140 0 0
+:place panel(S) 9  air(S) r000 160 0 0
+:place panel(S) 10 air(S) r000 180 0 0
+:place air(S)   11 world  r000   0 0 0
