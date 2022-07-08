@@ -3,6 +3,7 @@
 [![alpha](https://img.shields.io/badge/alpha-interactions-blue?style=flat)](alpha)
 [![beta](https://img.shields.io/badge/beta-interactions-yellow?style=flat)](beta)
 [![gamma](https://img.shields.io/badge/gamma-interactions-cyan?style=flat)](gamma)
+[![muon](https://img.shields.io/badge/muon-interactions-pink?style=flat)](muon)
 [![neutron](https://img.shields.io/badge/neutron-interactions-brown?style=flat)](neutron)
 [![optical](https://img.shields.io/badge/optical-photons-red?style=flat)](#optical-processes)
 [![decay](https://img.shields.io/badge/radioactive-decay-orange?style=flat)](#radioactive-decay)
