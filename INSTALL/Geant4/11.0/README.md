@@ -23,19 +23,54 @@ It can be pulled from <https://hub.docker.com/r/physino/geant4> if [Docker][] is
 docker pull physino/geant4:11.0.2
 ```
 
-[../../Dockerfile](../../Dockerfile) is used to include [GEARS][] in the container as a verification of the installation. The generated container can be pulled from <https://hub.docker.com/r/physino/gears>. It can also be run directly with the following command:
+[../../Dockerfile](../../Dockerfile) is used to include [GEARS][] in the container as a verification of the installation. It can be used the following way:
+
+```sh
+cd /path/to/gears/INSTALL
+docker build -t physino/gears .
+docker push physino/gears
+```
+
+The generated container can be pulled from <https://hub.docker.com/r/physino/gears>:
+
+```sh
+docker pull physino/gears
+```
+
+It can also be run directly with the following command in a Windows machine:
 
 ```sh
 docker run -it physino/gears
-
-
-          ################################
-          !!! G4Backtrace is activated !!!
-          ################################
-
-
 **************************************************************
- Geant4 version Name: geant4-11-00-patch-02 [MT]   (8-March-2022)
+ Geant4 version Name: geant4-11-00-patch-02 [MT]   (25-May-2022)
+                       Copyright : Geant4 Collaboration
+                      References : NIM A 506 (2003), 250-303
+                                 : IEEE-TNS 53 (2006), 270-278
+                                 : NIM A 835 (2016), 186-225
+                             WWW : http://geant4.org/
+**************************************************************
+
+Available UI session types: [ tcsh, csh ]
+PreInit>
+```
+
+On Linux that has [singularity][] or [apptainer][] installed, one can pull the image using the following commmands:
+
+```sh
+singularity pull docker://physino/gears
+mv gears_latest.sif gears.sif
+```
+
+```sh
+apptainer pull docker://physino/gears
+mv gears_latest.sif gears.sif
+```
+
+The sif file can be directly used as an executable:
+```sh
+./gears.sif
+**************************************************************
+ Geant4 version Name: geant4-11-00-patch-02 [MT]   (25-May-2022)
                        Copyright : Geant4 Collaboration
                       References : NIM A 506 (2003), 250-303
                                  : IEEE-TNS 53 (2006), 270-278
@@ -61,3 +96,5 @@ PreInit>
 [GDML]: https://geant4-userdoc.web.cern.ch/UsersGuides/ForApplicationDeveloper/html/Detector/Geometry/geomXML.html
 [GEARS]: https://github.com/jintonic/gears
 [batch]: https://en.wikipedia.org/wiki/Batch_file
+[singularity]: https://en.wikipedia.org/wiki/Singularity_(software)
+[apptainer]: https://apptainer.org
