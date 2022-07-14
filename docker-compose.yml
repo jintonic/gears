@@ -10,3 +10,15 @@ services:
     volumes:
       - /tmp/.X11-unix:/tmp/.X11-unix
       - .:/root/gears
+  site:
+    image: jekyll/jekyll
+    # --force_polling: needed in bash in windows to watch for file changes
+    # --livereload: let a browser to reload when the site is regenerated
+    command: jekyll serve --incremental --livereload --force_polling
+    ports:
+      # port for http service
+      - 4000:4000
+      # port for livereload service. --livereload won't work without it
+      - 35729:35729
+    volumes:
+      - .:/srv/jekyll
