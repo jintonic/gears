@@ -4,8 +4,7 @@ The latest [GEARS][] required [Geant4.11](https://geant4.web.cern.ch/support/dow
 [![Examples](https://img.shields.io/badge/gears-examples-blue?style=flat)](examples)
 [![Get Started](https://img.shields.io/badge/get-started-orange?style=flat)](INSTALL)
 [![Get Involved](https://img.shields.io/badge/get-involved-ff69b4?style=flat)](#how-to-contribute)
-[![Docker image](https://img.shields.io/badge/docker-image-red?style=flat)](https://hub.docker.com/r/physino/gears)
-[![Singularity image](https://img.shields.io/badge/singularity-image-green?style=flat)](https://cloud.sylabs.io/library/jintonic/geant4/gears)
+[![Docker images](https://img.shields.io/badge/docker-images-red?style=flat)](INSTALL/Geant4/11.0)
 
 <a href="http://physino.xyz/gears/examples/detector/visualization/gearsX3D.html"><img align="right" width="120px" src="examples/detector/visualization/gears.png"/></a>
 
