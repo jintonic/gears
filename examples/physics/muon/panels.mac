@@ -1,5 +1,6 @@
 /geometry/source panels.tg
 
+/control/ifInteractive gui.mac
 /run/initialize
 
 /vis/ASCIITree/verbose 13
