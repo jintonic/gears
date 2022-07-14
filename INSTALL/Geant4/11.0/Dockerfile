@@ -1,6 +1,6 @@
 FROM fedora:latest
 
-ARG v=11.0.1
+ARG v=11.0.2
 
 RUN dnf update -y \
   && dnf install -y git wget which openssl cmake gcc-c++ mesa-libGL-devel libXmu-devel expat-devel \
@@ -8,8 +8,8 @@ RUN dnf update -y \
   && tar xfvz Linux-g++8.3.0-CC7.tar.gz && rm -r Linux-g++8.3.0-CC7.tar.gz \
   && mv Geant4-$v-Linux/bin/* usr/bin && mv Geant4-$v-Linux/lib64/* usr/lib64 \
   && mv Geant4-$v-Linux/include/* usr/include && mv Geant4-$v-Linux/share/* usr/share \
-  && sed -i "s|afs/cern.ch/user/g/gunter/l/releases/web/11.0.1/install/Geant4-$v-Linux|usr|g" usr/bin/geant4.sh \
-  && sed -i "s|afs/cern.ch/user/g/gunter/l/releases/web/11.0.1/install/Geant4-$v-Linux|usr|g" usr/bin/geant4-config \
+  && sed -i "s|afs/cern.ch/user/g/gunter/l/releases/web/$v/install/Geant4-$v-Linux|usr|g" usr/bin/geant4.sh \
+  && sed -i "s|afs/cern.ch/user/g/gunter/l/releases/web/$v/install/Geant4-$v-Linux|usr|g" usr/bin/geant4-config \
   && usr/bin/geant4-config --install-datasets && source usr/bin/geant4.sh \
   && git clone https://github.com/jintonic/gears.git && cd gears && make && mv gears /usr/bin \
   && dnf clean all && rm -fr /var/cache/* /Geant4-$v-Linux
@@ -26,6 +26,7 @@ ENV G4SAIDXSDATA="/usr/share/Geant4-$v/data/G4SAIDDATA2.0"
 ENV G4ABLADATA="/usr/share/Geant4-$v/data/G4ABLA3.1"
 ENV G4INCLDATA="/usr/share/Geant4-$v/data/G4INCL1.0"
 ENV G4ENSDFSTATEDATA="/usr/share/Geant4-$v/data/G4ENSDFSTATE2.3"
+ENV G4TENDLDATA="/usr/share/Geant4-$v/data/G4TENDL1.4"
 
 WORKDIR /root/gears
 CMD ["gears"]
