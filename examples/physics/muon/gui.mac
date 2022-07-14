@@ -1,0 +1,20 @@
+/gui/addMenu particle Particle
+/gui/addButton particle alpha "/gps/particle alpha" 
+/gui/addButton particle "beta (e-)" "/gps/particle e-"
+/gui/addButton particle "gamma (photon)" "/gps/particle gamma"
+/gui/addButton particle muon "/gps/particle mu+"
+/gui/addButton particle neutron "/gps/particle neutron"
+/gui/addButton particle proton "/gps/particle proton"
+
+/gui/addMenu energy Energy
+/gui/addButton energy "1 keV" "/gps/energy 1 keV"
+/gui/addButton energy "1 MeV" "/gps/energy 1 MeV"
+/gui/addButton energy "1 GeV" "/gps/energy 1 GeV"
+/gui/addButton energy "1 TeV" "/gps/energy 1 TeV"
+
+/gui/addMenu run Run
+/gui/addButton run "beamOn 1" "/run/beamOn 1"
+/gui/addButton run "beamOn 10" "/run/beamOn 10"
+/gui/addButton run "beamOn 100" "/run/beamOn 100"
+/gui/addButton run "beamOn 1000" "/run/beamOn 1000"
+
