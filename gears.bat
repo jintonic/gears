@@ -3,11 +3,9 @@
 :: https://ss64.com/nt/for.html
 @echo OFF
 
-if not exist out\build\x64-Release\gears.exe (
-    if not exist build\Release\gears.exe (
-        echo cannot find gears.exe, please compile it first
-        pause & exit /b
-    )
+if not exist gears.exe (
+  echo cannot find gears.exe, please compile it first
+  pause & exit /b
 )
 
 :: https://stackoverflow.com/questions/46712814
