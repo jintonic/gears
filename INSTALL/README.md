@@ -1,5 +1,5 @@
 [![home](https://img.shields.io/badge/gears-home-blue?style=flat)](..)
-[![get gears](https://img.shields.io/badge/get-gears-ff69b4?style=flat)](#get-gears)
+[![Docker images](https://img.shields.io/badge/docker-images-ff69b4?style=flat)](INSTALL/Geant4/11.0)
 [![compile gears](https://img.shields.io/badge/compile-gears-lightgray?style=flat)](#compile-gears)
 [![install gears](https://img.shields.io/badge/install-gears-brown?style=flat)](#install-gears)
 [![use gears](https://img.shields.io/badge/use-gears-red?style=flat)](#use-gears)
@@ -8,10 +8,13 @@
 
 # Getting started
 
-[GEARS][] can run in three major operating systems: [Windows](#compile-gears-in-windows), [macOS](#compile-gears-in-macos), and [Linux](#compile-gears-in-linux). It depends on [Geant4][]. If you don't have [Geant4][] installed yet in your system, please read section [Install Geant4](#install-geant4) first.
+[GEARS][] can run in three major operating systems: [Windows](#compile-gears-in-windows), [macOS](#compile-gears-in-macos), and [Linux](#compile-gears-in-linux). It depends on [Geant4][]. If you don't have [Geant4][] installed yet in your system, please read section [Install Geant4](#install-geant4) first. However, if you have [Docker][] installed on Windows or [apptainer][]/[singularity][] installed on MacOS or Linux, you can run [GEARS][] without installing [Geant4][]. Please check [here](Geant4/11.0/#how-to-use-generated-container-images) for detailed instruction.
 
 [GEARS]: https://github.com/jintonic/gears
 [Geant4]: http://geant4.cern.ch
+[Docker]: https://www.docker.com
+[singularity]: https://en.wikipedia.org/wiki/Singularity_(software)
+[apptainer]: https://apptainer.org
 
 ## Get GEARS
 ### Get GEARS in Windows
@@ -60,6 +63,7 @@ Two compilation systems are provide for [GEARS][]. One is [CMake][]. This mechan
 [CMake]: https://cmake.org/
 
 ### Compile GEARS in Windows
+[![YouTube](https://img.shields.io/badge/You-Tube-red?style=flat)](https://youtu.be/yBOs-JSQ6iA)
 
 First of all, you don't need to do this if you don't need any special features from [Geant4][], such as [GDML][] or [Qt][]. You can download [gears.exe](https://github.com/jintonic/gears/releases) directly from the [GEARS release page](https://github.com/jintonic/gears/releases), which is compiled with pre-compiled [Geant4][] libraries. If you have to compile it by yourself, here is how.
 
@@ -183,6 +187,7 @@ If you use `zsh` instead of `bash`, use `~/.zshrc` instead of `~/.bashrc` or `~/
 ## Use GEARS
 
 ### User interface
+[![YouTube](https://img.shields.io/badge/You-Tube-red?style=flat)](https://youtu.be/3wJrE22P5Hk)
 
 [GEARS][] relies on [G4UIExecutive](http://geant4-userdoc.web.cern.ch/geant4-userdoc/UsersGuides/ForApplicationDeveloper/html/GettingStarted/graphicalUserInterface.html#how-to-select-interface-in-your-applications) to select a user interface (UI). Without any specific setup, [GEARS][] will try to run a graphic user interface (GUI) based on [Qt][] or Windows GUI. If your [Geant4][] is not compiled with GUI support, [GEARS][] will try to [use a command-line UI](http://geant4-userdoc.web.cern.ch/geant4-userdoc/UsersGuides/ForApplicationDeveloper/html/GettingStarted/graphicalUserInterface.html#g4uiterminal). In Windows, go to a folder where you'd like to run [GEARS][] in your file browser. Highlight the address bar, type `gears.exe`:
 
@@ -236,14 +241,18 @@ In Windows, you can select a [Geant4][] macro file, right click on it, choose `O
 [HDF5]: https://www.hdfgroup.org/downloads/hdf5/
 
 # Install Geant4
+[![YouTube](https://img.shields.io/badge/You-Tube-red?style=flat)](https://www.youtube.com/playlist?list=PLw3G-vTgPrdB9Nt2ekl2oL1yoqEC294Uf)
 
-[GEARS][] relies on [Geant4][]. Due to [some inconvenience in version 9](http://hypernews.slac.stanford.edu/HyperNews/geant4/get/hadronprocess/1242.html), a version above 9 is requested. Optionally, the following two packages can be installed before [Geant4 installation]():
+[GEARS][] relies on [Geant4][]. The latest [GEARS][] requires [Geant4][] version 11. If you only have version 10 available, you can use a branch of [GEARS][], called [g4.10](https://github.com/jintonic/gears/tree/g4.10). Due to [some inconvenience in version 9](http://hypernews.slac.stanford.edu/HyperNews/geant4/get/hadronprocess/1242.html), [GEARS][] does not support [Geant4][] below version 10. Optionally, the following two packages can be installed before [Geant4 installation]():
+
 * (Optional) [Xerces-C++](https://xerces.apache.org/xerces-c/), to use or export detector geometries in [GDML][] format.
 * (Optional) [HDF5][], to save simulation results in [HDF5][] format.
 
 Before you get started, please understand that the [Geant4 Installation Guide](https://geant4-userdoc.web.cern.ch/geant4-userdoc/UsersGuides/InstallationGuide/html/) is your ultimate reference should you have any issue regarding [Geant4][] installation, and the Geant4 [User Forum](https://geant4-forum.web.cern.ch/) is the place to seek for help. You also need to be aware of [the possibility of installing pre-comipled Geant4 libraries](https://www.youtube.com/watch?v=fu3NLgb0fwI) in some OS, which would save you hours of time and potential headaches.
 
 ## Which OS should you use for Geant4 simulation?
+[![YouTube](https://img.shields.io/badge/You-Tube-red?style=flat)](https://youtu.be/_g3nvEbhOx8)
+
 **Short Answer:** The one you are using right now. Technically, Geant4 works fine in Windows, Linux and MacOS.
 
 **Long Answer:** It depends, on
@@ -261,7 +270,7 @@ The pre-compiled Geant4 is only [provided for a single Linux distribution with a
 MacOS has the pro's and con's from both Windows and Linux. It is very easy to install a pre-compiled Geant4 in a Mac with just a few clicks, which saves hours in compilation or debugging in case of a failed compilation. However, quite a few post-installation twicks are needed, which are covered in detail [here](#install-pre-compiled-geant4-in-macos). If you decide to compile Geant4 by yourself in a Mac, you need to be quite familiar with the commandline inferface, which takes time to learn.
 
 ## Install pre-compiled Geant4 in Windows
-[![YouTube](https://img.shields.io/badge/YouTube-video-ff69b4?style=flat)](https://www.youtube.com/watch?v=LkbzMiOixug)
+[![YouTube](https://img.shields.io/badge/You-Tube-red?style=flat)](https://www.youtube.com/watch?v=LkbzMiOixug)
 
 Download pre-compiled Geant4 in Windows 10 from <https://geant4.web.cern.ch/support/download>. When you double click it to install it, Windows will pop a window "Windows protected your PC". Select "More info" and then "Run anyway". Now simply follow the instruction till the end, except for the following step, where you need to choose "Add Geant4 to the system PATH for all users" or "current user":
 
