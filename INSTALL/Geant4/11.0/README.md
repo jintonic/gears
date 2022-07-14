@@ -1,4 +1,4 @@
-[![Docker images](https://img.shields.io/badge/docker-images-yellow.svg)](#docker-images)
+[![How to use containers](https://img.shields.io/badge/use-containers-yellow.svg)](#how-to-use-generated-container-images)
 [![Datasets installer](https://img.shields.io/badge/datasets-installer-blue.svg)](#datasets-installer)
 
 ## Docker images
@@ -31,6 +31,8 @@ docker build -t physino/gears .
 docker push physino/gears
 ```
 
+### How to use generated container images
+
 The generated container can be pulled from <https://hub.docker.com/r/physino/gears>:
 
 ```sh
@@ -54,7 +56,7 @@ Available UI session types: [ tcsh, csh ]
 PreInit>
 ```
 
-On Linux that has [singularity][] or [apptainer][] installed, one can pull the image using the following commmands:
+On Linux or MacOS that has [singularity][]/[apptainer][] installed, one can pull the image using the following commmands:
 
 ```sh
 singularity pull docker://physino/gears
