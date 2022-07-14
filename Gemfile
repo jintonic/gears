@@ -1,2 +1,4 @@
-gem "github-pages", group: :jekyll_plugins
-gem "jekyll-seo-tag"
+source "https://rubygems.org"
+gem "jekyll-theme-slate"
+gem "jekyll-mentions"
+gem "webrick"
