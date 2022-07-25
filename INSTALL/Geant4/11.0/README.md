@@ -23,7 +23,7 @@ It can be pulled from <https://hub.docker.com/r/physino/geant4> if [Docker][] is
 docker pull physino/geant4:11.0.2
 ```
 
-[../../Dockerfile](../../Dockerfile) is used to include [GEARS][] in the container as a verification of the installation. It can be used the following way:
+[GEARS][] is included in this container as a verification of the [Geant4][] installation. As [GEARS][] may evolve more frequently than [Geant4][], [../../Dockerfile](../../Dockerfile) is used to update [GEARS][] in the [Geant4][] container. It can be used the following way:
 
 ```sh
 cd /path/to/gears/INSTALL
@@ -33,13 +33,16 @@ docker push physino/gears
 
 ### How to use generated container images
 
-The generated container can be pulled from <https://hub.docker.com/r/physino/gears>:
+The generated containers can be pulled from <https://hub.docker.com/r/physino>:
 
 ```sh
+# pull latest Geant4 image with not-so-updated GEARS
+docker pull physino/geant4
+# pull latest Geant4 image with up-to-date GEARS
 docker pull physino/gears
 ```
 
-It can also be run directly with the following command in a Windows machine:
+They can also be run directly with the following command in a Windows or a Mac that has [Docker][] installed:
 
 ```sh
 docker run -it physino/gears
@@ -56,21 +59,41 @@ Available UI session types: [ tcsh, csh ]
 PreInit>
 ```
 
+## Apptainer/Singularity images
+
+[../../gears.def](../../gears.def) can be used to generate [apptainer][]/[singularity][] images from the [Docker][] [GEARS][] image mentioned above using the following commands:
+
+```sh
+cd /path/to/gears/INSTALL
+sudo apptainer build gears.sif gears.def
+```
+
+One must run the `build` command with `sudo`. If you don't have the privileg to run `sudo`, you can use the remote build option provided by [singularity][] to build the image in <https://cloud.sylabs.io>:
+
+```sh
+singularity build -r gears.sif gears.def
+```
+
+I sign and push the image to <https://cloud.sylabs.io/library/jintonic/geant4/gears> using the following commands:
+
+```sh
+singularity sign gears.sif
+singularity push gears.sif library://jintonic/geant4/gears:latest
+```
+
 On Linux or MacOS that has [singularity][]/[apptainer][] installed, one can pull the image using the following commmands:
 
 ```sh
-singularity pull docker://physino/gears
-mv gears_latest.sif gears.sif
+singularity pull library://jintonic/geant4/gears
 ```
-
+or
 ```sh
-apptainer pull docker://physino/gears
-mv gears_latest.sif gears.sif
+apptainer pull library://jintonic/geant4/gears
 ```
 
 The sif file can be directly used as an executable:
 ```sh
-./gears.sif
+./gears.sif example.mac
 **************************************************************
  Geant4 version Name: geant4-11-00-patch-02 [MT]   (25-May-2022)
                        Copyright : Geant4 Collaboration
