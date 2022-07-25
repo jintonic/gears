@@ -2,13 +2,11 @@ BootStrap: docker
 From: physino/gears
 
 %help
-Container of GEARS with the latest Geant4 and ROOT on Fedora
+Container of GEARS with the latest Geant4 on Fedora
 
 %labels
 Author jintonic@physino.xyz
-Geant4 11.0.p01
-ROOT 6.26/00
+Geant4 11.0.p02
 
 %runscript
 gears "$@"
-
