@@ -91,6 +91,14 @@ or
 apptainer pull library://jintonic/geant4/gears
 ```
 
+Note that you may need to set the location of your [apptainer][] [remote][] library before `pull`:
+
+```sh
+apptainer remote add sylabs https://cloud.sylabs.io
+apptainer remote use sylabs
+apptainer remote list
+```
+
 The sif file can be directly used as an executable:
 ```sh
 ./gears.sif example.mac
@@ -123,3 +131,4 @@ PreInit>
 [batch]: https://en.wikipedia.org/wiki/Batch_file
 [singularity]: https://en.wikipedia.org/wiki/Singularity_(software)
 [apptainer]: https://apptainer.org
+[remote]: https://apptainer.org/docs/user/1.0/endpoint.html
