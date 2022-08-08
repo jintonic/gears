@@ -5,7 +5,7 @@
 
 This folder contains a [Dockerfile](Dockerfile) to install [Geant4][]-11.0 in the latest [Fedora][] [Docker][] [container][].
 
-The 64-bit [Geant4][] libraries were pre-compiled with gcc 8.3.0 on CERN CentOS7 Linux. They were directly downloaded from the [Geant4][] [download][] page. Fortunately, they run just fine on [Fedora][] 35, which is a more up-to-date OS than CC7.
+The 64-bit [Geant4][] libraries were pre-compiled with gcc 8.3.0 on CERN CentOS7 Linux. They were directly downloaded from the [Geant4][] [download][] page. Fortunately, they run just fine on [Fedora][] 36, which is a more up-to-date OS than CC7.
 
 As the libraries were compiled already. The installation process only involves downloading and unpacking them, together with [Geant4][] [data files][download], which costs only ~ 10 min. Unfortunately, [Qt][] and [GDML][] were not enabled in the pre-compilation.
 
@@ -59,6 +59,20 @@ Available UI session types: [ tcsh, csh ]
 PreInit>
 ```
 
+One can also use [docker-compose](https://docs.docker.com/engine/reference/commandline/compose_run/) to get into an interactive shell of the container:
+
+```sh
+cd /path/to/gears
+docker-compose run sh
+root@Geant4-11.0.2:~/gears $
+```
+
+You can use this shell to install any package that you like. For example,
+
+```sh
+root@Geant4-11.0.2:~/gears $ dnf install glibc-langpack-en
+```
+
 ## Apptainer/Singularity images
 
 [../../gears.def](../../gears.def) can be used to generate [apptainer][]/[singularity][] images from the [Docker][] [GEARS][] image mentioned above using the following commands:
@@ -81,7 +95,7 @@ singularity sign gears.sif
 singularity push gears.sif library://jintonic/geant4/gears:latest
 ```
 
-On Linux or MacOS that has [singularity][]/[apptainer][] installed, one can pull the image using the following commmands:
+On a Linux machine that has [singularity][]/[apptainer][] installed, one can pull the image using the following commmands:
 
 ```sh
 singularity pull library://jintonic/geant4/gears
