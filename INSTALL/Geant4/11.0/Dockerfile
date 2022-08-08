@@ -3,7 +3,8 @@ FROM fedora:latest
 ARG v=11.0.2
 
 RUN dnf update -y \
-  && dnf install -y git wget which openssl cmake gcc-c++ mesa-libGL-devel libXmu-devel expat-devel \
+  && dnf install -y glibc-langpack-en git wget which openssl cmake \
+                    gcc-c++ mesa-libGL-devel libXmu-devel expat-devel \
   && wget http://geant4-data.web.cern.ch/releases/lib_$v/Linux-g++8.3.0-CC7.tar.gz \
   && tar xfvz Linux-g++8.3.0-CC7.tar.gz && rm -r Linux-g++8.3.0-CC7.tar.gz \
   && mv Geant4-$v-Linux/bin/* usr/bin && mv Geant4-$v-Linux/lib64/* usr/lib64 \
