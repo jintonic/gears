@@ -107,7 +107,7 @@ root [] t->Draw("x","k*(pdg==22)")
 
 ### Python
 
-[ROOT][] is less known than [Python][] outside of the high energy physics community. The good news for people who are not familiar with [ROOT][] is that [GEARS][] does not depend on [ROOT][] to compile or run, even though its output can be saved in [ROOT][] [TTree][] format, and that the analysis of [GEARS][] output can be done in [Python][] instead of [ROOT][] thanks to the [uproot][] [Python][] package. The best way to get started with analyzing [GEARS][] output in Python would be to follow the [uproot tutorial](https://uproot4.readthedocs.io/en/latest/basic.html) after the [installation of uproot](https://uproot4.readthedocs.io/en/latest/).
+[ROOT][] is less known than [Python][] outside of the high energy physics community. The good news for people who are not familiar with [ROOT][] is that [GEARS][] does not depend on [ROOT][] to compile or run, even though its output can be saved in [ROOT][] [TTree][] format, and that the analysis of [GEARS][] output can be done in [Python][] instead of [ROOT][] thanks to the [uproot][] [Python][] package. The best way to get started with analyzing [GEARS][] output in Python would be to follow the [uproot][] [tutorial][].
 
 If you are familiar with [ROOT][] and would like to migrate to [Python][] for analyzing [GEARS][] output, you can find here a brief list of [Python][] equivalence of [ROOT][] commands:
 
@@ -119,7 +119,7 @@ $ root gears.root # open gears output in ROOT format
   - [Python][]:
 ```python
 $ python
->>> import uproot4 as up # or import uproot for older versions of uproot
+>>> import uproot as up
 >>> file = up.open("gears.root")
 ```
 - Check file contents:
@@ -148,9 +148,8 @@ $ python
 ```
   - [Python][]:
 ```python
->>> b = t.arrays(namedecode='utf-8') # get branches from the tree
 >>> import matplotlib.pyplot as plot
->>> plot.hist(b['x'].flatten(),bins=100) # draw leaf, x, on branch, b
+>>> plot.hist(t['x'].array(library='pd'), bins=100) # draw leaf, x, in tree, t
 >>> plot.show()
 ```
 - Draw the distribution of a selected subset of the variable as a histogram:
@@ -160,12 +159,13 @@ $ python
 ```
   - [Python][]:
 ```python
->>> selection = b['vlm'] == 1 # select step points in volume 1
->>> plot.hist(b['x'][selection],bins=100) # draw x coordinate of those points
+>>> x = t.arrays(['x'], "vlm==1", library='pd') # get all x in vlm 1
+>>> plot.hist(x, bins=100)
 >>> plot.show()
 ```
 [Python]: https://www.python.org/
-[uproot]: https://github.com/scikit-hep/uproot4
+[uproot]: https://pypi.org/project/uproot/
+[tutorial]: https://uproot.readthedocs.io/en/latest/basic.html
 
 ## Step point
 
