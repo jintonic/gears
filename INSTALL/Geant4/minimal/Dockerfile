@@ -2,17 +2,25 @@ FROM fedora:latest
 
 ARG v=11.0.2
 
+# minimal packages needed to run Geant4
 RUN dnf update -y \
   && dnf install -y git wget which openssl cmake gcc-c++ mesa-libGL-devel libXmu-devel expat-devel glibc-langpack-en \
-  && wget http://geant4-data.web.cern.ch/releases/lib_$v/Linux-g++8.3.0-CC7.tar.gz \
+  && dnf clean all && rm -fr /var/cache/*
+
+# get pre-compiled geant4
+RUN wget http://geant4-data.web.cern.ch/releases/lib_$v/Linux-g++8.3.0-CC7.tar.gz \
   && tar xfvz Linux-g++8.3.0-CC7.tar.gz && rm -r Linux-g++8.3.0-CC7.tar.gz \
-  && mv Geant4-$v-Linux/bin/* usr/bin && mv Geant4-$v-Linux/lib64/* usr/lib64 \
-  && mv Geant4-$v-Linux/include/* usr/include && mv Geant4-$v-Linux/share/* usr/share \
-  && sed -i "s|afs/cern.ch/user/g/gunter/l/releases/web/$v/install/Geant4-$v-Linux|usr|g" usr/bin/geant4.sh \
-  && sed -i "s|afs/cern.ch/user/g/gunter/l/releases/web/$v/install/Geant4-$v-Linux|usr|g" usr/bin/geant4-config \
-  && usr/bin/geant4-config --install-datasets && source usr/bin/geant4.sh \
-  && git clone https://github.com/jintonic/gears.git && cd gears && make && mv gears /usr/bin \
-  && dnf clean all && rm -fr /var/cache/* /Geant4-$v-Linux
+  && mv Geant4-$v-Linux/bin/* usr/local/bin && mv Geant4-$v-Linux/lib64/* usr/local/lib64 \
+  && mv Geant4-$v-Linux/include/* usr/local/include && mv Geant4-$v-Linux/share/* usr/local/share \
+  && sed -i "s|afs/cern.ch/user/g/gunter/l/releases/web/$v/install/Geant4-$v-Linux|usr/local|g" usr/local/bin/geant4.sh \
+  && sed -i "s|afs/cern.ch/user/g/gunter/l/releases/web/$v/install/Geant4-$v-Linux|usr/local|g" usr/local/bin/geant4-config \
+  && rm -fr /Geant4-$v-Linux
+
+# get geant4 datasets
+RUN usr/local/bin/geant4-config --install-datasets && source usr/local/bin/geant4.sh
+
+# compile GEARS
+RUN git clone https://github.com/jintonic/gears.git && cd gears && make && mv gears /usr/local/bin
 
 ENV PS1="\u@Geant4.$v:\w \$ "
 ENV G4NEUTRONHPDATA="/usr/share/Geant4-$v/data/G4NDL4.6"
