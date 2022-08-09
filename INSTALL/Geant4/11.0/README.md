@@ -5,7 +5,7 @@
 
 This folder contains a [Dockerfile](Dockerfile) to install [Geant4][]-11.0 in the latest [Fedora][] [Docker][] [container][].
 
-The 64-bit [Geant4][] libraries were pre-compiled with gcc 8.3.0 on CERN CentOS7 Linux. They were directly downloaded from the [Geant4][] [download][] page. Fortunately, they run just fine on [Fedora][] 36, which is a more up-to-date OS than CC7.
+The 64-bit [Geant4][] libraries were pre-compiled with gcc 8.3.0 on CERN CentOS7 (CC7) Linux. They were directly downloaded from the [Geant4][] [download][] page. Fortunately, they run just fine on the latest [Fedora][], which is a more up-to-date OS than CC7.
 
 As the libraries were compiled already. The installation process only involves downloading and unpacking them, together with [Geant4][] [data files][download], which costs only ~ 10 min. Unfortunately, [Qt][] and [GDML][] were not enabled in the pre-compilation.
 
@@ -71,6 +71,22 @@ You can use this shell to install any package that you like. For example,
 
 ```sh
 root@Geant4-11.0.2:~/gears $ dnf install glibc-langpack-en
+```
+
+I use this to update [GEARS][] in the container:
+```sh
+cd /path/to/gears
+docker-compose run sh
+root@Geant4-11.0.2:~/gears $ dnf update -y
+root@Geant4-11.0.2:~/gears $ cd /gears && git pull && make && mv gears /usr/bin
+root@Geant4-11.0.2:~/gears $ dnf clean all && rm -fr /var/cache/*
+root@Geant4-11.0.2:~/gears $ exit
+docker ps -a
+CONTAINER ID  IMAGE           COMMAND  CREATED         STATUS                     PORTS  NAMES
+53614a6b7563  physino/geant4  "bash"   3 minutes ago   Exited (0) 14 seconds ago         eloquent_napier
+...
+docker commit 53614a6b7563 physino/geant4
+docker push physino/geant4
 ```
 
 ## Apptainer/Singularity images
