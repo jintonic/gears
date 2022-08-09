@@ -1,24 +1,32 @@
 services:
-  # https://stackoverflow.com/a/65922105
-  sh: # docker-compose run sh
-    image: physino/gears
+  analysis: # docker-compose up
+    image: physino/geant4:analysis
+    command: /usr/bin/root --notebook --allow-root --no-browser --ip=0.0.0.0
+    ports: [ "8888:8888" ]
+    volumes: [".:/root/gears"]
+  min: # docker-compose run min
+    image: physino/geant4:minimal
     command: /usr/bin/bash
-    hostname: Geant4-11.0.2 # https://stackoverflow.com/a/54700656
-    # https://gist.github.com/paul-krohn/e45f96181b1cf5e536325d1bdee6c949
-    environment:
-      - DISPLAY=host.docker.internal:0
+    hostname: Geant4.minimal # https://stackoverflow.com/a/54700656
+    volumes: [".:/root/gears"]
+    profiles: [ "minimal" ] # https://docs.docker.com/compose/profiles
+  gears: # docker-compose run gears
+    image: physino/geant4:large
+    command: /usr/bin/gears
+    hostname: Geant4.large
+    profiles: [ "large" ]
+    environment: # https://docs.docker.com/desktop/networking
+      - DISPLAY=host.docker.internal:0.0
     volumes:
       - /tmp/.X11-unix:/tmp/.X11-unix
       - .:/root/gears
-  site:
+  site: # docker compose run site
     image: jekyll/jekyll
     # --force_polling: needed in bash in windows to watch for file changes
     # --livereload: let a browser to reload when the site is regenerated
     command: jekyll serve --incremental --livereload --force_polling
     ports:
-      # port for http service
-      - 4000:4000
-      # port for livereload service. --livereload won't work without it
-      - 35729:35729
-    volumes:
-      - .:/srv/jekyll
+      - 4000:4000 # port for http service
+      - 35729:35729 # port for livereload service
+    volumes: [ ".:/srv/jekyll" ]
+    profiles: [ "documentation" ]
