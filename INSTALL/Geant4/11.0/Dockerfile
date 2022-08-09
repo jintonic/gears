@@ -3,8 +3,7 @@ FROM fedora:latest
 ARG v=11.0.2
 
 RUN dnf update -y \
-  && dnf install -y glibc-langpack-en git wget which openssl cmake \
-                    gcc-c++ mesa-libGL-devel libXmu-devel expat-devel \
+  && dnf install -y git wget which openssl cmake gcc-c++ mesa-libGL-devel libXmu-devel expat-devel glibc-langpack-en \
   && wget http://geant4-data.web.cern.ch/releases/lib_$v/Linux-g++8.3.0-CC7.tar.gz \
   && tar xfvz Linux-g++8.3.0-CC7.tar.gz && rm -r Linux-g++8.3.0-CC7.tar.gz \
   && mv Geant4-$v-Linux/bin/* usr/bin && mv Geant4-$v-Linux/lib64/* usr/lib64 \
@@ -15,7 +14,7 @@ RUN dnf update -y \
   && git clone https://github.com/jintonic/gears.git && cd gears && make && mv gears /usr/bin \
   && dnf clean all && rm -fr /var/cache/* /Geant4-$v-Linux
 
-ENV PS1="\u@\H:\w \$ "
+ENV PS1="\u@Geant4.$v:\w \$ "
 ENV G4NEUTRONHPDATA="/usr/share/Geant4-$v/data/G4NDL4.6"
 ENV G4LEDATA="/usr/share/Geant4-$v/data/G4EMLOW8.0"
 ENV G4LEVELGAMMADATA="/usr/share/Geant4-$v/data/PhotonEvaporation5.7"
