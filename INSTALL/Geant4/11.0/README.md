@@ -7,20 +7,24 @@ This folder contains a [Dockerfile](Dockerfile) to install [Geant4][]-11.0 in th
 
 The 64-bit [Geant4][] libraries were pre-compiled with gcc 8.3.0 on CERN CentOS7 (CC7) Linux. They were directly downloaded from the [Geant4][] [download][] page. Fortunately, they run just fine on the latest [Fedora][], which is a more up-to-date OS than CC7.
 
-As the libraries were compiled already. The installation process only involves downloading and unpacking them, together with [Geant4][] [data files][download], which costs only ~ 10 min. Unfortunately, [Qt][] and [GDML][] were not enabled in the pre-compilation.
+As the libraries were compiled already, the installation process only involves downloading and unpacking them, together with [Geant4][] [data files][download], which costs only ~ 10 min. Unfortunately, [Qt][] and [GDML][] were not enabled in the pre-compilation.
 
 The [container](https://hub.docker.com/r/physino/geant4) can be generated using the following commands:
 
 ```sh
 cd /path/to/gears/INSTALL/Geant4/11.0
-docker build -t physino/geant4:11.0.2 .
+docker build -t physino/geant4 .
+docker tag physino/geant4:latest pysino/geant4:11.0.2
+docker tag physino/geant4:latest pysino/geant4:minimal
+docker push physino/geant4
 docker push physino/geant4:11.0.2
+docker push physino/geant4:minimal
 ```
 
 It can be pulled from <https://hub.docker.com/r/physino/geant4> if [Docker][] is available in your system:
 
 ```sh
-docker pull physino/geant4:11.0.2
+docker pull physino/geant4
 ```
 
 [GEARS][] is included in this container as a verification of the [Geant4][] installation. As [GEARS][] may evolve more frequently than [Geant4][], [../../Dockerfile](../../Dockerfile) is used to update [GEARS][] in the [Geant4][] container. It can be used the following way:
