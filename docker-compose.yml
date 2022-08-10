@@ -4,17 +4,16 @@ services:
     command: /usr/bin/root --notebook --allow-root --no-browser --ip=0.0.0.0
     ports: [ "8888:8888" ]
     volumes: [".:/root/gears"]
-  min: # docker-compose run min
-    image: physino/geant4:minimal
+  sh: # docker-compose run sh
+    image: physino/geant4
     command: /usr/bin/bash
-    hostname: Geant4.minimal # https://stackoverflow.com/a/54700656
     volumes: [".:/root/gears"]
-    profiles: [ "minimal" ] # https://docs.docker.com/compose/profiles
-  gears: # docker-compose run gears
-    image: physino/geant4:large
+    profiles: [ "sh" ] # https://docs.docker.com/compose/profiles
+  gui: # docker-compose run gui
+    image: physino/geant4:gui
     command: /usr/bin/gears
-    hostname: Geant4.large
-    profiles: [ "large" ]
+    hostname: Geant4.GUI
+    profiles: [ "gui" ]
     environment: # https://docs.docker.com/desktop/networking
       - DISPLAY=host.docker.internal:0.0
     volumes:
@@ -29,4 +28,4 @@ services:
       - 4000:4000 # port for http service
       - 35729:35729 # port for livereload service
     volumes: [ ".:/srv/jekyll" ]
-    profiles: [ "documentation" ]
+    profiles: [ "site" ]
