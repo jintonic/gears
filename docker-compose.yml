@@ -1,6 +1,6 @@
 services:
   analysis: # docker-compose up
-    image: physino/geant4:analysis
+    image: physino/root:notebook
     command: /usr/bin/root --notebook --allow-root --no-browser --ip=0.0.0.0
     ports: [ "8888:8888" ]
     volumes: [".:/root/gears"]
@@ -11,8 +11,7 @@ services:
     profiles: [ "sh" ] # https://docs.docker.com/compose/profiles
   gui: # docker-compose run gui
     image: physino/geant4:gui
-    command: /usr/bin/gears
-    hostname: Geant4.GUI
+    command: /usr/bin/bash
     profiles: [ "gui" ]
     environment: # https://docs.docker.com/desktop/networking
       - DISPLAY=host.docker.internal:0.0
