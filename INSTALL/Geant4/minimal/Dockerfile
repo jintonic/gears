@@ -20,18 +20,7 @@ RUN  curl -LO https://github.com/jintonic/gears/raw/master/gears.cc \
   && make && mv gears usr/bin && rm -f gears.cc Makefile
 
 ENV PS1="\u@Geant4.$v:\w \$ "
-ENV G4NEUTRONHPDATA="/root/gears/INSTALL/Geant4/data/G4NDL4.6"
-ENV G4LEDATA="/root/gears/INSTALL/Geant4/data/G4EMLOW8.0"
-ENV G4LEVELGAMMADATA="/root/gears/INSTALL/Geant4/data/PhotonEvaporation5.7"
-ENV G4RADIOACTIVEDATA="/root/gears/INSTALL/Geant4/data/RadioactiveDecay5.6"
-ENV G4PARTICLEXSDATA="/root/gears/INSTALL/Geant4/data/G4PARTICLEXS4.0"
-ENV G4PIIDATA="/root/gears/INSTALL/Geant4/data/G4PII1.3"
-ENV G4REALSURFACEDATA="/root/gears/INSTALL/Geant4/data/RealSurface2.2"
-ENV G4SAIDXSDATA="/root/gears/INSTALL/Geant4/data/G4SAIDDATA2.0"
-ENV G4ABLADATA="/root/gears/INSTALL/Geant4/data/G4ABLA3.1"
-ENV G4INCLDATA="/root/gears/INSTALL/Geant4/data/G4INCL1.0"
-ENV G4ENSDFSTATEDATA="/root/gears/INSTALL/Geant4/data/G4ENSDFSTATE2.3"
-ENV G4TENDLDATA="/root/gears/INSTALL/Geant4/data/G4TENDL1.4"
+ENTRYPOINT ["cd /usr/bin && source geant4.sh"]
 
 WORKDIR /root/gears
 CMD ["gears"]
