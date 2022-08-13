@@ -12,7 +12,8 @@ RUN  curl -LO http://geant4-data.web.cern.ch/releases/lib_$v/Linux-g++8.3.0-CC7.
   && rm -fr /Geant4-$v-Linux
 
 # compile GEARS
-RUN  dnf install -y which ncurses gcc-c++ mesa-libGL-devel libXmu-devel expat-devel \
+# openssl is for geant4-config --install-datasets, which is for make
+RUN  dnf install -y openssl which ncurses gcc-c++ mesa-libGL-devel libXmu-devel expat-devel \
   && dnf clean all && rm -fr /var/cache/*
 RUN  curl -LO https://github.com/jintonic/gears/raw/master/gears.cc \
   && curl -LO https://github.com/jintonic/gears/raw/master/Makefile \
