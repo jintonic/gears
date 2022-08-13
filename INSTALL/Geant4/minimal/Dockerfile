@@ -1,4 +1,4 @@
-FROM fedora:latest
+FROM fedora
 
 ARG v=11.0.2
 
