@@ -8,6 +8,19 @@ Container of the latest Geant4 on the latest Fedora
 Author jintonic@physino.xyz
 Geant4 11.0.p02
 
+%post
+sed -i 's|/root/gears/INSTALL/G|$HOME/g|g' /usr/bin/geant4.sh
+sed -i 's|/root/gears/INSTALL/G|$HOME/g|g' /usr/bin/geant4-config
+ln -sf /usr/bin/geant4.sh /.singularity.d/env/99-geant4.sh
+
+# customize container PS1 (https://stackoverflow.com/a/61251143)
+CUSTOM_ENV=/.singularity.d/env/99-zz.sh
+cat>$CUSTOM_ENV<<EOF
+#!/bin/bash
+PS1="\u@geant4.11.0.2:\w \$ "
+EOF
+chmod 755 $CUSTOM_ENV
+
 %environment
 export LC_ALL=C.UTF-8
 
