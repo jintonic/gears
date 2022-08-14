@@ -1,24 +1,60 @@
 services:
-  analysis: # docker-compose up
-    image: physino/root:notebook
-    command: /usr/bin/root --notebook --allow-root --no-browser --ip=0.0.0.0
-    ports: [ "8888:8888" ]
-    volumes: [".:/root/gears"]
-  sh: # docker-compose run sh
+  # launch a Linux command line with pre-compiled geant4
+  g4: # docker-compose run g4
     image: physino/geant4
     command: /usr/bin/bash
     volumes: [".:/root/gears"]
-    profiles: [ "sh" ] # https://docs.docker.com/compose/profiles
-  gui: # docker-compose run gui
-    image: physino/geant4:gui
+    profiles: [ "g4" ] # https://docs.docker.com/compose/profiles
+    # https://docs.docker.com/compose/compose-file/build/
+    build: INSTALL/Geant4 # docker-compose build g4
+
+  # launch a Linux command line with geant4 compiled with Qt, GDML
+  optional: # docker-compose run optional
+    image: physino/geant4:optional
     command: /usr/bin/bash
-    profiles: [ "gui" ]
+    volumes: [".:/root/gears"]
+    profiles: [ "optional" ]
     environment: # https://docs.docker.com/desktop/networking
       - DISPLAY=host.docker.internal:0.0
     volumes:
       - /tmp/.X11-unix:/tmp/.X11-unix
       - .:/root/gears
-  site: # docker compose run site
+    build: INSTALL/Geant4/optional # docker-compose build optional
+
+  # launch a Linux command line where cern root is available
+  root: # docker-compose run root
+    image: physino/root
+    command: /usr/bin/bash
+    profiles: [ "root" ]
+    environment:
+      - DISPLAY=host.docker.internal:0.0
+    volumes:
+      - /tmp/.X11-unix:/tmp/.X11-unix
+      - .:/root/gears
+    build: INSTALL/ROOT/ # docker-compose build root
+
+  # launch a Jupyter notebook service to analyze data with ROOT or Python
+  notebook: # docker-compose up
+    image: physino/root:notebook
+    command: /usr/bin/root --notebook --allow-root --no-browser --ip=0.0.0.0
+    ports: [ "8888:8888" ]
+    volumes: [".:/root/gears"]
+    build: INSTALL/ROOT/notebook # docker-compose build notebook
+
+  # launch a Linux command line where the HepRApp viewer can be used
+  vis: # docker-compose run vis
+    image: physino/g4vis
+    command: /usr/bin/bash
+    profiles: [ "vis" ]
+    environment:
+      - DISPLAY=host.docker.internal:0.0
+    volumes:
+      - /tmp/.X11-unix:/tmp/.X11-unix
+      - .:/root/gears
+    build: examples/detector/visualization/ # docker-compose build vis
+
+  # launch an HTTP server to check GEARS webpages & geometry files created by v2x
+  site: # docker compose up site
     image: jekyll/jekyll
     # --force_polling: needed in bash in windows to watch for file changes
     # --livereload: let a browser to reload when the site is regenerated
