@@ -5,8 +5,8 @@ From: physino/geant4
 Container of the latest Geant4 on the latest Fedora
 
 %labels
-Author jintonic@physino.xyz
 Geant4 11.0.p02
+Creator jintonic@physino.xyz
 
 %post
 sed -i 's|/root/gears/INSTALL/G|$HOME/g|g' /usr/bin/geant4.sh
