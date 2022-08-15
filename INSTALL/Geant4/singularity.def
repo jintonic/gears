@@ -20,6 +20,9 @@ echo 'PS1="\u@geant4.11.0.2:\w \$ "' >> /.singularity.d/env/99-g4.sh
 %environment
 export LANG=C.UTF-8
 export LC_ALL=C.UTF-8
+# https://github.com/apptainer/singularity/issues/643
+# settings in ~/.bashrc will be loaded last
+export SINGULARITY_SHELL=/usr/bin/bash
 
 %runscript
 gears "$@"
