@@ -5,6 +5,8 @@
 [![use gears](https://img.shields.io/badge/use-gears-red?style=flat)](#use-gears)
 [![install Geant4](https://img.shields.io/badge/install-geant4-green?style=flat)](#install-geant4)
 [![install ROOT](https://img.shields.io/badge/install-root-yellow?style=flat)](#install-root)
+[![Docker images](https://img.shields.io/badge/docker-images-green?style=flat)](https://hub.docker.com/r/physino/geant4)
+[![Singularity images](https://img.shields.io/badge/apptainer-images-yellow?style=flat)](INSTALL/Geant4/#apptainersingularity-images)
 
 # Getting started
 
@@ -46,7 +48,7 @@ $ cd /path/to/gears
 $ git pull
 ```
 
-Note that if you change some files in your local working copy, the `git pull` command will fail since [Git][] does not want to overwrite your local modification with the updated [GEARS][]. To avoid this, please copy [example macros](examples) to somewhere outside of the `gears/` directory. You can then modify them as you like without worry. An easy way to check if there is any local change that may block `git pull` is:
+Note that if you change some files in your local working copy, the `git pull` command will fail since [Git][] does not want to overwrite your local modification with the updated [GEARS][]. To avoid this, please copy [example macros](tutorials) to somewhere outside of the `gears/` directory. You can then modify them as you like without worry. An easy way to check if there is any local change that may block `git pull` is:
 
 ```sh
 $ git status # show modified files
@@ -226,10 +228,10 @@ gears tcsh # just for gears
 
 Without any argument, `gears` will start an [interactive session](http://geant4-userdoc.web.cern.ch/geant4-userdoc/UsersGuides/ForApplicationDeveloper/html/GettingStarted/graphicalUserInterface.html). It accepts [commands](http://geant4-userdoc.web.cern.ch/geant4-userdoc/UsersGuides/ForApplicationDeveloper/html/Control/commands.html) you type in the UI.
 
-You can also put a set of commands into a [macro](examples) file, which can be used as an argument of `gears`. For example,
+You can also put a set of commands into a [macro](tutorials) file, which can be used as an argument of `gears`. For example,
 
 ```sh
-$ cd gears/examples/detector/visualization
+$ cd gears/tutorials/detector/visualization
 $ gears RayTracer.mac # run gears in batch mode
 ```
 
@@ -397,7 +399,7 @@ source /path/to/gears/gears.sh
 
 # Install ROOT
 
-[ROOT][] is NOT needed to compile or run [GEARS][] even though the default output file format is in [ROOT][]. It is not even needed for the analysis of the output file, instead, one can use [uproot][] to read the file in [Python][]. However, it is very convenient to analyze the [GEARS][] output data in a [ROOT][] interactive session using [TTree::Draw](examples/output/#data-analysis). The compilation of [ROOT][] takes a long time. However, installation of pre-compiled [ROOT][] libraries is very easy.
+[ROOT][] is NOT needed to compile or run [GEARS][] even though the default output file format is in [ROOT][]. It is not even needed for the analysis of the output file, instead, one can use [uproot][] to read the file in [Python][]. However, it is very convenient to analyze the [GEARS][] output data in a [ROOT][] interactive session using [TTree::Draw](tutorials/output/#data-analysis). The compilation of [ROOT][] takes a long time. However, installation of pre-compiled [ROOT][] libraries is very easy.
 
 ## Install pre-compiled ROOT in Windows
 Some [manual modifications](https://root-forum.cern.ch/t/windows-install-issue-with-root-version-618-02/35773/7) have to be done after installing pre-compiled ROOT in version 6. If you don't mind, install version 5 instead. It works right after the installation. Old ROOT releases can be found at <https://root.cern.ch/releases>. In the installation, please don't forget to make the following choice:
