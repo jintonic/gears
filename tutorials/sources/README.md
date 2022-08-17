@@ -1,5 +1,5 @@
 [![home](https://img.shields.io/badge/gears-home-blue?style=flat)](../..)
-[![examples](https://img.shields.io/badge/gears-examples-green?style=flat)](..)
+[![tutorials](https://img.shields.io/badge/gears-tutorials-green?style=flat)](..)
 [![common sources](https://img.shields.io/badge/common-sources-red?style=flat)](#common-sources)
 
 [GEARS][] uses the [Geant4][] [general particle source][gps] to generate the [primary particles][], from which a [Geant4][] simulation starts (see [this plot](../output#step-point) to understand the general concept). The up-to-date examples of [gps][] are shipped together with the [Geant4][] source code in the folder:
@@ -59,7 +59,7 @@ The alpha partiles emitted from Am241 can be used to bonbust Be and generate neu
 
 ### Ar39
 
-Ar39 is a beta emitter. It is a common background for examples ulitize liquid argon as detecting material. Its measured beta spectrum is implemented in [this mac file](Ar39.mac).
+Ar39 is a beta emitter. It is a common background for examples unitize liquid argon as detecting material. Its measured beta spectrum is implemented in [this mac file](Ar39.mac).
 
 ### Co57
 
