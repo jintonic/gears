@@ -55,12 +55,12 @@ services:
 
   # launch an HTTP server to check GEARS webpages & geometry files created by v2x
   site: # docker compose up site
-    image: jekyll/jekyll
+    image: jekyll/minimal:pages
     # --force_polling: needed in bash in windows to watch for file changes
     # --livereload: let a browser to reload when the site is regenerated
-    command: jekyll serve --incremental --livereload --force_polling
+    command: bundle exec jekyll serve --incremental --livereload --force_polling
     ports:
       - 4000:4000 # port for http service
       - 35729:35729 # port for livereload service
-    volumes: [ ".:/srv/jekyll" ]
+    volumes: [ ".:/srv/jekyll:cached" ]
     profiles: [ "site" ]
