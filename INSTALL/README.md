@@ -1,14 +1,11 @@
-[![home](https://img.shields.io/badge/gears-home-blue?style=flat)](..)
-[![Docker images](https://img.shields.io/badge/docker-images-ff69b4?style=flat)](INSTALL/Geant4/11.0)
-[![compile gears](https://img.shields.io/badge/compile-gears-lightgray?style=flat)](#compile-gears)
-[![install gears](https://img.shields.io/badge/install-gears-brown?style=flat)](#install-gears)
-[![use gears](https://img.shields.io/badge/use-gears-red?style=flat)](#use-gears)
-[![install Geant4](https://img.shields.io/badge/install-geant4-green?style=flat)](#install-geant4)
-[![install ROOT](https://img.shields.io/badge/install-root-yellow?style=flat)](#install-root)
-[![Docker images](https://img.shields.io/badge/docker-images-green?style=flat)](https://hub.docker.com/r/physino/geant4)
-[![Singularity images](https://img.shields.io/badge/apptainer-images-yellow?style=flat)](INSTALL/Geant4/#apptainersingularity-images)
-
-# Getting started
+[![home](https://img.shields.io/badge/Home-page-blue?style=flat)](..)
+[![compile gears](https://img.shields.io/badge/Compile-gears-lightgray?style=flat)](#compile-gears)
+[![install gears](https://img.shields.io/badge/Install-gears-brown?style=flat)](#install-gears)
+[![use gears](https://img.shields.io/badge/Use-gears-red?style=flat)](#use-gears)
+[![install Geant4](https://img.shields.io/badge/Install-geant4-green?style=flat)](#install-geant4)
+[![install ROOT](https://img.shields.io/badge/Install-root-yellow?style=flat)](#install-root)
+[![Docker images](https://img.shields.io/badge/Docker-images-green?style=flat)](https://hub.docker.com/r/physino/geant4)
+[![Singularity images](https://img.shields.io/badge/Singularity-images-yellow?style=flat)](https://cloud.sylabs.io/library/jintonic/geant4/gears)
 
 [GEARS][] can run in three major operating systems: [Windows](#compile-gears-in-windows), [macOS](#compile-gears-in-macos), and [Linux](#compile-gears-in-linux). It depends on [Geant4][]. If you don't have [Geant4][] installed yet in your system, please read section [Install Geant4](#install-geant4) first. However, if you have [Docker][] installed on Windows or [apptainer][]/[singularity][] installed on MacOS or Linux, you can run [GEARS][] without installing [Geant4][]. Please check [here](Geant4/11.0/#how-to-use-generated-container-images) for detailed instruction.
 
