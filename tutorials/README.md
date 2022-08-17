@@ -1,6 +1,6 @@
 [![home](https://img.shields.io/badge/gears-home-blue?style=flat)](..)
-[![detector](https://img.shields.io/badge/tutorials-detector-green?style=flat)](detector)
-[![output](https://img.shields.io/badge/tutorials-output-orange?style=flat)](output)
+[![detector](https://img.shields.io/badge/detector-geometry-green?style=flat)](detector)
+[![output](https://img.shields.io/badge/simulation-output-orange?style=flat)](output)
 [![physics](https://img.shields.io/badge/physics-processes-yellow?style=flat)](physics)
 [![sources](https://img.shields.io/badge/particle-sources-red?style=flat)](sources)
 
@@ -8,5 +8,5 @@
 
 - [Detector construction](detector) and [visualization](detector/visualization)
 - [Output](output) in various formats (including [ROOT](output#root))
-- [Physics](physics) [processes](physics#physics-processes) for [alphas](physics/alpha), [betas](physics/beta), [gammas](physics/gamma), [neutrons](physics/neutron), etc. Optionally, [optical simulation](physics#optical-processes) and [radioactive decay](physics#radioactive-decay).
+- [Physics](physics) [processes](physics#physics-processes) for [alphas](physics/alpha), [betas](physics/beta), [gammas](physics/gamma), [neutrons](physics/neutron), [muons](physics/muon), etc. Optionally, [optical simulation](physics#optical-processes) and [radioactive decay](physics#radioactive-decay).
 - [Particle sources](sources), *e.g.*, [Am-241](sources#am241), [AmBe](sources#@ambe), [Ar39](sources#ar39), [Fe55](sources#fe55), [Co57](sources#co57), etc.
