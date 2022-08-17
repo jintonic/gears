@@ -1,10 +1,10 @@
 [![home](https://img.shields.io/badge/gears-home-blue?style=flat)](..)
-[![detector](https://img.shields.io/badge/examples-detector-green?style=flat)](detector)
-[![output](https://img.shields.io/badge/examples-output-orange?style=flat)](output)
+[![detector](https://img.shields.io/badge/tutorials-detector-green?style=flat)](detector)
+[![output](https://img.shields.io/badge/tutorials-output-orange?style=flat)](output)
 [![physics](https://img.shields.io/badge/physics-processes-yellow?style=flat)](physics)
 [![sources](https://img.shields.io/badge/particle-sources-red?style=flat)](sources)
 
-## Examples
+## Tutorials
 
 - [Detector construction](detector) and [visualization](detector/visualization)
 - [Output](output) in various formats (including [ROOT](output#root))
