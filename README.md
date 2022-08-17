@@ -1,14 +1,12 @@
 The latest [GEARS][] required [Geant4.11](https://geant4.web.cern.ch/support/download). If you are still using Geant4.10, please download [v1.5.1](https://github.com/jintonic/gears/releases/tag/v1.5.1) of [GEARS][] from the [Release](https://github.com/jintonic/gears/releases) page.
 
 [![Doxygen](https://codedocs.xyz/jintonic/gears.svg)](https://codedocs.xyz/jintonic/gears/annotated.html)
-[![Examples](https://img.shields.io/badge/gears-examples-blue?style=flat)](examples)
+[![Tutorials](https://img.shields.io/badge/gears-tutorials-blue?style=flat)](tutorials)
 [![Get Started](https://img.shields.io/badge/get-started-orange?style=flat)](INSTALL)
 [![Get Involved](https://img.shields.io/badge/get-involved-ff69b4?style=flat)](#how-to-contribute)
 [![YouTube](https://img.shields.io/badge/You-Tube-red?style=flat)](https://youtu.be/yBOs-JSQ6iA)
-[![Docker images](https://img.shields.io/badge/docker-images-green?style=flat)](https://hub.docker.com/r/physino/geant4)
-[![Singularity images](https://img.shields.io/badge/apptainer-images-yellow?style=flat)](INSTALL/Geant4/#apptainersingularity-images)
 
-<a href="http://physino.xyz/gears/examples/detector/visualization/gearsX3D.html"><img align="right" width="120px" src="examples/detector/visualization/gears.png"/></a>
+<a href="http://physino.xyz/gears/tutorials/detector/visualization/gearsX3D.html"><img align="right" width="120px" src="tutorials/detector/visualization/gears.png"/></a>
 
 [GEARS][] is a [Geant4][] [Example][] Application with [Rich features](#features) yet Small footprint. The entire C++ coding is minimized down to a single file with about 550 [SLOC][]. This is achieved mainly by utilizing [Geant4][] plain [text geometry description][tg], [built-in UI commands][TUI] (macros), and C++ inheritance. It is ideal for student training and fast implementation of small to medium-sized experiments.
 
@@ -22,13 +20,13 @@ The latest [GEARS][] required [Geant4.11](https://geant4.web.cern.ch/support/dow
 ## Features
 
 * [Single small C++ file](gears.cc), easy to manage, fast to [compile](INSTALL#compile-gears) (a few second on a regular PC)
-* [Easy switching between well maintained Geant4 reference physics lists without recompilation](examples/physics)
-  * [Individual processes can be turned on/off without recompilation](examples/physics#physics-processes)
-  * [Fast implementation of optical properties without recompilation](examples/physics#optical-properties-of-materials-and-surfaces)
-  * [Optional radioactive decay simulation](examples/physics#radioactive-decay) with the possibility to [save the parent and daughter decays into different events if the later happens after a user specified time interval](examples/physics#split-decay-chain)
-* [Frequently used source spectra (AmBe, Am-241, etc.)](examples/sources#common-sources) in addition to [GPS](examples/sources)
-* [Output in multiple data format](examples/output)
-  * [ROOT](examples/output#root) TTree format (default, no [ROOT][] installation is needed)
+* [Easy switching between well maintained Geant4 reference physics lists without recompilation](tutorials/physics)
+  * [Individual processes can be turned on/off without recompilation](tutorials/physics#physics-processes)
+  * [Fast implementation of optical properties without recompilation](tutorials/physics#optical-properties-of-materials-and-surfaces)
+  * [Optional radioactive decay simulation](tutorials/physics#radioactive-decay) with the possibility to [save the parent and daughter decays into different events if the later happens after a user specified time interval](tutorials/physics#split-decay-chain)
+* [Frequently used source spectra (AmBe, Am-241, etc.)](tutorials/sources#common-sources) in addition to [GPS](tutorials/sources)
+* [Output in multiple data format](tutorials/output)
+  * [ROOT](tutorials/output#root) TTree format (default, no [ROOT][] installation is needed)
     * Build-in data compression, well suitable for large data processing
     * Fast access to independent data members
     * Flat tree (no nested branches or arrays) with short leaf names
@@ -37,17 +35,17 @@ The latest [GEARS][] required [Geant4.11](https://geant4.web.cern.ch/support/dow
       * Can be easily analyzed in [Python][] through [Uproot][].
   * [HDF5][], universal data format, easy to read by different tools
   * CSV or XML, Human readable ASCII file, capable of dealing with multiple dimensional arrays
-* [Record information of step 0](examples/output#record-information-of-step-0) (initStep), which is not available through [G4UserSteppingAction][]
+* [Record information of step 0](tutorials/output#record-information-of-step-0) (initStep), which is not available through [G4UserSteppingAction][]
 * [simple text][tg] or [GDML][] geometry I/O
-  * [Fast implementation of detector geometry](examples/detector) without C++ programming
+  * [Fast implementation of detector geometry](tutorials/detector) without C++ programming
   * Create/Change geometry without re-compilation
   * Turn off data saving in a volume by assigning it a non-positive copy number
-  * Turn any volume to a [sensitive detector](examples/detector#sensitive-volume) by adding "(S)" in its name
-  * [Assign optical properties in Geant4 plain text geometry description](examples/detector/optical), which is not available in the official [Geant4][] release
-  * [Syntax highlighting of the simple text geometry description files](examples/detector/syntax) in [Emacs](examples/detector/syntax#emacs), [Vim](examples/detector/syntax#vim), [Micro](examples/detector/syntax#micro), and [Sublime Text](examples/detector/syntax#sublime-text)
+  * Turn any volume to a [sensitive detector](tutorials/detector#sensitive-volume) by adding "(S)" in its name
+  * [Assign optical properties in Geant4 plain text geometry description](tutorials/detector/optical), which is not available in the official [Geant4][] release
+  * [Syntax highlighting of the simple text geometry description files](tutorials/detector/syntax) in [Emacs](tutorials/detector/syntax#emacs), [Vim](tutorials/detector/syntax#vim), [Micro](tutorials/detector/syntax#micro), and [Sublime Text](tutorials/detector/syntax#sublime-text)
 * [Creating 3D mesh to record and visualize physical variables in it without any change of the C++ code](http://geant4-userdoc.web.cern.ch/geant4-userdoc/UsersGuides/ForApplicationDeveloper/html/Detector/commandScore.html)
 * [Doxygen documentation](https://codedocs.xyz/jintonic/gears/)
-* Many [sample macros](examples) and [geometry descriptions](examples/detector) for feature demonstration
+* Many [sample macros](tutorials) and [geometry descriptions](tutorials/detector) for feature demonstration
 
 [ROOT]: https://root.cern.ch
 [GPS]:http://geant4-userdoc.web.cern.ch/geant4-userdoc/UsersGuides/ForApplicationDeveloper/html/GettingStarted/generalParticleSource.html
@@ -95,9 +93,9 @@ Two spaces instead of a tab are used to indent a line in [gears.cc](gears.cc) to
 
 ### To-do's
 
-- examples
+- tutorials
   - add an example to show how QE can be implemented
-  - add examples to show how one can distribute source in a volume or surface
+  - add tutorials to show how one can distribute source in a volume or surface
 
 [G4UserSteppingAction]:http://www-geant4.kek.jp/lxr/source/tracking/include/G4UserSteppingAction.hh
 [GDML]: https://gdml.web.cern.ch/GDML/
