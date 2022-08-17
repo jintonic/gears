@@ -1,10 +1,10 @@
 [![home](https://img.shields.io/badge/gears-home-blue?style=flat)](../../..)
-[![examples](https://img.shields.io/badge/gears-examples-green?style=flat)](../..)
-[![detector](https://img.shields.io/badge/examples-detector-orange?style=flat)](..)
+[![tutorials](https://img.shields.io/badge/gears-tutorials-green?style=flat)](../..)
+[![detector](https://img.shields.io/badge/tutorials-detector-orange?style=flat)](..)
 
 ## Boolean operation
 
-Three [examples][] are provided here to demonstrate how to create a complex geometry using the [Boolean][] operation.
+Three [tutorials][] are provided here to demonstrate how to create a complex geometry using the [Boolean][] operation.
 
 <img style="float:right; width:120px;" src="tophat.png"/>
 
@@ -18,7 +18,7 @@ $ gears tophat.mac
 
 You need to install [dawn][] or [HepRApp][] to view the result.
 
-[examples]:https://github.com/jintonic/gears/tree/master/examples/detector/boolean
+[tutorials]:https://github.com/jintonic/gears/tree/master/tutorials/detector/boolean
 [Boolean]:http://geant4-userdoc.web.cern.ch/geant4-userdoc/UsersGuides/ForApplicationDeveloper/html/Detector/Geometry/geomSolids.html?highlight=boolean#solids-made-by-boolean-operations
 [dawn]:https://geant4.kek.jp/~tanaka/DAWN/About_DAWN.html
 [HepRApp]: https://www.slac.stanford.edu/~perl/HepRApp/

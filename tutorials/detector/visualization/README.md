@@ -1,6 +1,6 @@
 [![home](https://img.shields.io/badge/gears-home-blue?style=flat)](../../..)
-[![examples](https://img.shields.io/badge/gears-examples-green?style=flat)](../..)
-[![detector](https://img.shields.io/badge/examples-detector-orange?style=flat)](..)
+[![tutorials](https://img.shields.io/badge/gears-tutorials-green?style=flat)](../..)
+[![detector](https://img.shields.io/badge/tutorials-detector-orange?style=flat)](..)
 
 ## Visualization of detector geometry
 
@@ -21,7 +21,7 @@ A [sample ASCIITree macro](ASCIITree.mac) is shipped with [GEARS][]. Try it out 
 
 ```sh
 $ cd /path/to/gears
-$ cd examples/detector/visualization
+$ cd tutorials/detector/visualization
 $ gears ASCIITree.mac
 ```
 Follow [this instruction][UI] to try it out in Windows.
@@ -36,7 +36,7 @@ A [sample RayTracer macro](RayTracer.mac) is shipped with [GEARS][]. Try it out 
 
 ```sh
 $ cd /path/to/gears
-$ cd examples/detector/visualization
+$ cd tutorials/detector/visualization
 $ gears RayTracer.mac
 ```
 
@@ -50,7 +50,7 @@ A [sample VRML macro](VRML.mac) is shipped with [GEARS][]. Try it out this way:
 
 ```sh
 $ cd /path/to/gears
-$ cd examples/detector/visualization
+$ cd tutorials/detector/visualization
 $ gears VRML.mac
 ```
 
@@ -66,7 +66,7 @@ A [sample HepRepFile macro](HepRepFile.mac) is shipped with [GEARS][]. Try it ou
 
 ```sh
 $ cd /path/to/gears
-$ cd examples/detector/visualization
+$ cd tutorials/detector/visualization
 $ gears HepRepFile.mac
 ```
 
@@ -98,7 +98,7 @@ A [sample HepRepXML macro](HepRepXML.mac) is shipped with [GEARS][]. Try it out 
 
 ```sh
 $ cd /path/to/gears
-$ cd examples/detector/visualization
+$ cd tutorials/detector/visualization
 $ gears HepRepXML.mac
 ```
 
@@ -115,7 +115,7 @@ A [sample DAWNFILE macro](DAWN.mac) is shipped with [GEARS][]. Try it out this w
 
 ```sh
 $ cd /path/to/gears
-$ cd examples/detector/visualization
+$ cd tutorials/detector/visualization
 $ gears DAWN.mac
 ```
 
@@ -127,7 +127,7 @@ A [sample OpenGL macro](OpenGL.mac) is shipped with [GEARS][]. Try it out this w
 
 ```sh
 $ cd /path/to/gears
-$ cd examples/detector/visualization
+$ cd tutorials/detector/visualization
 $ gears OpenGL.mac
 ```
 
@@ -167,4 +167,4 @@ References:
 [FreeWRL]: http://freewrl.sourceforge.net/download.html
 [view3dscene]:https://castle-engine.sourceforge.io/view3dscene.php
 [X3D]:https://stackoverflow.com/questions/14849593/vrml-to-x3d-conversion
-[v2x]:https://github.com/jintonic/gears/blob/master/examples/detector/visualization/v2x
+[v2x]:https://github.com/jintonic/gears/blob/master/tutorials/detector/visualization/v2x

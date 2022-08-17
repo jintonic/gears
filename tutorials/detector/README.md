@@ -1,5 +1,5 @@
 [![home](https://img.shields.io/badge/gears-home-blue?style=flat)](../..)
-[![examples](https://img.shields.io/badge/gears-examples-green?style=flat)](..)
+[![tutorials](https://img.shields.io/badge/gears-tutorials-green?style=flat)](..)
 [![visualization](https://img.shields.io/badge/detector-visualization-orange?style=flat)](visualization)
 [![boolen](https://img.shields.io/badge/boolean-operation-yellow?style=flat)](boolean)
 [![scripts](https://img.shields.io/badge/program-geometry-red?style=flat)](scripts)
@@ -21,7 +21,7 @@ Their difference is similar to that between [markdown][md] and [HTML][]. The sim
 :volu hall BOX 5*m 5*m 5*m G4_AIR
 ~~~
 
-For more examples, please check `*.tg` files in the [examples/detector](.) directory, such as [examples/detector/gears.tg](gears.tg) and [examples/detector/solids.tg](solids.tg). The suffix of *.tg* indicates that they are [text geometry][tg] description files. A [Geant4][] macro command `/geometry/source` is added to load geometry files:
+For more examples, please check `*.tg` files in the [tutorials/detector](.) directory, such as [tutorials/detector/gears.tg](gears.tg) and [tutorials/detector/solids.tg](solids.tg). The suffix of *.tg* indicates that they are [text geometry][tg] description files. A [Geant4][] macro command `/geometry/source` is added to load geometry files:
 
 ~~~sh
 /geometry/source gears.tg
@@ -54,7 +54,7 @@ This can only be used after the macro command [/run/initialize][run], which cons
  /geometry/export output.gdml
 ~~~
 
-You can find a concrete example in [examples/detector/GDML](GDML).
+You can find a concrete example in [tutorials/detector/GDML](GDML).
 
 #### Sensitive volume
 

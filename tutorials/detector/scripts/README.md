@@ -1,6 +1,6 @@
 [![home](https://img.shields.io/badge/gears-home-blue?style=flat)](../../..)
-[![examples](https://img.shields.io/badge/gears-examples-green?style=flat)](../..)
-[![detector](https://img.shields.io/badge/examples-detector-orange?style=flat)](..)
+[![tutorials](https://img.shields.io/badge/gears-tutorials-green?style=flat)](../..)
+[![detector](https://img.shields.io/badge/tutorials-detector-orange?style=flat)](..)
 
 ## Create text geometry using SHELL script
 

@@ -1,5 +1,5 @@
 [![home](https://img.shields.io/badge/gears-home-blue?style=flat)](../..)
-[![examples](https://img.shields.io/badge/gears-examples-green?style=flat)](..)
+[![tutorials](https://img.shields.io/badge/gears-tutorials-green?style=flat)](..)
 [![Step point](https://img.shields.io/badge/step-point-red?style=flat)](#step-point)
 [![Detected energy](https://img.shields.io/badge/total-energy-magenta?style=flat)](#total-energy)
 [![Data analysis](https://img.shields.io/badge/data-analysis-orange?style=flat)](#data-analysis)
@@ -301,7 +301,7 @@ root [] t->Draw("et[1]")
 ```
 ## Data analysis
 
-One can use the following command to generate `gears.root` in [GEARS][]/[examples](..)/[output](.)/:
+One can use the following command to generate `gears.root` in [GEARS][]/[tutorials](..)/[output](.)/:
 
 ```sh
 $ gears radiate.mac

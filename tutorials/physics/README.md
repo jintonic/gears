@@ -1,5 +1,5 @@
 [![home](https://img.shields.io/badge/gears-home-magenta?style=flat)](../..)
-[![examples](https://img.shields.io/badge/gears-examples-green?style=flat)](..)
+[![tutorials](https://img.shields.io/badge/gears-tutorials-green?style=flat)](..)
 [![alpha](https://img.shields.io/badge/alpha-interactions-blue?style=flat)](alpha)
 [![beta](https://img.shields.io/badge/beta-interactions-yellow?style=flat)](beta)
 [![gamma](https://img.shields.io/badge/gamma-interactions-cyan?style=flat)](gamma)
@@ -163,7 +163,7 @@ Some [isotope][]s in a radioactive [decay chain][] have long [half live][]s. The
  /run/beamOn 1
 ```
 
-Example macro and detector definition files can be found in [GEARS][][/examples/physics/decay](decay) folder. The following is an example analysis code to show the recorded events in ROOT:
+Example macro and detector definition files can be found in [GEARS][][/tutorials/physics/decay](decay) folder. The following is an example analysis code to show the recorded events in ROOT:
 
 ```cpp
 root [] t->Scan("pdg:trk:pid:stp:dt/1e9:t/1e9","","colsize=10 precision=10")

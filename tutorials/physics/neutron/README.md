@@ -1,6 +1,6 @@
 [![home](https://img.shields.io/badge/gears-home-blue?style=flat)](../../..)
-[![examples](https://img.shields.io/badge/gears-examples-green?style=flat)](../..)
-[![physics](https://img.shields.io/badge/examples-physics-red?style=flat)](..)
+[![tutorials](https://img.shields.io/badge/gears-tutorials-green?style=flat)](../..)
+[![physics](https://img.shields.io/badge/tutorials-physics-red?style=flat)](..)
 
 ## Neutron interactions
 
@@ -30,7 +30,7 @@ export G4NEUTRONHP_USE_ONLY_PHOTONEVAPORATION=1
 export G4LEVELGAMMADATA=/path/to/Geant4/installtion/folder/share/Geant4-??.?.?/data/PhotonEvaporation?.?
 ```
 
-Example simulation and analysis codes can be found in <https://github.com/jintonic/gears/tree/master/examples/physics/neutron/Gd>. As for Geant4.10.7, the simulated gamma-ray spectrum is not satisfactory compared to data described in <https://academic.oup.com/ptep/article/2020/4/043D02/5819518>.
+Example simulation and analysis codes can be found in <https://github.com/jintonic/gears/tree/master/tutorials/physics/neutron/Gd>. As for Geant4.10.7, the simulated gamma-ray spectrum is not satisfactory compared to data described in <https://academic.oup.com/ptep/article/2020/4/043D02/5819518>.
 
 ### A comprehensive example
 
