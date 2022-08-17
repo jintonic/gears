@@ -1,10 +1,10 @@
 The latest [GEARS][] required [Geant4.11](https://geant4.web.cern.ch/support/download). If you are still using Geant4.10, please download [v1.5.1](https://github.com/jintonic/gears/releases/tag/v1.5.1) of [GEARS][] from the [Release](https://github.com/jintonic/gears/releases) page.
 
-[![Install GEARS](https://img.shields.io/badge/install-gears-orange?style=flat)](INSTALL)
-[![Tutorials](https://img.shields.io/badge/gears-tutorials-blue?style=flat)](tutorials)
+[![Install GEARS](https://img.shields.io/badge/Install-GEARS-orange?style=flat)](INSTALL)
+[![Tutorials](https://img.shields.io/badge/GEARS-tutorials-blue?style=flat)](tutorials)
 [![YouTube](https://img.shields.io/badge/You-Tube-red?style=flat)](https://youtu.be/yBOs-JSQ6iA)
 [![Doxygen](https://codedocs.xyz/jintonic/gears.svg)](https://codedocs.xyz/jintonic/gears/annotated.html)
-[![Get Involved](https://img.shields.io/badge/get-involved-ff69b4?style=flat)](#how-to-contribute)
+[![Get Involved](https://img.shields.io/badge/Get-involved-ff69b4?style=flat)](#how-to-contribute)
 
 <a href="http://physino.xyz/gears/tutorials/detector/visualization/gearsX3D.html"><img align="right" width="120px" src="tutorials/detector/visualization/gears.png"/></a>
 
