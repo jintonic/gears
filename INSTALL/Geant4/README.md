@@ -52,47 +52,5 @@ singularity sign gears.sif
 singularity push gears.sif library://jintonic/geant4/gears:latest
 ```
 
-On a Linux machine that has [singularity][]/[apptainer][] installed, you can pull the image using the following commands:
-
-```sh
-singularity pull library://jintonic/geant4/gears
-```
-or
-```sh
-apptainer pull library://jintonic/geant4/gears
-```
-
-Note that you may need to set the location of your [apptainer][] [remote][] library before `pull`:
-
-```sh
-apptainer remote add sylabs https://cloud.sylabs.io
-apptainer remote use sylabs
-apptainer remote list
-```
-
-The `sif` file can be directly used as an executable:
-```sh
-./gears.sif example.mac
-
-
-          ################################
-          !!! G4Backtrace is activated !!!
-          ################################
-
-
-**************************************************************
- Geant4 version Name: geant4-11-00-patch-02 [MT]   (25-May-2022)
-                       Copyright : Geant4 Collaboration
-                      References : NIM A 506 (2003), 250-303
-                                 : IEEE-TNS 53 (2006), 270-278
-                                 : NIM A 835 (2016), 186-225
-                             WWW : http://geant4.org/
-**************************************************************
-
-Available UI session types: [ tcsh, csh ]
-PreInit>
-```
-
 [singularity]: https://en.wikipedia.org/wiki/Singularity_(software)
 [apptainer]: https://apptainer.org
-[remote]: https://apptainer.org/docs/user/1.0/endpoint.html
