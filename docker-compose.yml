@@ -53,14 +53,10 @@ services:
       - .:/root/gears
     build: examples/detector/visualization/ # docker-compose build vis
 
-  # launch an HTTP server to check GEARS webpages & geometry files created by v2x
-  site: # docker compose up site
-    image: jekyll/minimal:pages
-    # --force_polling: needed in bash in windows to watch for file changes
-    # --livereload: let a browser to reload when the site is regenerated
-    command: bundle exec jekyll serve --incremental --livereload --force_polling
-    ports:
-      - 4000:4000 # port for http service
-      - 35729:35729 # port for livereload service
-    volumes: [ ".:/srv/jekyll:cached" ]
-    profiles: [ "site" ]
+  # launch a Linux command line to run v2x
+  x3d: # docker compose run x3d
+    image: physino/root
+    command: /usr/bin/bash
+    ports: [ "8888:8888" ]
+    volumes: [ ".:/root/gears" ]
+    profiles: [ "x3d" ]
