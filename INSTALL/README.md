@@ -509,7 +509,35 @@ docker commit 53614a6b7563 physino/geant4:gears
 docker push physino/geant4:gears
 ```
 
-[docker-compose]: https://docs.docker.com/engine/reference/commandline/compose_run/
+An image containing a [jupyter][] notebook server for the analysis of simulation [output][] can be pulled from <https://hub.docker.com/r/physino/root>:
+
+```sh
+docker pull physino/root:notebook
+```
+
+[../docker-compose.yml](../docker-compose.yml) is created to run this server using [docker-compose][]:
+
+```sh
+cd /path/to/gears
+docker-compose up --rm notebook
+Creating network "gears_default" with the default driver
+Creating gears_notebook_1 ... done
+Attaching to gears_notebook_1
+...
+notebook_1  |     To access the notebook, open this file in a browser:
+notebook_1  |         file:///root/.local/share/jupyter/runtime/nbserver-10-open.html
+notebook_1  |     Or copy and paste one of these URLs:
+notebook_1  |         http://f7ab5a48c642:8888/?token=02fdb4ed449fbdf2e922fbfbffd7a9c1ff5ec1e5f4dc2359
+notebook_1  |      or http://127.0.0.1:8888/?token=02fdb4ed449fbdf2e922fbfbffd7a9c1ff5ec1e5f4dc2359
+```
+
+Open the last URL in a browser and you should be able to see the notebook, where you can use both [ROOT][] or [Python][] to analyze Geant4 [output][] in ROOT format.
+
+[docker-compose]: https://docs.docker.com/engine/reference/commandline/compose_run
+[output]: ../tutorials/output#root
+[jupyter]: https://jupyter.org
+[ROOT]: https://root.cern.ch
+[Python]: https://www.python.org
 
 ### Singularity images
 
