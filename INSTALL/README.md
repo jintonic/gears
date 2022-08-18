@@ -449,9 +449,63 @@ Save and quit, open a new terminal, and you should be able to run the `root` com
 [Geant4-config]: http://geant4-userdoc.web.cern.ch/geant4-userdoc/UsersGuides/InstallationGuide/html/buildtools.html#other-unix-build-systems-geant4-config
 
 ## Container images
+
 ### Docker images
 
-[hub]: https://hub.docker.com/r/physino/geant4
+The [GEARS][] [Docker][] image can be pulled from <https://hub.docker.com/r/physino/geant4/tags>. You can use [docker-compose][] to download the image (if it is not pulled to the local disk yet), and get into a command line user interface:
+
+```sh
+cd /path/to/gears
+docker-compose run --rm g4
+root@Geant4:~ $
+```
+
+where you can run
+
+```sh
+root@Geant4:~ $ gears
+
+
+          ################################
+          !!! G4Backtrace is activated !!!
+          ################################
+
+
+***************************************************************
+ Geant4 version Name: geant4-11-00-patch-02 [MT]   (25-May-2022)
+                       Copyright : Geant4 Collaboration
+                      References : NIM A 506 (2003), 250-303
+                                 : IEEE-TNS 53 (2006), 270-278
+                                 : NIM A 835 (2016), 186-225
+                             WWW : http://geant4.org/
+**************************************************************
+
+Available UI session types: [ tcsh, csh ]
+PreInit>
+```
+
+You can also use this shell to install any package that you like. For example,
+
+```sh
+root@Geant4:~ $ dnf install glibc-langpack-en
+```
+
+I use this to update [GEARS][] in the image if [gears.cc](../gears.cc) is modified:
+
+```sh
+root@Geant4:~ $ cd gears
+root@Geant4:~/gears $ make
+root@Geant4:~/gears $ mv gears /usr/bin
+root@Geant4:~/gears $ exit
+docker ps -a
+CONTAINER ID  IMAGE                 COMMAND  CREATED         STATUS                     PORTS  NAMES
+53614a6b7563  physino/geant4:gears  "bash"   3 minutes ago   Exited (0) 14 seconds ago         eloquent_napier
+...
+docker commit 53614a6b7563 physino/geant4:gears
+docker push physino/geant4:gears
+```
+
+[docker-compose]: https://docs.docker.com/engine/reference/commandline/compose_run/
 
 ### Singularity images
 
