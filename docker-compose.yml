@@ -1,7 +1,7 @@
 services:
   # launch a Linux command line with pre-compiled geant4
   g4: # docker-compose run g4
-    image: physino/geant4
+    image: physino/geant4:gears
     command: /usr/bin/bash
     volumes: [".:/root/gears"]
     profiles: [ "g4" ] # https://docs.docker.com/compose/profiles
