@@ -1,7 +1,7 @@
 The latest [GEARS][] required [Geant4.11](https://geant4.web.cern.ch/support/download). If you are still using Geant4.10, please download [v1.5.1](https://github.com/jintonic/gears/releases/tag/v1.5.1) of [GEARS][] from the [Release](https://github.com/jintonic/gears/releases) page.
 
-[![Install GEARS](https://img.shields.io/badge/Install-GEARS-orange?style=flat)](INSTALL)
-[![Tutorials](https://img.shields.io/badge/GEARS-tutorials-blue?style=flat)](tutorials)
+[![Get GEARS](https://img.shields.io/badge/Get-GEARS-orange?style=flat)](INSTALL)
+[![Tutorials](https://img.shields.io/badge/Use-GEARS-blue?style=flat)](tutorials)
 [![YouTube](https://img.shields.io/badge/You-Tube-red?style=flat)](https://youtu.be/yBOs-JSQ6iA)
 [![Doxygen](https://codedocs.xyz/jintonic/gears.svg)](https://codedocs.xyz/jintonic/gears/annotated.html)
 [![Get Involved](https://img.shields.io/badge/Get-involved-ff69b4?style=flat)](#how-to-contribute)
@@ -30,9 +30,9 @@ The latest [GEARS][] required [Geant4.11](https://geant4.web.cern.ch/support/dow
     * Build-in data compression, well suitable for large data processing
     * Fast access to independent data members
     * Flat tree (no nested branches or arrays) with short leaf names
-      * Easy to use in TTree::Draw
+      * Easy to use in [TTree][]::[Draw][]
       * No need to load extra library to open
-      * Can be easily analyzed in [Python][] through [Uproot][].
+      * Can be easily analyzed in [Python][] through [Uproot][]
   * [HDF5][], universal data format, easy to read by different tools
   * CSV or XML, Human readable ASCII file, capable of dealing with multiple dimensional arrays
 * [Record information of step 0](tutorials/output#record-information-of-step-0) (initStep), which is not available through [G4UserSteppingAction][]
@@ -45,12 +45,17 @@ The latest [GEARS][] required [Geant4.11](https://geant4.web.cern.ch/support/dow
   * [Syntax highlighting of the simple text geometry description files](tutorials/detector/syntax) in [Emacs](tutorials/detector/syntax#emacs), [Vim](tutorials/detector/syntax#vim), [Micro](tutorials/detector/syntax#micro), and [Sublime Text](tutorials/detector/syntax#sublime-text)
 * [Creating 3D mesh to record and visualize physical variables in it without any change of the C++ code](http://geant4-userdoc.web.cern.ch/geant4-userdoc/UsersGuides/ForApplicationDeveloper/html/Detector/commandScore.html)
 * [Doxygen documentation](https://codedocs.xyz/jintonic/gears/)
-* Many [sample macros](tutorials) and [geometry descriptions](tutorials/detector) for feature demonstration
+* Many simple [tutorials](tutorials) to demonstrate the usage of [Geant4][]
 
 [ROOT]: https://root.cern.ch
-[GPS]:http://geant4-userdoc.web.cern.ch/geant4-userdoc/UsersGuides/ForApplicationDeveloper/html/GettingStarted/generalParticleSource.html
+[GPS]: http://geant4-userdoc.web.cern.ch/geant4-userdoc/UsersGuides/ForApplicationDeveloper/html/GettingStarted/generalParticleSource.html
+[TTree]: https://root.cern/manual/trees
+[Draw]: https://root.cern.ch/doc/master/classTTree.html#a73450649dc6e54b5b94516c468523e45
 [Python]: https://www.python.org/
-[Uproot]: https://github.com/scikit-hep/uproot4
+[Uproot]: https://pypi.org/project/uproot
+[G4UserSteppingAction]:http://www-geant4.kek.jp/lxr/source/tracking/include/G4UserSteppingAction.hh
+[GDML]: https://gdml.web.cern.ch/GDML/
+[HDF5]: https://www.hdfgroup.org/downloads/hdf5/
 
 ## How to contribute
 
@@ -94,9 +99,4 @@ Two spaces instead of a tab are used to indent a line in [gears.cc](gears.cc) to
 ### To-do's
 
 - tutorials
-  - add an example to show how QE can be implemented
   - add tutorials to show how one can distribute source in a volume or surface
-
-[G4UserSteppingAction]:http://www-geant4.kek.jp/lxr/source/tracking/include/G4UserSteppingAction.hh
-[GDML]: https://gdml.web.cern.ch/GDML/
-[HDF5]: https://www.hdfgroup.org/downloads/hdf5/
