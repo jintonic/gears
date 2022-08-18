@@ -6,7 +6,7 @@
 [![install ROOT](https://img.shields.io/badge/Install-ROOT-pink?style=flat)](#install-root)
 [![Container images](https://img.shields.io/badge/Container-images-green?style=flat)](#container-images)
 
-[GEARS][] can run in three major operating systems: [Windows](#compile-gears-in-windows), [macOS](#compile-gears-in-macos), and [Linux](#compile-gears-in-linux). It depends on [Geant4][]. If you don't have [Geant4][] installed yet in your system, please read section [Install Geant4](#install-geant4) first. However, if you have [Docker][] installed on Windows or MacOS, or [apptainer][]/[singularity][] installed on Linux, you can run [GEARS][] in a [container][] where [Geant4][] has been installed. Please check [here](#container-images) for detailed instruction if you are interested in using containerized [GEARS][].
+[GEARS][] can run in three major operating systems: [Windows](#compile-gears-in-windows), [macOS](#compile-gears-in-macos), and [Linux](#compile-gears-in-linux). It depends on [Geant4][]. If you don't have [Geant4][] installed yet in your system, please read section [Install Geant4](#install-geant4) first. However, if you have [Docker][] installed on Windows or MacOS, or [apptainer][]/[singularity][] installed on Linux, you can run [GEARS][] in a [container][] where [Geant4][] has been installed, which can save you a lot of hassle. Please check [here](#container-images) for detailed instruction if you are interested in using containerized [GEARS][].
 
 [GEARS]: https://github.com/jintonic/gears
 [Geant4]: http://geant4.cern.ch
