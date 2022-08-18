@@ -1,3 +1,6 @@
+[![Docker image](https://img.shields.io/badge/Docker-image-orange?style=flat)](https://hub.docker.com/r/physino/geant4)
+[![Singularity image](https://img.shields.io/badge/Singularity-image-yellow?style=flat)](https://cloud.sylabs.io/library/jintonic/geant4/gears)
+
 ## Docker image
 
 [Dockerfile](Dockerfile) in this folder is used to install the latest [Geant4][] in the latest [Fedora][] [Docker][] [container][].
@@ -14,7 +17,7 @@ docker push physino/geant4:gears
 
 [GEARS][] is included in `/usr/bin` in this [image][] as a verification of the [Geant4][] installation.
 
-As the libraries were compiled already, the installation process only involves downloading and unpacking them, and only costs about 12 minutes, where, 10 minutes is used to download and unpack [Geant4][] [datasets][download]. Unfortunately, [Qt][] and [GDML][] were not enabled in the pre-compilation. Another image, <https://hub.docker.com/r/physino/g4vis>, is created to visualize detector geometries using the [HepRApp][] viewer.
+As the libraries were compiled already, the installation process only involves downloading and unpacking them, and only costs about 12 minutes, where, 10 minutes is used to download and unpack [Geant4][] [datasets][download]. Unfortunately, [Qt][] and [GDML][] were not enabled in the pre-compilation. Another image, <https://hub.docker.com/r/physino/g4vis>, is created with the [HepRApp][] viewer included to visualize detector geometries created using this [image][].
 
 [Geant4]: https://geant4.web.cern.ch
 [Fedora]: https://hub.docker.com/_/fedora
