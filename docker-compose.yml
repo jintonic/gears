@@ -51,7 +51,7 @@ services:
     volumes:
       - /tmp/.X11-unix:/tmp/.X11-unix
       - .:/root/gears
-    build: examples/detector/visualization/ # docker-compose build vis
+    build: tutorials/detector/visualization/ # docker-compose build vis
 
   # launch a Linux command line to run v2x
   x3d: # docker compose run x3d
