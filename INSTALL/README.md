@@ -452,10 +452,14 @@ Save and quit, open a new terminal, and you should be able to run the `root` com
 
 ### Docker images
 
-The [GEARS][] [Docker][] image can be pulled from <https://hub.docker.com/r/physino/geant4/tags>. You can use [docker-compose][] to download the image (if it is not pulled to the local disk yet), and get into a command line user interface:
+The [GEARS][] [Docker][] image can be pulled from <https://hub.docker.com/r/physino/geant4>. You can use [docker-compose][] to download the image (if it is not pulled to the local disk yet), and get into a command line user interface:
 
 ```sh
+# docker-compose.yml is localed in /path/to/gears
 cd /path/to/gears
+# the pull command only needs to be run at the first time
+docker-compose pull g4
+# --rm (optional) is used to delete the container after each use
 docker-compose run --rm g4
 root@Geant4:~ $
 ```
@@ -509,4 +513,50 @@ docker push physino/geant4:gears
 
 ### Singularity images
 
+The [GEARS][] [singularity][] image can be pulled from [sylabs][]:
+
+```sh
+singularity pull gears.sif library://jintonic/geant4/gears
+```
+
+or
+
+```sh
+apptainer pull library://jintonic/geant4/gears
+```
+
+Note that you may need to set the location of your [apptainer][] [remote][] library before `pull`:
+
+```sh
+apptainer remote add sylabs https://cloud.sylabs.io
+apptainer remote use sylabs
+apptainer remote list
+```
+
+The `sif` file can be directly used as an executable:
+```sh
+./gears.sif example.mac
+
+
+          ################################
+          !!! G4Backtrace is activated !!!
+          ################################
+
+
+**************************************************************
+ Geant4 version Name: geant4-11-00-patch-02 [MT]   (25-May-2022)
+                       Copyright : Geant4 Collaboration
+                      References : NIM A 506 (2003), 250-303
+                                 : IEEE-TNS 53 (2006), 270-278
+                                 : NIM A 835 (2016), 186-225
+                             WWW : http://geant4.org/
+**************************************************************
+
+Available UI session types: [ tcsh, csh ]
+PreInit>
+```
+
 [sylabs]: https://cloud.sylabs.io/library/jintonic/geant4/gears
+[singularity]: https://en.wikipedia.org/wiki/Singularity_(software)
+[apptainer]: https://apptainer.org
+[remote]: https://apptainer.org/docs/user/1.0/endpoint.html
