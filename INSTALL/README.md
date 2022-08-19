@@ -452,6 +452,10 @@ Save and quit, open a new terminal, and you should be able to run the `root` com
 
 ### Docker images
 
+[![physino/geant4](https://img.shields.io/badge/physino-geant4-blue?style=flat)](https://hub.docker.com/r/physino/geant4)
+[![physino/root](https://img.shields.io/badge/physino-root-pink?style=flat)](https://hub.docker.com/r/physino/root)
+[![physino/g4vis](https://img.shields.io/badge/physino-g4vis-yellow?style=flat)](https://hub.docker.com/r/physino/g4vis)
+
 The [GEARS][] [Docker][] image can be pulled from <https://hub.docker.com/r/physino/geant4>. You can use [docker-compose][] to download the image (if it is not pulled to the local disk yet), and get into a command line user interface:
 
 ```sh
@@ -540,6 +544,10 @@ Open the last URL in a browser and you should be able to see the notebook, where
 [Python]: https://www.python.org
 
 ### Singularity images
+
+[![jintonic/geant4/gears](https://img.shields.io/badge/geant4-gears-blue?style=flat)](https://cloud.sylabs.io/library/jintonic/geant4/gears)
+[![jintonic/root/notebook](https://img.shields.io/badge/root-notebook-pink?style=flat)](https://cloud.sylabs.io/library/jintonic/root/notebook)
+[![jintonic/geant4/vis](https://img.shields.io/badge/geant4-vis-yellow?style=flat)](https://cloud.sylabs.io/library/jintonic/geant4/vis)
 
 The [GEARS][] [singularity][] image can be pulled from [sylabs][]:
 
