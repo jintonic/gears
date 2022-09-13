@@ -1,0 +1,13 @@
+BootStrap: docker
+From: physino/root:notebook
+
+%runscript
+root -l "$@"
+
+%environment
+# default locale in the host might be en_US.UTF-8,
+# which is not available in the container
+export LANG=C.UTF-8
+export LC_ALL=C.UTF-8
+# load settings in ~/.bashrc
+export SINGULARITY_SHELL=/usr/bin/bash

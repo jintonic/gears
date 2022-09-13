@@ -1,0 +1,20 @@
+BootStrap: docker
+From: physino/g4vis
+
+%help
+Container of HepRApp and X3D viewers
+
+%post
+# customize container PS1 (https://stackoverflow.com/a/61251143)
+echo "#!/bin/sh" > /.singularity.d/env/99-vis.sh
+echo 'PS1="\u@g4vis:\w \$ "' >> /.singularity.d/env/99-vis.sh
+
+%environment
+export LANG=C.UTF-8
+export LC_ALL=C.UTF-8
+# https://github.com/apptainer/singularity/issues/643
+# settings in ~/.bashrc will be loaded last
+export SINGULARITY_SHELL=/usr/bin/bash
+
+%runscript
+hv "$@"
