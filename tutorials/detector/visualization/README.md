@@ -1,5 +1,5 @@
 [![home](https://img.shields.io/badge/gears-home-blue?style=flat)](../../..)
-[![tutorials](https://img.shields.io/badge/gears-tutorials-green?style=flat)](../..)
+[![tutorials](https://img.shields.io/badge/use-GEARS-green?style=flat)](../..)
 [![detector](https://img.shields.io/badge/tutorials-detector-orange?style=flat)](..)
 
 ## Visualization of detector geometry
