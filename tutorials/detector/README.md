@@ -1,5 +1,5 @@
 [![home](https://img.shields.io/badge/gears-home-blue?style=flat)](../..)
-[![tutorials](https://img.shields.io/badge/gears-tutorials-green?style=flat)](..)
+[![tutorials](https://img.shields.io/badge/use-GEARS-green?style=flat)](..)
 [![visualization](https://img.shields.io/badge/detector-visualization-orange?style=flat)](visualization)
 [![boolen](https://img.shields.io/badge/boolean-operation-yellow?style=flat)](boolean)
 [![scripts](https://img.shields.io/badge/program-geometry-red?style=flat)](scripts)
