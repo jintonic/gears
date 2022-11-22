@@ -1,8 +1,7 @@
 FROM fedora
 
-RUN dnf update -y && dnf install -y root \
+RUN dnf update -y && dnf install -y root root-gui-webdisplay \
   && dnf clean all && rm -fr /var/cache/* root/*.log root/*.cfg
-
 
 WORKDIR /root/gears
 
