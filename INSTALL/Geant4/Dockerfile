@@ -1,6 +1,6 @@
 FROM fedora
 
-ARG v=11.0.2
+ARG v=11.0.3
 
 # `which` is needed by `make`
 # `mesa-libGL` & `libXmu` is needed to compile geant4 application

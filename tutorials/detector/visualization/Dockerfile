@@ -1,7 +1,7 @@
 FROM fedora
 
 # install packages needed to run HepRepFile viewer
-RUN dnf install -y java-1.8.0-openjdk && dnf clean all && rm -fr /var/cache/*
+RUN dnf install -y xauth java-1.8.0-openjdk && dnf clean all && rm -fr /var/cache/*
 
 # install HepRepFile visualization tools
 COPY v2x hv /usr/bin

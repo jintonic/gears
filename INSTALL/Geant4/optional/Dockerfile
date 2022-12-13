@@ -1,6 +1,6 @@
 FROM fedora
 
-ARG v=v11.0.2
+ARG v=v11.0.3
 
 # install packages needed to compile and run Geant4 GUI
 RUN dnf install -y openssl freewrl java-1.8.0-openjdk expat-devel \

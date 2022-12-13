@@ -9,7 +9,7 @@ echo "#!/bin/sh" > /.singularity.d/env/99-g4.sh
 grep DATA /usr/bin/geant4.sh >> /.singularity.d/env/99-g4.sh
 
 # customize container PS1 (https://stackoverflow.com/a/61251143)
-echo 'PS1="\u@geant4.11.0.2:\w \$ "' >> /.singularity.d/env/99-g4.sh
+echo 'PS1="\u@geant4.11.0.3:\w \$ "' >> /.singularity.d/env/99-g4.sh
 
 %environment
 export LANG=C.UTF-8
