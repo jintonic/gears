@@ -1,4 +1,4 @@
-[![GEARS](https://img.shields.io/badge/GEARS-Home-blue?style=flat)](../..)
+[![GEARS](https://img.shields.io/badge/GEARS-Home-blue?style=flat)](https://github.com/jintonic/gears)
 [![INSTALL](https://img.shields.io/badge/Get-GEARS-red?style=flat)](..)
 [![Docker](https://img.shields.io/badge/Docker-images-orange?style=flat)](#docker-images)
 [![Jupyter](https://img.shields.io/badge/Jupyter-notebook-green?style=flat)](notebook)
@@ -26,8 +26,6 @@ assuming that you already have [Homebrew][] and the full [Xcode][] installed alr
 Please refer to <https://root.cern/install/> for detailed instruction.
 
 ## Docker images
-[![physino/root:latest](https://img.shields.io/badge/GEARS-Home-blue?style=flat)](../..)
-[![physino/root:notebook](https://img.shields.io/badge/Get-GEARS-red?style=flat)](..)
 Another way to obtain [ROOT][] is to use a [Docker][] container that has [ROOT][] pre-installed in it. Official [ROOT][] [Docker][] images on <https://hub.docker.com/r/rootproject/root> only work on `linux/amd64` architecture. [Dockerfile](Dockerfile) in this folder is used to create [physino/root:latest][] for multiple architectures, including `linux/arm64` for Apple M1, M2 chips. The usage of these images can be found on <https://hub.docker.com/r/physino/root>.
 
 ### For image creators
@@ -52,7 +50,7 @@ docker buildx build --platform linux/amd64,linux/arm64 -t physino/csi_qf_data_re
 The [Dockerfile](Dockerfile) in this folder uses [fedora:latest][] as its base, which is a rather modern Linux distribution that has [ROOT][] in its package repository.
 
 [ROOT]: https://root.cern.ch
-[GEARS]: ../..
+[GEARS]: https://github.com/jintonic/gears
 [uproot]: https://pypi.org/project/uproot
 [Python]: https://www.python.org/
 [Homebrew]: https://brew.sh

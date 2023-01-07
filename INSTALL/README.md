@@ -1,4 +1,4 @@
-[![home](https://img.shields.io/badge/Home-page-blue?style=flat)](..)
+[![home](https://img.shields.io/badge/GEARS-Home-blue?style=flat)](https://github.com/jintonic/gears)
 [![compile gears](https://img.shields.io/badge/Compile-GEARS-yellow?style=flat)](#compile-gears)
 [![install gears](https://img.shields.io/badge/Install-GEARS-brown?style=flat)](#install-gears)
 [![use gears](https://img.shields.io/badge/Use-GEARS-red?style=flat)](#use-gears)
