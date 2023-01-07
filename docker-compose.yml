@@ -31,6 +31,8 @@ services:
     volumes:
       - /tmp/.X11-unix:/tmp/.X11-unix
       - .:/root/gears
+    # https://docs.docker.com/compose/compose-file/#working_dir
+    working_dir: /root/gears
     build: INSTALL/ROOT/ # docker-compose build root
 
   # launch a Jupyter notebook service to analyze data with ROOT or Python
