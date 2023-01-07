@@ -3,7 +3,7 @@
 [![install gears](https://img.shields.io/badge/Install-GEARS-brown?style=flat)](#install-gears)
 [![use gears](https://img.shields.io/badge/Use-GEARS-red?style=flat)](#use-gears)
 [![install Geant4](https://img.shields.io/badge/Install-Geant4-magenta?style=flat)](#install-geant4)
-[![install ROOT](https://img.shields.io/badge/Install-ROOT-pink?style=flat)](#install-root)
+[![install ROOT](https://img.shields.io/badge/Install-ROOT-pink?style=flat)](ROOT)
 [![Container images](https://img.shields.io/badge/Container-images-green?style=flat)](#container-images)
 
 [GEARS][] can run in three major operating systems: [Windows](#compile-gears-in-windows), [macOS](#compile-gears-in-macos), and [Linux](#compile-gears-in-linux). It depends on [Geant4][]. If you don't have [Geant4][] installed yet in your system, please read section [Install Geant4](#install-geant4) first. However, if you have [Docker][] installed on Windows or MacOS, or [apptainer][]/[singularity][] installed on Linux, you can run [GEARS][] in a [container][] where [Geant4][] has been installed, which can save you a lot of hassle. Please check [here](#container-images) for detailed instruction if you are interested in using containerized [GEARS][].
@@ -394,60 +394,6 @@ source /path/to/your/pre-compiled/geant4/bin/geant4.sh
 source /path/to/gears/gears.sh
 ```
 
-# Install ROOT
-
-[ROOT][] is NOT needed to compile or run [GEARS][] even though the default output file format is in [ROOT][]. It is not even needed for the analysis of the output file, instead, one can use [uproot][] to read the file in [Python][]. However, it is very convenient to analyze the [GEARS][] output data in a [ROOT][] interactive session using [TTree::Draw](tutorials/output/#data-analysis). The compilation of [ROOT][] takes a long time. However, installation of pre-compiled [ROOT][] libraries is very easy.
-
-## Install pre-compiled ROOT in Windows
-Some [manual modifications](https://root-forum.cern.ch/t/windows-install-issue-with-root-version-618-02/35773/7) have to be done after installing pre-compiled ROOT in version 6. If you don't mind, install version 5 instead. It works right after the installation. Old ROOT releases can be found at <https://root.cern.ch/releases>. In the installation, please don't forget to make the following choice:
-
-![winrootpath](winrootpath.png)
-
-## Install pre-compiled ROOT in macOS
-
-Download pre-compiled ROOT for macOS from <https://root.cern.ch/downloading-root>. If you download the `.pkg` version, simply double click on the file to install it to `/Applications/` directory and then add the following to your `~/.bash_profile` (or `~/.zshrc` if you use `zsh`):
-
-```sh
-export ROOTSYS=/Applications/root_v6.20.04
-export PATH=$ROOTSYS/bin:$PATH
-export DYLD_LIBRARY_PATH=$ROOTSYS/lib:$DYLD_LIBRARY_PATH
-```
-
-Save and quit, open a new terminal, and you should be able to run the `root` command in that new terminal.
-
-If you encounter some error messages related to `/Library/Developer/CommandLineTools`, you need to use the following command to install [command line tools for developers](https://osxdaily.com/2014/02/12/install-command-line-tools-mac-os-x/):
-
-```sh
-$ xcode-select --install
-```
-
-and then try to run `root` again.
-
-## Install pre-compiled ROOT in Linux
-Download pre-compiled ROOT for your Linux distribution from <https://root.cern.ch/downloading-root>, for example:
-
-```sh
-# download ROOT package
-$ wget https://root.cern/download/root_v6.20.04.Linux-ubuntu19-x86_64-gcc9.2.tar.gz
-# unpack it to the current directory
-$ tar xfvz root_v6.20.04.Linux-ubuntu19-x86_64-gcc9.2.tar.gz
-```
-
-Add the following to your `~/.bashrc` (or `~/.zshrc` if you use `zsh`):
-
-```sh
-export ROOTSYS=/path/to/root
-export PATH=$ROOTSYS/bin:$PATH
-export LD_LIBRARY_PATH=$ROOTSYS/lib:$LD_LIBRARY_PATH
-```
-
-Save and quit, open a new terminal, and you should be able to run the `root` command in that new terminal.
-
-[ROOT]: https://root.cern.ch
-[uproot]: https://github.com/scikit-hep/uproot
-[Python]: https://www.python.org/
-[Geant4-config]: http://geant4-userdoc.web.cern.ch/geant4-userdoc/UsersGuides/InstallationGuide/html/buildtools.html#other-unix-build-systems-geant4-config
-
 ## Container images
 
 ### Docker images
@@ -512,36 +458,6 @@ CONTAINER ID  IMAGE                 COMMAND  CREATED         STATUS             
 docker commit 53614a6b7563 physino/geant4:gears
 docker push physino/geant4:gears
 ```
-
-An image containing a [jupyter][] notebook server for the analysis of simulation [output][] can be pulled from <https://hub.docker.com/r/physino/root>:
-
-```sh
-docker pull physino/root:notebook
-```
-
-[../docker-compose.yml](../docker-compose.yml) is created to run this server using [docker-compose][]:
-
-```sh
-cd /path/to/gears
-docker-compose up --rm notebook
-Creating network "gears_default" with the default driver
-Creating gears_notebook_1 ... done
-Attaching to gears_notebook_1
-...
-notebook_1  |     To access the notebook, open this file in a browser:
-notebook_1  |         file:///root/.local/share/jupyter/runtime/nbserver-10-open.html
-notebook_1  |     Or copy and paste one of these URLs:
-notebook_1  |         http://f7ab5a48c642:8888/?token=02fdb4ed449fbdf2e922fbfbffd7a9c1ff5ec1e5f4dc2359
-notebook_1  |      or http://127.0.0.1:8888/?token=02fdb4ed449fbdf2e922fbfbffd7a9c1ff5ec1e5f4dc2359
-```
-
-Open the last URL in a browser and you should be able to see the notebook, where you can use both [ROOT][] or [Python][] to analyze Geant4 [output][] in ROOT format.
-
-[docker-compose]: https://docs.docker.com/engine/reference/commandline/compose_run
-[output]: ../tutorials/output#root
-[jupyter]: https://jupyter.org
-[ROOT]: https://root.cern.ch
-[Python]: https://www.python.org
 
 ### Singularity images
 
