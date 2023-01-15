@@ -60,6 +60,7 @@ gxml.cc
 out
 build
 Release
+*.pdb
 
 # macOS
 .DS_Store
