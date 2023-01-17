@@ -9,9 +9,13 @@ endif
 # Setup flags used by the implicit make rule: %:%.cc
 CXXFLAGS=$(shell geant4-config --cflags)
 LDLIBS=$(shell geant4-config --libs)
-# fix cxxflags for Geant4.10.7.0
+# fix CXXFLAGS for Geant4.10.7.0
 CXXFLAGS+=$(shell geant4-config --cflags |awk '{print $$NF}'|sed 's|de/Geant4|de|')
 CXXFLAGS+=-Wno-shadow
+# fix LDLIBS for Geant4.11.1.0
+ifeq (11.1.0, $(shell geant4-config --version))
+  LDLIBS+=-lG4ToolsSG
+endif
 
 # In case that GDML and HDF5 libs are in user specified folders,
 # add them in the LDLIBS flag.
