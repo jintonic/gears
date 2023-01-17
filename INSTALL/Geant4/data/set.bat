@@ -6,15 +6,15 @@
 @echo off
 
 :: feel free to change version numbers as needed
-:: the following numbers are set for Geant4 11.0
+:: the following numbers are set for Geant4 11.1
 set url=http://cern.ch/geant4-data/datasets
 setlocal enabledelayedexpansion
 @for %%a in (
 G4ABLA3.1
-G4EMLOW8.0
+G4EMLOW8.2
 G4ENSDFSTATE2.3
 G4INCL1.0
-G4NDL4.6
+G4NDL4.7
 G4PARTICLEXS4.0
 G4PII1.3
 G4SAIDDATA2.0
