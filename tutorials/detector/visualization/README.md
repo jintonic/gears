@@ -84,28 +84,24 @@ java -jar HepRApp.jar -opt HepRApp.properties -file G4Data0.heprep
 
 In case of Windows, please download [HepRApp.jar](http://www.slac.stanford.edu/~perl/HepRApp/HepRApp.jar) and double click on it in a file browser to launch it.
 
-Unfortunately, `HepRApp.jar` can only be run on java version less or equal to 1.8, while current java version is 16 (as of 2021). To use the HepRApp viewer, you need to install two versions of java and switch to the older one if needed. This can be done, but the detailed procedure changes with the OS. In case of a Mac, one can follow [this link](https://stackoverflow.com/questions/24342886/how-to-install-java-8-on-mac) to install java 1.8 and [this link](https://stackoverflow.com/questions/21964709/how-to-set-or-change-the-default-java-jdk-version-on-os-x) to switch in between different versions of java. In case of Ubuntu, please refer to [this link](https://docs.datastax.com/en/jdk-install/doc/jdk-install/installOpenJdkDeb.html). In case of Windows, simply download it from <https://www.java.com/en/download>.
+Unfortunately, `HepRApp.jar` can only be run on java version less or equal to 1.8, while current java version is 21 (as of 2023). To use the HepRApp viewer, you need to install two versions of java and switch to the older one if needed. This can be done, but the detailed procedure changes with the OS. In case of a Mac, one can follow [this link](https://stackoverflow.com/questions/24342886/how-to-install-java-8-on-mac) to install java 1.8 and [this link](https://stackoverflow.com/questions/21964709/how-to-set-or-change-the-default-java-jdk-version-on-os-x) to switch in between different versions of java. In case of Ubuntu, please refer to [this link](https://docs.datastax.com/en/jdk-install/doc/jdk-install/installOpenJdkDeb.html). In case of Windows, simply download it from <https://www.java.com/en/download>.
 
 [HepRApp.properties](HepRApp.properties) is the configuration file for [HepRApp][]. It is also shipped with [GEARS][].
 
 [HepRApp]: https://www.slac.stanford.edu/~perl/HepRApp/
 
-### HepRepXML
+### TSG
 
-[HepRepXML](http://geant4-userdoc.web.cern.ch/geant4-userdoc/UsersGuides/ForApplicationDeveloper/html/Visualization/visdrivers.html#heprepxml) is available in any [Geant4][] installation. It is used to generate binary HepRep (`.bheprep`) or XML HepRep (`.heprep`) file, which can be viewed using an external program called [JAS3][] with the [WIRED4][] plugin.
+[ToolsSG](https://geant4-userdoc.web.cern.ch/UsersGuides/ForApplicationDeveloper/html/Visualization/visdrivers.html#toolssg) is available in [Geant4][] version >= 11.1. It can be used with X11 or Qt.
 
-A [sample HepRepXML macro](HepRepXML.mac) is shipped with [GEARS][]. Try it out this way:
+A [sample ToolsSG  macro](TSG.mac) is shipped with [GEARS][]. Try it out this way:
 
 ```sh
 $ cd /path/to/gears
 $ cd tutorials/detector/visualization
-$ gears HepRepXML.mac
+$ gears
+$ /control/execute TSG.mac
 ```
-
-It generates `scene-0.heprep.zip` in the same directory, which can be directly open using [WIRED4][] in [JAS3][].
-
-[JAS3]: http://jas.freehep.org/jas3
-[WIRED4]:http://wired.freehep.org/index.html
 
 ### DAWNFILE
 
