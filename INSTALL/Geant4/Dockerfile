@@ -26,7 +26,7 @@ RUN cd usr/bin \
   && curl -LO https://github.com/jintonic/gears/raw/master/Makefile \
   && make && rm -f gears.cc Makefile
 
-WORKDIR root
+WORKDIR root/gears
 
 # avoid using ENV to hard code datasets' locaitons
 COPY entrypoint.sh /bin/entrypoint.sh
