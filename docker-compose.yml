@@ -1,4 +1,17 @@
 services:
+  # launch a Linux command line with gears on pre-compiled geant4
+  gears: # docker-compose run gears
+    image: physino/gears
+    command: /usr/bin/bash
+    profiles: [ "gears" ]
+    platform: linux/amd64
+    environment: # https://docs.docker.com/desktop/networking
+      - DISPLAY=host.docker.internal:0.0
+    volumes:
+      - /tmp/.X11-unix:/tmp/.X11-unix
+      - .:/root/gears
+    build: INSTALL # docker-compose build gears
+
   # launch a Linux command line with pre-compiled geant4
   g4: # docker-compose run g4
     image: physino/geant4:gears
@@ -7,19 +20,6 @@ services:
     profiles: [ "g4" ] # https://docs.docker.com/compose/profiles
     # https://docs.docker.com/compose/compose-file/build/
     build: INSTALL/Geant4 # docker-compose build g4
-
-  # launch a Linux command line with geant4 compiled with Qt, GDML
-  optional: # docker-compose run optional
-    image: physino/geant4:optional
-    command: /usr/bin/bash
-    volumes: [".:/root/gears"]
-    profiles: [ "optional" ]
-    environment: # https://docs.docker.com/desktop/networking
-      - DISPLAY=host.docker.internal:0.0
-    volumes:
-      - /tmp/.X11-unix:/tmp/.X11-unix
-      - .:/root/gears
-    build: INSTALL/Geant4/optional # docker-compose build optional
 
   # launch a Linux command line where cern root is available
   root: # docker-compose run root
