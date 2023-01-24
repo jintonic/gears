@@ -1,12 +1,19 @@
-FROM fedora
+# https://geant4.web.cern.ch/support/download
+# Geant4 is pre-compiled using gcc 8.5.0 on CERN CentOS-Stream8, 64 bits
+FROM centos:centos8
 
-ARG v=11.1
+# https://yegorshytikov.medium.com/error-failed-to-download-metadata-for-repo-appstream-cannot-prepare-internal-mirrorlist-no-959768e5f8e5
+RUN cd /etc/yum.repos.d/ && sed -i 's/mirrorlist/#mirrorlist/g' /etc/yum.repos.d/CentOS-* \
+ && sed -i 's|#baseurl=http://mirror.centos.org|baseurl=http://vault.centos.org|g' /etc/yum.repos.d/CentOS-*
 
 # `which` is needed by `make`
 # `mesa-libGL` & `libXmu` is needed to compile geant4 application
 # `openssl` is needed to download geant4 datasets
-RUN  dnf install -y gcc-c++ which mesa-libGL libXmu openssl \
+RUN  dnf install -y gcc-c++ which mesa-libGL libXmu openssl make \
   && dnf clean all && rm -fr /var/cache/*
+
+# Geant4 version
+ARG v=11.1
 
 # get pre-compiled geant4
 RUN  curl -LO http://geant4-data.web.cern.ch/releases/lib_$v/Linux-g++8.5.0-CC8.tar.gz \
@@ -28,8 +35,7 @@ RUN cd usr/bin \
 
 WORKDIR root/gears
 
-# avoid using ENV to hard code datasets' locaitons
+# avoid using ENV to hard code datasets' locations
 COPY entrypoint.sh /bin/entrypoint.sh
 RUN chmod 755 /bin/entrypoint.sh
 ENTRYPOINT ["/bin/entrypoint.sh"]
-CMD ["gears"]
