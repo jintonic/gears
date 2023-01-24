@@ -1,6 +1,10 @@
-[![home](https://img.shields.io/badge/gears-home-blue?style=flat)](../../..)
-[![tutorials](https://img.shields.io/badge/use-GEARS-green?style=flat)](../..)
-[![detector](https://img.shields.io/badge/tutorials-detector-orange?style=flat)](..)
+[![ASCIITree](https://img.shields.io/badge/ASCII-Tree-blue?style=flat)](#asciitree)
+[![RayTracer](https://img.shields.io/badge/Ray-Tracer-green?style=flat)](#raytracer)
+[![VRML](https://img.shields.io/badge/VRML-orange?style=flat)](#vrml)
+[![HepRepFile](https://img.shields.io/badge/HepRep-File-yellow?style=flat)](#heprepfile)
+[![ToolsSG](https://img.shields.io/badge/Tools-SG-red?style=flat)](#tsg)
+[![DAWNFILE](https://img.shields.io/badge/DAWN-FILE-cyan?style=flat)](#dawnfile)
+[![OpenGL](https://img.shields.io/badge/Open-GL-magenta?style=flat)](#opengl)
 
 ## Visualization of detector geometry
 
