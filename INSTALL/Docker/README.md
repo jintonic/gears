@@ -1,5 +1,6 @@
 [![Docker image](https://img.shields.io/badge/Docker-image-blue.svg)](https://hub.docker.com/r/physino/gears)
 [![Dockerfile](https://img.shields.io/badge/Docker-file-red.svg)](Dockerfile)
+[![For developer](https://img.shields.io/badge/For-developer-red.svg)](#for-developer)
 
 This folder contains a [Dockerfile](Dockerfile) to generate the [Docker][] image <https://hub.docker.com/r/physino/gears>, which contains [GEARS][] compiled with the latest 64-bit [Geant4][] libraries pre-compiled with gcc 8.5.0 on CERN CentOS8 (CC8) Linux. They are directly downloaded from the [Geant4][] [download][] page.
 
@@ -92,3 +93,4 @@ docker push physino/gears
 [Qt]: https://geant4-userdoc.web.cern.ch/UsersGuides/ForApplicationDeveloper/html/Visualization/visdrivers.html#qt
 [GDML]: https://geant4-userdoc.web.cern.ch/UsersGuides/ForApplicationDeveloper/html/Detector/Geometry/geomXML.html
 [GEARS]: https://github.com/jintonic/gears
+[docker-compose]: https://docs.docker.com/compose
