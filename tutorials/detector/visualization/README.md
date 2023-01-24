@@ -60,7 +60,10 @@ A shell script [v2x][] is shipped in the same directory to convert the latest `g
 
 ### HepRepFile
 
-The [HepRepFile][] visualization driver is available in any [Geant4][] installation. It can be used to generate `G4Data*.heprep` files, which can be viewed using an external program called [HepRApp][] in wireframe mode, that is, no surface, only outlines.
+[![Docker image](https://img.shields.io/badge/Docker-image-blue?style=flat)](https://hub.docker.com/r/physino/heprapp)
+[![Apptainer image](https://img.shields.io/badge/Apptainer-image-red?style=flat)](https://cloud.sylabs.io/library/jintonic/geant4/vis)
+
+The [HepRepFile][] visualization driver is available in any [Geant4][] installation. It can be used to generate `G4Data*.heprep` files, which can be viewed using an external program called [HepRApp][] in wireframe mode, that is, no surface, only outlines, which sounds primitive, but is one of the best ways to troubleshoot a complicated geometry.
 
 A [sample HepRepFile macro](HepRepFile.mac) is shipped with [GEARS][]. Try it out this way:
 
@@ -70,7 +73,7 @@ $ cd tutorials/detector/visualization
 $ gears HepRepFile.mac
 ```
 
-It generates `G4Data0.heprep` in the same directory. A shell script [hv](hv) is shipped with [GEARS][]. Run it this way:
+It generates `G4Data0.heprep` in the same directory. A shell script [hv](hv) is shipped with [GEARS][] to run [HepRApp][]. Use it this way:
 
 ```sh
 $ ./hv G4Data0.heprep
@@ -82,16 +85,23 @@ If this is the first time you run it, it will download a `HepRApp.jar` file from
 java -jar HepRApp.jar -opt HepRApp.properties -file G4Data0.heprep
 ```
 
-In case of Windows, please download [HepRApp.jar](http://www.slac.stanford.edu/~perl/HepRApp/HepRApp.jar) and double click on it in a file browser to launch it.
+In case of Windows, please download [HepRApp.jar](http://www.slac.stanford.edu/~perl/HepRApp/HepRApp.jar) and double click on it in a file browser to launch it instead of usimng the command above.
 
-Unfortunately, `HepRApp.jar` can only be run on java version 1.8. To use the HepRApp viewer, you may need to install two versions of java and switch to the older one if needed. This can be done, but the detailed procedure changes with the OS. In case of Windows, simply download it from <https://www.java.com/en/download>. In case of MacOS, One can use a Docker image <https://hub.docker.com/r/physino/heprapp> in the following way:
+Unfortunately, `HepRApp.jar` can only be run on java version 1.8 (or 8 in short). To use the [HepRApp][] viewer, you may need to install two versions of java and switch to the older one if needed. This can be done, but the detailed procedure changes with the OS. In case of Windows, simply download java 8 from <https://www.java.com/en/download>. In case of modern MacOS or Linux distributions, there is no tested working procedure. A Docker image <https://hub.docker.com/r/physino/heprapp> is create to solve this problem. It can be used in the following way:
+
+1. download and run [Docker][] Desktop
+2. for Mac and Windows users: run an [X11][] server ([XQuartz][] for Mac, [MobaXterm][] for Windows)
+3. for Mac and Linux users: run `xhost +` in a terminal
+4. download [GEARS][], and then
 
 ```sh
 cd /path/to/gears
 docker-compose run heprapp
 ```
 
-Note that this only works if [XQuartz][] is running and `xhost +` is issued in a terminal.
+The [HepRApp][] window should pop up on your desktop.
+
+[Dockerfile](Dockerfile) shows how the [Docker][] image is created. [HepRApp.def](HepRApp.def) shows how the [Apptainer][] image is created.
 
 [HepRApp.properties](HepRApp.properties) is the configuration file for [HepRApp][]. It is also shipped with [GEARS][].
 
@@ -172,4 +182,8 @@ References:
 [v2x]:https://github.com/jintonic/gears/blob/master/tutorials/detector/visualization/v2x
 [HepRApp]: https://www.slac.stanford.edu/~perl/HepRApp
 [XQuartz]: https://www.xquartz.org
-
+[Docker]: https://docker.com
+[MobaXterm]: https://mobaxterm.mobatek.net
+[X11]: https://en.wikipedia.org/wiki/X_Window_System
+[Apptainer]: https://apptainer.org
+[Singularity]: https://github.com/apptainer/singularity#singularity
