@@ -8,7 +8,7 @@ The [visualization chapter](http://geant4-userdoc.web.cern.ch/geant4-userdoc/Use
 
 ### ASCIITree
 
-The [ASCIITree][] does not really visualize the detector geometry. Instead, it prints a hierarchical list of volumes in a detector on screen. If your geometry is simple, the only two commands you need in your macro is:
+The [ASCIITree][] visualization driver does not really visualize anything. Instead, it prints a hierarchical list of volumes in a detector in a terminal. If your geometry is simple, the only two commands you need in your macro is:
 
 ```
 /vis/ASCIITree/verbose 13
@@ -30,7 +30,7 @@ Follow [this instruction][UI] to try it out in Windows.
 
 ### RayTracer
 
-[RayTracer](http://geant4-userdoc.web.cern.ch/geant4-userdoc/UsersGuides/ForApplicationDeveloper/html/Visualization/visdrivers.html#raytracer) is included in any [Geant4][] installation, and can be used for geometries that other tools may fail to visualize. Detailed instructions on RayTracer related built-in commands can be found [here](http://geant4-userdoc.web.cern.ch/geant4-userdoc/UsersGuides/ForApplicationDeveloper/html/Control/AllResources/Control/UIcommands/_vis_rayTracer_.html).
+The [RayTracer][] visualization driver is included in any [Geant4][] installation, and can be used for geometries that other tools may fail to visualize. Detailed instructions on [RayTracer][] related built-in commands can be found [here](http://geant4-userdoc.web.cern.ch/geant4-userdoc/UsersGuides/ForApplicationDeveloper/html/Control/AllResources/Control/UIcommands/_vis_rayTracer_.html).
 
 A [sample RayTracer macro](RayTracer.mac) is shipped with [GEARS][]. Try it out this way:
 
@@ -44,7 +44,7 @@ It generates a `g4RayTracer.viewer-0_0000.jpeg` file in the same directory. Note
 
 ### VRML
 
-[VRML][] is available in any [Geant4][] installation. It is used to generate files in VRML format, which can be viewed using an external program, such as [ORBISNAP][], [FreeWRL][] (handy for MacOS), [OpenVRML][], [view3dscene][] (only for Linux and Windows), [3D builder](https://www.microsoft.com/en-us/p/3d-builder/9wzdncrfj3t6) (default Windows 10 App),  etc., or be converted to its succeeder [X3D][], which can be viewed directly in a modern web browser that supports WebGL.
+The [VRML][] visualization driver is available in any [Geant4][] installation. It is used to generate files in VRML format, which can be viewed using an external program, such as [ORBISNAP][], [FreeWRL][] (handy for MacOS), [OpenVRML][], [view3dscene][] (only for Linux and Windows), [3D builder](https://www.microsoft.com/en-us/p/3d-builder/9wzdncrfj3t6) (default Windows 10 App),  etc., or be converted to its succeeder [X3D][], which can be viewed directly in a modern web browser that supports WebGL.
 
 A [sample VRML macro](VRML.mac) is shipped with [GEARS][]. Try it out this way:
 
@@ -60,7 +60,7 @@ A shell script [v2x][] is shipped in the same directory to convert the latest `g
 
 ### HepRepFile
 
-[HepRepFile](http://geant4-userdoc.web.cern.ch/geant4-userdoc/UsersGuides/ForApplicationDeveloper/html/Visualization/visdrivers.html#heprepfile) is available in any [Geant4][] installation. It can be used to generate `G4Data*.heprep` files, which can be viewed using an external program called [HepRApp][] in wireframe mode, that is, no surface, only outlines.
+The [HepRepFile][] visualization driver is available in any [Geant4][] installation. It can be used to generate `G4Data*.heprep` files, which can be viewed using an external program called [HepRApp][] in wireframe mode, that is, no surface, only outlines.
 
 A [sample HepRepFile macro](HepRepFile.mac) is shipped with [GEARS][]. Try it out this way:
 
@@ -84,11 +84,16 @@ java -jar HepRApp.jar -opt HepRApp.properties -file G4Data0.heprep
 
 In case of Windows, please download [HepRApp.jar](http://www.slac.stanford.edu/~perl/HepRApp/HepRApp.jar) and double click on it in a file browser to launch it.
 
-Unfortunately, `HepRApp.jar` can only be run on java version less or equal to 1.8, while current java version is 21 (as of 2023). To use the HepRApp viewer, you need to install two versions of java and switch to the older one if needed. This can be done, but the detailed procedure changes with the OS. In case of a Mac, one can follow [this link](https://stackoverflow.com/questions/24342886/how-to-install-java-8-on-mac) to install java 1.8 and [this link](https://stackoverflow.com/questions/21964709/how-to-set-or-change-the-default-java-jdk-version-on-os-x) to switch in between different versions of java. In case of Ubuntu, please refer to [this link](https://docs.datastax.com/en/jdk-install/doc/jdk-install/installOpenJdkDeb.html). In case of Windows, simply download it from <https://www.java.com/en/download>.
+Unfortunately, `HepRApp.jar` can only be run on java version 1.8. To use the HepRApp viewer, you may need to install two versions of java and switch to the older one if needed. This can be done, but the detailed procedure changes with the OS. In case of Windows, simply download it from <https://www.java.com/en/download>. In case of MacOS, One can use a Docker image <https://hub.docker.com/r/physino/heprapp> in the following way:
+
+```sh
+cd /path/to/gears
+docker-compose run heprapp
+```
+
+Note that this only works if [XQuartz][] is running and `xhost +` is issued in a terminal.
 
 [HepRApp.properties](HepRApp.properties) is the configuration file for [HepRApp][]. It is also shipped with [GEARS][].
-
-[HepRApp]: https://www.slac.stanford.edu/~perl/HepRApp/
 
 ### TSG
 
@@ -151,16 +156,20 @@ References:
 - <https://www.xquartz.org/releases/XQuartz-2.7.10.html>
 
 [OpenGL]:http://geant4-userdoc.web.cern.ch/geant4-userdoc/UsersGuides/ForApplicationDeveloper/html/Visualization/visdrivers.html#opengl
-[UI]:/gears/INSTALL/#user-interface
+[UI]:http://physino.xyz/gears/INSTALL/#user-interface
+[RayTracer]:http://geant4-userdoc.web.cern.ch/geant4-userdoc/UsersGuides/ForApplicationDeveloper/html/Visualization/visdrivers.html#raytracer
 [Qt]:http://geant4-userdoc.web.cern.ch/geant4-userdoc/UsersGuides/ForApplicationDeveloper/html/GettingStarted/graphicalUserInterface.html#g4uixm-g4uiqt-and-g4uiwin32-classes
 [tcsh]:http://geant4-userdoc.web.cern.ch/geant4-userdoc/UsersGuides/ForApplicationDeveloper/html/GettingStarted/graphicalUserInterface.html#g4uiterminal
-
+[HepRepFile]:http://geant4-userdoc.web.cern.ch/geant4-userdoc/UsersGuides/ForApplicationDeveloper/html/Visualization/visdrivers.html#heprepfile
 [GEARS]: http://physino.xyz/gears
 [Geant4]: http://geant4.cern.ch
 [VRML]:http://geant4-userdoc.web.cern.ch/geant4-userdoc/UsersGuides/ForApplicationDeveloper/html/Visualization/visdrivers.html#vrml
 [ORBISNAP]:https://www.orbisnap.com/download2.html
-[OpenVRML]:https://sourceforge.net/projects/openvrml/
+[OpenVRML]:https://sourceforge.net/projects/openvrml
 [FreeWRL]: http://freewrl.sourceforge.net/download.html
 [view3dscene]:https://castle-engine.sourceforge.io/view3dscene.php
 [X3D]:https://stackoverflow.com/questions/14849593/vrml-to-x3d-conversion
 [v2x]:https://github.com/jintonic/gears/blob/master/tutorials/detector/visualization/v2x
+[HepRApp]: https://www.slac.stanford.edu/~perl/HepRApp
+[XQuartz]: https://www.xquartz.org
+
