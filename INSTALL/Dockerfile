@@ -10,7 +10,7 @@ RUN cd /etc/yum.repos.d/ && sed -i 's/mirrorlist/#mirrorlist/g' /etc/yum.repos.d
 # `mesa-libGL` & `libXmu` is needed to compile geant4 application
 # `openssl` is needed to download geant4 datasets
 RUN  dnf install -y gcc-c++ which mesa-libGL libXmu openssl make \
-  && dnf clean all && rm -fr /var/cache/*
+  && dnf clean all && rm -fr /var/cache/* /root/*.cfg /root/*.log
 
 # Geant4 version
 ARG v=11.1
