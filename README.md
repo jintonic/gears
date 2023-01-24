@@ -1,5 +1,5 @@
 > **Note**
-> The latest [GEARS][] require [Geant4.11](https://geant4.web.cern.ch/support/download). If you are still using Geant4.10, please download [v1.5.1](https://github.com/jintonic/gears/releases/tag/v1.5.1) of [GEARS][] from the [Release](https://github.com/jintonic/gears/releases) page.
+> The latest [GEARS][] require [Geant4.11](https://geant4.web.cern.ch/support/download). If you are still using [Geant4.10](https://geant4.web.cern.ch/support/download_archive?page=1), please download [v1.5.1](https://github.com/jintonic/gears/releases/tag/v1.5.1) of [GEARS][] from the [Release](https://github.com/jintonic/gears/releases) page.
 
 [![Get GEARS](https://img.shields.io/badge/Get-GEARS-orange?style=flat)](INSTALL)
 [![Tutorials](https://img.shields.io/badge/Use-GEARS-blue?style=flat)](tutorials)
