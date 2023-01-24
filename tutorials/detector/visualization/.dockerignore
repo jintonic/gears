@@ -2,11 +2,12 @@ Dockerfile
 *.md
 *.mac
 *.heprep
-*.jar
 *.jpeg
 *.pdf
 *.wrl
 *.png
 *.x3d
 *.html
-Hep*
+*.prim
+*.def
+*.eps
