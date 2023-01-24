@@ -1,18 +1,17 @@
-[![home](https://img.shields.io/badge/GEARS-Home-blue?style=flat)](https://github.com/jintonic/gears)
-[![compile gears](https://img.shields.io/badge/Compile-GEARS-yellow?style=flat)](#compile-gears)
-[![install gears](https://img.shields.io/badge/Install-GEARS-brown?style=flat)](#install-gears)
-[![use gears](https://img.shields.io/badge/Use-GEARS-red?style=flat)](#use-gears)
-[![install Geant4](https://img.shields.io/badge/Install-Geant4-magenta?style=flat)](Geant4)
-[![install ROOT](https://img.shields.io/badge/Install-ROOT-pink?style=flat)](ROOT)
+[![Home](https://img.shields.io/badge/GEARS-Home-blue?style=flat)](https://github.com/jintonic/gears)
+[![Compile gears](https://img.shields.io/badge/Compile-GEARS-yellow?style=flat)](#compile-gears)
+[![Install gears](https://img.shields.io/badge/Install-GEARS-brown?style=flat)](#install-gears)
+[![Install Geant4](https://img.shields.io/badge/Install-Geant4-magenta?style=flat)](Geant4)
+[![Install ROOT](https://img.shields.io/badge/Install-ROOT-pink?style=flat)](ROOT)
 [![Container images](https://img.shields.io/badge/Container-images-green?style=flat)](#container-images)
 
-[GEARS][] can run in three major operating systems: [Windows](#compile-gears-in-windows), [macOS](#compile-gears-in-macos), and [Linux](#compile-gears-in-linux). It depends on [Geant4][]. If you don't have [Geant4][] installed yet in your system, please [install Geant4](Geant4) first. However, if you have [Docker][] installed on Windows or MacOS, or [apptainer][]/[singularity][] installed on Linux, you can run [GEARS][] in a [container][] where [Geant4][] has been installed, which can save you a lot of hassle. Please check [here](#container-images) for detailed instruction if you are interested in using containerized [GEARS][].
+[GEARS][] can run in three major operating systems: [Windows](#compile-gears-in-windows), [macOS](#compile-gears-in-macos), and [Linux](#compile-gears-in-linux). It depends on [Geant4][]. If you don't have [Geant4][] installed yet in your system, please [install Geant4](Geant4) first. However, if you have [Docker][] installed on Windows or MacOS, or [Apptainer][]/[Singularity][] installed on Linux, you can run [GEARS][] in a [container][] where [Geant4][] has been installed, which can save you a lot of hassle. Please check [here](#container-images) for detailed instruction if you are interested in using containerized [GEARS][].
 
 [GEARS]: https://github.com/jintonic/gears
 [Geant4]: http://geant4.cern.ch
 [Docker]: https://www.docker.com
-[singularity]: https://en.wikipedia.org/wiki/Singularity_(software)
-[apptainer]: https://apptainer.org
+[Singularity]: https://en.wikipedia.org/wiki/Singularity_(software)
+[Apptainer]: https://apptainer.org
 [container]: https://www.docker.com/resources/what-container
 
 ## Get GEARS
@@ -183,96 +182,33 @@ For Mac users, you need to use `~/.bash_profile` instead of `~/.bashrc`. Please 
 
 If you use `zsh` instead of `bash`, use `~/.zshrc` instead of `~/.bashrc` or `~/.bash_profile`.
 
-## Use GEARS
-
-### User interface
-[![YouTube](https://img.shields.io/badge/You-Tube-red?style=flat)](https://youtu.be/3wJrE22P5Hk)
-
-[GEARS][] relies on [G4UIExecutive](http://geant4-userdoc.web.cern.ch/geant4-userdoc/UsersGuides/ForApplicationDeveloper/html/GettingStarted/graphicalUserInterface.html#how-to-select-interface-in-your-applications) to select a user interface (UI). Without any specific setup, [GEARS][] will try to run a graphic user interface (GUI) based on [Qt][] or Windows GUI. If your [Geant4][] is not compiled with GUI support, [GEARS][] will try to [use a command-line UI](http://geant4-userdoc.web.cern.ch/geant4-userdoc/UsersGuides/ForApplicationDeveloper/html/GettingStarted/graphicalUserInterface.html#g4uiterminal). In Windows, go to a folder where you'd like to run [GEARS][] in your file browser. Highlight the address bar, type `gears.exe`:
-
-![winLaunchGears](winLaunchGears.png)
-
-This will bring up the following GUI, which is simply a window to accept your macro commands:
-
-![winGUI](winGUI.png)
-
-In macOS or Linux, please run the following command to check if your [Geant4][] is compiled with [Qt][]:
-
-```sh
-$ geant4-config --help | grep qt
-```
-
-If the output is `qt[yes]`, then you should be able to use the [Qt][] based GUI. If you can't, please check if you set the environment variable `G4UI_USE_TCSH` somewhere:
-
-```sh
-$ env |grep G4UI
-```
-
-If yes, run `export G4UI_USE_QT=1` to overwrite the `G4UI_USE_TCSH` setting, and run `gears` again. It is optional to delete the latter, because if both variables are set, the latter will be ignored.
-
-Now, if you want to go back to the command-line UI, you need to `unset G4UI_USE_QT` and keep the `G4UI_USE_TCSH` setting unchanged. `export G4UI_USE_QT=0` or `export G4UI_USE_QT=false` does not do what you intend to do. In fact, you can set `G4UI_USE_QT` to any value. It will take effect as long as it is not empty. The only way to completely get rid of it is to `unset` it.
-
-If none of the environment variables is set, you can use `~/.g4session` to select your UI:
-
-```sh
-qt # the first line is for all Geant4 applications
-gears tcsh # just for gears
-```
-
-[Qt]: https://doc.qt.io/
-
-### Session mode
-
-Without any argument, `gears` will start an [interactive session](http://geant4-userdoc.web.cern.ch/geant4-userdoc/UsersGuides/ForApplicationDeveloper/html/GettingStarted/graphicalUserInterface.html). It accepts [commands](http://geant4-userdoc.web.cern.ch/geant4-userdoc/UsersGuides/ForApplicationDeveloper/html/Control/commands.html) you type in the UI.
-
-You can also put a set of commands into a [macro](tutorials) file, which can be used as an argument of `gears`. For example,
-
-```sh
-$ cd gears/tutorials/detector/visualization
-$ gears RayTracer.mac # run gears in batch mode
-```
-
-This way, `gears` will run in the batch mode. It executes commands in the macro file one by one, and quit once it finishes.
-
-In Windows, you can select a [Geant4][] macro file, right click on it, choose `Open with ...`, and then `Choose another app`, `More apps`, scroll down the list, choose `Look for another app in this PC` and navigate to the folder containing `gears.exe`, choose `gears.exe`. Now you can simply double click a [Geant4][] macro file to run it.
-
 [GDML]: https://gdml.web.cern.ch/GDML/
 [HDF5]: https://www.hdfgroup.org/downloads/hdf5/
-
 
 ## Container images
 
 ### Docker images
 
-[![physino/geant4](https://img.shields.io/badge/physino-geant4-blue?style=flat)](https://hub.docker.com/r/physino/geant4)
-[![physino/root](https://img.shields.io/badge/physino-root-pink?style=flat)](https://hub.docker.com/r/physino/root)
-[![physino/g4vis](https://img.shields.io/badge/physino-g4vis-yellow?style=flat)](https://hub.docker.com/r/physino/g4vis)
+[![physino/gears](https://img.shields.io/badge/physino-gears-blue?style=flat)](https://hub.docker.com/r/physino/gears)
 
-The [GEARS][] [Docker][] image can be pulled from <https://hub.docker.com/r/physino/geant4>. You can use [docker-compose][] to download the image (if it is not pulled to the local disk yet), and get into a command line user interface:
+The [GEARS][] [Docker][] image can be pulled from <https://hub.docker.com/r/physino/gears>. You can use [docker-compose][] to download the image (if it is not pulled to the local disk yet), and get into a command line user interface:
 
 ```sh
-# docker-compose.yml is localed in /path/to/gears
+# docker-compose.yml is located in /path/to/gears
 cd /path/to/gears
 # the pull command only needs to be run at the first time
-docker-compose pull g4
+docker-compose pull gears
 # --rm (optional) is used to delete the container after each use
-docker-compose run --rm g4
-root@Geant4:~ $
+docker-compose run --rm gears
+root@Geant4:~/gears $
 ```
 
 where you can run
 
 ```sh
 root@Geant4:~ $ gears
-
-
-          ################################
-          !!! G4Backtrace is activated !!!
-          ################################
-
-
 ***************************************************************
- Geant4 version Name: geant4-11-00-patch-02 [MT]   (25-May-2022)
+ Geant4 version Name: geant4-11-01 [MT]   (9-December-2022)
                        Copyright : Geant4 Collaboration
                       References : NIM A 506 (2003), 250-303
                                  : IEEE-TNS 53 (2006), 270-278
@@ -287,31 +223,28 @@ PreInit>
 You can also use this shell to install any package that you like. For example,
 
 ```sh
-root@Geant4:~ $ dnf install glibc-langpack-en
+root@Geant4:~/gears $ dnf install glibc-langpack-en
 ```
 
-I use this to update [GEARS][] in the image if [gears.cc](../gears.cc) is modified:
+I use this feature to update [GEARS][] in the image if [gears.cc](../gears.cc) is modified:
 
 ```sh
-root@Geant4:~ $ cd gears
 root@Geant4:~/gears $ make
 root@Geant4:~/gears $ mv gears /usr/bin
 root@Geant4:~/gears $ exit
 docker ps -a
 CONTAINER ID  IMAGE                 COMMAND  CREATED         STATUS                     PORTS  NAMES
-53614a6b7563  physino/geant4:gears  "bash"   3 minutes ago   Exited (0) 14 seconds ago         eloquent_napier
+53614a6b7563  physino/gears:latest  "bash"   3 minutes ago   Exited (0) 14 seconds ago         eloquent_napier
 ...
-docker commit 53614a6b7563 physino/geant4:gears
-docker push physino/geant4:gears
+docker commit 53614a6b7563 physino/gears
+docker push physino/gears
 ```
 
-### Singularity images
+### Apptainer/Singularity images
 
 [![jintonic/geant4/gears](https://img.shields.io/badge/geant4-gears-blue?style=flat)](https://cloud.sylabs.io/library/jintonic/geant4/gears)
-[![jintonic/root/notebook](https://img.shields.io/badge/root-notebook-pink?style=flat)](https://cloud.sylabs.io/library/jintonic/root/notebook)
-[![jintonic/geant4/vis](https://img.shields.io/badge/geant4-vis-yellow?style=flat)](https://cloud.sylabs.io/library/jintonic/geant4/vis)
 
-The [GEARS][] [singularity][] image can be pulled from [sylabs][]:
+The [GEARS][] [Apptainer][]/[Singularity][] image can be pulled from [sylabs][]:
 
 ```sh
 singularity pull gears.sif library://jintonic/geant4/gears
@@ -323,7 +256,7 @@ or
 apptainer pull library://jintonic/geant4/gears
 ```
 
-Note that you may need to set the location of your [apptainer][] [remote][] library before `pull`:
+Note that you may need to set the location of your [Apptainer][] [remote][] library before `pull`:
 
 ```sh
 apptainer remote add sylabs https://cloud.sylabs.io
@@ -334,27 +267,7 @@ apptainer remote list
 The `sif` file can be directly used as an executable:
 ```sh
 ./gears.sif example.mac
-
-
-          ################################
-          !!! G4Backtrace is activated !!!
-          ################################
-
-
-**************************************************************
- Geant4 version Name: geant4-11-00-patch-02 [MT]   (25-May-2022)
-                       Copyright : Geant4 Collaboration
-                      References : NIM A 506 (2003), 250-303
-                                 : IEEE-TNS 53 (2006), 270-278
-                                 : NIM A 835 (2016), 186-225
-                             WWW : http://geant4.org/
-**************************************************************
-
-Available UI session types: [ tcsh, csh ]
-PreInit>
 ```
 
 [sylabs]: https://cloud.sylabs.io/library/jintonic/geant4/gears
-[singularity]: https://en.wikipedia.org/wiki/Singularity_(software)
-[apptainer]: https://apptainer.org
 [remote]: https://apptainer.org/docs/user/1.0/endpoint.html
