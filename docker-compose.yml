@@ -1,67 +1,58 @@
 services:
-  # launch a Linux command line with gears on pre-compiled geant4
   gears: # docker-compose run gears
+    command: /usr/bin/bash # launch a command line to run compiled gears
     image: physino/gears # shorter than physino/geant4:gears
-    command: /usr/bin/bash
     profiles: [ "gears" ] # https://docs.docker.com/compose/profiles
-    platform: linux/amd64 # geant4 is not compiled on M1 or M2
+    platform: linux/amd64 # pre-compiled geant4 is not available for arm64
     volumes: [".:/root/gears"] # No X11 as OGL on docker is hard to set
     build: INSTALL # docker-compose build gears
 
-  # launch a Linux command line with pre-compiled geant4
-  g4: # docker-compose run g4
-    image: physino/geant4:gears
-    command: /usr/bin/bash
+  geant4: # docker-compose run geant4
+    command: /usr/bin/bash # launch a command line to compile GEARS
+    image: geant4/geant4 # https://hub.docker.com/r/geant4/geant4
+    profiles: [ "geant4" ]
     environment: # https://docs.docker.com/desktop/networking
-      - DISPLAY=host.docker.internal:0.0
+      - DISPLAY=host.docker.internal:0.0 # needed for Qt
     volumes:
-      - /tmp/.X11-unix:/tmp/.X11-unix
+      - /tmp/.X11-unix:/tmp/.X11-unix # needed for Qt
       - .:/root/gears
+    # https://docs.docker.com/compose/compose-file/#working_dir
     working_dir: /root/gears
-    profiles: [ "g4" ]
-    # https://docs.docker.com/compose/compose-file/build/
-    build: INSTALL/Geant4 # docker-compose build g4
 
-  # launch a Linux command line where cern root is available
   root: # docker-compose run root
-    image: physino/root
-    command: /usr/bin/bash
+    command: /usr/bin/bash # launch a command line to run root
+    image: physino/root # https://hub.docker.com/r/physino/root
     profiles: [ "root" ]
     environment:
       - DISPLAY=host.docker.internal:0.0
     volumes:
       - /tmp/.X11-unix:/tmp/.X11-unix
       - .:/root/gears
-    # https://docs.docker.com/compose/compose-file/#working_dir
     working_dir: /root/gears
     build: INSTALL/ROOT/ # docker-compose build root
 
   # launch a Jupyter notebook service to analyze data with ROOT or Python
   notebook: # docker-compose up
-    image: physino/root:notebook
     command: /usr/bin/root --notebook --allow-root --no-browser --ip=0.0.0.0
+    image: physino/root:notebook
     ports: [ "8888:8888" ]
     volumes: [".:/root/gears"]
     build: INSTALL/ROOT/notebook # docker-compose build notebook
 
-  # launch a Linux command line where the HepRApp viewer can be used
-  vis: # docker-compose run vis
-    image: physino/g4vis
-    command: /usr/bin/bash
-    profiles: [ "vis" ]
+  heprapp: # docker-compose run heprapp
+    command: /usr/bin/hv # launch HepRApp
+    image: physino/heprapp # https://hub.docker.com/r/physino/heprapp
+    profiles: [ "heprapp" ]
     environment:
       - DISPLAY=host.docker.internal:0.0
     volumes:
       - /tmp/.X11-unix:/tmp/.X11-unix
       - .:/root/gears
-    # https://docs.docker.com/compose/compose-file/#working_dir
-    working_dir: /root/gears
-    build: tutorials/detector/visualization/ # docker-compose build vis
+    build: tutorials/detector/visualization/ # docker-compose build heprapp
 
-  # launch a Linux command line to run v2x
   x3d: # docker compose run x3d
+    command: /usr/bin/bash # launch a command line to run v2x
     image: physino/root
-    command: /usr/bin/bash
     ports: [ "8888:8888" ]
     volumes: [ ".:/root/gears" ]
     profiles: [ "x3d" ]
