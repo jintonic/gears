@@ -1,4 +1,4 @@
-[![Docker image](https://img.shields.io/badge/Docker-image-orange?style=flat)](https://hub.docker.com/r/physino/geant4)
+[![Container images](https://img.shields.io/badge/Container-images-orange?style=flat)](#docker-images)
 [![Singularity image](https://img.shields.io/badge/Singularity-image-yellow?style=flat)](https://cloud.sylabs.io/library/jintonic/geant4/gears)
 
 # Install Geant4
@@ -6,10 +6,13 @@
 
 [GEARS][] relies on [Geant4][]. The latest [GEARS][] requires [Geant4][] version 11. If you only have version 10 available, you can use a branch of [GEARS][], called [g4.10](https://github.com/jintonic/gears/tree/g4.10). Due to [some inconvenience in version 9](http://hypernews.slac.stanford.edu/HyperNews/geant4/get/hadronprocess/1242.html), [GEARS][] does not support [Geant4][] below version 10. Optionally, the following two packages can be installed before [Geant4 installation]():
 
-* (Optional) [Xerces-C++](https://xerces.apache.org/xerces-c/), to use or export detector geometries in [GDML][] format.
+* (Optional) [Xerces-C++][], to use or export detector geometries in [GDML][] format.
 * (Optional) [HDF5][], to save simulation results in [HDF5][] format.
 
 Before you get started, please understand that the [Geant4 Installation Guide](https://geant4-userdoc.web.cern.ch/geant4-userdoc/UsersGuides/InstallationGuide/html/) is your ultimate reference should you have any issue regarding [Geant4][] installation, and the Geant4 [User Forum](https://geant4-forum.web.cern.ch/) is the place to seek for help. You also need to be aware of [the possibility of installing pre-comipled Geant4 libraries](https://www.youtube.com/watch?v=fu3NLgb0fwI) in some OS, which would save you hours of time and potential headaches.
+
+[Xerces-C++]: https://xerces.apache.org/xerces-c
+[HDF5]: https://www.hdfgroup.org/solutions/hdf5
 
 ## Which OS should you use for Geant4 simulation?
 [![YouTube](https://img.shields.io/badge/You-Tube-red?style=flat)](https://youtu.be/_g3nvEbhOx8)
@@ -155,7 +158,7 @@ source /path/to/your/pre-compiled/geant4/bin/geant4.sh
 # source gears/gears.sh to export Geant4 database locations
 source /path/to/gears/gears.sh
 ```
-## Docker image
+## Docker images
 
 [Dockerfile](Dockerfile) in this folder is used to install the latest [Geant4][] in the latest [Fedora][] [Docker][] [container][].
 
