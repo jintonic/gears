@@ -1,57 +1,30 @@
-[![docker hub](https://img.shields.io/badge/docker-hub-blue.svg)](https://hub.docker.com/r/physino/geant4)
+[![Geant4 image](https://img.shields.io/badge/Geant4-image-blue.svg)](https://hub.docker.com/r/geant4/geant4)
+[![Dockerfile](https://img.shields.io/badge/Docker-file-red.svg)](Dockerfile)
 
-This folder contains a [Dockerfile](Dockerfile) to install the latest [Geant4][] in the latest [Fedora][] [Docker][] [container][].
-
-The 64-bit [Geant4][] libraries were pre-compiled with gcc 8.3.0 on CERN CentOS7 (CC7) Linux. They were directly downloaded from the [Geant4][] [download][] page. Fortunately, they run just fine on the latest [Fedora][], which is a more up-to-date OS than CC7.
-
-As the libraries were compiled already, the installation process only involves downloading and unpacking them, which costs only ~ 3 min. Unfortunately, [Qt][] and [GDML][] were not enabled in the pre-compilation.
-
-The [container](https://hub.docker.com/r/physino/geant4) can be generated using the following commands:
-
-```sh
-docker build -t physino/geant4 .
-docker push physino/geant4
-```
-
-It can be used in the following way:
+This folder contains a [Dockerfile](Dockerfile) to demonstrate the possibility of compiling [Geant4][] in the latest [Fedora][] [Docker][] [container][] with [Qt][] and [GDML][] enabled. It is not used to generate any image because there is already an official image of [Geant4][] on Docker hub: <https://hub.docker.com/r/geant4/geant4>, which has even more features enabled. For people who want to experience the full power of [Geant4][], please use the official image. The second service listed in [gears/docker-compose.yml](../../../docker-compose.yml) demonstrates the usage of the official image:
 
 ```sh
 cd /path/to/gears
-docker-compose run --rm sh
-root@Geant4.11.0.2:~/gears $
+# pull and run https://hub.docker.com/r/geant4/geant4
+docker-compose run geant4
+# compile gears
+root@8704najvr:~/gears $ mkdir build
+root@8704najvr:~/gears $ cd build
+root@8704najvr:~/gears/build $ ccmake ..
+root@8704najvr:~/gears/build $ make
+# run gears
+root@8704najvr:~/gears/build $ gears
 ```
 
-**Note** that the [Geant4][] [datasets][download] are not included in the container to keep its size minimal. However, they can be easily downloaded through the container into the `gears/INSTALL/Geant4/data/` folder in the host computer:
+> **Warning**
+> The official [Geant4][] image is huge due to its rich feature. Be prepared for a looong downloading time.
 
-```sh
-root@Geant4.11.0.2:~/gears $ geant4-config --install-datasets
-root@Geant4.11.0.2:~/gears $ ls INSTALL/Geant4/data
-root@Geant4.11.0.2:~/gears $ gears
-
-
-          ################################
-          !!! G4Backtrace is activated !!!
-          ################################
-
-
-**************************************************************
- Geant4 version Name: geant4-11-00-patch-02 [MT]   (25-May-2022)
-                       Copyright : Geant4 Collaboration
-                      References : NIM A 506 (2003), 250-303
-                                 : IEEE-TNS 53 (2006), 270-278
-                                 : NIM A 835 (2016), 186-225
-                             WWW : http://geant4.org/
-**************************************************************
-
-Available UI session types: [ tcsh, csh ]
-PreInit>
-```
+If you only need the basic functionality of [Geant4][], please try the much smaller [GEARS][] [Docker][] image: <https://hub.docker.com/r/physino/gears>. For more information about the [GEARS][] image, please check [../../Docker/](../../Docker).
 
 [Geant4]: https://geant4.web.cern.ch
 [Fedora]: https://getfedora.org
 [Docker]: https://www.docker.com
 [container]: https://www.docker.com/resources/what-container
-[download]: https://geant4.web.cern.ch/support/download
 [Qt]: https://geant4-userdoc.web.cern.ch/UsersGuides/ForApplicationDeveloper/html/Visualization/visdrivers.html#qt
 [GDML]: https://geant4-userdoc.web.cern.ch/UsersGuides/ForApplicationDeveloper/html/Detector/Geometry/geomXML.html
 [GEARS]: https://github.com/jintonic/gears
