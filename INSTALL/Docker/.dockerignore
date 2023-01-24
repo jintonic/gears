@@ -1,5 +1,3 @@
 *.png
-Geant4
-ROOT
 Dockerfile
-README.md
+*.md
