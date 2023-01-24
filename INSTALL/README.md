@@ -1,11 +1,11 @@
-[![Home](https://img.shields.io/badge/GEARS-Home-blue?style=flat)](https://github.com/jintonic/gears)
 [![Compile gears](https://img.shields.io/badge/Compile-GEARS-yellow?style=flat)](#compile-gears)
 [![Install gears](https://img.shields.io/badge/Install-GEARS-brown?style=flat)](#install-gears)
 [![Install Geant4](https://img.shields.io/badge/Install-Geant4-magenta?style=flat)](Geant4)
 [![Install ROOT](https://img.shields.io/badge/Install-ROOT-pink?style=flat)](ROOT)
-[![Container images](https://img.shields.io/badge/Container-images-green?style=flat)](#container-images)
+[![Docker image](https://img.shields.io/badge/Docker-image-green?style=flat)](Docker)
+[![Apptainer image](https://img.shields.io/badge/Apptainer-image-blue?style=flat)](Apptainer)
 
-[GEARS][] can run in three major operating systems: [Windows](#compile-gears-in-windows), [macOS](#compile-gears-in-macos), and [Linux](#compile-gears-in-linux). It depends on [Geant4][]. If you don't have [Geant4][] installed yet in your system, please [install Geant4](Geant4) first. However, if you have [Docker][] installed on Windows or MacOS, or [Apptainer][]/[Singularity][] installed on Linux, you can run [GEARS][] in a [container][] where [Geant4][] has been installed, which can save you a lot of hassle. Please check [here](#container-images) for detailed instruction if you are interested in using containerized [GEARS][].
+[GEARS][] can run in three major operating systems: [Windows](#compile-gears-in-windows), [macOS](#compile-gears-in-macos), and [Linux](#compile-gears-in-linux). It depends on [Geant4][]. If you don't have [Geant4][] installed yet in your system, please [install Geant4](Geant4) first. However, if you have [Docker][] installed on Windows, MacOS, Linux, or [Apptainer][]/[Singularity][] installed on Linux, you can run [GEARS][] in a [container][] where [Geant4][] has been installed, which can save you a lot of hassle. Please check the [Docker/](Docker) and [Apptainer/](Apptainer) folders for detailed instruction if you are interested in using containerized [GEARS][].
 
 [GEARS]: https://github.com/jintonic/gears
 [Geant4]: http://geant4.cern.ch
@@ -185,89 +185,3 @@ If you use `zsh` instead of `bash`, use `~/.zshrc` instead of `~/.bashrc` or `~/
 [GDML]: https://gdml.web.cern.ch/GDML/
 [HDF5]: https://www.hdfgroup.org/downloads/hdf5/
 
-## Container images
-
-### Docker images
-
-[![physino/gears](https://img.shields.io/badge/physino-gears-blue?style=flat)](https://hub.docker.com/r/physino/gears)
-
-The [GEARS][] [Docker][] image can be pulled from <https://hub.docker.com/r/physino/gears>. You can use [docker-compose][] to download the image (if it is not pulled to the local disk yet), and get into a command line user interface:
-
-```sh
-# docker-compose.yml is located in /path/to/gears
-cd /path/to/gears
-# the pull command only needs to be run at the first time
-docker-compose pull gears
-# --rm (optional) is used to delete the container after each use
-docker-compose run --rm gears
-root@Geant4:~/gears $
-```
-
-where you can run
-
-```sh
-root@Geant4:~ $ gears
-***************************************************************
- Geant4 version Name: geant4-11-01 [MT]   (9-December-2022)
-                       Copyright : Geant4 Collaboration
-                      References : NIM A 506 (2003), 250-303
-                                 : IEEE-TNS 53 (2006), 270-278
-                                 : NIM A 835 (2016), 186-225
-                             WWW : http://geant4.org/
-**************************************************************
-
-Available UI session types: [ tcsh, csh ]
-PreInit>
-```
-
-You can also use this shell to install any package that you like. For example,
-
-```sh
-root@Geant4:~/gears $ dnf install glibc-langpack-en
-```
-
-I use this feature to update [GEARS][] in the image if [gears.cc](../gears.cc) is modified:
-
-```sh
-root@Geant4:~/gears $ make
-root@Geant4:~/gears $ mv gears /usr/bin
-root@Geant4:~/gears $ exit
-docker ps -a
-CONTAINER ID  IMAGE                 COMMAND  CREATED         STATUS                     PORTS  NAMES
-53614a6b7563  physino/gears:latest  "bash"   3 minutes ago   Exited (0) 14 seconds ago         eloquent_napier
-...
-docker commit 53614a6b7563 physino/gears
-docker push physino/gears
-```
-
-### Apptainer/Singularity images
-
-[![jintonic/geant4/gears](https://img.shields.io/badge/geant4-gears-blue?style=flat)](https://cloud.sylabs.io/library/jintonic/geant4/gears)
-
-The [GEARS][] [Apptainer][]/[Singularity][] image can be pulled from [sylabs][]:
-
-```sh
-singularity pull gears.sif library://jintonic/geant4/gears
-```
-
-or
-
-```sh
-apptainer pull library://jintonic/geant4/gears
-```
-
-Note that you may need to set the location of your [Apptainer][] [remote][] library before `pull`:
-
-```sh
-apptainer remote add sylabs https://cloud.sylabs.io
-apptainer remote use sylabs
-apptainer remote list
-```
-
-The `sif` file can be directly used as an executable:
-```sh
-./gears.sif example.mac
-```
-
-[sylabs]: https://cloud.sylabs.io/library/jintonic/geant4/gears
-[remote]: https://apptainer.org/docs/user/1.0/endpoint.html
