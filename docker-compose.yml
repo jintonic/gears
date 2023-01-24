@@ -1,15 +1,11 @@
 services:
   # launch a Linux command line with gears on pre-compiled geant4
   gears: # docker-compose run gears
-    image: physino/gears
+    image: physino/gears # shorter than physino/geant4:gears
     command: /usr/bin/bash
-    profiles: [ "gears" ]
-    platform: linux/amd64
-    environment: # https://docs.docker.com/desktop/networking
-      - DISPLAY=host.docker.internal:0.0
-    volumes:
-      - /tmp/.X11-unix:/tmp/.X11-unix
-      - .:/root/gears
+    profiles: [ "gears" ] # https://docs.docker.com/compose/profiles
+    platform: linux/amd64 # geant4 is not compiled on M1 or M2
+    volumes: [".:/root/gears"] # No X11 as OGL on docker is hard to set
     build: INSTALL # docker-compose build gears
 
   # launch a Linux command line with pre-compiled geant4
@@ -22,7 +18,7 @@ services:
       - /tmp/.X11-unix:/tmp/.X11-unix
       - .:/root/gears
     working_dir: /root/gears
-    profiles: [ "g4" ] # https://docs.docker.com/compose/profiles
+    profiles: [ "g4" ]
     # https://docs.docker.com/compose/compose-file/build/
     build: INSTALL/Geant4 # docker-compose build g4
 
