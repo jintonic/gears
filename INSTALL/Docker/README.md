@@ -41,6 +41,8 @@ Available UI session types: [ tcsh, csh ]
 PreInit>
 ```
 
+Another image, <https://hub.docker.com/r/physino/heprapp>, is created with the [HepRApp][] viewer included to visualize detector geometries created using <https://hub.docker.com/r/physino/gears>.
+
 ## For developer
 
 ### Generate the image
@@ -94,3 +96,4 @@ docker push physino/gears
 [GDML]: https://geant4-userdoc.web.cern.ch/UsersGuides/ForApplicationDeveloper/html/Detector/Geometry/geomXML.html
 [GEARS]: https://github.com/jintonic/gears
 [docker-compose]: https://docs.docker.com/compose
+[HepRApp]: https://www.slac.stanford.edu/~perl/HepRApp/

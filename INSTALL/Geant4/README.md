@@ -1,5 +1,8 @@
 [![Container images](https://img.shields.io/badge/Container-images-orange?style=flat)](#docker-images)
 [![Singularity image](https://img.shields.io/badge/Singularity-image-yellow?style=flat)](https://cloud.sylabs.io/library/jintonic/geant4/gears)
+[![Windows](https://img.shields.io/badge/Windows-blue?style=flat)](#install-pre-compiled-geant4-on-windows)
+[![MacOS](https://img.shields.io/badge/MacOS-green?style=flat)](#install-pre-compiled-geant4-on-macos)
+[![CentOS](https://img.shields.io/badge/CentOS-red?style=flat)](#install-pre-compiled-geant4-on-centos)
 
 # Install Geant4
 [![YouTube](https://img.shields.io/badge/You-Tube-red?style=flat)](https://www.youtube.com/playlist?list=PLw3G-vTgPrdB9Nt2ekl2oL1yoqEC294Uf)
@@ -9,7 +12,11 @@
 * (Optional) [Xerces-C++][], to use or export detector geometries in [GDML][] format.
 * (Optional) [HDF5][], to save simulation results in [HDF5][] format.
 
-Before you get started, please understand that the [Geant4 Installation Guide](https://geant4-userdoc.web.cern.ch/geant4-userdoc/UsersGuides/InstallationGuide/html/) is your ultimate reference should you have any issue regarding [Geant4][] installation, and the Geant4 [User Forum](https://geant4-forum.web.cern.ch/) is the place to seek for help. You also need to be aware of [the possibility of installing pre-comipled Geant4 libraries](https://www.youtube.com/watch?v=fu3NLgb0fwI) in some OS, which would save you hours of time and potential headaches.
+Before you get started, please understand that the [Geant4 Installation Guide](https://geant4-userdoc.web.cern.ch/geant4-userdoc/UsersGuides/InstallationGuide/html/) is your ultimate reference should you have any issue regarding [Geant4][] installation, and the Geant4 [User Forum](https://geant4-forum.web.cern.ch/) is the place to seek for help.
+
+You also need to be aware of [the possibility of installing pre-comipled Geant4 libraries](https://www.youtube.com/watch?v=fu3NLgb0fwI) in some OS, which would save you hours of time and potential headaches.
+
+Yet another option is to use [Docker](Docker) or [Apptainer](../Apptainer) images that already have [Geant4][] and [GEARS][] included, for example, <https://hub.docker.com/r/physino/gears>.
 
 [Xerces-C++]: https://xerces.apache.org/xerces-c
 [HDF5]: https://www.hdfgroup.org/solutions/hdf5
@@ -33,10 +40,10 @@ The pre-compiled Geant4 is only [provided for a single Linux distribution with a
 **Pro's and con's of MacOS:**
 MacOS has the pro's and con's from both Windows and Linux. It is very easy to install a pre-compiled Geant4 in a Mac with just a few clicks, which saves hours in compilation or debugging in case of a failed compilation. However, quite a few post-installation twicks are needed, which are covered in detail [here](#install-pre-compiled-geant4-in-macos). If you decide to compile Geant4 by yourself in a Mac, you need to be quite familiar with the commandline inferface, which takes time to learn.
 
-## Install pre-compiled Geant4 in Windows
+## Install pre-compiled Geant4 on Windows
 [![YouTube](https://img.shields.io/badge/You-Tube-red?style=flat)](https://www.youtube.com/watch?v=LkbzMiOixug)
 
-Download pre-compiled Geant4 in Windows 10 from <https://geant4.web.cern.ch/support/download>. When you double click it to install it, Windows will pop a window "Windows protected your PC". Select "More info" and then "Run anyway". Now simply follow the instruction till the end, except for the following step, where you need to choose "Add Geant4 to the system PATH for all users" or "current user":
+Download pre-compiled Geant4 on Windows from <https://geant4.web.cern.ch/support/download>. When you double click it to install it, Windows will pop a window "Windows protected your PC". Select "More info" and then "Run anyway". Now simply follow the instruction till the end, except for the following step, where you need to choose "Add Geant4 to the system PATH for all users" or "current user":
 
 ![wing4path](wing4path.png)
 
@@ -48,7 +55,7 @@ Click "Environment Variables..." and check the highlighted items to make sure th
 
 <img style="width:100%;" src="winEnv.png"/>
 
-## Install pre-compiled Geant4 in macOS
+## Install pre-compiled Geant4 on macOS
 
 You can download the pre-compiled Geant4 libraries for the macOS [here](https://geant4.web.cern.ch/support/download). By default, it will be saved to `~/Downloads`. The next step is to download [Geant4 datasets](https://geant4.web.cern.ch/support/download) one by one and unpack them into a folder. This tedious process can be automated by using the [geant4-config][] script shipped with [Geant4][]. However, the one shipped with the pre-compiled [Geant4][] does not know where your data folder is. You need to run the following commands to update your [geant4-config][] and use it to install all the datasets for you:
 
@@ -123,9 +130,9 @@ If you have problems to run `cmake` in some of the official Geant4 examples, che
 
 Manually fix them based on your system and you should be able to run `cmake` and `make` for your Geant4 examples. Note that, this has no effect on GEARS compilation since GEARS relies on `geant4-config` instead of the Geant4 Cmake files for its compilation.
 
-## Install pre-compiled Geant4 in CentOS
+## Install pre-compiled Geant4 on CentOS
 
-You can download the pre-compiled Geant4 libraries for CentOS [here](https://geant4.web.cern.ch/support/download). They were compiled with a relatively new version of `g++`, 8.3.0. Run the following command in your CentOS terminal:
+You can download the pre-compiled Geant4 libraries for CentOS [here](https://geant4.web.cern.ch/support/download). They were compiled with a relatively new version of `g++`, 8.5.0. Run the following command in your CentOS terminal:
 
 ```sh
 $ g++ --version
@@ -136,18 +143,18 @@ If your g++ is much older than the version used for the pre-compiled libraries, 
 Otherwise, unpack the downloaded gz file to a directory that you like:
 
 ```sh
-$ cd /path/to/your/Linux-g++8.3.0-CC7.tar.gz
-$ tar xfvz Linux-g++8.3.0-CC7.tar.gz
+$ cd /path/to/your/Linux-g++8.5.0-CC8.tar.gz
+$ tar xfvz Linux-g++8.5.0-CC8.tar.gz
 $ ls
-./   ../   Geant4-10.6.2-Linux/
+./   ../   Geant4-11.1.0-Linux/
 ```
 
 The next step is to download [Geant4 datasets](https://geant4.web.cern.ch/support/download) one by one and unpack them into a folder. This tedious process can be automated by using the [geant4-config][] script shipped with [Geant4][], which can be found in `/path/to/your/geant4/bin/`.  However, the one shipped with the pre-compiled [Geant4][] does not know where your data folder is. You need to run the following commands to update your [geant4-config][] and use it to install all the datasets for you:
 
 ```sh
-$ cd /path/to/your/Geant4-10.6.2-Linux/bin
+$ cd /path/to/your/Geant4-11.1.0-Linux/bin
 # change location of geant4 databases
-$ sed -i.bak 's|/afs/cern.ch/user/g/gunter/l/releases/web/10.6.p01/install|/path/to/your/geant4|g' geant4-config
+$ sed -i.bak 's|/afs/cern.ch/user/g/gunter/l/releases/web/11.1.0/install|/path/to/your/geant4|g' geant4-config
 $ ./geant4-config --install-datasets
 ```
 
@@ -158,23 +165,6 @@ source /path/to/your/pre-compiled/geant4/bin/geant4.sh
 # source gears/gears.sh to export Geant4 database locations
 source /path/to/gears/gears.sh
 ```
-## Docker images
-
-[Dockerfile](Dockerfile) in this folder is used to install the latest [Geant4][] in the latest [Fedora][] [Docker][] [container][].
-
-The 64-bit [Geant4][] libraries were pre-compiled with gcc 8.3.0 on CERN CentOS7 (CC7) Linux. They were directly downloaded from the [Geant4][] [download][] page. Fortunately, they run just fine on the latest [Fedora][], which is a more up-to-date OS than CC7.
-
-The [image][] can be generated using the following commands:
-
-```sh
-cd /path/to/gears/
-docker-compose build g4
-docker push physino/geant4:gears
-```
-
-[GEARS][] is included in `/usr/bin` in this [image][] as a verification of the [Geant4][] installation.
-
-As the libraries were compiled already, the installation process only involves downloading and unpacking them, and only costs about 12 minutes, where, 10 minutes is used to download and unpack [Geant4][] [datasets][download]. Unfortunately, [Qt][] and [GDML][] were not enabled in the pre-compilation. Another image, <https://hub.docker.com/r/physino/g4vis>, is created with the [HepRApp][] viewer included to visualize detector geometries created using this [image][].
 
 [Geant4]: https://geant4.web.cern.ch
 [Fedora]: https://hub.docker.com/_/fedora
@@ -185,29 +175,4 @@ As the libraries were compiled already, the installation process only involves d
 [image]: https://hub.docker.com/r/physino/geant4
 [Qt]: https://geant4-userdoc.web.cern.ch/UsersGuides/ForApplicationDeveloper/html/Visualization/visdrivers.html#qt
 [GDML]: https://geant4-userdoc.web.cern.ch/UsersGuides/ForApplicationDeveloper/html/Detector/Geometry/geomXML.html
-[HepRApp]: https://www.slac.stanford.edu/~perl/HepRApp/
 
-## Singularity image
-
-[singularity.def](singularity.def) in this folder is used to generate [apptainer][]/[singularity][] images from the [GEARS][] [Docker][] [image][] mentioned above using the following commands:
-
-```sh
-cd /path/to/gears/INSTALL/Geant4
-sudo singularity build gears.sif singularity.def
-```
-
-You must run the `build` command with `sudo`. If you don't have the privilege to run `sudo`, you can use the remote build option provided by [singularity][] to build the image in <https://cloud.sylabs.io>:
-
-```sh
-singularity build -r gears.sif singularity.def
-```
-
-I sign and push the image to <https://cloud.sylabs.io/library/jintonic/geant4/gears> using the following commands:
-
-```sh
-singularity sign gears.sif
-singularity push gears.sif library://jintonic/geant4/gears:latest
-```
-
-[singularity]: https://en.wikipedia.org/wiki/Singularity_(software)
-[apptainer]: https://apptainer.org
