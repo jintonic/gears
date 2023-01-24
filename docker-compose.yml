@@ -5,7 +5,7 @@ services:
     profiles: [ "gears" ] # https://docs.docker.com/compose/profiles
     platform: linux/amd64 # pre-compiled geant4 is not available for arm64
     volumes: [".:/root/gears"] # No X11 as OGL on docker is hard to set
-    build: INSTALL # docker-compose build gears
+    build: INSTALL/Docker # docker-compose build gears
 
   geant4: # docker-compose run geant4
     command: /usr/bin/bash # launch a command line to compile GEARS
