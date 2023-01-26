@@ -41,3 +41,4 @@ You should also be able to run `gears.exe` anywhere you want since its containin
 [Visual Studio]: https://visualstudio.microsoft.com
 [GEARS]: https://github.com/jintonic/gears
 [sln]: https://learn.microsoft.com/en-us/visualstudio/extensibility/internals/solution-dot-sln-file
+[Geant4]: http://geant4.cern.ch
