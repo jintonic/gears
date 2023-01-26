@@ -7,7 +7,9 @@ if [ "$latest" = directory ]; then echo "no g4_??.wrl file found"; exit; fi
 # get VRML to X3D converter
 JAR="VrmlMerge-0.5beta.jar"
 DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" >/dev/null 2>&1 && pwd)"
-if [ ! -f $DIR/$JAR ]; then wget -P $DIR http://www.deem7.com/files/$JAR; fi
+if [ ! -f $DIR/$JAR ]; then
+  curl -L https://www.dropbox.com/s/fjc2q7lafnotk4i/$JAR?dl=1 -o $DIR/$JAR
+fi
 
 # convert VRML to X3D
 X3D=${latest/wrl/x3d}
