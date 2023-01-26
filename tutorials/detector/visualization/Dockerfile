@@ -8,16 +8,16 @@ LABEL maintainer="Jing Liu"<jing.liu@usd.edu>
 RUN cd /etc/yum.repos.d/ && sed -i 's/mirrorlist/#mirrorlist/g' /etc/yum.repos.d/CentOS-* \
  && sed -i 's|#baseurl=http://mirror.centos.org|baseurl=http://vault.centos.org|g' /etc/yum.repos.d/CentOS-*
 
-# install packages needed to run HepRepFile viewer
-RUN dnf install -y xauth java-1.8.0-openjdk && dnf clean all \
+# install packages needed to run HepRApp, python3 is needed to run a web server
+RUN dnf install -y xauth java-1.8.0-openjdk python3 && dnf clean all \
  && rm -fr /var/cache/* /root/*.cfg /root/*.log
 
-# install HepRepFile visualization tools
+# install HepRepFile and VRML visualization tools
 # HepRApp.jar needs to be downloaded manually from https://www.slac.stanford.edu/~perl/HepRApp/
 # as the docker ip is blocked by slac
-COPY HepRApp.jar hv /usr/bin
+COPY HepRApp.jar VrmlMerge-0.5beta.jar hv v2x /usr/bin
 COPY HepRApp.properties /root/.heprapprc
-RUN cd /usr/bin && chmod 755 hv
+RUN cd /usr/bin && chmod 755 hv v2x
 
 # overwrite the default working directory: /
 WORKDIR /root
