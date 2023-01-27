@@ -1,13 +1,20 @@
 #!/bin/bash
+
+# check java
+j=`command -v java`
+if [ X"$j" = X ]; then echo "No java can be found. Quit"; exit; fi
+
 VERSION=`java -version 2>&1 | head -n 1 | awk '{print $3}' | awk -F "." '{print $1}'`
 VERSION=${VERSION:1}
 if [ $VERSION -gt 8 ]; then
-  echo java is too new to run HepRApp. Quit.
+  echo java $VERSION is too new to run HepRApp. Quit.
   exit
 fi
 
+# download and run HepRApp.jar
+JAR="HepRApp.jar"
 DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" >/dev/null 2>&1 && pwd)"
-if [ ! -f $DIR/HepRApp.jar ]; then
-  wget -P $DIR http://www.slac.stanford.edu/~perl/HepRApp/HepRApp.jar
+if [ ! -f $DIR/$JAR ]; then
+  curl -L https://www.dropbox.com/s/xfatlu1rp7ffavv/HepRApp.jar?dl=1 -o $DIR/$JAR
 fi
-java -jar $DIR/HepRApp.jar -opt ~/.heprapprc -file $1
+java -jar $DIR/$JAR -opt ~/.heprapprc -file $1
