@@ -4,14 +4,9 @@
 for each in `ls *.wrl 2>&1`; do latest=$each; done
 if [ "$latest" = directory ]; then echo "no g4_??.wrl file found"; exit; fi
 
-# get VRML to X3D converter
+# convert VRML to X3D
 JAR="VrmlMerge-0.5beta.jar"
 DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" >/dev/null 2>&1 && pwd)"
-if [ ! -f $DIR/$JAR ]; then
-  curl -L https://www.dropbox.com/s/fjc2q7lafnotk4i/$JAR?dl=1 -o $DIR/$JAR
-fi
-
-# convert VRML to X3D
 X3D=${latest/wrl/x3d}
 if [ ! -f $X3D ] || [ $latest -nt $X3D ]; then
     java -jar $DIR/$JAR -convert $latest $X3D
@@ -22,33 +17,14 @@ sed -i.bak 's/"0.7"/"0.1"/g' $X3D
 rm *.bak
 
 # embed g4_??.x3d in g4_??.html
-cat << END > ${latest/wrl/html}
-<html> 
-<head> 
-<title>$X3D</title>
-<script type='text/javascript' src='http://www.x3dom.org/download/x3dom.js'> </script>
-<link rel='stylesheet' type='text/css' href='http://www.x3dom.org/download/x3dom.css'></link>
-</head> 
-<body>
-Rotate:
-<img width="50px" src="https://doc.x3dom.org/tutorials/animationInteraction/navigation/img/Mouse_Left.png"/>
-Zoom:
-<img width="50px" src="https://doc.x3dom.org/tutorials/animationInteraction/navigation/img/Mouse_Right.png"/>
-Zoom:
-<img width="50px" src="https://doc.x3dom.org/tutorials/animationInteraction/navigation/img/Mouse_Wheel_Scroll.png"/>
-Pan:
-<img width="50px" src="https://doc.x3dom.org/tutorials/animationInteraction/navigation/img/Mouse_Wheel_Press.png"/>
-More:
-<a href="https://doc.x3dom.org/tutorials/animationInteraction/navigation/">X3DOM Documentation</a>
-<x3d> 
-<scene>
-<inline url="$X3D"></inline> 
-</scene> 
-</x3d> 
-</body>
-</html>
-END
+sed "s/gears/$latest/" gearsX3D.html > ${latest/wrl/html}
 
-# server the current directory
-echo click http://127.0.0.1:8888/${latest/wrl/html} to view $X3D
-python3 -m http.server 8888 -b 127.0.0.1
+# server the current directory if python3 exists
+p3=`command -v python3`
+if [ X"$p3" = X ]; then
+  echo "${latest/wrl/html} is created"
+else
+  echo ${latest/wrl/html} with $X3D embedded is served at
+  $p3 -m http.server 8888 -b 127.0.0.1
+fi
+
