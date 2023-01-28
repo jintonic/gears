@@ -35,7 +35,7 @@ services:
   notebook: # docker-compose up
     command: /usr/bin/root --notebook --allow-root --no-browser --ip=0.0.0.0
     image: physino/root:notebook
-    ports: [ "8888:8888" ]
+    ports: [ "8888:8888" ] # only exposed with `up`, not 'run`
     volumes: [".:/root/gears"]
     build: INSTALL/ROOT/notebook # docker-compose build notebook
 
@@ -50,9 +50,15 @@ services:
       - .:/root/gears
     build: tutorials/detector/visualization/ # docker-compose build heprapp
 
-  x3d: # docker compose run x3d
-    command: /usr/bin/bash # launch a command line to run v2x
-    image: physino/root
-    ports: [ "8888:8888" ]
-    volumes: [ ".:/root/gears" ]
+  x3d: # docker-compose up x3d
+    # according to https://stackoverflow.com/a/16488110
+    # a browser cannot access g4_??.x3d embed in file://g4_??.html
+    # a simple web server is needed to avoid change browser settings
+    # -u: don't buffer output (https://stackoverflow.com/a/63195558)
+    # --cgi: enable CGI (https://stackoverflow.com/a/63195558)
+    command: python3 -u -m http.server --cgi
+    working_dir: /root/gears/tutorials/detector/visualization/
+    image: physino/heprapp
     profiles: [ "x3d" ]
+    ports: [ "8000:8000" ] # only exposed with `up`, not 'run`
+    volumes: [".:/root/gears"]
