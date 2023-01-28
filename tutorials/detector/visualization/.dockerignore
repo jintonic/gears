@@ -1,13 +1,9 @@
-Dockerfile
-*.md
-*.mac
-*.heprep
-*.jpeg
-*.pdf
-*.wrl
-*.png
-*.x3d
-*.html
-*.prim
-*.def
-*.eps
+# ignore everything
+*
+# except for
+!Dockerfile
+!*.jar
+!gears*
+!HepRApp*
+!hv
+!v2x
