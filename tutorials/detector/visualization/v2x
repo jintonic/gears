@@ -1,30 +1,59 @@
 #!/bin/bash
+# a bash scrip to convert g4_??.wrl to g4_??.x3d
 
-# get the latest g4_??.wrl
-for each in `ls *.wrl 2>&1`; do latest=$each; done
-if [ "$latest" = directory ]; then echo "no g4_??.wrl file found"; exit; fi
-
-# convert VRML to X3D
-JAR="VrmlMerge-0.5beta.jar"
-DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" >/dev/null 2>&1 && pwd)"
-X3D=${latest/wrl/x3d}
-if [ ! -f $X3D ] || [ $latest -nt $X3D ]; then
-    java -jar $DIR/$JAR -convert $latest $X3D
+# check if the script is run as a CGI script
+if [ ! -z "$SCRIPT_NAME" ]; then # if yes, construct a webpage
+  echo "Content-type: text/html"
+  # https://en.wikipedia.org/wiki/Common_Gateway_Interface
+  echo # leave a blank line
+  echo '<html style="padding: 10px;">'
+  echo '<head><title>VRML Web Viewer</title></head>'
+  echo '<body style="max-width: 800px; margin: auto;">'
+  echo '<pre style="border:1px solid; padding: 5px; overflow: auto;">'
 fi
 
-# tune transparency in $X3D
-sed -i.bak 's/"0.7"/"0.1"/g' $X3D
-rm *.bak
+echo Print working environment ...
+env; echo; java -version 2>&1; echo
 
-# embed g4_??.x3d in g4_??.html
-sed "s/gears/$latest/" gearsX3D.html > ${latest/wrl/html}
-
-# server the current directory if python3 exists
-p3=`command -v python3`
-if [ X"$p3" = X ]; then
-  echo "${latest/wrl/html} is created"
+echo Search g4_??.wrl files ...
+files=`find . | grep wrl`
+# quit if there is none
+if [ -z "$files" ]; then
+  echo "There is no g4_??.wrl file found"
+  echo "Please run \`gears VRML.mac\` to generate some"
+  exit
 else
-  echo ${latest/wrl/html} with $X3D embedded is served at
-  $p3 -m http.server 8888 -b 127.0.0.1
+  for each in $files; do echo $each; done; echo
 fi
 
+echo "Convert g4_??.wrl to g4_??.x3d ..."
+for each in $files; do
+  file=${each#./} # remove ./ from the beginning of string
+  fx3d=${file/wrl/x3d} # .wrl -> .x3d
+  page=${file/wrl/html} # .wrl -> .html
+  # convert g4_??.wrl to g4_??.x3d
+  java -jar VrmlMerge-0.5beta.jar -convert $file $fx3d
+  # tune transparency in g4_??.x3d
+  sed -i.bak 's/"0.7"/"0.1"/g' $fx3d; rm $fx3d.bak
+  # embed g4_??.x3d in g4_??.html
+  base=`basename $fx3d`
+  sed "s|gears.x3d|$base|" gearsX3D.html > $page
+done
+
+if [ -z "$SCRIPT_NAME" ]; then # run in shell
+  p3=`command -v python3` # print path to python3
+  if [ ! -z "$p3" ]; then # python3 exists
+    echo
+    $p3 -m http.server -b 127.0.0.1 # launch http server
+  fi
+else # run as a CGI script
+  echo '</pre>'
+  echo '<h3>Choose one from the following scanning result to view:</h3>'
+  echo '<ul>'
+  for each in $files; do
+    echo "<li><a style=\"color:blue;\" href=\".${each/wrl/html}\">${each#./}</a></li>"
+  done
+  echo '</ul>'
+  echo '</body>'
+  echo '</html>'
+fi
