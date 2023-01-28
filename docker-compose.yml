@@ -57,7 +57,6 @@ services:
     # -u: don't buffer output (https://stackoverflow.com/a/63195558)
     # --cgi: enable CGI (https://stackoverflow.com/a/63195558)
     command: python3 -u -m http.server --cgi
-    working_dir: /root/gears/tutorials/detector/visualization/
     image: physino/heprapp
     profiles: [ "x3d" ]
     ports: [ "8000:8000" ] # only exposed with `up`, not 'run`
