@@ -60,7 +60,9 @@ $ gears VRML.mac
 
 It generates `g4_??.wrl` in the same directory.
 
-A shell script [v2x][] is shipped in the same directory to convert the latest `g4_??.wrl` to `g4_??.x3d`, embed the latter to `g4_??.html` and run a simple http server using python3 in the current directory. Open <http://127.0.0.1/8888/g4_??.html> in a modern browser to see the result.
+A shell script [v2x][] is shipped in the same directory to convert the latest `g4_??.wrl` to `g4_??.x3d`, embed the latter to `g4_??.html` and run a simple http server using python3 in the current directory. Open <http://127.0.0.1:8000/g4_??.html> in a modern browser to see the result.
+
+The last service defined in [gears/docker-compose.yml](../../../docker-compose.yml) `x3d` serves a website in a Docker container to visualize `g4_??.html`.
 
 ### HepRepFile
 
