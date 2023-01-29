@@ -1,4 +1,6 @@
-## Use CMake on Windows
+[![YouTube](https://img.shields.io/badge/You-Tube-yellow?style=flat)](https://youtu.be/nY-vO6yN65c)
+
+## Use CMake on Windows to compile GEARS
 
 We can use [CMake][] to generate a C++ project file, an XML file that has the .[vcxproj][] extension, and a [Visual Studio][] solution file (.[sln][]). They will be used by [Visual Studio][] to compile [GEARS][].
 

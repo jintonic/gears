@@ -1,11 +1,11 @@
-[![home](https://img.shields.io/badge/gears-home-magenta?style=flat)](../..)
+[![YouTube](https://img.shields.io/badge/You-Tube-red?style=flat)](https://youtu.be/E7VpAcXhhHo)
 [![tutorials](https://img.shields.io/badge/gears-tutorials-green?style=flat)](..)
 [![alpha](https://img.shields.io/badge/alpha-interactions-blue?style=flat)](alpha)
 [![beta](https://img.shields.io/badge/beta-interactions-yellow?style=flat)](beta)
 [![gamma](https://img.shields.io/badge/gamma-interactions-cyan?style=flat)](gamma)
 [![muon](https://img.shields.io/badge/muon-interactions-pink?style=flat)](muon)
 [![neutron](https://img.shields.io/badge/neutron-interactions-brown?style=flat)](neutron)
-[![optical](https://img.shields.io/badge/optical-photons-red?style=flat)](#optical-processes)
+[![optical](https://img.shields.io/badge/optical-photons-magenta?style=flat)](#optical-processes)
 [![decay](https://img.shields.io/badge/radioactive-decay-orange?style=flat)](#radioactive-decay)
 [![X-ray](https://img.shields.io/badge/X--ray-creation-green?style=flat)](X-ray)
 
@@ -86,6 +86,8 @@ anti_tritonInelastic,  anti_He3Inelastic,anti_alphaInelastic
 Now you can use, for example, `/process/inactivate nCapture` to disable neutron capture process in your simulation. And you can use, for example, `/process/setVerbose 20 RadioactiveDecay` to change the verbosity of the radioactive decay process.
 
 ### Radioactive decay
+[![YouTube](https://img.shields.io/badge/You-Tube-red?style=flat)](https://youtu.be/8dR0DQ5ypCw)
+
 Radioactive decay processes can be enabled after a reference list is chosen:
 
 ```sh
@@ -197,6 +199,8 @@ If the half life of a daughter nucleus is longer than a measurement duration, th
 ```
 
 ### Optical processes
+[![YouTube](https://img.shields.io/badge/You-Tube-red?style=flat)](https://youtu.be/sgo-RPbDRcU)
+
 Optical processes can be enabled after a reference list is chosen:
 
 ```sh

@@ -1,9 +1,8 @@
-[![Home](https://img.shields.io/badge/GEARS-Home-blue?style=flat)](https://github.com/jintonic/gears)
+[![YouTube](https://img.shields.io/badge/You-Tube-red?style=flat)](https://youtube.com/playlist?list=PLw3G-vTgPrdABdR2C4u77jK4YYF5GAoxe)
 [![Tutorial](https://img.shields.io/badge/Use-GEARS-yellow?style=flat)](..)
 [![Session](https://img.shields.io/badge/Interactive-session-brown?style=flat)](#session-mode)
 
 ## User interface (UI)
-[![YouTube](https://img.shields.io/badge/You-Tube-red?style=flat)](https://youtube.com/playlist?list=PLw3G-vTgPrdABdR2C4u77jK4YYF5GAoxe)
 
 [GEARS][] relies on [G4UIExecutive][] to select a user interface (UI). Without any specific setup, [GEARS][] will try to run a graphic user interface (GUI) based on [Qt][] or Windows GUI. If your [Geant4][] is not compiled with GUI support, [GEARS][] will try to use a command-line interface ([CLI][]). In Windows, go to a folder where you'd like to run [GEARS][] in your file browser. Highlight the address bar, type `gears.exe`:
 

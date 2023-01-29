@@ -1,6 +1,6 @@
-## Compile GEARS with Visual Studio
-
 [![YouTube](https://img.shields.io/badge/You-Tube-red?style=flat)](https://youtu.be/bchKxElTSb4)
+
+## Compile GEARS with Visual Studio
 
 The compilation of GEARS can be done solely with Visual Studio. It is complicated, hence is not recommended. But here is how.
 

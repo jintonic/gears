@@ -1,8 +1,8 @@
-[![home](https://img.shields.io/badge/gears-home-blue?style=flat)](../..)
+[![YouTube](https://img.shields.io/badge/You-Tube-red?style=flat)](https://youtu.be/TSP0RLjhLDw)
 [![tutorials](https://img.shields.io/badge/use-GEARS-green?style=flat)](..)
 [![visualization](https://img.shields.io/badge/detector-visualization-orange?style=flat)](visualization)
 [![boolen](https://img.shields.io/badge/boolean-operation-yellow?style=flat)](boolean)
-[![scripts](https://img.shields.io/badge/program-geometry-red?style=flat)](scripts)
+[![scripts](https://img.shields.io/badge/program-geometry-blue?style=flat)](scripts)
 [![optical](https://img.shields.io/badge/optical-properties-cyan?style=flat)](optical)
 [![syntax](https://img.shields.io/badge/syntax-highlighting-magenta?style=flat)](syntax)
 

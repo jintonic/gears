@@ -56,6 +56,8 @@ Click "Environment Variables..." and check the highlighted items to make sure th
 <img style="width:100%;" src="winEnv.png"/>
 
 ## Install pre-compiled Geant4 on macOS
+[![Pre-compiled](https://img.shields.io/badge/Pre-compiled-red?style=flat)](https://youtu.be/uSp32UxGxBE)
+[![Compilation](https://img.shields.io/badge/Compile-Geant4-blue?style=flat)](https://youtu.be/Qk34s9xIF_4)
 
 You can download the pre-compiled Geant4 libraries for the macOS [here](https://geant4.web.cern.ch/support/download). By default, it will be saved to `~/Downloads`. The next step is to download [Geant4 datasets](https://geant4.web.cern.ch/support/download) one by one and unpack them into a folder. This tedious process can be automated by using the [geant4-config][] script shipped with [Geant4][]. However, the one shipped with the pre-compiled [Geant4][] does not know where your data folder is. You need to run the following commands to update your [geant4-config][] and use it to install all the datasets for you:
 
@@ -131,6 +133,8 @@ If you have problems to run `cmake` in some of the official Geant4 examples, che
 Manually fix them based on your system and you should be able to run `cmake` and `make` for your Geant4 examples. Note that, this has no effect on GEARS compilation since GEARS relies on `geant4-config` instead of the Geant4 Cmake files for its compilation.
 
 ## Install pre-compiled Geant4 on CentOS
+[![YouTube](https://img.shields.io/badge/You-Tube-red?style=flat)](https://youtu.be/HLUtzZO7cmk)
+[![Geant4-config](https://img.shields.io/badge/Geant4-config-blue?style=flat)](https://youtu.be/8bcQ-yQepUM)
 
 You can download the pre-compiled Geant4 libraries for CentOS [here](https://geant4.web.cern.ch/support/download). They were compiled with a relatively new version of `g++`, 8.5.0. Run the following command in your CentOS terminal:
 
@@ -175,4 +179,4 @@ source /path/to/gears/gears.sh
 [image]: https://hub.docker.com/r/physino/geant4
 [Qt]: https://geant4-userdoc.web.cern.ch/UsersGuides/ForApplicationDeveloper/html/Visualization/visdrivers.html#qt
 [GDML]: https://geant4-userdoc.web.cern.ch/UsersGuides/ForApplicationDeveloper/html/Detector/Geometry/geomXML.html
-
+[geant4-config]: https://geant4-userdoc.web.cern.ch/UsersGuides/InstallationGuide/html/buildtools.html#other-unix-build-systems-geant4-config
