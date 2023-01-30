@@ -1,5 +1,4 @@
 [![YouTube](https://img.shields.io/badge/You-Tube-red?style=flat)](https://youtube.com/playlist?list=PLw3G-vTgPrdABdR2C4u77jK4YYF5GAoxe)
-[![Tutorial](https://img.shields.io/badge/Use-GEARS-yellow?style=flat)](..)
 [![Session](https://img.shields.io/badge/Interactive-session-brown?style=flat)](#session-mode)
 
 ## User interface (UI)
