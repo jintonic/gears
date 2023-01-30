@@ -5,10 +5,10 @@
 # since it triggers the construction of the detector
 /run/initialize
 
-# the only two cmds needed to print detector components on screen
+# the only two cmds needed to print detector components (volumes) on screen
 /vis/ASCIITree/verbose 13
 /vis/drawTree
 
-# check if there is any overlapping between detector components
+# check if there is any overlapping between detector components (volumes)
 /geometry/test/run
 
