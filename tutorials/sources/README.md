@@ -1,5 +1,4 @@
 [![YouTube](https://img.shields.io/badge/You-Tube-blue?style=flat)](https://youtu.be/wSREKbCLlmQ)
-[![tutorials](https://img.shields.io/badge/gears-tutorials-green?style=flat)](..)
 [![common sources](https://img.shields.io/badge/common-sources-red?style=flat)](#common-sources)
 
 [GEARS][] uses the [Geant4][] [general particle source][gps] to generate the [primary particles][], from which a [Geant4][] simulation starts (see [this plot](../output#step-point) to understand the general concept). The up-to-date examples of [gps][] are shipped together with the [Geant4][] source code in the folder:
@@ -17,7 +16,7 @@ An [outdated webpage](http://hurel.hanyang.ac.kr/Geant4/Geant4_GPS/reat.space.qi
 
 ## GPS macros
 
-An ASCII version of the manual of [gps][] macros is available [here](gps.txt).
+An ASCII version of the manual of [gps][] macros is available in [gps.txt](gps.txt).
 
 ### Source in a volume
 

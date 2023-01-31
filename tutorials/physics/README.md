@@ -1,5 +1,4 @@
 [![YouTube](https://img.shields.io/badge/You-Tube-red?style=flat)](https://youtu.be/E7VpAcXhhHo)
-[![tutorials](https://img.shields.io/badge/gears-tutorials-green?style=flat)](..)
 [![alpha](https://img.shields.io/badge/alpha-interactions-blue?style=flat)](alpha)
 [![beta](https://img.shields.io/badge/beta-interactions-yellow?style=flat)](beta)
 [![gamma](https://img.shields.io/badge/gamma-interactions-cyan?style=flat)](gamma)
