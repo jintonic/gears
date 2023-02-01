@@ -1,7 +1,3 @@
-[![home](https://img.shields.io/badge/gears-home-blue?style=flat)](../../..)
-[![tutorials](https://img.shields.io/badge/gears-tutorials-green?style=flat)](../..)
-[![physics](https://img.shields.io/badge/physics-processes-red?style=flat)](..)
-
 ## X-ray creation
 
 The characteristic X-ray creation by ionizing particles in a material is demonstrated in [fluorescence.mac](fluorescence.mac), where 5.5 MeV alpha rays are shot to a thin Al foil defined in [foil.tg](foil.tg).Minimal macro commands needed to create characteristic X-ray are:
