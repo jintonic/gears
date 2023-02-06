@@ -1,3 +1,8 @@
+[Boolean][] operation is a way to combine simple geometries into complex ones.
+
+> **Note**
+> There is no need to use [Boolean][] operation to dig a hole inside a larger volume in order to place a smaller one inside the larger one. Placing a small volume directly inside a larger one won't create overlapping. Instead, the smaller volume becomes a daughter volume of the larger one.
+
 ## Boolean operation
 
 Three [tutorials][] are provided here to demonstrate how to create a complex geometry using the [Boolean][] operation.
