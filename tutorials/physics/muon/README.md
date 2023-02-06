@@ -1,7 +1,3 @@
-[![home](https://img.shields.io/badge/gears-home-blue?style=flat)](../../..)
-[![tutorials](https://img.shields.io/badge/gears-tutorials-green?style=flat)](../..)
-[![physics](https://img.shields.io/badge/physics-processes-red?style=flat)](..)
-
 Muons, being charged particles (mu+ and mu-), interact with matter by ionizing it. They themselves lose energy during this process.
 
 ### Stopping power
