@@ -16,6 +16,11 @@ services:
     volumes:
       - /tmp/.X11-unix:/tmp/.X11-unix # needed for Qt
       - .:/root/gears
+    # host.docker.internal doesn't exist in a Linux host
+    # https://stackoverflow.com/a/24326540
+    # https://stackoverflow.com/questions/70725881
+    extra_hosts:
+      - "host.docker.internal:host-gateway"
     # https://docs.docker.com/compose/compose-file/#working_dir
     working_dir: /root/gears
 
@@ -28,6 +33,8 @@ services:
     volumes:
       - /tmp/.X11-unix:/tmp/.X11-unix
       - .:/root/gears
+    extra_hosts:
+      - "host.docker.internal:host-gateway"
     working_dir: /root/gears
     build: INSTALL/ROOT/ # docker-compose build root
 
@@ -48,6 +55,8 @@ services:
     volumes:
       - /tmp/.X11-unix:/tmp/.X11-unix
       - .:/root/gears
+    extra_hosts:
+      - "host.docker.internal:host-gateway"
     build: tutorials/detector/visualization/ # docker-compose build heprapp
 
   x3d: # docker-compose up x3d
