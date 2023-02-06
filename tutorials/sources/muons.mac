@@ -1,0 +1,23 @@
+# muons at sea level
+
+/gps/pos/type Plane
+/gps/pos/shape Circle
+/gps/pos/radius 1. m
+
+/gps/pos/centre 0. 0. 0. cm
+
+/gps/ene/type User
+/gps/hist/type energy
+
+/gps/hist/point 1        0.002
+/gps/hist/point 10       0.00205     
+/gps/hist/point 100      0.00216
+/gps/hist/point 1000     0.00225
+/gps/hist/point 10000    0.0023
+/gps/hist/point 100000   0.00239
+
+/gps/source/intensity 0.5652 # 56.52%
+/gps/particle mu+
+
+/gps/source/add  0.4348 # 43.48%
+/gps/particle mu-
