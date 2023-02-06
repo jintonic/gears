@@ -1,7 +1,3 @@
-[![home](https://img.shields.io/badge/gears-home-blue?style=flat)](../../..)
-[![tutorials](https://img.shields.io/badge/gears-tutorials-green?style=flat)](../..)
-[![detector](https://img.shields.io/badge/tutorials-detector-orange?style=flat)](..)
-
 ## Create text geometry using SHELL script
 
 [tracker.sh](tracker.sh) is an example shell script to create a [text geometry][tg] file `tracker.tg`, which is used in [bend.mac](bend.mac)
