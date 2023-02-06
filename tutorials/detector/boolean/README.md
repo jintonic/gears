@@ -1,7 +1,3 @@
-[![home](https://img.shields.io/badge/gears-home-blue?style=flat)](../../..)
-[![tutorials](https://img.shields.io/badge/gears-tutorials-green?style=flat)](../..)
-[![detector](https://img.shields.io/badge/tutorials-detector-orange?style=flat)](..)
-
 ## Boolean operation
 
 Three [tutorials][] are provided here to demonstrate how to create a complex geometry using the [Boolean][] operation.
