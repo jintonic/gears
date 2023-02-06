@@ -1,7 +1,3 @@
-[![home](https://img.shields.io/badge/gears-home-blue?style=flat)](../../..)
-[![tutorials](https://img.shields.io/badge/gears-tutorials-green?style=flat)](../..)
-[![detector](https://img.shields.io/badge/detector-construction-orange?style=flat)](..)
-
 ## Syntax highlighting for .tg files
 
 ### Emacs
