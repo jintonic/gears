@@ -1,7 +1,5 @@
-[![home](https://img.shields.io/badge/gears-home-blue?style=flat)](../../..)
-[![tutorials](https://img.shields.io/badge/gears-tutorials-green?style=flat)](../..)
-[![detector](https://img.shields.io/badge/detector-construction-orange?style=flat)](..)
-[![optical processes](https://img.shields.io/badge/optical-processes-red?style=flat)](../../physics#optical-processes)
+[![YouTube](https://img.shields.io/badge/You-Tube-red?style=flat)](https://youtu.be/sgo-RPbDRcU)
+[![optical processes](https://img.shields.io/badge/optical-processes-blue?style=flat)](../../physics#optical-processes)
 
 One can hard code the optical properties of a material or a surface in C++, which requires recompiling of the source code. [GDML][] can also be used, but with some limitation (for example, [properties cannot be assigned to existing NIST materials pre-defined in Geant4](https://geant4-forum.web.cern.ch/t/adding-optical-properties-to-built-in-g4-materials-using-gdml/340/4)). Worse, there is no way to define optical properties in the default [Geant4][] [text geometry description][tg].
 
