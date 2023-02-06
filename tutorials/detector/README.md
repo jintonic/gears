@@ -21,6 +21,9 @@ Their difference is similar to that between [markdown][md] and [HTML][]. The sim
 :volu hall BOX 5*m 5*m 5*m G4_AIR
 ~~~
 
+> **Note**
+> Please leave a blank line at the end of a `.tg` file, otherwise, Geant4 cannot parse it correctly!
+
 For more examples, please check `*.tg` files in the [tutorials/detector](.) directory, such as [tutorials/detector/gears.tg](gears.tg) and [tutorials/detector/solids.tg](solids.tg). The suffix of *.tg* indicates that they are [text geometry][tg] description files. A [Geant4][] macro command `/geometry/source` is added to load geometry files:
 
 ~~~sh
