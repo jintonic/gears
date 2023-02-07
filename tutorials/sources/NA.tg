@@ -1,0 +1,6 @@
+:volume NA BOX 10*m 10*m 10*m G4_AIR
+:vis world OFF
+
+:volume concrete BOX 10*m 10*m 2.2*m G4_CONCRETE
+:rotm r000 0 0 0
+:place concrete 1 NA r000 0 0 5*m
