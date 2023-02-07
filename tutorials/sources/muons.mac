@@ -1,10 +1,16 @@
+/control/verbose
+
+/geometry/input NA.tg
+
+/run/initialize
+
 # muons at sea level
 
 /gps/pos/type Plane
 /gps/pos/shape Circle
 /gps/pos/radius 1. m
 
-/gps/pos/centre 0. 0. 0. cm
+/gps/pos/centre 0. 0. 6. m
 
 /gps/ene/type User
 /gps/hist/type energy
@@ -16,8 +22,31 @@
 /gps/hist/point 10000    0.0023
 /gps/hist/point 100000   0.00239
 
+/gps/ang/type User
+/gps/hist/type angle
+
+/gps/hist/point 0    1
+/gps/hist/point 0.17 0.98
+/gps/hist/point 0.35 0.88
+/gps/hist/point 0.52 0.75
+/gps/hist/point 0.70 0.61
+/gps/hist/point 0.87 0.42
+/gps/hist/point 1.05 0.27
+/gps/hist/point 1.22 0.14
+/gps/hist/point 1.40 0.03
+/gps/hist/point 1.57 0
+
 /gps/source/intensity 0.5652 # 56.52%
 /gps/particle mu+
 
 /gps/source/add  0.4348 # 43.48%
 /gps/particle mu-
+
+/vis/open HepRepFile
+
+/vis/scene/add/axes
+/vis/scene/add/trajectories
+
+/tracking/verbose 2
+
+/run/beamOn 1
