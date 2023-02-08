@@ -1,5 +1,6 @@
 [![YouTube](https://img.shields.io/badge/You-Tube-red?style=flat)](https://youtube.com/playlist?list=PLw3G-vTgPrdABdR2C4u77jK4YYF5GAoxe)
-[![Session](https://img.shields.io/badge/Interactive-session-brown?style=flat)](#session-mode)
+[![Session](https://img.shields.io/badge/Interactive-session-blue?style=flat)](#session-mode)
+[![Macro commands](https://img.shields.io/badge/Macro-commands-blue?style=flat)](#Macro-commands)
 
 ## User interface (UI)
 
@@ -48,6 +49,26 @@ $ gears RayTracer.mac # run gears in batch mode
 This way, `gears` will run in the batch mode. It executes commands in the [macro][] file one by one, and quit once it finishes.
 
 In Windows, you can select a Geant4 [macro][] file, right click on it, choose `Open with ...`, and then `Choose another app`, `More apps`, scroll down the list, choose `Look for another app in this PC` and navigate to the folder containing `gears.exe`, choose `gears.exe`. Now you can simply double click a [Geant4][] macro file to run it.
+
+## Macro commands
+
+We control [Geant4][] through [macro][] commands.
+
+```
+# print out each command before execution
+/control/verbose 2
+# print out detailed information of each particle in the simulation
+/tracking/verbose 2
+# print out summary information at the end of a run
+/run/verbose 2
+```
+
+Macro commands added by [GEARS][]:
+
+```
+/geometry/source gears.tg
+/geometry/export gears.gdml
+```
 
 [GEARS]: https://github.com/jintonic/gears
 [G4UIExecutive]: http://geant4-userdoc.web.cern.ch/geant4-userdoc/UsersGuides/ForApplicationDeveloper/html/GettingStarted/graphicalUserInterface.html#how-to-select-interface-in-your-applications
