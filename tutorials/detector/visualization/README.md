@@ -194,20 +194,20 @@ The scene will be cleared after each event. In case of [HepRepFile](#heprepfile)
 
 Only one `G4Data01.heprep` will be created in this case if you use [HepRepFile](#heprepfile).
 
-## Visualization of axes, date, scale, text, etc.
+## Visualization of axes, date, text, etc.
 
 You can add more objects to a scene:
 
 ```
-# Add x (), y (), z () axes in the middle of the geometry
+# Add x (red), y (green), z (blue) axes in the middle of the scene
 /vis/scene/add/axes
 # add date to the corner of the scene
 /vis/scene/add/date
-# add scale to the scene
-/vis/scene/add/scale
+# add text to the scene
+/vis/scene/add/text 2 3 4 m 12 0 0 hello
 ```
 
-For more information please check the manual of [/vis/scene/add/](https://geant4-userdoc.web.cern.ch/UsersGuides/ForApplicationDeveloper/html/Control/AllResources/Control/UIcommands/_vis_scene_add_.html)
+For more information please check the [manual of /vis/scene/add/](https://geant4-userdoc.web.cern.ch/UsersGuides/ForApplicationDeveloper/html/Control/AllResources/Control/UIcommands/_vis_scene_add_.html).
 
 [OpenGL]:http://geant4-userdoc.web.cern.ch/geant4-userdoc/UsersGuides/ForApplicationDeveloper/html/Visualization/visdrivers.html#opengl
 [UI]:../../../INSTALL/#user-interface
