@@ -1,6 +1,6 @@
 /control/verbose
 
-/geometry/input NA.tg
+/geometry/source NA.tg
 
 /run/initialize
 
@@ -15,15 +15,13 @@
 /gps/ene/type User
 /gps/hist/type energy
 
-/gps/hist/point 1        0.002
-/gps/hist/point 10       0.00205     
-/gps/hist/point 100      0.00216
-/gps/hist/point 1000     0.00225
-/gps/hist/point 10000    0.0023
-/gps/hist/point 100000   0.00239
+/gps/hist/point 100    1
+/gps/hist/point 1000   12
+/gps/hist/point 10000  10
+/gps/hist/point 100000 2
 
-/gps/ang/type User
-/gps/hist/type angle
+/gps/ang/type user
+/gps/hist/type theta
 
 /gps/hist/point 0    1
 /gps/hist/point 0.17 0.98
@@ -43,6 +41,7 @@
 /gps/particle mu-
 
 /vis/open HepRepFile
+/vis/drawVolume
 
 /vis/scene/add/axes
 /vis/scene/add/trajectories
