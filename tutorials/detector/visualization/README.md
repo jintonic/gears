@@ -194,6 +194,8 @@ The scene will be cleared after each event. In case of [HepRepFile](#heprepfile)
 
 Only one `G4Data01.heprep` will be created in this case if you use [HepRepFile](#heprepfile).
 
+By default, green tracks are neutral particles, e.g. gamma-rays; red tracks are negatively charged particles, e.g. electrons; blue tracks are positively charged particles, e.g. protons.
+
 ## Visualization of axes, date, text, etc.
 
 You can add more objects to a scene:
