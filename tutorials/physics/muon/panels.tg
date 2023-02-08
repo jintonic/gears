@@ -1,28 +1,13 @@
-//:MIXT_BY_NATOMS <name> <density (units of g/cm3)> <# of components>
-//<symbol> <# of atoms> (1 line per component)
-:MIXT_BY_NATOMS polystyrene 1.032 2
-C 19
-H 21
-
 // default unit for length is mm
-:volu world BOX 310 52 52 G4_Galactic
-:vis world OFF
+:volu air BOX 301 51 51 G4_AIR
+:color air 0.5 0.5 0.5
 
-:volu air(S) BOX 301 51 51 G4_AIR
-:color air(S) 0.5 0.5 0.5
+:volu concrete BOX 100 50 50 G4_CONCRETE
+:color concrete 0.8 0.8 0.8 
 
-:volu panel(S) BOX 8 50 50 polystyrene
+:volu panel(S) BOX 8 50 50 G4_PLASTIC_SC_VINYLTOLUENE
 :color panel(S) 0 0.8 1 
 
 :rotm r000 0 0 0
-:place panel(S) 1  air(S) r000   0 0 0
-:place panel(S) 2  air(S) r000  20 0 0
-:place panel(S) 3  air(S) r000  40 0 0
-:place panel(S) 4  air(S) r000  60 0 0
-:place panel(S) 5  air(S) r000  80 0 0
-:place panel(S) 6  air(S) r000 100 0 0
-:place panel(S) 7  air(S) r000 120 0 0
-:place panel(S) 8  air(S) r000 140 0 0
-:place panel(S) 9  air(S) r000 160 0 0
-:place panel(S) 10 air(S) r000 180 0 0
-:place air(S)   11 world  r000   0 0 0
+:place concrete -1 air r000   0 0 0
+:place panel(S)  1 air r000 150 0 0
