@@ -8,20 +8,15 @@
 ## Output
 Generally speaking, the [visualization](../detector/#detector-visualization) of [detector](../detector) [geometry](../detector/#detector-construction) and the [screen dump](#screen-dump) of a [Geant4][] application can be all regarded as output of a [Geant4][] simulation. Strictly speaking, the output of a [Geant4][] simulation includes [histograms][] and/or [ntuples][] of [data][] generated during the simulation, which can be used to reveal statistical distributions of, for example, positions and energy depositions of interactions.
 
-[GEARS][] utilizes [Geant4 analysis managers](http://geant4-userdoc.web.cern.ch/geant4-userdoc/UsersGuides/ForApplicationDeveloper/html/Analysis/managers.html) to provide four output formats: [ROOT][] (default), [HDF5][], CSV, and [AIDA][] XML. The output file format can be chosen using the following command:
-
-~~~sh
-$ make hdf5 # create ghdf5.cc from gears.cc
-$ make # compile ghdf5.cc
-~~~
+[GEARS][] utilizes [Geant4 analysis managers](http://geant4-userdoc.web.cern.ch/geant4-userdoc/UsersGuides/ForApplicationDeveloper/html/Analysis/managers.html) to provide four output formats: [ROOT][] (default), [HDF5][], CSV, and [AIDA][] XML.
 
 The output file name can be chosen using the macro command:
 
 ~~~
-/analysis/setFileName gears
+/analysis/setFileName gears.root
 ~~~
 
-No suffix is needed for the file name. Note that the **output is disabled by default**. It will be enabled if the output file name is not empty. So this macro command also works as a switch. Without it, no output file will be created.
+One of the following suffix is needed to specify the output file format: `.root`, `.hdf5`, `.csv`, `.xml`. Note that the **output is disabled by default**. It will be enabled if the output file name is not empty. So this macro command also works as a switch. Without it, no output file will be created.
 
 [Geant4]: http://geant4.cern.ch
 [histograms]:https://www.khanacademy.org/math/ap-statistics/quantitative-data-ap/histograms-stem-leaf/v/histograms-intro
