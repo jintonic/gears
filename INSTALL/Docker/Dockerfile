@@ -1,4 +1,4 @@
-# https://geant4.web.cern.ch/support/download
+# https://geant4.web.cern.ch/download
 # Geant4 is pre-compiled using gcc 8.5.0 on CERN CentOS-Stream8, 64 bits
 FROM centos:centos8
 
@@ -17,14 +17,14 @@ RUN dnf install -y gcc-c++ which make mesa-libGL libXmu openssl file xdg-utils v
  && dnf clean all && rm -fr /var/cache/* /root/*.cfg /root/*.log /root/.*cshrc
 
 # Geant4 version
-ARG v=11.1
+ARG v=11.1.1
 
 # get pre-compiled geant4
-RUN  curl -LO http://geant4-data.web.cern.ch/releases/lib_$v/Linux-g++8.5.0-CC8.tar.gz \
+RUN  curl -LO https://cern.ch/geant4-data/releases/lib4.11.1.p01/Linux-g++8.5.0-CC8.tar.gz \
   && tar xfvz Linux-g++8.5.0-CC8.tar.gz && rm -r Linux-g++8.5.0-CC8.tar.gz \
   && mv Geant4-*-Linux/bin/* usr/bin && mv Geant4-*-Linux/lib64/*.so* usr/lib64 \
   && mv Geant4-*-Linux/include/* usr/include && mv Geant4-*-Linux/share/* usr/share \
-  && sed -i "s|afs/cern.ch/user/g/gunter/l/releases/web/$v.0/install/Geant4-$v.0-Linux/share|root/gears/INSTALL|g" usr/bin/geant4-config \
+  && sed -i "s|afs/cern.ch/user/g/gunter/l/releases/web/$v/install/Geant4-$v-Linux/share|root/gears/INSTALL|g" usr/bin/geant4-config \
   && rm -fr /Geant4-*-Linux /root/*.cfg /root/*.log
 
 # compile GEARS
@@ -41,4 +41,7 @@ ENV GEANT4_DATA_DIR=/root/gears/INSTALL/Geant4/data
 #     geant4-config --install-datasets
 # in the container to install them
 
-ENV PS1="\u@Geant4.$v:\w \$ "
+# enable colorful shell prompt
+# https://superuser.com/a/367280
+ENV PS1="\[\e[0;32m\]\u@Geant4-$v:\[\e[0;34m\]\w \[\e[0;31m\]\$\[\e[m\] "
+ENV TERM="xterm-256color"
