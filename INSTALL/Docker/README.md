@@ -25,11 +25,11 @@ root@Geant4.11.1:~/gears $
 > The [Geant4][] [datasets][download] are not included in the [container][] to keep its size minimal. However, they can be easily downloaded through the [container][] into the [gears/INSTALL/Geant4/data/](../Geant4/data) folder in the host computer:
 
 ```sh
-root@Geant4.11.1:~/gears $ geant4-config --install-datasets
-root@Geant4.11.1:~/gears $ ls INSTALL/Geant4/data
-root@Geant4.11.1:~/gears $ gears
+root@Geant4-11.1.1:~/gears $ geant4-config --install-datasets
+root@Geant4-11.1.1:~/gears $ ls INSTALL/Geant4/data
+root@Geant4-11.1.1:~/gears $ gears
 **************************************************************
- Geant4 version Name: geant4-11-01 [MT]   (9-December-2022)
+ Geant4 version Name: geant4-11-01-patch-01 [MT]   (10-February-2023)
                        Copyright : Geant4 Collaboration
                       References : NIM A 506 (2003), 250-303
                                  : IEEE-TNS 53 (2006), 270-278
