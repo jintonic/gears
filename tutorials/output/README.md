@@ -202,10 +202,10 @@ Notice that the variable `n` is the total number of step points recorded in each
 The physics process generating each step point is saved in a variable `pro[i]`, where `i` is the index of the step point. It equals to (process type) * 1000 + (sub type). The Process types are defined in G4ProcessType.hh, sub types are defined in G4HadronicProcessType.hh, G4DecayProcessType.hh, G4EmProcessSubType.hh,  G4TransportationProcessType.hh, G4FastSimulationProcessType.hh, G4OpProcessSubType.hh, etc. They can be found in <http://www-geant4.kek.jp/lxr/find?string=Type.hh>.
 
 - less than 1000: not defined
-- 1000 to 2000: transportation
+- 1000 to 2000: [transportation](https://geant4.kek.jp/lxr/source//processes/transportation/include/G4TransportationProcessType.hh)
   - 1000: initial step (step 0)
   - 1091: transportation
-- 2000 to 3000: electromagnetic
+- 2000 to 3000: [electromagnetic](https://geant4.kek.jp/lxr/source//processes/electromagnetic/utils/include/G4EmProcessSubType.hh)
   - 2001: Coulomb scattering
   - 2002: ionization
   - 2003: Bremsstrahlung
@@ -220,29 +220,31 @@ The physics process generating each step point is saved in a variable `pro[i]`, 
   - 2021: Cherenkov
   - 2022: scintillation
   - 2023: synchrotron radiation
-- 3000 to 4000: optical
+- 3000 to 4000: [optical](https://geant4.kek.jp/lxr/source//processes/optical/include/G4OpProcessSubType.hh)
   - 3031: absorption
   - 3032: boundary
   - 3033: Rayleigh scattering
   - 3034: WLS
   - 3035: Mie scattering
-- 4000 to 5000: hadronic
+  - 3036: WLS2
+- 4000 to 5000: [hadronic](https://geant4.kek.jp/lxr/source//processes/hadronic/management/include/G4HadronicProcessType.hh)
   - 4111: hadron elastic
   - 4121: hadron inelastic
   - 4131: capture
   - 4132: muon atomic capture
   - 4141: fission
-  - 4151: hadron at rest
-  - 4142: lepton at rest
+  - 4151: hadron decay at rest
+  - 4142: lepton decay at rest
   - 4161: charge exchange
   - 4210: radioactive decay
 - 5000 to 6000: photolepton_hadron
-- 6000 to 7000: decay
+- 6000 to 7000: [decay](https://geant4.kek.jp/lxr/source//processes/decay/include/G4DecayProcessType.hh)
   - 6201: decay
   - 6202: decay with spin
   - 6203: pion decay with spin
   - 6210: radioactive decay
 - 7000 to 8000: general
+  - 7403: [neutron killer](https://geant4.kek.jp/lxr/source//processes/transportation/include/G4TransportationProcessType.hh)
 - 8000 to 9000: Parameterisation
 - 9000 to 10000: user defined
 - 10000 to 11000: parallel
