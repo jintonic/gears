@@ -14,6 +14,7 @@ RUN dnf install -y root root-gui-webdisplay \
 WORKDIR /root/
 
 # enable colorful shell prompt
-ENV PS1="\e[0;32m\u@fedora:\e[0;34m\w \e[0;31m\$\e[m "
+# https://superuser.com/a/367280
+ENV PS1="\[\e[0;32m\]\u@fedora:\[\e[0;34m\]\w \[\e[0;31m\]\$\[\e[m\] "
 ENV TERM="xterm-256color"
 
