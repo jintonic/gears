@@ -57,6 +57,12 @@ services:
       - .:/root/gears
     extra_hosts:
       - "host.docker.internal:host-gateway"
+    # https://github.com/microsoft/WSL/issues/5339#issuecomment-1125709672
+    # https://docs.docker.com/compose/compose-file/#sysctls
+    sysctls:
+      - net.ipv4.tcp_keepalive_intvl=60
+      - net.ipv4.tcp_keepalive_probes=5
+      - net.ipv4.tcp_keepalive_time=300
     build: tutorials/detector/visualization/ # docker-compose build heprapp
 
   x3d: # docker-compose up x3d
