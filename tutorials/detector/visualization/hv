@@ -17,4 +17,5 @@ DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" >/dev/null 2>&1 && pwd)"
 if [ ! -f $DIR/$JAR ]; then
   curl -L https://www.dropbox.com/s/xfatlu1rp7ffavv/HepRApp.jar?dl=1 -o $DIR/$JAR
 fi
-java -jar $DIR/$JAR -opt ~/.heprapprc -file $1
+# https://github.com/XQuartz/XQuartz/issues/31#issuecomment-1356328281
+java -Dsun.java2d.xrender=false -jar $DIR/$JAR -opt ~/.heprapprc -file $1
