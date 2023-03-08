@@ -1,0 +1,4 @@
+# enable status bar at the bottom of a canvas
+Canvas.ShowEventStatus: true
+# avoid missing menu in ROOT GUI running in Docker
+X11.UseXft: no
