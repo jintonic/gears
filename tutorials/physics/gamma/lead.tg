@@ -1,0 +1,26 @@
+// define logic volumes (default unit for length: mm)
+:volu hall BOX 250 250 250 G4_AIR
+:volu lead BOX 200 200 200 G4_Pb
+:volu slab BOX 200 200 0.1 G4_Pb
+
+// define a rotation matrix (needed in :place commands)
+:rotm r000 0 0 0
+
+// place a logic volume in another
+:place lead -1 hall r000 0 0 0
+:place slab  1 lead r000 0 0 -180
+:place slab  2 lead r000 0 0 -160
+:place slab  3 lead r000 0 0 -140
+:place slab  4 lead r000 0 0 -120
+:place slab  5 lead r000 0 0 -100
+:place slab  6 lead r000 0 0  -80
+:place slab  7 lead r000 0 0  -60
+:place slab  8 lead r000 0 0  -40
+:place slab  9 lead r000 0 0  -20
+:place slab 10 lead r000 0 0    0
+:place slab 11 lead r000 0 0   20
+
+// color is defined as percentage of RGB
+:color lead 0.5 0.5 0.5
+:color slab 0.5 0.5 0.5
+

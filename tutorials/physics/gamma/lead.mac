@@ -1,0 +1,29 @@
+/control/verbose 2
+/geometry/source lead.tg
+
+/run/initialize
+
+/vis/ASCIITree/verbose 13
+/vis/drawTree
+
+/geometry/test/run
+
+/vis/open HepRepFile
+/vis/drawVolume
+
+/vis/scene/add/trajectories
+/vis/scene/endOfEventAction accumulate 200
+
+/gps/particle gamma
+/gps/energy 2614 keV
+/gps/position 0 0 -240 mm
+/gps/direction 0 0 1
+
+/run/beamOn 100
+
+/vis/disable
+/analysis/setFileName g2614inLead.root
+/run/verbose 2
+/run/printProgress 1000
+/run/beamOn 10000
+
