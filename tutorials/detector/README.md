@@ -74,7 +74,7 @@ The [NIST][] material table provided by [Geant4][] contains all elements (C, H, 
 :mixt vacuum 1e-9 1 G4_AIR 1
 ~~~
 
-To construct more complicated material please refer to the [manual of the text geometry description][http://fismed.ciemat.es/GAMOS/GAMOS_doc/GAMOS.6.0.0/Geometry/Geometry.html].
+To construct more complicated material please refer to the [manual of the text geometry description](http://fismed.ciemat.es/GAMOS/GAMOS_doc/GAMOS.6.0.0/Geometry/Geometry.html).
 
 A color can be assigned to a volume to indicate its material if the geometry is [visualized](visualization). For example, yellow can be assigned to a volume made of copper:
 
