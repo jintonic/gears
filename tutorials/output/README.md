@@ -183,6 +183,20 @@ If you are familiar with [ROOT][] and would like to migrate to [Python][] for an
 [uproot]: https://pypi.org/project/uproot/
 [tutorial]: https://uproot.readthedocs.io/en/latest/basic.html
 
+### Julia
+Utilizing <https://github.com/JuliaHEP/UpROOT.jl>, one can load simulation results in [ROOT][] format in [Julia][] as well:
+
+```julia
+julia> import Pkg
+julia> Pkg.add("UpROOT")
+julia> using UpROOT
+julia> file = TFile("gears.root")
+julia> tree = file["t"]
+julia> tree.x
+```
+
+[Julia]: https://julialang.org
+
 ## Step point
 
 [Geant4][] tracks a particle step by step as it passes through the [simulated world](../detector) until it goes out of it, gets absorbed in a material, or changes to other particles, as shown in the following figure. A step point is a point in a particle track where the particle is generated or changed.
