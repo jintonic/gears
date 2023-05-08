@@ -1,0 +1,3 @@
+# https://github.com/github/linguist#overrides
+*.C linguist-language=C++
+*.py linguish-language=Python
