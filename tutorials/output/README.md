@@ -128,36 +128,57 @@ If you are familiar with [ROOT][] and would like to migrate to [Python][] for an
     ```
 - List variables in [TTree][] [ntuples][]:
   - [ROOT][]:
-```sh
-[root] t->Show()
-```
+    ```sh
+    [root] t->Show()
+    ```
   - [Python][]:
-```python
->>> t = file['t'] # get TTree object 't' from file
->>> t.show() # show the variables saved in the tree
-```
+    ```python
+    >>> t = file['t'] # get TTree object 't' from file
+    >>> t.show() # show the variables saved in the tree
+    ```
 - Draw the distribution of a variable as a histogram:
   - [ROOT][]:
-```sh
-[root] t->Draw("x")
-```
+    ```sh
+    [root] t->Draw("x")
+    ```
   - [Python][]:
-```python
->>> import matplotlib.pyplot as plot
->>> plot.hist(t['x'].array(library='pd'), bins=100) # draw leaf, x, in tree, t
->>> plot.show()
-```
+    ```python
+    >>> import awkward as ak
+    >>> import matplotlib.pyplot as plot
+    >>> plot.hist(ak.flatten(t['x'].array()), bins=100) # draw leaf, x, in tree, t
+    >>> plot.show()
+    ```
+    - <https://awkward-array.org/doc/main/user-guide/how-to-restructure-flatten.html>
 - Draw the distribution of a selected subset of the variable as a histogram:
   - [ROOT][]:
-```sh
-[root] t->Draw("x", "vlm==1") // draw x coordinate of step points in volume 1
-```
+    ```sh
+    [root] t->Draw("x", "vlm==1") // draw x coordinate of step points in volume 1
+    ```
   - [Python][]:
-```python
->>> x = t.arrays(['x'], "vlm==1", library='pd') # get all x in vlm 1
->>> plot.hist(x, bins=100)
->>> plot.show()
-```
+    ```python
+    >>> import awkward as ak
+    >>> import matplotlib.pyplot as plot
+    >>> x = t.arrays(['x'], "vlm==1") # get all x in vlm 1
+    >>> plot.hist(ak.flatten(x, axis=None)), bins=100)
+    >>> plot.show()
+    ```
+- Draw a 2D histogram:
+  - [ROOT][]:
+    ```sh
+    [root] t->Draw("y:x") // draw x, y distribution of step points
+    ```
+  - [Python][]
+    ```python
+    >>> import numpy as np
+    >>> import awkward as ak
+    >>> import matplotlib.pyplot as plot
+    >>> x = np.asarray(ak.flatten(t['x'].array()))
+    >>> y = np.asarray(ak.flatten(t['y'].array()))
+    >>> plot.hist2d(x,y,bins=100)
+    ```
+    -  <https://matplotlib.org/stable/api/_as_gen/matplotlib.pyplot.hist2d.html>
+    -  <https://numpy.org/doc/stable/reference/generated/numpy.asarray.html>
+
 [Python]: https://www.python.org/
 [uproot]: https://pypi.org/project/uproot/
 [tutorial]: https://uproot.readthedocs.io/en/latest/basic.html
