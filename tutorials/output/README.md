@@ -1,5 +1,5 @@
 [![YouTube](https://img.shields.io/badge/You-Tube-blue?style=flat)](https://youtu.be/CEniIMd67X8)
-[![tutorials](https://img.shields.io/badge/gears-tutorials-green?style=flat)](..)
+[![Python](https://img.shields.io/badge/Python-analysis-green?style=flat)](#python)
 [![Step point](https://img.shields.io/badge/step-point-red?style=flat)](#step-point)
 [![Detected energy](https://img.shields.io/badge/total-energy-magenta?style=flat)](#total-energy)
 [![Data analysis](https://img.shields.io/badge/data-analysis-orange?style=flat)](#data-analysis)
@@ -108,24 +108,24 @@ If you are familiar with [ROOT][] and would like to migrate to [Python][] for an
 
 - Open file:
   - [ROOT][]:
-```sh
-$ root gears.root # open gears output in ROOT format
-```
+    ```sh
+    $ root gears.root # open gears output in ROOT format
+    ```
   - [Python][]:
-```python
-$ python
->>> import uproot as up
->>> file = up.open("gears.root")
-```
+    ```python
+    $ python
+    >>> import uproot as up
+    >>> file = up.open("gears.root")
+    ```
 - Check file contents:
   - [ROOT][]:
-```sh
-[root] .ls
-```
+    ```sh
+    [root] .ls
+    ```
   - [Python][]:
-```python
->>> file.classnames()
-```
+    ```python
+    >>> file.classnames()
+    ```
 - List variables in [TTree][] [ntuples][]:
   - [ROOT][]:
 ```sh
