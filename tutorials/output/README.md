@@ -120,7 +120,7 @@ If you are familiar with [ROOT][] and would like to migrate to [Python][] for an
 - Check file contents:
   - [ROOT][]:
     ```sh
-    [root] .ls
+    root[] .ls
     ```
   - [Python][]:
     ```python
@@ -129,7 +129,7 @@ If you are familiar with [ROOT][] and would like to migrate to [Python][] for an
 - List variables in [TTree][] [ntuples][]:
   - [ROOT][]:
     ```sh
-    [root] t->Show()
+    root[] t->Show()
     ```
   - [Python][]:
     ```python
@@ -139,7 +139,7 @@ If you are familiar with [ROOT][] and would like to migrate to [Python][] for an
 - Draw the distribution of a variable as a histogram:
   - [ROOT][]:
     ```sh
-    [root] t->Draw("x")
+    root[] t->Draw("x")
     ```
   - [Python][]:
     ```python
@@ -148,11 +148,11 @@ If you are familiar with [ROOT][] and would like to migrate to [Python][] for an
     >>> plot.hist(ak.flatten(t['x'].array()), bins=100) # draw leaf, x, in tree, t
     >>> plot.show()
     ```
-    - <https://awkward-array.org/doc/main/user-guide/how-to-restructure-flatten.html>
+    <https://awkward-array.org/doc/main/user-guide/how-to-restructure-flatten.html>
 - Draw the distribution of a selected subset of the variable as a histogram:
   - [ROOT][]:
     ```sh
-    [root] t->Draw("x", "vlm==1") // draw x coordinate of step points in volume 1
+    root[] t->Draw("x", "vlm==1") // draw x coordinate of step points in volume 1
     ```
   - [Python][]:
     ```python
@@ -165,9 +165,9 @@ If you are familiar with [ROOT][] and would like to migrate to [Python][] for an
 - Draw a 2D histogram:
   - [ROOT][]:
     ```sh
-    [root] t->Draw("y:x") // draw x, y distribution of step points
+    root[] t->Draw("y:x") // draw x, y distribution of step points
     ```
-  - [Python][]
+  - [Python][]:
     ```python
     >>> import numpy as np
     >>> import awkward as ak
@@ -176,8 +176,8 @@ If you are familiar with [ROOT][] and would like to migrate to [Python][] for an
     >>> y = np.asarray(ak.flatten(t['y'].array()))
     >>> plot.hist2d(x,y,bins=100)
     ```
-    -  <https://matplotlib.org/stable/api/_as_gen/matplotlib.pyplot.hist2d.html>
-    -  <https://numpy.org/doc/stable/reference/generated/numpy.asarray.html>
+    <https://matplotlib.org/stable/api/_as_gen/matplotlib.pyplot.hist2d.html><br/>
+    <https://numpy.org/doc/stable/reference/generated/numpy.asarray.html>
 
 [Python]: https://www.python.org/
 [uproot]: https://pypi.org/project/uproot/
