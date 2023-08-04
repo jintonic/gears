@@ -42,11 +42,7 @@ EXE=$(SRC:.cc=) # a list of all executables
 
 all: $(EXE)
 	@echo --------------------------------------------------------
-	@echo To install, please add the following line
-	@echo `tput bold` source ${PWD}/gears.sh `tput sgr0`
-	@printf "%s" "to `tput bold`~/.bashrc`tput sgr0` in Linux or "
-	@echo `tput bold`~/.bash_profile`tput sgr0` in a Mac
-	@echo \(or `tput bold`~/.zshrc`tput sgr0` if you use zsh instead of bash\)
+	@echo To install, simply move `tput bold`gears`tput sgr0` to a desired folder
 	@echo --------------------------------------------------------
 clean:
 	$(RM) -r `cat .gitignore`
