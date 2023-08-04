@@ -34,9 +34,7 @@ if(WIN32)
     COMMAND cmd /c ${CMAKE_CURRENT_SOURCE_DIR}/gears.bat)
 else()
   add_custom_target(setup ALL echo
-    COMMAND echo To install, please add the following line:
-    COMMAND echo `tput bold` source ${CMAKE_CURRENT_SOURCE_DIR}/gears.sh`tput sgr0`
-    COMMAND echo to `tput bold`~/.bashrc`tput sgr0` in Linux or `tput bold`~/.bash_profile`tput sgr0` in a Mac
-    COMMAND echo or `tput bold`~/.zshrc`tput sgr0` if you use zsh instead of bash
+    COMMAND echo To install, please move gears to a desired folder.
     COMMAND echo)
 endif()
+
