@@ -17,7 +17,7 @@ RUN dnf install -y gcc-c++ which make mesa-libGL libXmu openssl file xdg-utils v
  && dnf clean all && rm -fr /var/cache/* /root/*.cfg /root/*.log /root/.*cshrc
 
 # Geant4 version
-ARG v=11.1.1
+ARG v=11.1.2
 
 # get pre-compiled geant4
 RUN  curl -LO https://cern.ch/geant4-data/releases/lib4.11.1.p01/Linux-g++8.5.0-CC8.tar.gz \
