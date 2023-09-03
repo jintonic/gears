@@ -20,7 +20,7 @@ RUN dnf install -y gcc-c++ which make mesa-libGL libXmu openssl file xdg-utils v
 ARG v=11.1.2
 
 # get pre-compiled geant4
-RUN  curl -LO https://cern.ch/geant4-data/releases/lib4.11.1.p01/Linux-g++8.5.0-CC8.tar.gz \
+RUN  curl -LO https://cern.ch/geant4-data/releases/lib4.11.1.p02/Linux-g++8.5.0-CC8.tar.gz \
   && tar xfvz Linux-g++8.5.0-CC8.tar.gz && rm -r Linux-g++8.5.0-CC8.tar.gz \
   && mv Geant4-*-Linux/bin/* usr/bin && mv Geant4-*-Linux/lib64/*.so* usr/lib64 \
   && mv Geant4-*-Linux/include/* usr/include && mv Geant4-*-Linux/share/* usr/share \
