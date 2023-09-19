@@ -7,13 +7,20 @@ RUN cd /etc/yum.repos.d/ && sed -i 's/mirrorlist/#mirrorlist/g' /etc/yum.repos.d
  && sed -i 's|#baseurl=http://mirror.centos.org|baseurl=http://vault.centos.org|g' /etc/yum.repos.d/CentOS-*
 
 # `which` is needed by `make`
-# `mesa-libGL` & `libXmu` is needed to compile geant4 application
+# `mesa-libGL` & `libXmu` are needed to compile geant4 application
+# `mesa-dri-drivers` is needed to run OpenGL.mac & TSG.mac
 # `openssl` is needed to download geant4 datasets
 # `file`, `xdg-utils`, `vim` is used by https://github.com/dylanaraps/fff
-RUN dnf install -y gcc-c++ which make mesa-libGL libXmu openssl file xdg-utils vim \
+RUN dnf install -y gcc-c++ which make mesa-libGL libXmu mesa-dri-drivers openssl file xdg-utils vim \
  && curl -LO https://github.com/dylanaraps/fff/raw/master/fff && chmod 755 fff && mv fff bin \
  && echo 'l(){ fff "$@"; cd "$(cat "${XDG_CACHE_HOME:=${HOME}/.cache}/fff/.fff_d")"; }' >> /root/.bashrc \
  && echo 'export EDITOR="vim"; alias ls="ls --color"; alias la="ls -a"' >> /root/.bashrc \ 
+ && echo 'export FFF_FAV1=~/gears/INSTALL'>> /root/.bashrc \
+ && echo 'export FFF_FAV2=~/gears/tutorials'>> /root/.bashrc \
+ && echo 'export FFF_FAV4=~/gears/tutorials/physics'>> /root/.bashrc \
+ && echo 'export FFF_FAV5=~/gears/tutorials/detector/visualization'>> /root/.bashrc \
+ && echo 'export FFF_FAV6=~/gears/tutorials/sources'>> /root/.bashrc \
+ && echo 'export FFF_FAV9=~/gears'>> /root/.bashrc \
  && dnf clean all && rm -fr /var/cache/* /root/*.cfg /root/*.log /root/.*cshrc
 
 # Geant4 version
