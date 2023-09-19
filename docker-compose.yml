@@ -4,7 +4,13 @@ services:
     image: physino/gears # shorter than physino/geant4:gears
     profiles: [ "gears" ] # https://docs.docker.com/compose/profiles
     platform: linux/amd64 # pre-compiled geant4 is not available for arm64
-    volumes: [".:/root/gears"] # No X11 as OGL on docker is hard to set
+    environment:
+      - DISPLAY=host.docker.internal:0.0
+    volumes:
+      - /tmp/.X11-unix:/tmp/.X11-unix
+      - .:/root/gears
+    extra_hosts:
+      - "host.docker.internal:host-gateway"
     build: INSTALL/Docker # docker-compose build gears
 
   geant4: # docker-compose run geant4
