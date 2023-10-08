@@ -82,3 +82,11 @@ services:
     profiles: [ "x3d" ]
     ports: [ "8000:8000" ] # only exposed with `up`, not 'run`
     volumes: [".:/root/gears"]
+  
+  web: # docker-compose up web
+    image: starefossen/github-pages
+    ports:
+      - "4000:4000"
+    volumes:
+      - ".:/usr/src/app:delegated"
+    tty: true
