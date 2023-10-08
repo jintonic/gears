@@ -9,6 +9,14 @@ github:
 plugins:
   - jekyll-mentions
   - jekyll-seo-tag
+  - jekyll-theme-slate
 
 # the slate theme already contains the script to use this id
 google_analytics: UA-61659360-3
+
+exclude:
+  - INSTALL/Geant4/data/G4*
+  - INSTALL/Geant4/data/P*
+  - INSTALL/Geant4/data/R*
+  - build/*
+
