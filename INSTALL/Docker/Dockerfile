@@ -11,7 +11,8 @@ RUN cd /etc/yum.repos.d/ && sed -i 's/mirrorlist/#mirrorlist/g' /etc/yum.repos.d
 # `mesa-dri-drivers` is needed to run OpenGL.mac & TSG.mac
 # `openssl` is needed to download geant4 datasets
 # `file`, `xdg-utils`, `vim` is used by https://github.com/dylanaraps/fff
-RUN dnf install -y gcc-c++ which make mesa-libGL libXmu mesa-dri-drivers openssl file xdg-utils vim \
+# `ncurses` provides tput
+RUN dnf install -y gcc-c++ which make mesa-libGL libXmu mesa-dri-drivers openssl file xdg-utils vim ncurses \
  && curl -LO https://github.com/dylanaraps/fff/raw/master/fff && chmod 755 fff && mv fff bin \
  && echo 'l(){ fff "$@"; cd "$(cat "${XDG_CACHE_HOME:=${HOME}/.cache}/fff/.fff_d")"; }' >> /root/.bashrc \
  && echo 'export EDITOR="vim"; alias ls="ls --color"; alias la="ls -a"' >> /root/.bashrc \ 
