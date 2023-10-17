@@ -4,29 +4,31 @@ services:
     image: physino/gears # shorter than physino/geant4:gears
     profiles: [ "gears" ] # https://docs.docker.com/compose/profiles
     platform: linux/amd64 # pre-compiled geant4 is not available for arm64
-    environment:
+    environment: # https://docs.docker.com/desktop/networking
+      - LIBGL_ALWAYS_INDIRECT=1 # https://unix.stackexchange.com/a/642418/26929
       - DISPLAY=host.docker.internal:0.0
-    volumes:
-      - /tmp/.X11-unix:/tmp/.X11-unix
-      - .:/root/gears
+    # host.docker.internal doesn't exist in a Linux host
+    # https://stackoverflow.com/a/24326540
+    # https://stackoverflow.com/questions/70725881
     extra_hosts:
       - "host.docker.internal:host-gateway"
+    volumes:
+      - /tmp/.X11-unix:/tmp/.X11-unix
+      - .:/root/gears # load current folder as /root/gears in container
     build: INSTALL/Docker # docker-compose build gears
 
   geant4: # docker-compose run geant4
     command: /usr/bin/bash # launch a command line to compile GEARS
     image: geant4/geant4 # https://hub.docker.com/r/geant4/geant4
     profiles: [ "geant4" ]
-    environment: # https://docs.docker.com/desktop/networking
-      - DISPLAY=host.docker.internal:0.0 # needed for Qt
-    volumes:
-      - /tmp/.X11-unix:/tmp/.X11-unix # needed for Qt
-      - .:/root/gears
-    # host.docker.internal doesn't exist in a Linux host
-    # https://stackoverflow.com/a/24326540
-    # https://stackoverflow.com/questions/70725881
+    privileged: true # https://stackoverflow.com/a/45081959/1801749
+    environment:
+      - DISPLAY=host.docker.internal:0.0
     extra_hosts:
       - "host.docker.internal:host-gateway"
+    volumes:
+      - /tmp/.X11-unix:/tmp/.X11-unix
+      - .:/root/gears
     # https://docs.docker.com/compose/compose-file/#working_dir
     working_dir: /root/gears
 
@@ -36,11 +38,11 @@ services:
     profiles: [ "root" ]
     environment:
       - DISPLAY=host.docker.internal:0.0
+    extra_hosts:
+      - "host.docker.internal:host-gateway"
     volumes:
       - /tmp/.X11-unix:/tmp/.X11-unix
       - .:/root/gears
-    extra_hosts:
-      - "host.docker.internal:host-gateway"
     working_dir: /root/gears
     build: INSTALL/ROOT/ # docker-compose build root
 
@@ -58,11 +60,11 @@ services:
     profiles: [ "heprapp" ]
     environment:
       - DISPLAY=host.docker.internal:0.0
+    extra_hosts:
+      - "host.docker.internal:host-gateway"
     volumes:
       - /tmp/.X11-unix:/tmp/.X11-unix
       - .:/root/gears
-    extra_hosts:
-      - "host.docker.internal:host-gateway"
     # https://github.com/microsoft/WSL/issues/5339#issuecomment-1125709672
     # https://docs.docker.com/compose/compose-file/#sysctls
     sysctls:
