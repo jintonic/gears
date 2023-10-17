@@ -6,7 +6,8 @@
 
 /vis/geometry/list
 
-/vis/open TSG
+# https://geant4-userdoc.web.cern.ch/UsersGuides/ForApplicationDeveloper/html/Visualization/visdrivers.html#toolssg
+/vis/open TSG_OFFSCREEN
 /vis/drawVolume
 /vis/viewer/set/style surface
 /vis/viewer/set/background white ! ! 0
