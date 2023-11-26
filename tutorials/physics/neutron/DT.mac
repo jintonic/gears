@@ -15,14 +15,16 @@
 # neutrons from a DT generator
 /gps/particle neutron
 /gps/energy 14 MeV
-#/gps/ang/type iso
+/gps/position -10 0 0 cm
 /gps/direction 1 0 0
 
 # visualize geometry and events for debugging
 /vis/open HepRepFile
 /vis/drawVolume
-/vis/scene/add/trajectories
+/vis/scene/add/trajectories rich
+
 /vis/modeling/trajectories/create/drawByParticleID
+/vis/modeling/trajectories/drawByParticleID-0/set neutron magenta
 /vis/modeling/trajectories/select drawByParticleID-0
 /vis/scene/endOfEventAction accumulate 10
 
