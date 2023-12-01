@@ -1,0 +1,16 @@
+:volu air BOX 500 500 500 G4_AIR
+
+# https://www.ncbi.nlm.nih.gov/books/NBK421/
+:volu chest TUBE 0 150 150 G4_WATER
+:volu liver BOX 100 100 100 G4_WATER
+:volu tumor ORB 10 G4_WATER
+
+:rotm r000 0 0 0
+:place tumor 1 liver r000 5 3 0
+:place liver 2 chest r000 9 0 0
+:place chest 3 air   r000 0 0 0
+
+:color tumor 0.18 0.03 0.33
+:color liver 0.4  0    0
+:color chest 0.89 0.87 0.71
+:vis air off

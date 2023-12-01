@@ -1,0 +1,18 @@
+/control/verbose 1
+
+/geometry/source chest.tg
+
+/physics_lists/select QGSP_BERT
+/physics_lists/factory/addRadioactiveDecay
+
+/run/initialize
+
+# https://www.frontiersin.org/articles/10.3389/fnume.2023.1075782/full
+/gps/particle ion
+/gps/ion 39 90
+/gps/energy 0
+
+/tracking/verbose 2
+/event/verbose 2
+/analysis/setFileName tumor.root
+/run/beamOn 1
