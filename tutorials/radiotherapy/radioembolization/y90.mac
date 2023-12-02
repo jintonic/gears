@@ -1,18 +1,46 @@
 /control/verbose 1
 
-/geometry/source chest.tg
+/geometry/source liver.tg
 
 /physics_lists/select QGSP_BERT
 /physics_lists/factory/addRadioactiveDecay
 
 /run/initialize
 
+/geometry/test/run
+
 # https://www.frontiersin.org/articles/10.3389/fnume.2023.1075782/full
 /gps/particle ion
 /gps/ion 39 90
 /gps/energy 0
 
+/gps/pos/type Volume
+/gps/pos/shape Sphere
+/gps/pos/radius 5 mm
+/gps/pos/centre -80 0 -60 mm
+
 /tracking/verbose 2
-/event/verbose 2
-/analysis/setFileName tumor.root
-/run/beamOn 1
+/run/beamOn 100
+/tracking/verbose 0
+
+/control/doifInteractive /vis/open OGL
+/control/doifBatch /vis/open HepRepFile
+/vis/drawVolume
+
+/vis/scene/add/axes
+/vis/scene/add/trajectories rich
+/vis/scene/endOfEventAction accumulate 1000
+
+# only draw gamma and e- trajectories
+/vis/filtering/trajectories/create/particleFilter
+/vis/filtering/trajectories/particleFilter-0/add gamma
+/vis/filtering/trajectories/particleFilter-0/add e-
+
+/run/beamOn 1000
+
+/control/doifBatch /vis/disable
+/control/doifBatch /analysis/setFileName record.root
+/control/doifBatch /run/verbose 2
+/control/doifBatch /run/printProgress 1000
+/control/doifBatch /run/beamOn 10000
+
