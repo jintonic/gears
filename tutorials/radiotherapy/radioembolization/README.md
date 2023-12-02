@@ -4,8 +4,6 @@
 
 ### Yttrium-90
 
-<img style="width:100%;" alt="Y-90 beta spectrum" src="https://www.researchgate.net/profile/Lars-Jodal/publication/23233171/figure/fig3/AS:304556249501718@1449623276350/Beta-spectrum-for-Y-90_W640.jpg"/>
-
 - <https://en.wikipedia.org/wiki/Yttrium-90>
 - <https://www.researchgate.net/publication/23233171_Beta_emitters_and_radiation_protection#fullTextFileContent>
 
