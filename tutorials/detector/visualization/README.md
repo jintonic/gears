@@ -216,7 +216,7 @@ There are also ways to hide trajectories based on particle type:
 # draw only gamma-rays
 /vis/filtering/trajectories/particleFilter-0/add gamma
 # draw everything except for gamma-rays
-/vis/filtering/trajectories/particleFileter-0/invert true
+/vis/filtering/trajectories/particleFilter-0/invert true
 ```
 
 ## Visualization of axes, date, text, etc.
