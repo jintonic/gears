@@ -4,7 +4,6 @@
  */
 #include <vector>
 using namespace std;
-#include <G4AnalysisManager.hh>
 #include <G4SteppingVerbose.hh>
 #include <G4SteppingManager.hh>
 /**
@@ -15,8 +14,7 @@ class Output : public G4SteppingVerbose
   protected:
     void Record(); ///< Record simulated data
   public:
-    Output(); ///< Create analysis manager to handle output
-    ~Output() { delete G4AnalysisManager::Instance(); }
+    Output(); ///< use analysis manager to handle output
     void TrackingStarted() { G4SteppingVerbose::TrackingStarted();
       Record(); } ///< Information of step 0 (initStep)
     void StepInfo() { G4SteppingVerbose::StepInfo();
@@ -52,6 +50,7 @@ class Output : public G4SteppingVerbose
 };
 //______________________________________________________________________________
 //
+#include <G4AnalysisManager.hh>
 Output::Output(): G4SteppingVerbose()
 {
   auto manager = G4AnalysisManager::Instance();
