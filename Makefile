@@ -32,7 +32,7 @@ endif
 SRC=$(wildcard *.cc) # a list of all C++ source files
 EXE=$(SRC:.cc=) # a list of all executables
 
-.PHONY: all clean hdf5 xml csv install
+.PHONY: all clean
 
 all: $(EXE)
 	@echo --------------------------------------------------------
@@ -40,8 +40,3 @@ all: $(EXE)
 	@echo --------------------------------------------------------
 clean:
 	$(RM) -r `cat .gitignore`
-hdf5 xml csv:
-	@printf "%s" "Creating g$@.cc for output in $@ format... "
-	@sed 's/g4root/g4$@/' gears.cc > g$@.cc
-	@echo done!
-	@echo Please type `tput bold`make`tput sgr0` to compile g$@.cc
