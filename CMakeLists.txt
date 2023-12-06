@@ -3,7 +3,7 @@ cmake_minimum_required(VERSION 2.9 FATAL_ERROR)
 project(gears)
 
 # http://geant4-userdoc.web.cern.ch/geant4-userdoc/UsersGuides/InstallationGuide/html/buildtools.html
-find_package(Geant4 10.0 REQUIRED ui_all vis_all)
+find_package(Geant4 11.0 REQUIRED ui_all vis_all)
 include(${Geant4_USE_FILE}) # auto configure includes & flags
 
 # enable GDML if XercesC_INCLUDE_DIR is defined by Geant4
