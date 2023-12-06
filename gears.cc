@@ -517,6 +517,7 @@ class Generator : public G4VUserPrimaryGeneratorAction
 class RunAction : public G4UserRunAction
 {
   public:
+		RunAction() { G4AnalysisManager::Instance()->SetNtupleMerging(true); }
     void BeginOfRunAction (const G4Run*) { 
       auto a = G4AnalysisManager::Instance(); if (a->GetFileName()=="") return; 
       a->OpenFile();
