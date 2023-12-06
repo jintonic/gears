@@ -14,13 +14,10 @@ ifeq (11.1.0, $(shell geant4-config --version))
   LDLIBS+=-lG4ToolsSG
 endif
 
-# In case that GDML and HDF5 libs are in user specified folders,
-# add them in the LDLIBS flag.
-ifneq ($(LD_LIBRARY_PATH),) # Linux
+# In case that Xerces-c and HDF5 libs are in LD_LIBRARY_PATH
+# add them in the LDLIBS flag. (Fixme: macOS doesn't use LD_LIBRARY_PATH)
+ifneq ($(LD_LIBRARY_PATH),)
   LDLIBS+=$(shell echo "-L$(LD_LIBRARY_PATH)" | sed 's/:/ -L/g')
-endif
-ifneq ($(DYLD_LIBRARY_PATH),) # MacOS
-  LDLIBS+=$(shell echo "-L$(DYLD_LIBRARY_PATH)" | sed 's/:/ -L/g')
 endif
 
 # Enable GDML and HDF5 if they are enabled in GEANT4
