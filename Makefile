@@ -7,7 +7,7 @@ ifneq ($(OS), Windows_NT)
 endif
 
 # Setup flags used by the implicit make rule: %:%.cc
-CXXFLAGS=$(shell geant4-config --cflags)
+CXXFLAGS=$(shell geant4-config --cflags) -fPIC
 LDLIBS=$(shell geant4-config --libs)
 # fix LDLIBS for Geant4.11.1.0
 ifeq (11.1.0, $(shell geant4-config --version))
