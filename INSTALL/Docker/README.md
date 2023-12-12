@@ -2,11 +2,11 @@
 [![Dockerfile](https://img.shields.io/badge/Docker-file-red.svg)](Dockerfile)
 [![For developer](https://img.shields.io/badge/For-developer-red.svg)](#for-developer)
 
-This folder contains a [Dockerfile](Dockerfile) to generate the [Docker][] image <https://hub.docker.com/r/physino/gears>, which contains [GEARS][] compiled with the latest 64-bit [Geant4][] libraries pre-compiled with gcc 8.5.0 on CERN CentOS8 (CC8) Linux. They are directly downloaded from the [Geant4][] [download][] page.
+This folder contains [Dockerfile](Dockerfile)s to generate [Docker][] images on <https://hub.docker.com/r/physino/gears>, which contain [GEARS][] compiled with [Geant4][] libraries pre-compiled on amd64 Linux. They are directly downloaded from the [Geant4][] [download][] page.
 
 As the libraries were compiled already, the image generation process only involves downloading and unpacking them, which costs only ~ 3 min. Unfortunately, [Qt][] and [GDML][] were not enabled in the pre-compiled [Geant4][] libraries.
 
-The [container][] image can be pulled from <https://hub.docker.com/r/physino/gears> and run locally using [docker-compose][] in the following way:
+The latest [container][] image can be pulled from <https://hub.docker.com/r/physino/gears> and run locally using [docker-compose][] in the following way:
 
 ```sh
 # docker-compose.yml is located in /path/to/gears
@@ -18,7 +18,7 @@ cd /path/to/gears
 docker-compose run --rm gears
 # the command prompt will change to the following,
 # where you can run gears
-root@Geant4.11.1:~/gears $
+root@Geant4:~/gears $
 ```
 
 > **Note**
@@ -29,7 +29,7 @@ root@Geant4-11.1.1:~/gears $ geant4-config --install-datasets
 root@Geant4-11.1.1:~/gears $ ls INSTALL/Geant4/data
 root@Geant4-11.1.1:~/gears $ gears
 **************************************************************
- Geant4 version Name: geant4-11-01-patch-01 [MT]   (10-February-2023)
+ Geant4 version Name: geant4-11-02 [MT]   (8-December-2023)
                        Copyright : Geant4 Collaboration
                       References : NIM A 506 (2003), 250-303
                                  : IEEE-TNS 53 (2006), 270-278
