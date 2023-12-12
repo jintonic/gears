@@ -13,6 +13,12 @@ LDLIBS=$(shell geant4-config --libs)
 ifeq (11.1.0, $(shell geant4-config --version))
   LDLIBS+=-lG4ToolsSG
 endif
+# imbed Geant4 lib path to rpath on MacOS
+# https://stackoverflow.com/a/12099167/1801749
+# https://stackoverflow.com/a/6638539/1801749
+ifeq (Darwin, $(shell uname -s))
+  LDLIBS+="-Wl,-rpath,$(shell geant4-config --prefix)/lib"
+endif
 
 # In case that Xerces-c and HDF5 libs are in LD_LIBRARY_PATH
 # add them in the LDLIBS flag. (Fixme: macOS doesn't use LD_LIBRARY_PATH)
