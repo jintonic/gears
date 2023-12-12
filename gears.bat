@@ -4,8 +4,10 @@
 @echo OFF
 
 if not exist gears.exe (
-  echo cannot find gears.exe, please compile gears.cc first
-  pause & exit /b
+  if not exist ..\gears.exe (
+    echo cannot find gears.exe, please compile gears.cc first
+    pause & exit /b
+  )
 )
 
 :: Get curernt user PATH from the registry
