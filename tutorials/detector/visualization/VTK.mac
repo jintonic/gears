@@ -1,0 +1,17 @@
+/geometry/source ../gears.tg
+
+/run/initialize
+
+/geometry/test/run
+
+/vis/geometry/list
+
+/vis/open Vtk
+/vis/drawVolume
+/vis/viewer/set/style surface
+/vis/viewer/set/background white ! ! 0
+/vis/viewer/set/lineSegmentsPerCircle 50
+/vis/viewer/set/viewpointThetaPhi 35 55
+/vis/viewer/set/lightsMove cam
+/vis/viewer/flush
+
