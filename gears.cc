@@ -509,6 +509,7 @@ class Generator : public G4VUserPrimaryGeneratorAction
 };
 //______________________________________________________________________________
 //
+#include <G4RunManagerFactory.hh>
 #include <G4UserRunAction.hh>
 #include <G4Run.hh>
 /**
@@ -517,7 +518,12 @@ class Generator : public G4VUserPrimaryGeneratorAction
 class RunAction : public G4UserRunAction
 {
   public:
-		RunAction() { G4AnalysisManager::Instance()->SetNtupleMerging(true); }
+		RunAction() {
+			G4RunManager *r = G4RunManager::GetRunManager();
+			G4AnalysisManager *a = G4AnalysisManager::Instance(); 
+			if (r->GetRunManagerType()!=G4RunManager::sequentialRM)
+				a->SetNtupleMerging(true); 
+		}
     void BeginOfRunAction (const G4Run*) { 
       auto a = G4AnalysisManager::Instance(); if (a->GetFileName()=="") return; 
       a->OpenFile();
@@ -595,53 +601,36 @@ class StackingAction : public G4UserStackingAction, public G4UImessenger
 };
 //______________________________________________________________________________
 //
-#include <G4RunManager.hh>
-#include <G4StateManager.hh>
+#include <G4VUserActionInitialization.hh>
 #include <G4PhysListFactory.hh>
-/**
- * Place to put all building blocks together.
- */
-class RunManager : public G4RunManager, public G4UImessenger
+
+class Action : public G4VUserActionInitialization, public G4UImessenger
 {
   private:
-    G4PhysListFactory* fFactory; ///< tool to construct a ref. list by its name
     G4UIcmdWithAString* fCmdPhys; ///< macro cmd to select a physics list
-  public:
-    RunManager() : G4RunManager(), G4UImessenger(), fFactory(0) {
-      SetUserInitialization(new Detector); // needed for /run/initialize
+	public:
+    Action() : G4VUserActionInitialization(), G4UImessenger() {
       fCmdPhys = new G4UIcmdWithAString("/physics_lists/select",this);
       fCmdPhys->SetGuidance("Select a physics list");
       fCmdPhys->SetGuidance("Candidates are specified in G4PhysListFactory.cc");
       fCmdPhys->SetParameterName("name of a physics list", false);
       fCmdPhys->AvailableForStates(G4State_PreInit);
     }
-    ~RunManager() { delete fCmdPhys; delete fFactory; }
-
-    void SetNewValue(G4UIcommand* cmd, G4String value) {
-      if (cmd!=fCmdPhys || fFactory) return;
-      fFactory = new G4PhysListFactory;
-      if (fFactory->IsReferencePhysList(value)==false) {
-        G4cout<<"GEARS: no physics list \""<<value
-          <<"\", set to \"QGSP_BERT\""<<G4endl;
-        value = "QGSP_BERT"; // default
-      }
-      SetUserInitialization(fFactory->GetReferencePhysList(value));
-    } ///< for UI
-
-    void InitializePhysics() {
-      if (fFactory==NULL) { // no /physics_lists/select is used
-        fFactory = new G4PhysListFactory;
-        G4StateManager::GetStateManager()->SetNewState(G4State_PreInit);
-        // has to be called in PreInit state:
-        SetUserInitialization(fFactory->GetReferencePhysList("QGSP_BERT"));
-      }
-      G4RunManager::InitializePhysics(); // call the original function
-      // has to be called after physics initialization
-      SetUserAction(new Generator);
-      SetUserAction(new RunAction);
+    ~Action() { delete fCmdPhys; }
+		void BuildForMaster() const { SetUserAction(new RunAction); }
+		void Build() const {
+			SetUserAction(new RunAction);
+			SetUserAction(new Generator);
       SetUserAction(new EventAction);
       SetUserAction(new StackingAction);
-    } ///< set physics list if it is not specified explicitly
+		}
+    void SetNewValue(G4UIcommand* cmd, G4String value) {
+      if (cmd!=fCmdPhys) return;
+			G4RunManager *run = G4RunManager::GetRunManager();
+			//delete run->GetUserPhysicsList();
+      G4PhysListFactory factory;
+      run->SetUserInitialization(factory.GetReferencePhysList(value));
+    } ///< for UI
 };
 //______________________________________________________________________________
 //
@@ -656,7 +645,11 @@ int main(int argc, char **argv)
 {
   // inherit G4SteppingVerbose instead of G4UserSteppingAction to record data
   G4VSteppingVerbose::SetInstance(new Output); // must be before run manager
-  RunManager* run = new RunManager; // customized run control
+	auto *run = G4RunManagerFactory::CreateRunManager(G4RunManagerType::SerialOnly);
+	G4PhysListFactory factory;
+	run->SetUserInitialization(factory.ReferencePhysList()); // initialize physics
+	run->SetUserInitialization(new Detector); // initialize detector
+	run->SetUserInitialization(new Action); // initialize user actions
   G4ScoringManager::GetScoringManager(); // enable built-in scoring cmds
   G4VisManager* vis = new G4VisExecutive("quiet"); // visualization
   vis->Initialize();
@@ -666,11 +659,9 @@ int main(int argc, char **argv)
     G4UImanager::GetUIpointer()->ApplyCommand(cmd+argv[1]);
   } else { // interactive mode
     // check available UI automatically in the order of Qt, tsch, Xm
-    G4UIExecutive *ui = new G4UIExecutive(argc,argv);
-    ui->SessionStart();
-    delete ui;
+    G4UIExecutive ui(argc,argv);
+    ui.SessionStart();
   }
-  // clean up
   delete vis; delete run;
   return 0;
 }
