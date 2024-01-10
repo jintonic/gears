@@ -44,3 +44,6 @@ ENV GEANT4_DATA_DIR=/root/gears/INSTALL/Geant4/data
 # https://superuser.com/a/367280
 ENV PS1="\[\e[0;32m\]\u@Geant4:\[\e[0;34m\]\w \[\e[0;31m\]\$\[\e[m\] "
 ENV TERM="xterm-256color"
+
+# prefer user compiled gears over gears compiled here
+ENV PATH=/root/gears:$PATH
