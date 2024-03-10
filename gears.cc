@@ -518,12 +518,6 @@ class Generator : public G4VUserPrimaryGeneratorAction
 class RunAction : public G4UserRunAction
 {
   public:
-		RunAction() {
-			G4RunManager *r = G4RunManager::GetRunManager();
-			G4AnalysisManager *a = G4AnalysisManager::Instance(); 
-			if (r->GetRunManagerType()!=G4RunManager::sequentialRM)
-				a->SetNtupleMerging(true); 
-		}
     void BeginOfRunAction (const G4Run*) { 
       auto a = G4AnalysisManager::Instance(); if (a->GetFileName()=="") return; 
       a->OpenFile();
@@ -617,7 +611,6 @@ class Action : public G4VUserActionInitialization, public G4UImessenger
       fCmdPhys->AvailableForStates(G4State_PreInit);
     }
     ~Action() { delete fCmdPhys; }
-		void BuildForMaster() const { SetUserAction(new RunAction); }
 		void Build() const {
 			SetUserAction(new RunAction);
 			SetUserAction(new Generator);
@@ -626,8 +619,8 @@ class Action : public G4VUserActionInitialization, public G4UImessenger
 		}
     void SetNewValue(G4UIcommand* cmd, G4String value) {
       if (cmd!=fCmdPhys) return;
-			G4RunManager *run = G4RunManager::GetRunManager();
-			//delete run->GetUserPhysicsList();
+			auto run = G4RunManager::GetRunManager();
+			//delete run->GetUserPhysicsList(); // FIXME: memory leak without delete
       G4PhysListFactory factory;
       run->SetUserInitialization(factory.GetReferencePhysList(value));
     } ///< for UI
@@ -655,8 +648,10 @@ int main(int argc, char **argv)
   if (argc==1) { ui = new G4UIExecutive(argc, argv); } // interactive mode
   auto vis = new G4VisExecutive(); // visualization
   vis->Initialize(); // do this after ui mode is decided
-  if (ui) ui->SessionStart(); // do this after vis
-  else { // batch mode
+  if (ui) { // interactive mode
+		ui->SessionStart(); // do this after vis
+		delete ui;
+	} else { // batch mode
     G4String cmd = "/control/execute ";
     G4UImanager::GetUIpointer()->ApplyCommand(cmd+argv[1]);
   }
