@@ -1,10 +1,9 @@
+/control/verbose 2
 /geometry/source panels.tg
 
 /control/ifInteractive gui.mac
 /run/initialize
 
-/vis/ASCIITree/verbose 13
-/vis/drawTree
 /geometry/test/run
 
 /gps/particle mu+
@@ -12,7 +11,7 @@
 /gps/pos/centre -30 0 0 cm
 /gps/direction 1 0 0
 
-/vis/open OGL
+/vis/open
 /vis/drawVolume
 /vis/scene/add/trajectories
 /vis/scene/endOfEventAction accumulate 100
