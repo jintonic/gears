@@ -210,7 +210,7 @@ G4bool LineProcessor::ProcessLine(const vector<G4String> &words)
     m->SetMaterialPropertiesTable(CreateMaterialPropertiesTable(words,2));
     return true;
   } else if (tag.substr(0,5)==":surf") { // define an optical surface
-    BorderSurface *bdr = new BorderSurface;
+    auto bdr = new BorderSurface;
     bdr->next=Border; // save current border pointer
     Border=bdr; // overwrite current border pointer
     bdr->name=words[1];
@@ -271,7 +271,7 @@ G4MaterialPropertiesTable* LineProcessor::CreateMaterialPropertiesTable(
   bool photonEnergyUnDefined=true;
   int cnt=0; // number of photon energy values
   double *energies=NULL; // photon energy values
-  G4MaterialPropertiesTable *table = new G4MaterialPropertiesTable();
+  auto table = new G4MaterialPropertiesTable();
   for (size_t i=idxOfWords; i<words.size(); i++) {
     G4String property = words[i]; G4StrUtil::to_upper(property);
     if (G4StrUtil::contains(property,"TIMECONSTANT") ||
@@ -444,7 +444,7 @@ Detector::Detector(): G4VUserDetectorConstruction(), G4UImessenger(), fWorld(0)
 void Detector::SetNewValue(G4UIcommand* cmd, G4String value)
 {
   if (cmd==fCmdSetB) {
-    G4UniformMagField* field = new G4UniformMagField(0,0,0);
+    auto field = new G4UniformMagField(0,0,0);
     field->SetFieldValue(fCmdSetB->GetNew3VectorValue(value));
     G4FieldManager* mgr = 
       G4TransportationManager::GetTransportationManager()->GetFieldManager();
@@ -460,7 +460,7 @@ void Detector::SetNewValue(G4UIcommand* cmd, G4String value)
     if (value.substr(value.length()-4)!="gdml") { // text geometry input
       G4tgbVolumeMgr* mgr = G4tgbVolumeMgr::GetInstance();
       mgr->AddTextFile(value);
-      TextDetectorBuilder * tgb = new TextDetectorBuilder;
+      auto tgb = new TextDetectorBuilder;
       mgr->SetDetectorBuilder(tgb); 
       fWorld = mgr->ReadAndConstructDetector();
 #ifdef hasGDML
@@ -480,10 +480,10 @@ G4VPhysicalVolume* Detector::Construct()
 {
   if (fWorld==NULL) {
     G4cout<<"GEARS: no detector specified, set to a 10x10x10 m^3 box."<<G4endl;
-    G4Box* box = new G4Box("hall", 5*CLHEP::m, 5*CLHEP::m, 5*CLHEP::m);
+    auto box = new G4Box("hall", 5*CLHEP::m, 5*CLHEP::m, 5*CLHEP::m);
     G4NistManager *nist = G4NistManager::Instance();
     G4Material *vacuum = nist->FindOrBuildMaterial("G4_Galactic");
-    G4LogicalVolume *v = new G4LogicalVolume(box, vacuum, "hall");
+    auto v = new G4LogicalVolume(box, vacuum, "hall");
     fWorld = new G4PVPlacement(0, G4ThreeVector(), v, "hall", 0, 0, 0);
   }
   return fWorld;
@@ -645,22 +645,20 @@ int main(int argc, char **argv)
 {
   // inherit G4SteppingVerbose instead of G4UserSteppingAction to record data
   G4VSteppingVerbose::SetInstance(new Output); // must be before run manager
-	auto *run = G4RunManagerFactory::CreateRunManager(G4RunManagerType::SerialOnly);
+	auto run=G4RunManagerFactory::CreateRunManager(G4RunManagerType::SerialOnly);
 	G4PhysListFactory factory;
 	run->SetUserInitialization(factory.ReferencePhysList()); // initialize physics
 	run->SetUserInitialization(new Detector); // initialize detector
 	run->SetUserInitialization(new Action); // initialize user actions
   G4ScoringManager::GetScoringManager(); // enable built-in scoring cmds
-  G4VisManager* vis = new G4VisExecutive("quiet"); // visualization
-  vis->Initialize();
-  // select mode of execution
-  if (argc!=1)  { // batch mode
+  G4UIExecutive* ui = nullptr; // assume batch mode
+  if (argc==1) { ui = new G4UIExecutive(argc, argv); } // interactive mode
+  auto vis = new G4VisExecutive(); // visualization
+  vis->Initialize(); // do this after ui mode is decided
+  if (ui) ui->SessionStart(); // do this after vis
+  else { // batch mode
     G4String cmd = "/control/execute ";
     G4UImanager::GetUIpointer()->ApplyCommand(cmd+argv[1]);
-  } else { // interactive mode
-    // check available UI automatically in the order of Qt, tsch, Xm
-    G4UIExecutive ui(argc,argv);
-    ui.SessionStart();
   }
   delete vis; delete run;
   return 0;
