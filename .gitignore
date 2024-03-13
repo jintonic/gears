@@ -1,5 +1,6 @@
 # Geant4 and ROOT
 INSTALL/Geant4/11.*
+INSTALL/Geant4/examples
 INSTALL/ROOT/6.*
 # container
 *.sif
