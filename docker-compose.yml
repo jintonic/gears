@@ -15,6 +15,7 @@ services:
     volumes:
       - /tmp/.X11-unix:/tmp/.X11-unix
       - .:/root/gears # load current folder as /root/gears in container
+      - ./INSTALL/Geant4/data:/usr/share/Geant4/data
     build: INSTALL/Docker # docker-compose build gears
 
   geant4: # docker-compose run geant4
