@@ -1,0 +1,55 @@
+# use :maps to check current hotkey list
+map x delete
+
+# https://github.com/gokcehan/lf/blob/master/etc/lfrc.example
+map <enter> open
+cmd open ${{
+  case ${f##*.} in
+    csv) sc-im "$f";;
+    tab) cat "$f" | asciigraph -h 15 -w 60 && read -n 1;;
+    *) micro $fx;;
+  esac
+}}
+
+# create a new terminal window
+# https://github.com/gokcehan/lf/blob/master/etc/lfrc.example
+cmd window ${{ [[ -z "$TMUX" ]] && $SHELL || tmux neww }}
+map w window
+cmd browser ${{ [[ -z "$TMUX" ]] && $SHELL || tmux neww lf }}
+map b browser
+
+# draw only one column
+# https://github.com/gokcehan/lf/wiki/Tips
+set drawbox
+set nopreview
+set ratios 1
+set info size:time
+# show a typical shell prompt
+set promptfmt "\033[32;1m%u@Geant4\033[0m:\033[34;1m%d\033[0m"
+
+# https://github.com/gokcehan/lf/wiki/Tips
+cmd toggle_preview %{{
+  if [ "$lf_preview" = "true" ]; then
+    lf -remote "send $id :set nopreview; set ratios 1"
+  else
+    lf -remote "send $id :set ratios 1:2; set preview"
+  fi
+}}
+map zp toggle_preview
+
+# https://github.com/gokcehan/lf/wiki/Integrations#git
+map gs ${{clear; git status; echo "press ENTER"; read ENTER}}
+map gl ${{clear; git pull || true; echo "press ENTER"; read ENTER}}
+map gp ${{clear; git push || true; echo "press ENTER"; read ENTER}}
+cmd on-cd &{{
+  fmt="\033[32;1m%u@Geant4\033[0m:\033[34;1m%d\033[0m"
+  if [ -d .git ] || [ -f .git ]; then # display git status in prompt
+    br=$(git branch --show-current 2>/dev/null) || true
+    url=$(git remote get-url origin 2>/dev/null) || true
+    cnt=$(git status -s | wc -l | awk '{print $1}' 2>/dev/null) || true
+    fmt+="\033[33;1m [ $cnt modified in $br of $url ]\033[0m"
+  else
+  fi
+  lf -remote "send $id set promptfmt \"$fmt\""
+}}
+# vim: ft=shell:ts=2:sts=2:sw=2:et
