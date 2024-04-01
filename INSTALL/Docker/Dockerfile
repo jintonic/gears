@@ -28,10 +28,11 @@ run cd /root && rm -f .*cshrc && sed -i 's/"ls -Alh"/lf/' .bashrc \
  && echo 'alias t="tmux -u"' >> .bashrc \
  && echo 'alias ta="t attach"' >> .bashrc \
  && echo 'alias a="asciigraph -h 15 -w 60"' >> .bashrc \
- && echo 'alias s=sc-im' >> .bashrc
+ && echo 'alias s=sc-im' >> .bashrc \
+ && sed -i 's/bash/tmux -u a/' .profile
 # lf started by tmux uses vi without the following line
 env EDITOR=micro
 
 # https://askubuntu.com/a/746846
 # https://kodekloud.com/blog/keep-docker-container-running
-cmd tmux -u new -d lf && sleep infinity
+cmd tmux -u new -d lf && tail -12f /usr/README
