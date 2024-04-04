@@ -19,19 +19,13 @@ services:
     build: INSTALL/Docker # docker-compose build gears
 
   geant4: # docker-compose run geant4
-    command: /usr/bin/bash # launch a command line to compile GEARS
-    image: geant4/geant4 # https://hub.docker.com/r/geant4/geant4
+    command: vncserver
+    image: physino/geant4
     profiles: [ "geant4" ]
-    privileged: true # https://stackoverflow.com/a/45081959/1801749
-    environment:
-      - DISPLAY=host.docker.internal:0.0
-    extra_hosts:
-      - "host.docker.internal:host-gateway"
-    volumes:
-      - /tmp/.X11-unix:/tmp/.X11-unix
-      - .:/root/gears
-    # https://docs.docker.com/compose/compose-file/#working_dir
+    ports: [ "8444:8444" ]
+    volumes: [ ".:/root/gears" ]
     working_dir: /root/gears
+    build: INSTALL/Geant4
 
   root: # docker-compose run root
     command: /usr/bin/bash # launch a command line to run root
