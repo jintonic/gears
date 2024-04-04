@@ -44,7 +44,7 @@ if [ -z "$SCRIPT_NAME" ]; then # run in shell
   p3=`command -v python3` # print path to python3
   if [ ! -z "$p3" ]; then # python3 exists
     echo
-    $p3 -m http.server -b 127.0.0.1 # launch http server
+    $p3 -u -m http.server -b 0.0.0.0 --cgi # launch http server
   fi
 else # run as a CGI script
   echo '</pre>'
