@@ -1,4 +1,4 @@
-from physino/geant4:sshd
+from physino/gears
 
 # https://wiki.almalinux.org/repos/Extras.html
 run dnf install -y epel-release && dnf config-manager --set-enabled crb \
@@ -6,13 +6,14 @@ run dnf install -y epel-release && dnf config-manager --set-enabled crb \
  && dnf localinstall -y kasmvncserver*.rpm && rm -f kasmvncserver*.rpm \
  && dnf clean all && rm -fr /var/cache/*
 
-run dnf install -y openbox xterm && dnf clean all && rm -fr /var/cache/*
+run dnf install -y xauth java-1.8.0-openjdk openbox xterm \
+ && dnf clean all && rm -fr /var/cache/*
 
 run usermod -a -G kasmvnc-cert root && mkdir -p /root/.vnc \
  && touch /root/.vnc/.de-was-selected \
  && echo -e 'geant4\ngeant4\n' | vncpasswd -u root -w -r \
  && echo 'xsetroot -solid "#538cc6"' > /root/.vnc/xstartup \
- && echo 'st' >> /root/.vnc/xstartup \
+ && echo 'openbox' >> /root/.vnc/xstartup \
  && chmod 755 /root/.vnc/xstartup \
  && mkdir -p /root/.config/openbox \
  && echo -e '<?xml version="1.0" encoding="UTF-8"?>\n\
@@ -20,7 +21,7 @@ run usermod -a -G kasmvnc-cert root && mkdir -p /root/.vnc \
 <menu id="root-menu" label="Openbox 3">\n\
   <item label="Terminal">\n\
     <action name="Execute">\n\
-       <command>xterm -fg white -bg black -fs=12</command>\n\
+       <command>xterm -fg white -bg black</command>\n\
     </action>\n\
   </item>\n\
   <item label="Reconfigure">\n\
@@ -35,7 +36,11 @@ run usermod -a -G kasmvnc-cert root && mkdir -p /root/.vnc \
 </openbox_menu>' > /root/.config/openbox/menu.xml \
  && echo -e 'network:\n  ssl:\n    require_ssl: false\n' > /root/.vnc/kasmvnc.yaml
 
+add https://github.com/jintonic/gears/raw/master/tutorials/detector/visualization/v2x /usr/bin
+
 # 8443 + display number
 expose 8444
+expose 8000
+
 # container exits immediately without "tail"
 cmd vncserver && tail -f ~/.vnc/*.log
