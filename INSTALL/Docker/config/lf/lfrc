@@ -5,7 +5,7 @@ map x delete
 map <enter> open
 cmd open ${{
   case ${f##*.} in
-    csv) sc-im "$f";;
+    csv) vd "$f";;
     tab) cat "$f" | asciigraph -h 15 -w 60 && read -n 1;;
     *) micro $fx;;
   esac
@@ -25,7 +25,7 @@ set nopreview
 set ratios 1
 set info size:time
 # show a typical shell prompt
-set promptfmt "\033[32;1m%u@Geant4\033[0m:\033[34;1m%d\033[0m"
+set promptfmt "\033[32;1m%u@AlmaLinux\033[0m:\033[34;1m%d\033[0m"
 
 # https://github.com/gokcehan/lf/wiki/Tips
 cmd toggle_preview %{{
@@ -42,7 +42,7 @@ map gs ${{clear; git status; echo "press ENTER"; read ENTER}}
 map gl ${{clear; git pull || true; echo "press ENTER"; read ENTER}}
 map gp ${{clear; git push || true; echo "press ENTER"; read ENTER}}
 cmd on-cd &{{
-  fmt="\033[32;1m%u@Geant4\033[0m:\033[34;1m%d\033[0m"
+  fmt="\033[32;1m%u@AlmaLinux\033[0m:\033[34;1m%d\033[0m"
   if [ -d .git ] || [ -f .git ]; then # display git status in prompt
     br=$(git branch --show-current 2>/dev/null) || true
     url=$(git remote get-url origin 2>/dev/null) || true
