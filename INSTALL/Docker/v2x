@@ -1,0 +1,25 @@
+#!/bin/bash
+# a bash scrip to convert g4_??.wrl to g4_??.x3d
+
+echo Search g4_??.wrl files ...
+files=`find . | grep wrl`
+if [ -z "$files" ]; then
+  echo "There is no g4_??.wrl file found"; exit
+else
+  for each in $files; do echo $each; done; echo
+fi
+
+echo "Convert g4_??.wrl to g4_??.x3d ..."
+for each in $files; do
+  file=${each#./} # remove ./ from the beginning of string
+  fx3d=${file/wrl/x3d} # .wrl -> .x3d
+  page=${file/wrl/html} # .wrl -> .html
+  # convert g4_??.wrl to g4_??.x3d
+  java -jar /usr/bin/VrmlMerge-0.5beta.jar -convert $file $fx3d
+  # tune transparency in g4_??.x3d
+  sed -i.bak 's/"0.7"/"0.1"/g' $fx3d; rm $fx3d.bak
+  # embed g4_??.x3d in g4_??.html
+  base=`basename $fx3d`
+  sed "s|gears.x3d|$base|" /usr/share/gearsX3D.html > $page
+done
+
