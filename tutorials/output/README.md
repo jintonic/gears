@@ -126,6 +126,10 @@ If you are familiar with [ROOT][] and would like to migrate to [Python][] for an
     ```python
     >>> file.classnames()
     ```
+    or
+    ```python
+    >>> file.keys()
+    ```
 - List variables in [TTree][] [ntuples][]:
   - [ROOT][]:
     ```sh
@@ -134,7 +138,8 @@ If you are familiar with [ROOT][] and would like to migrate to [Python][] for an
   - [Python][]:
     ```python
     >>> t = file['t'] # get TTree object 't' from file
-    >>> t.show() # show the variables saved in the tree
+    >>> t.show() # show variables saved in the tree, t
+    >>> t.keys() # another way to show variables saved in the tree
     ```
 - Draw the distribution of a variable as a histogram:
   - [ROOT][]:
@@ -143,12 +148,11 @@ If you are familiar with [ROOT][] and would like to migrate to [Python][] for an
     ```
   - [Python][]:
     ```python
-    >>> import awkward as ak
+    >>> x=t['x'].array(library='pd')
+    >>> x.plot.hist(bins=100)
     >>> import matplotlib.pyplot as plot
-    >>> plot.hist(ak.flatten(t['x'].array()), bins=100) # draw leaf, x, in tree, t
     >>> plot.show()
     ```
-    <https://awkward-array.org/doc/main/user-guide/how-to-restructure-flatten.html>
 - Draw the distribution of a selected subset of the variable as a histogram:
   - [ROOT][]:
     ```sh
@@ -162,6 +166,7 @@ If you are familiar with [ROOT][] and would like to migrate to [Python][] for an
     >>> plot.hist(ak.flatten(x, axis=None)), bins=100)
     >>> plot.show()
     ```
+    <https://awkward-array.org/doc/main/user-guide/how-to-restructure-flatten.html>
 - Draw a 2D histogram:
   - [ROOT][]:
     ```sh
