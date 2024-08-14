@@ -1,0 +1,12 @@
+// default unit for length is mm
+:volu world BOX 500 1200 1200 G4_Galactic
+:vis world OFF
+
+// a germanium detector in a vacuum chamber
+:volu CsI BOX 372 1000 1000 G4_CESIUM_IODIDE
+:color CsI 0 0.9 0.8
+
+// define a rotation matrix that does no rotation
+:rotm r000 0 0 0
+:place CsI 1 world r000 0 0 0
+

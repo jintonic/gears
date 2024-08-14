@@ -1,0 +1,39 @@
+# print macro commands on screen
+/control/verbose 1
+# geometry must be specified before /run/initialize
+/geometry/source detector.tg
+# specify a physics list
+/physics_lists/select LBE_LIV_EMV
+# initialize geometry and physics
+/run/initialize
+
+# change particle and its energy here
+/gps/particle e-
+/gps/energy 30 GeV
+/gps/position -40 0 0 cm
+/gps/direction 1 0 0
+
+# visualize geometry and events for debugging
+/vis/open
+/vis/drawVolume
+/vis/scene/add/trajectories
+/run/beamOn 1
+
+/score/create/boxMesh mesh
+/score/mesh/boxSize 37.2 100 100 cm
+/score/mesh/nBin 40 1 1
+
+/score/quantity/energyDeposit eDep
+/score/close
+
+## turn off screen printing for fast simulation 
+/vis/disable
+
+# turn on progress report
+/run/verbose 2
+/run/printProgress 100
+# start simulation
+/run/beamOn 500
+
+/score/dumpQuantityToFile mesh eDep electron.csv
+
