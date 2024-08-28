@@ -1,24 +1,16 @@
-:volu hall BOX 100*cm 100*cm 100*cm G4_AIR
+:volu hall BOX 100 100 100 G4_Galactic
 :vis hall OFF
 
 :rotm r000 0 0 0
-:rotm r100 1 0 0
 
-// 17............ HYPE ............
-// Inner radius , Outer radius , Inner stereo angle , outer stereo angle , Half length in Z
-
-:volu hype HYPE 10*cm 12*cm 25 35 9*cm G4_Ge
-:place hype 1 hall r100 0*cm -30*cm 0*cm
-:color hype 0.4 0.3 0.8
-
-// 21............ TWISTEDTRD .................
-:volu twistedtr TWISTEDTRD
-30*cm // Half x-length at the surface at -dz
-10*cm // Half x-length at the surface at +dz
-40*cm // Half y-length at the surface at -dz
-15*cm // Half y-length at the surface at +dz
-60*cm // Half z length
+:volu twistedtrd TWISTEDTRD
+30 // Half x-length at the surface at -dz
+10 // Half x-length at the surface at +dz
+40 // Half y-length at the surface at -dz
+15 // Half y-length at the surface at +dz
+60 // Half z length
 30*degree // twisted angle
-G4_Ge
-:place twistedtr 1 hall r000 0*cm 30*cm 0.0*cm
-:color twistedtr 0.7 0.2 0.1
+G4_AIR
+:color twistedtrd 0.7 0.2 0.1
+
+:place twistedtrd 1 hall r000 0 0 0

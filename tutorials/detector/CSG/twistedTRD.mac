@@ -1,12 +1,6 @@
-/geometry/source solids.tg
+/geometry/source twistedTRD.tg
 
-/run/initialize
+/control/execute vis.mac
 
-/geometry/test/run
-
-/vis/open OGL
-/vis/drawVolume
-
-/vis/viewer/set/background white
-/vis/viewer/set/viewpointThetaPhi 60 20
-/vis/viewer/flush
+/control/shell if [ -f G4Data0.heprep ]; then mv G4Data0.heprep twistedTRD.heprep; fi
+/control/shell if [ -f g4_00.wrl ]; then mv g4_00.wrl twistedTRD.wrl; fi
