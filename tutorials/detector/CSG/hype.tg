@@ -1,0 +1,9 @@
+:volu hall BOX 50 50 50 G4_Galactic
+:vis hall OFF
+
+:rotm r000 0 0 0
+
+// Inner radius , Outer radius , Inner stereo angle , outer stereo angle , Half length in Z
+:volu  hype HYPE 10 12 25 35 9 G4_AIR
+:color hype 0.4 0.3 0.8
+:place hype 1 hall r000 0 0 0
