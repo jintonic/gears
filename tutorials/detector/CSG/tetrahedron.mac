@@ -1,0 +1,7 @@
+/geometry/source tetrahedron.tg
+
+/control/execute vis.mac
+
+/control/shell if [ -f G4Data0.heprep ]; then mv G4Data0.heprep tetrahedron.heprep; fi
+/control/shell if [ -f g4_00.wrl ]; then mv g4_00.wrl tetrahedron.wrl; fi
+
