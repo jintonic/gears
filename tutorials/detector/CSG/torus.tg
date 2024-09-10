@@ -1,0 +1,10 @@
+:volu hall BOX 50 50 50 G4_Galactic
+:vis hall OFF
+
+:rotm r000 0 0 0
+
+// inner radius , outer radius , swept radius, starting phi, delta phi
+:volu  torus TORUS 5 10 25 0 300 G4_AIR
+:color torus 0.4 0.3 0.8
+:place torus 1 hall r000 0 0 0
+
