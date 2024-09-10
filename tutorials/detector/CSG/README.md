@@ -5,3 +5,4 @@ G4VIS_DEFAULT_DRIVER=HepRepFile gears sphere.mac
 ```
 
 The environment variable `G4VIS_DEFAULT_DRIVER` can be used to select a visualization driver other than the default one.
+
