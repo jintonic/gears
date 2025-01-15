@@ -51,6 +51,7 @@ gxml
 *.hdf
 *.hdf5
 *log
+*.xlsx
 
 # alternative output format
 ghdf5.cc
