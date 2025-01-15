@@ -14,34 +14,41 @@
 2. [physics process][physics list]: model + cross section (how often it happens)
 3. [physics list][]: a list of processes for common particles
 4. [modular lists][]: lists of processes that can be used as building blocks to construct a more complex list
-5. [pre-packaged lists][]: official [modular lists][] shipped with [Geant4][]
-6. [reference lists][]: a subset of the [pre-packaged lists][] that are well-maintained and tested
-7. [factory][]: a [Geant4][] class that can be used to call [pre-packaged lists][] by their names
+6. [reference lists][]: official [modular lists][] shipped with [Geant4][]
+7. [factory][]: a [Geant4][] class that can be used to call [reference lists][] by their names
 
 [physics list]:http://geant4-userdoc.web.cern.ch/geant4-userdoc/UsersGuides/ForApplicationDeveloper/html/UserActions/mandatoryActions.html#physics-lists
 [modular lists]:http://geant4-userdoc.web.cern.ch/geant4-userdoc/UsersGuides/ForApplicationDeveloper/html/UserActions/mandatoryActions.html#building-physics-list-from-physics-builders
-[pre-packaged lists]:https://gitlab.cern.ch/geant4/geant4/tree/master/source/physics_lists/lists/include
-[reference lists]: https://geant4.web.cern.ch/node/155
-[factory]:https://geant4.kek.jp/lxr/source/physics_lists/lists/src/G4PhysListFactory.cc#L79
-
+[reference lists]: https://geant4.web.cern.ch/documentation/dev/plg_html/PhysicsListGuide/physicslistguide.html
+[factory]:https://geant4.kek.jp/lxr/source/physics_lists/lists/src/G4PhysListFactory.cc#L82
 [Geant4]: http://geant4.cern.ch
 
 ## How to choose a physics list
 
-[GEARS][] uses [G4PhysListFactory.cc][factory] to allow the user to select one from the [pre-packaged lists][] by its name:
+[GEARS][] uses [G4PhysListFactory.cc][factory] to allow the user to select one from the [reference lists][] using an environment variable `PHYSLIST` before the `gears` executable:
 
 ```sh
-  # select a pre-packaged physics list. For example,
-  # LBE: low background experiment
-  # LIV: EM model based on Livermore data
-  /physics_lists/select LBE_LIV
-  # initialize physics based on the list
-  /run/initialize
-  # dump the lists on screen
-  /run/beamOn
+$ PHYSLIST=FTFP_BERT_EMZ gears
+
+**************************************************************
+ Geant4 version Name: geant4-11-03 [MT]   (6-December-2024)
+                       Copyright : Geant4 Collaboration
+                      References : NIM A 506 (2003), 250-303
+                                 : IEEE-TNS 53 (2006), 270-278
+                                 : NIM A 835 (2016), 186-225
+                             WWW : http://geant4.org/
+**************************************************************
+
+G4PhysListFactory::GetReferencePhysList <FTFP_BERT_EMZ>  EMoption= 4
+<<< Geant4 Physics List simulation engine: FTFP_BERT
+...
+PreInit> /run/initialize
+Idle> /run/beamOn
 ```
 
-The available names are listed in [G4PhysListFactory.cc][factory]. The naming scheme is introduced on page 24 in this [tutorial][]. A guidance on how to choose a proper physics list is also available in the [tutorial][].
+where `/run/initialize` initializes physics based on the list, and `/run/beamOn` dumps the list on screen.
+
+Available reference lists can be found in [G4PhysListFactory.cc][factory]. The naming scheme is introduced on page 24 in this [tutorial][]. A guidance on how to choose a proper physics list is also available in the [tutorial][].
 
 [GEARS]: http://physino.xyz/gears
 [tutorial]:https://www.slac.stanford.edu/xorg/geant4/SLACTutorial14/Physics1.pdf
@@ -87,17 +94,12 @@ Now you can use, for example, `/process/inactivate nCapture` to disable neutron 
 ### Radioactive decay
 [![YouTube](https://img.shields.io/badge/You-Tube-red?style=flat)](https://youtu.be/8dR0DQ5ypCw)
 
-Radioactive decay processes can be enabled after a reference list is chosen:
+Radioactive decay processes can be enabled before `run/initialize`:
 
 ```sh
- # choose a reference physics list
- /physics_lists/select QGSP_BERT_EMV
- # cmd below becomes available only when the cmd above is used
- /physics_lists/factory/addRadioactiveDecay
- # must be run after the cmds above
- /run/initialize
-
- /process/list Decay
+PreInit> /physics_lists/factory/addRadioactiveDecay
+PreInit> /run/initialize
+Idle> /process/list Decay
    Decay    RadioactiveDecay
 ```
 
@@ -200,22 +202,19 @@ If the half life of a daughter nucleus is longer than a measurement duration, th
 ### Optical processes
 [![YouTube](https://img.shields.io/badge/You-Tube-red?style=flat)](https://youtu.be/sgo-RPbDRcU)
 
-Optical processes can be enabled after a reference list is chosen:
+Optical processes can be enabled before `/run/initialize`:
 
 ```sh
- # based on Geant4 example OpNovice2 (EMZ: option4 of EM)
- /physics_lists/select QGSP_BERT_EMZ
- # cmd below becomes available only when the cmd above is used
  /physics_lists/factory/addOptical
- # must be run after the cmds above
  /run/initialize
 
  /process/list Electromagnetic
    phot,              compt,               conv,                msc
    eIoni,              eBrem,        CoulombScat,            annihil
    muIoni,            muBrems,         muPairProd,              hIoni
-   hBrems,          hPairProd,            ionIoni,           Cerenkov
-   Scintillation
+   hBrems,          hPairProd,            ionIoni,              hIoni
+   ...
+   hIoni,           hIoni,               Cerenkov,       Scintillation
 
  /process/list Optical
    OpAbsorption,   OpRayleigh,            OpMieHG,         OpBoundary
@@ -251,9 +250,9 @@ It is useful to categorize the processes the following way:
 It is also important to understand that [optical photons][] are treated differently from gamma and x-rays in [Geant4][], since completely different physics processes are assigned to them.
 
 #### Optical properties of materials and surfaces
-To [generate Cerenkov light](http://geant4-userdoc.web.cern.ch/geant4-userdoc/UsersGuides/ForApplicationDeveloper/html/TrackingAndPhysics/physicsProcess.html#generation-of-photons-in-processes-electromagnetic-xrays-cerenkov-effect), one HAS TO specify the refractive index of the material where the light is generated. In [GEARS][], this is [done in the detector geometry description file](../detector/optical).
+To [generate Cerenkov light](http://geant4-userdoc.web.cern.ch/geant4-userdoc/UsersGuides/ForApplicationDeveloper/html/TrackingAndPhysics/physicsProcess.html#generation-of-photons-in-processes-electromagnetic-xrays-cerenkov-effect), one MUST specify the refractive index of the material where the light is generated. In [GEARS][], this is [done in the detector geometry description file](../detector/optical).
 
-At least two parameters need to be specified to [generate scintillation light](http://geant4-userdoc.web.cern.ch/geant4-userdoc/UsersGuides/ForApplicationDeveloper/html/TrackingAndPhysics/physicsProcess.html#generation-of-photons-in-processes-electromagnetic-xrays-scintillation): the light yield, i.e., the number of photons per unit energy deposition (SCINTILLATIONYIELD), and the variation of the number of generated photons (RESOLUTIONSCALE). The parameters need to be attached to the material that scintillates, they are hence [specified in the detector geometry description file](../detector/optical) as well.
+At least two parameters need to be specified to [generate scintillation light](https://geant4-userdoc.web.cern.ch/UsersGuides/ForApplicationDeveloper/html/TrackingAndPhysics/physicsProcess.html#scintillation): the light yield, i.e., the number of photons per unit energy deposition (SCINTILLATIONYIELD), and the variation of the number of generated photons (RESOLUTIONSCALE). The parameters need to be attached to the material that scintillates, they are hence [specified in the detector geometry description file](../detector/optical) as well.
 
 The parameter, RAYLEIGH and ABSLENGTH, related to the transportation of [optical photons][] in a mertial also have to be [attached to the material](../detector/optical).
 
