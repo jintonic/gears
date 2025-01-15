@@ -29,7 +29,7 @@ More than 40% of the ~550 lines of C++ code in [gears.cc](../../../gears.cc) is 
 
 ## Define optical properties of a surface
 
-First of all, there is no need to define a *surface* for polished interfaces between two media. As long as the two media have an index of refraction stored in their respective G4MaterialPropertiesTable, the [G4OpBoundaryProcess][]::[PostStepDoIt][] will handle the refraction and reflection correctly.
+First of all, there is no need to define a *surface* for polished interfaces between two media. As long as the two media have their refraction indices stored in their respective G4MaterialPropertiesTable, the [G4OpBoundaryProcess][]::[PostStepDoIt][] will handle the refraction and reflection correctly.
 
 One can use the following syntax to define a [G4LogicalBorderSurface][] in case that there is a real need to specify the optical properties of the interface:
 
