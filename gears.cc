@@ -1,13 +1,13 @@
 /**
  * \mainpage notitle
- * Homepage: <http://physino.xyz/gears>
+ * Homepage: <https://github.com/jintonic/gears>
  */
 #include <vector>
 using namespace std;
 #include <G4SteppingVerbose.hh>
 #include <G4SteppingManager.hh>
 /**
- * Output simulation results to screen or a file.
+ * Dump simulation results to screen or a file.
  */
 class Output : public G4SteppingVerbose
 {
@@ -596,37 +596,18 @@ class StackingAction : public G4UserStackingAction, public G4UImessenger
 //______________________________________________________________________________
 //
 #include <G4VUserActionInitialization.hh>
-#include <G4PhysListFactory.hh>
-
-class Action : public G4VUserActionInitialization, public G4UImessenger
+class Action : public G4VUserActionInitialization
 {
-  private:
-    G4UIcmdWithAString* fCmdPhys; ///< macro cmd to select a physics list
-	public:
-    Action() : G4VUserActionInitialization(), G4UImessenger() {
-      fCmdPhys = new G4UIcmdWithAString("/physics_lists/select",this);
-      fCmdPhys->SetGuidance("Select a physics list");
-      fCmdPhys->SetGuidance("Candidates are specified in G4PhysListFactory.cc");
-      fCmdPhys->SetParameterName("name of a physics list", false);
-      fCmdPhys->AvailableForStates(G4State_PreInit);
-    }
-    ~Action() { delete fCmdPhys; }
 		void Build() const {
 			SetUserAction(new RunAction);
 			SetUserAction(new Generator);
       SetUserAction(new EventAction);
       SetUserAction(new StackingAction);
 		}
-    void SetNewValue(G4UIcommand* cmd, G4String value) {
-      if (cmd!=fCmdPhys) return;
-			auto run = G4RunManager::GetRunManager();
-			//delete run->GetUserPhysicsList(); // FIXME: memory leak without delete
-      G4PhysListFactory factory;
-      run->SetUserInitialization(factory.GetReferencePhysList(value));
-    } ///< for UI
 };
 //______________________________________________________________________________
 //
+#include <G4PhysListFactory.hh>
 #include <G4ScoringManager.hh>
 #include <G4VisExecutive.hh>
 #include <G4UIExecutive.hh>
