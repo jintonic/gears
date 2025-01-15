@@ -4,9 +4,7 @@
 # geometry must be specified before /run/initialize
 /geometry/source CsI2PMT.tg
 
-# based on Geant4 example OpNovice2 (EMZ: option4 of EM)
-/physics_lists/select QGSC_BERT_EMZ
-# cmd below becomes available only when the cmd above is used
+# enable physics for optical processes
 /physics_lists/factory/addOptical
 # turn off unnecessary output
 /process/optical/verbose 0
