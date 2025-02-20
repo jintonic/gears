@@ -1,0 +1,10 @@
+:volu hall BOX 50 50 50 G4_Galactic
+:vis hall OFF
+
+:rotm r000 0 0 0
+
+// half x, y, z
+:volu  ellipsoid ELLIPSOID 10 20 50 -10 40 G4_AIR
+:color ellipsoid 0.4 0.3 0.8
+:place ellipsoid 1 hall r000 0 0 0
+
