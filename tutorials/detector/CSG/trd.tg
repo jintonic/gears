@@ -1,0 +1,10 @@
+:volu hall BOX 80 80 80 G4_Galactic
+:vis hall OFF
+
+:rotm r000 0 0 0
+
+// half x, y, z
+:volu  trapezoid TRD 30 10 40 15 60 G4_AIR
+:color trapezoid 0.4 0.3 0.8
+:place trapezoid 1 hall r000 0 0 0
+

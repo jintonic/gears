@@ -1,0 +1,10 @@
+:volu hall BOX 100 100 100 G4_Galactic
+:vis hall OFF
+
+:rotm r000 0 0 0
+
+// half x, y, z
+:volu  parallelepiped PARA 30 40 60 10 30 20 G4_AIR
+:color parallelepiped 0.4 0.3 0.8
+:place parallelepiped 1 hall r000 0 0 0
+
