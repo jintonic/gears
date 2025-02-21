@@ -1,0 +1,10 @@
+:volu hall BOX 80 80 80 G4_Galactic
+:vis hall OFF
+
+:rotm r000 0 0 0
+
+// twist angle in rad, half x, y, z in mm
+:volu  twistedBox TWISTEDBOX 3.1415926/6 30 40 60 G4_AIR
+:color twistedBox 0.4 0.3 0.8
+:place twistedBox 1 hall r000 0 0 0
+

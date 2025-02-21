@@ -1,0 +1,11 @@
+:volu hall BOX 80 80 80 G4_Galactic
+:vis hall OFF
+
+:rotm r000 0 0 0
+
+// twist angle in rad, Rin, Rout, half z in mm, dphi in rad
+// phi0 = -dphi/2
+:volu  twistedTubs TWISTEDTUBS 3.14159265/3 10 15 20 3.14159265/2 G4_AIR
+:color twistedTubs 0.4 0.3 0.8
+:place twistedTubs 1 hall r000 0 0 0
+
