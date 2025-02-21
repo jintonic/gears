@@ -3,7 +3,7 @@
 
 :rotm r000 0 0 0
 
-// half x, y, z
+// semi axis in x, y, z, z of bottom, z of top surface in mm
 :volu  ellipsoid ELLIPSOID 10 20 50 -10 40 G4_AIR
 :color ellipsoid 0.4 0.3 0.8
 :place ellipsoid 1 hall r000 0 0 0

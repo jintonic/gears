@@ -3,7 +3,7 @@
 
 :rotm r000 0 0 0
 
-// half x, y, z
+// scaling along x, y in mm, z of the apex, z of the top plane in mm
 :volu  econe ELLIPTICALCONE 30/75 60/75 50 25 G4_AIR
 :color econe 0.4 0.3 0.8
 :place econe 1 hall r000 0 0 0

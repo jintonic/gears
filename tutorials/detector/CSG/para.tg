@@ -3,7 +3,7 @@
 
 :rotm r000 0 0 0
 
-// half x, y, z
+// half x, y, z in mm, alpha, theta, phi in degrees
 :volu  parallelepiped PARA 30 40 60 10 30 20 G4_AIR
 :color parallelepiped 0.4 0.3 0.8
 :place parallelepiped 1 hall r000 0 0 0

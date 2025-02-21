@@ -3,7 +3,7 @@
 
 :rotm r000 0 0 0
 
-// half x, y, z
+// half x of bottom surface, half x of top, half y bottom, half y top, half z
 :volu  trapezoid TRD 30 10 40 15 60 G4_AIR
 :color trapezoid 0.4 0.3 0.8
 :place trapezoid 1 hall r000 0 0 0
