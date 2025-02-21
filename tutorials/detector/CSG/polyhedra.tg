@@ -1,0 +1,14 @@
+:volu hall BOX 80 80 80 G4_Galactic
+:vis hall OFF
+
+:rotm r000 0 0 0
+
+// FIXME: cannot get it to work
+:volu  polyhedra POLYHEDRA -3.14159265/4 3.14159265*5/4 3 7
+ 0 5  8  13 30 32 35
+ 0 0  0  0  0  0  0
+ 0 15 15 4  4  10 10
+ G4_AIR
+:color polyhedra 0.4 0.3 0.8
+:place polyhedra 1 hall r000 0 0 0
+
