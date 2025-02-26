@@ -1,0 +1,22 @@
+:volu hall BOX 100 100 100 G4_Galactic
+:vis hall OFF
+
+:rotm r000 0 0 0
+
+:volu twistedTrap TWISTEDTRAP
+3.14159265/6 // twisted angle in rad
+60 // dz/2
+3.14159265/9 // theta
+3.14159265/36 // phi
+40 // dy1/2: half y @ -dz/2
+30 // half x @ -dz/2 and -dy1/2
+40 // half x @ -dz/2 and +dy1/2
+16 // dy1/2: half y @ dz/2
+10 // half x @ dz/2 and -dy1/2
+14 // half x @ dz/2 and +dy1/2
+3.14159265/18 // angle with respect to y from the centre of the side
+G4_AIR
+:color twistedTrap 0.7 0.2 0.1
+
+:place twistedTrap 1 hall r000 0 0 0
+

@@ -1,0 +1,11 @@
+:volu hall BOX 50 50 50 G4_Galactic
+:vis hall OFF
+
+:rotm r000 0 0 0
+
+// Rin @ -z/2, Rout @ -z/2, Rin @ z/2, Rout @ z/2 in mm,
+// half z, start phi, dphi in degree
+:volu  cons CONS 8 20 5 10 20 0 270 G4_AIR
+:color cons 0.4 0.3 0.8
+:place cons 1 hall r000 0 0 0
+
