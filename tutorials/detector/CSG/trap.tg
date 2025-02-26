@@ -1,4 +1,4 @@
-:volu hall BOX 80 80 80 G4_Galactic
+:volu hall BOX 200 200 200 G4_Galactic
 :vis hall OFF
 
 :rotm r000 0 0 0
@@ -8,4 +8,9 @@
  40 30 40 3.14159265/18 16 10 14 3.14159265/18 G4_AIR
 :color genericTrapezoid11pars 0.4 0.3 0.8
 :place genericTrapezoid11pars 1 hall r000 0 0 0
+
+// pDz, pTheta, pPhi, pDy1, pDx1, pDx2, pAlp1, pDy2, pDx3, pDx4, pAlp2y
+:volu  simplerTrapezoid TRAP 120 80 80 60 G4_AIR
+:color simplerTrapezoid 0.9 0.3 0.2
+:place simplerTrapezoid 2 hall r000 100 0 0
 

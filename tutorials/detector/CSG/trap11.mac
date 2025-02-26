@@ -1,7 +1,0 @@
-/geometry/source trap11.tg
-
-/control/execute vis.mac
-
-/control/shell if [ -f G4Data0.heprep ]; then mv G4Data0.heprep trap11.heprep; fi
-/control/shell if [ -f g4_00.wrl ]; then mv g4_00.wrl trap11.wrl; fi
-

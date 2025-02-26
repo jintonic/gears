@@ -3,8 +3,8 @@
 
 :rotm r000 0 0 0
 
-// inner, outer radius, half z, start phi, delta phi
-:volu tubs TUBS 10 30 20 0 350 G4_AIR
-:color tubs 0.9 0 0
+// Rin, Rout, half z in mm, start phi, dphi in degree
+:volu  tubs TUBS 5 10 20 0 120 G4_AIR
+:color tubs 0.4 0.3 0.8
 :place tubs 1 hall r000 0 0 0
 
