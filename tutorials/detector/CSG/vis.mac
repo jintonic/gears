@@ -5,8 +5,8 @@
 /vis/open
 /vis/drawVolume
 
-/vis/scene/add/axes 0 0 0 50 mm auto false
-/vis/viewer/set/background white
+/vis/scene/add/axes
+/vis/viewer/set/background black
 /vis/viewer/set/viewpointThetaPhi 60 120
 /vis/viewer/flush
 
