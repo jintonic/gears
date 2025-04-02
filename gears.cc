@@ -22,7 +22,8 @@ class Output : public G4SteppingVerbose
     void Reset() { trk.clear(); stp.clear(); vlm.clear(); pro.clear();
       pdg.clear(); pid.clear(); xx.clear(); yy.clear(); zz.clear(); dt.clear();
       de.clear(); dl.clear(); l.clear(); x.clear(); y.clear(); z.clear();
-      t.clear(); k.clear(); p.clear(); q.clear(); et.clear(); }
+      t.clear(); k.clear(); p.clear(); px.clear(); py.clear(); pz.clear();
+		 	q.clear(); et.clear(); }
     void SetSteppingVerbose(int level) { fManager->SetVerboseLevel(level); }
     int GetSteppingVerbose() { return fManager->GetverboseLevel(); }
 
@@ -45,6 +46,9 @@ class Output : public G4SteppingVerbose
     vector<double> t;  ///< time elapsed from the beginning of an event [ns]
     vector<double> k;  ///< kinetic energy [keV]
     vector<double> p;  ///< momentum [keV]
+    vector<double> px;  ///< x component of momentum direction
+    vector<double> py;  ///< y component of momentum direction
+    vector<double> pz;  ///< z component of momentum direction
     vector<double> q;  ///< charge [elementary charge]
     vector<double> et; ///< Total energy deposited in a volume [keV]
 };
@@ -76,6 +80,9 @@ Output::Output(): G4SteppingVerbose()
   manager->CreateNtupleDColumn("t", t);
   manager->CreateNtupleDColumn("k", k);
   manager->CreateNtupleDColumn("p", p);
+  manager->CreateNtupleDColumn("px", px);
+  manager->CreateNtupleDColumn("py", py);
+  manager->CreateNtupleDColumn("pz", pz);
   manager->CreateNtupleDColumn("q", q);
   manager->CreateNtupleDColumn("et", et);
   manager->FinishNtuple();
@@ -118,6 +125,9 @@ void Output::Record()
   q.push_back(fStep->GetPostStepPoint()->GetCharge());
   l.push_back(fTrack->GetTrackLength()/CLHEP::mm);
 
+  px.push_back(fTrack->GetMomentumDirection().x());
+  py.push_back(fTrack->GetMomentumDirection().y());
+  pz.push_back(fTrack->GetMomentumDirection().z());
   de.push_back(fStep->GetTotalEnergyDeposit()/CLHEP::keV);
   dl.push_back(fTrack->GetStepLength()/CLHEP::mm);
 
