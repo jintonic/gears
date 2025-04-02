@@ -415,7 +415,7 @@ class Detector : public G4VUserDetectorConstruction, public G4UImessenger
     void SetNewValue(G4UIcommand* cmd, G4String value); ///< for G4UI
 
   private:
-    G4UIcmdWith3VectorAndUnit* fCmdSetB; ///< /field/setB
+    G4UIcmdWith3VectorAndUnit* fCmdSetB; ///< /geometry/setB
     G4UIcmdWithAString* fCmdSrc; ///< /geometry/source
     G4UIcmdWithAString* fCmdOut; ///< /geometry/export
     G4VPhysicalVolume * fWorld;
@@ -637,7 +637,7 @@ int main(int argc, char **argv)
   G4ScoringManager::GetScoringManager(); // enable built-in scoring cmds
   G4UIExecutive* ui = nullptr; // assume batch mode
   if (argc==1) { ui = new G4UIExecutive(argc, argv); } // interactive mode
-  auto vis = new G4VisExecutive(); // visualization
+  auto vis = new G4VisExecutive("quiet"); // visualization
   vis->Initialize(); // do this after ui mode is decided
   if (ui) { // interactive mode
 		ui->SessionStart(); // do this after vis
