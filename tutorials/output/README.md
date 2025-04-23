@@ -245,6 +245,7 @@ The physics process generating each step point is saved in a variable `pro[i]`, 
 - 1000 to 2000: [transportation](https://geant4.kek.jp/lxr/source//processes/transportation/include/G4TransportationProcessType.hh)
   - 1000: initial step (step 0)
   - 1091: transportation
+  - 1092: [coupled transportation](https://geant4-forum.web.cern.ch/t/coupledtransportation/2363)
 - 2000 to 3000: [electromagnetic](https://geant4.kek.jp/lxr/source//processes/electromagnetic/utils/include/G4EmProcessSubType.hh)
   - 2001: Coulomb scattering
   - 2002: ionization
