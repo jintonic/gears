@@ -24,29 +24,7 @@ t - transmittance
 
 ~~~
 
-## Define optical properties of a surface
 
-First of all, there is no need to define a *surface* for polished interfaces between two media. As long as the two media have their refraction indices stored in their respective G4MaterialPropertiesTable, the [G4OpBoundaryProcess][]::[PostStepDoIt][] will handle the refraction and reflection correctly.
-
-One can use the following syntax to define a [G4LogicalBorderSurface][] in case that there is a real need to specify the optical properties of the interface:
-
-~~~cpp
-//:surf v12v2 v1:copyNo1 v2:copyNo2
-:surf CsI2Teflon CsI:1 Teflon:1
-  type dielectric_dielectric
-  model unified
-  finish ground
-  sigma_alpha 0.1
-  property photon_energies 2 2.5*eV 5.0*eV
-    REFLECTIVITY 0.9 0.9
-//property must be the last setting due to the current coding method
-~~~
-
-Note that physics volumes from the same logical volume created by the text geometry processor share the same name as their logical volume. Since [G4LogicalBorderSurface][] requires pointers to the two physical volumes beside, a unique copy number has to be attached to the volume name to uniquely identify the physics volume.
-
-Please read [the Geant4 manual](http://geant4-userdoc.web.cern.ch/geant4-userdoc/UsersGuides/ForApplicationDeveloper/html/TrackingAndPhysics/physicsProcess.html#boundary-process) if you would like to learn more about the optical interface models in Geant4.
-
-You can also run example macros in the [surface/](surface/) directory to understand the difference between different surfaces.
 
 [GEARS]: http://physino.xyz/gears
 [tg]: http://geant4-userdoc.web.cern.ch/geant4-userdoc/UsersGuides/ForApplicationDeveloper/html/Detector/Geometry/geomASCII.html
