@@ -2,12 +2,14 @@
 [![optical processes](https://img.shields.io/badge/optical-processes-blue?style=flat)](../../physics#optical-processes)
 
 The finish GroundFrontPainted represents a volume with a painted surface. The reflectivity 
-𝑅 defines the probability that an optical photon is reflected by the painted surface. The optical photon may or may not be absorbed by the paint. The paint is modeled through surface properties. When not absorbed, the photon undergoes Lambertian reflection. No refraction occurs.
+𝑅 defines the probability that an optical photon is reflected by the painted surface. More specifically, it is defined as 1 minus the absorption coefficient. The optical photon may or may not be absorbed by the paint. The paint is modeled through surface properties. When not absorbed, the photon undergoes Lambertian reflection. No refraction occurs.
 
 
 ## Naming convention for example files
 r - Reflectivity
+<br>
 t - transmittance 
+<br>
 
 ## Example Parameters for r0t0.tg
 
