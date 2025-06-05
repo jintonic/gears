@@ -2,13 +2,7 @@
 [![optical processes](https://img.shields.io/badge/optical-processes-blue?style=flat)](../../physics#optical-processes)
 
 The finish GroundFrontPainted represents a volume with a painted surface. The reflectivity 
-𝑅
-R defines the probability that an optical photon is reflected by the painted surface. The optical photon may or may not be absorbed by the paint. The paint is modeled through surface properties. When not absorbed, the photon undergoes Lambertian reflection. No refraction occurs.
-
-
-The following two tags are added in [GEARS][] to enable definition of optical materials and surfaces using [Geant4][] [text geometry description][tg] syntax. **NOTE** that they need to be placed at the end of a _.tg_ file to avoid interrupting the processing of known tags by [Geant4][] before [GEARS][] processes the added ones.
-
-More than 40% of the ~550 lines of C++ code in [gears.cc](../../../gears.cc) is used to implement this new feature. If it is absorbed in future [Geant4][] releases, [gears.cc](../../../gears.cc) can become a lot smaller.
+𝑅 defines the probability that an optical photon is reflected by the painted surface. The optical photon may or may not be absorbed by the paint. The paint is modeled through surface properties. When not absorbed, the photon undergoes Lambertian reflection. No refraction occurs.
 
 
 ## Naming convention for example files
@@ -19,12 +13,15 @@ t - transmittance
 
 ~~~cpp
 
-//:prop <material> photon_energies <int(array size)> <energy array>
-//  <wavelength-dependent_property> <property values>
-:prop pureCsIat77K
-  photon_energies 2 2.034*eV 3.025*eV 4.136*eV
-  RINDEX 1.34 1.35 1.36
-  ABSLENGTH 1.0*meter 1.1*meter 1.2*meter
+// optical properties of the surface between CsI & Teflon
+:surf CsI2Teflon CsI:1 Teflon:2
+  type dielectric_dielectric
+  model unified	
+  finish groundfrontpainted
+  property photon_energies 2 2.5*eV 5.0*eV
+           REFLECTIVITY      0      0
+           TRANSMITTANCE     0      0
+
 ~~~
 
 ## Define optical properties of a surface
