@@ -1,23 +1,23 @@
 [![YouTube](https://img.shields.io/badge/You-Tube-red?style=flat)](https://youtu.be/sgo-RPbDRcU)
 [![optical processes](https://img.shields.io/badge/optical-processes-blue?style=flat)](../../physics#optical-processes)
 
-One can hard code the optical properties of a material or a surface in C++, which requires recompiling of the source code. [GDML][] can also be used, but with some limitation (for example, [properties cannot be assigned to existing NIST materials pre-defined in Geant4](https://geant4-forum.web.cern.ch/t/adding-optical-properties-to-built-in-g4-materials-using-gdml/340/4)). Worse, there is no way to define optical properties in the default [Geant4][] [text geometry description][tg].
+The finish GroundFrontPainted represents a volume with a painted surface. The reflectivity 
+𝑅
+R defines the probability that an optical photon is reflected by the painted surface. The optical photon may or may not be absorbed by the paint. The paint is modeled through surface properties. When not absorbed, the photon undergoes Lambertian reflection. No refraction occurs.
+
 
 The following two tags are added in [GEARS][] to enable definition of optical materials and surfaces using [Geant4][] [text geometry description][tg] syntax. **NOTE** that they need to be placed at the end of a _.tg_ file to avoid interrupting the processing of known tags by [Geant4][] before [GEARS][] processes the added ones.
 
 More than 40% of the ~550 lines of C++ code in [gears.cc](../../../gears.cc) is used to implement this new feature. If it is absorbed in future [Geant4][] releases, [gears.cc](../../../gears.cc) can become a lot smaller.
 
-## Define optical properties of a material
+
+## Naming convention for example files
+r - Reflectivity
+t - transmittance 
+
+## Example Parameters for r0t0.tg
 
 ~~~cpp
-//:prop <material>
-//  <wavelength-independent_property> <value>
-:prop pureCsIat77K
-  SCINTILLATIONYIELD 100./keV
-  RESOLUTIONSCALE 2.
-  FASTTIMECONSTANT 1.*ns
-  SLOWTIMECONSTANT 1.*us
-  YIELDRATIO 0.8
 
 //:prop <material> photon_energies <int(array size)> <energy array>
 //  <wavelength-dependent_property> <property values>
