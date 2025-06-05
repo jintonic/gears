@@ -26,6 +26,7 @@ t - transmittance
 
 ~~~
 
+Initially, a random number is generated and if the random number is greater than REFLECTIVITY plus TRANSMITTANCE, then the photon is absorbed. If the random number is not greater than the sum of the two and instead only greater than the REFLECTIVITY then the photon is transmitted. In, the case of 
 
 
 [GEARS]: http://physino.xyz/gears

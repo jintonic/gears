@@ -2,7 +2,7 @@
 /control/verbose 1
 
 # geometry must be specified before /run/initialize
-/geometry/source Ref1Trans0Back1.tg
+/geometry/source r1t0b1.tg
 
 # turn on optical physics
 /physics_lists/factory/addOptical

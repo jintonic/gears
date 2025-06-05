@@ -25,18 +25,12 @@
 :surf CsI2Teflon CsI:1 Teflon:2
   type dielectric_dielectric
   model unified	
-  finish GroundFrontPainted
+  finish GroundBackPainted 
   property photon_energies 2 2.5*eV 5.0*eV
            REFLECTIVITY      0      0
            TRANSMITTANCE 	 0		0
            RINDEX            0.9	    0.9	
 
-
-
-
-         // SPECULARSPIKECONSTANT	1.0   1.0 
-         // SPECULARLOBECONSTANT  0.1   0.1
-          //BACKSCATTERCONSTANT   0.1   0.1
            	
            
 

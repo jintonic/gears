@@ -15,7 +15,7 @@
 :place Teflon 2 vac r000 20 0 0
 
 // optical properties of CsI
-#include ../CsI.tg
+#include ../../CsI.tg
 // optical properties of Teflon
 :prop G4_TEFLON
   photon_energies 2 2.5*eV 5.0*eV

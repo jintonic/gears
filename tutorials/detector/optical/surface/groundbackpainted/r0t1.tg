@@ -25,7 +25,7 @@
 :surf CsI2Teflon CsI:1 Teflon:2
   type dielectric_dielectric
   model unified	
-  finish GroundFrontPainted
+  finish groundbackpainted
   property photon_energies 2 2.5*eV 5.0*eV
            REFLECTIVITY      0      0
            TRANSMITTANCE 	 1		1
