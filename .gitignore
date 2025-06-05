@@ -80,3 +80,6 @@ cmake_install.cmake
 
 # jupyter notebook
 *ipynb_checkpoints
+
+#RStudio
+.R*
