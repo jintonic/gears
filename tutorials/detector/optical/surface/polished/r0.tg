@@ -15,7 +15,7 @@
 :place Teflon 2 vac r000 20 0 0
 
 // optical properties of CsI
-#include ../CsI.tg
+#include ../../CsI.tg
 // optical properties of Teflon
 :prop G4_TEFLON
   photon_energies 2 2.5*eV 5.0*eV
@@ -26,18 +26,6 @@
   type dielectric_dielectric
   model unified	
   finish Polished
-  //sigma_alpha 20 
   property photon_energies 2 2.5*eV 5.0*eV
            REFLECTIVITY      0        0
-           RINDEX            0.9	    0.9	
-
-
-
-
-         // SPECULARSPIKECONSTANT	1.0   1.0 
-         // SPECULARLOBECONSTANT  0.1   0.1
-          //BACKSCATTERCONSTANT   0.1   0.1
-           	
-           
-
-
+           RINDEX          0.9      0.9	
