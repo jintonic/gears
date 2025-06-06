@@ -26,8 +26,21 @@ t - transmittance
 
 ~~~
 
-Initially, a random number is generated and if the random number is greater than REFLECTIVITY plus TRANSMITTANCE, then the photon is absorbed. If the random number is not greater than the sum of the two and instead only greater than the REFLECTIVITY then the photon is transmitted. In, the case of 
+Initially, a random number is generated. If the random number is greater than the sum of REFLECTIVITY and TRANSMITTANCE, the photon is absorbed. If the random number is not greater than the sum but is greater than REFLECTIVITY alone, the photon is transmitted. If the random number is not greater than REFLECTIVITY, the usual scattering calculation is performed.
 
+Below are screenshots demonstrating different view configurations:
+
+#### r0t0
+![r0t0](r0t0.png)
+
+#### r01
+![r01](r01.png)
+
+#### r05t05
+![r05t05](r05t05.png)
+
+#### r10
+![r10](r10.png)
 
 [GEARS]: http://physino.xyz/gears
 [tg]: http://geant4-userdoc.web.cern.ch/geant4-userdoc/UsersGuides/ForApplicationDeveloper/html/Detector/Geometry/geomASCII.html
