@@ -30,17 +30,18 @@ Initially, a random number is generated. If the random number is greater than th
 
 Below are screenshots demonstrating different view configurations:
 
-#### r0t0
-![r0t0](r0t0.png)
+### r0t0  
+![r0t0](https://github.com/user-attachments/assets/8b43542b-8da5-4da0-98ac-5314b4b42a56)
 
-#### r01
-![r01](r01.png)
+### r01  
+![r01](https://github.com/user-attachments/assets/a95ea882-0cdb-4ce8-b239-b1f475b0f1a9)
 
-#### r05t05
-![r05t05](r05t05.png)
+### r05t05  
+![r05t05](https://github.com/user-attachments/assets/edfb7c23-392d-4267-b6e1-ae4bdf1b90b9)
 
-#### r10
-![r10](r10.png)
+### r10  
+![r10](https://github.com/user-attachments/assets/5fd1ddb5-a69b-4a81-8b4b-797dbfec878e)
+
 
 [GEARS]: http://physino.xyz/gears
 [tg]: http://geant4-userdoc.web.cern.ch/geant4-userdoc/UsersGuides/ForApplicationDeveloper/html/Detector/Geometry/geomASCII.html
