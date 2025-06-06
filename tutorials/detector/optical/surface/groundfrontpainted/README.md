@@ -31,16 +31,16 @@ Initially, a random number is generated. If the random number is greater than th
 Below are screenshots demonstrating different view configurations:
 
 ### r0t0  
-![r0t0](https://github.com/user-attachments/assets/8b43542b-8da5-4da0-98ac-5314b4b42a56)
+![r0t0](https://github.com/user-attachments/assets/5fd1ddb5-a69b-4a81-8b4b-797dbfec878e)
 
-### r01  
-![r01](https://github.com/user-attachments/assets/a95ea882-0cdb-4ce8-b239-b1f475b0f1a9)
+### r0t1  
+![r01](https://github.com/user-attachments/assets/8b43542b-8da5-4da0-98ac-531a4b42a866)
 
 ### r05t05  
-![r05t05](https://github.com/user-attachments/assets/edfb7c23-392d-4267-b6e1-ae4bdf1b90b9)
+![r05t05](https://github.com/user-attachments/assets/a95ea882-0cdb-4ce8-b239-b1f475b0f1a9)
 
-### r10  
-![r10](https://github.com/user-attachments/assets/5fd1ddb5-a69b-4a81-8b4b-797dbfec878e)
+### r1t0  
+![r10](https://github.com/user-attachments/assets/edfb7c23-392d-4267-b6e1-ae4bfd1b90b9)
 
 
 [GEARS]: http://physino.xyz/gears
