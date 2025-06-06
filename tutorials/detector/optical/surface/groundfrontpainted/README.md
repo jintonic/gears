@@ -28,9 +28,12 @@ t - transmittance
 
 Initially, a random number is generated. If the random number is greater than the sum of REFLECTIVITY and TRANSMITTANCE, the photon is absorbed. If the random number is not greater than the sum but is greater than REFLECTIVITY alone, the photon is transmitted. If the random number is not greater than REFLECTIVITY, the usual scattering calculation is performed.
 
-Below are screenshots demonstrating different view configurations:
+Below are screenshots demonstrating different values for the various parameters
 
-### r0t0  
+### Relctivity = 0 and Transmittance = 0 
+~~~cpp
+As mentioned earlier, a reflectivity value of 0 and a transmittance value of 0 mean that none of the photons are reflected or transmitted. Therefore, based on the random number mechanism previously described, the photon is determined to be absorbed. As shown in the image below, the photon emitted from the CsI is absorbed upon reaching the CsI–Teflon interface.
+~~~
 <img src="https://github.com/user-attachments/assets/5fd1ddb5-a69b-4a81-8b4b-797dbfec878e" width="400"/>
 
 ### r0t1  
