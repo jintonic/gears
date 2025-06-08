@@ -27,6 +27,6 @@
   model unified	
   finish polishedfrontpainted
   property photon_energies 2 2.5*eV 5.0*eV
-           REFLECTIVITY      1      1
-           TRANSMITTANCE     0      0
+           REFLECTIVITY      0      0
+           TRANSMITTANCE     1      1
 
