@@ -27,7 +27,7 @@
 /gps/pos/halfy 18 mm
 
 # visualize geometry and events for debugging
-/vis/open
+/vis/open 
 /vis/drawVolume
 /vis/scene/add/gps
 /vis/scene/add/axes

@@ -39,4 +39,4 @@
 # dump a few events on screen for debugging
 /tracking/verbose 2
 /run/beamOn 50
-
+/vis/viewer/rebuild
