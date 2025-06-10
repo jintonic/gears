@@ -1,9 +1,7 @@
 [![YouTube](https://img.shields.io/badge/You-Tube-red?style=flat)](https://youtu.be/sgo-RPbDRcU)
 [![optical processes](https://img.shields.io/badge/optical-processes-blue?style=flat)](../../physics#optical-processes)
 
-The finish PolishedFrontPainted represents a volume with a painted surface. The reflectivity 
-𝑅 defines the probability that an optical photon is reflected by the painted surface. More specifically, it is defined as 1 minus the absorption coefficient. The optical photon may or may not be absorbed by the paint. The paint is modeled through surface properties. When not absorbed, the photon undergoes speculsar spike reflection. No refraction occurs.
-
+The Polished finish defines the case where the surface is perfectly smooth. The simulation then considers the reflectivity and decides whether the optical photon is absorbed or whether a further calculation needs to be performed to determine whether the photon is reflected or refracted. If the photon is refracted, Snell's law is used to calculate how the refraction takes place.
 
 ## Naming convention for example files
 r - Reflectivity
@@ -21,14 +19,14 @@ r05t05 - Reflectivity = 0.5 Transmittance = 0.5
 :surf CsI2Teflon CsI:1 Teflon:2
   type dielectric_dielectric
   model unified	
-  finish polishedfrontpainted
+  finish polished
   property photon_energies 2 2.5*eV 5.0*eV
            REFLECTIVITY      0      0
            TRANSMITTANCE     0      0
 
 ~~~
 
-Initially, a random number is generated. If the random number is greater than the sum of REFLECTIVITY and TRANSMITTANCE, the photon is absorbed. If it is not greater than the sum but is greater than REFLECTIVITY alone, the photon is transmitted. If the random number is not greater than REFLECTIVITY, the usual scattering calculation is performed, which in this case would be a specular spike reflection.
+Initially, a random number is generated. If the random number is greater than the sum of REFLECTIVITY and TRANSMITTANCE, the photon is absorbed. If it is not greater than the sum but is greater than REFLECTIVITY alone, the photon is transmitted. If the random number is not greater than REFLECTIVITY, the usual scattering calculation is performed, which in this case would result in either refraction, calculated using Snell's law, or reflection.
 
 Below are screenshots demonstrating different values for the various parameters. The green lines represent the trajectories of the photons. The volume with the blue outline represents the CsI crystal. Photons are emitted from a thin strip along the middle of the CsI crystal and directed into the black-bordered volume, which is the Teflon.
 
@@ -36,26 +34,25 @@ Below are screenshots demonstrating different values for the various parameters.
 
 As mentioned earlier, a reflectivity value of 0 and a transmittance value of 0 mean that none of the photons are reflected or transmitted. Therefore, based on the random number mechanism previously described, the photon is determined to be absorbed. As shown in the image below, the photon emitted from the CsI is absorbed upon reaching the CsI–Teflon interface.
 
-<img src="https://github.com/user-attachments/assets/a4d15050-51c9-4386-b79f-2acd6ef279de" width="400"/>
+<img src="https://github.com/user-attachments/assets/b10cfb50-a935-4b22-8144-6cf04bf783ca" width="400"/>
 
 ## Relctivity = 0 and Transmittance = 1 
 
-In this case, all of the optical photons are transmitted through the interface without any reflection or absorption. The image shows photons freely crossing the CsI–Teflon boundary.
+In this case, all of the optical photons are transmitted through the interface without any reflection or absorption. The image shows photons simply crossing the CsI–Teflon boundary.
 
-<img src="https://github.com/user-attachments/assets/24282ab8-aa50-4904-ad85-35be74f7a9ab" width="400"/>
+<img src="https://github.com/user-attachments/assets/be2f4bc1-d141-44fa-8e8b-5d47ecbce1bd" width="400"/>
 
 ## Relctivity = 0.5 and Transmittance = 0.5
 
-With equal values of reflectivity and transmittance, each photon has a 50% chance of being reflected or transmitted. The image demonstrates both transmitted and reflected photon trajectories originating from the CsI surface. Recall that the reflection in this case is a specular spike reflection.
+Using the random number mechanism mentioned above, the simulation first determines that no absorption occurs. Given a reflectivity of 0.5 and a transmittance of 0.5, approximately half of the photons are transmitted, as indicated by the trajectories that continue straight through, maintaining the angle of incidence. The remaining photons undergo the usual scattering calculation. In this case, the simulation determines whether the photons are refracted, calculated using Snell’s law, or reflected. The refracted photons can be identified by their altered trajectories, which show a greater angle of refraction compared to those that were simply transmitted. The photons that undergo specular reflection are reflected back into the CsI volume, as shown by the sharply angled green lines
 
-<img src="https://github.com/user-attachments/assets/c307e37c-f345-4c40-8d94-2049ed1caa79" width="400"/>
+<img src="https://github.com/user-attachments/assets/0af355ed-d273-4fa8-9a1e-2e136303e79b" width="400"/>
 
 ## Relctivity = 1 and Transmittance = 0
 
-In this configuration, all photons are reflected at the interface. No transmission or absorption occurs, resulting in the specular spike reflection of photons.
+In this configuration, none of the photons are absorbed and none are transmitted. Each photon undergoes a calculation to determine whether it undergoes reflection or refraction based on Snell's law. The photons are fired at an incident angle to demonstrate that they can undergo either reflection or refraction.
 
-
-<img src="https://github.com/user-attachments/assets/fe69e967-b2d7-4da9-845c-89dc7b8afb12" width="400"/>
+<img src="https://github.com/user-attachments/assets/7d8c7063-ff2d-46be-a8a6-aecdfefec1e6" width="400"/>
 
 
 
