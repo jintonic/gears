@@ -2,7 +2,7 @@
 /control/verbose 1
 
 # geometry must be specified before /run/initialize
-/geometry/source r0t0.tg
+/geometry/source r1t1.tg
 
 # turn on optical physics
 /physics_lists/factory/addOptical
@@ -27,7 +27,7 @@
 /gps/pos/halfy 18 mm
 
 # visualize geometry and events for debugging
-/vis/open 
+/vis/open
 /vis/drawVolume
 /vis/scene/add/gps
 /vis/scene/add/axes

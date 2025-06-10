@@ -3,19 +3,19 @@
 :vis vac OFF
 
 // CsI block
-:volu  CsI BOX 10 20 20 G4_CESIUM_IODIDE
+:volu  CsI BOX 20 20 10 G4_CESIUM_IODIDE
 :color CsI 0.2 0.4 0.8
 
 // Teflon block
-:volu  Teflon BOX 10 20 20 G4_TEFLON
+:volu  Teflon BOX 20 20 10 G4_TEFLON
 :color Teflon 0.3 0.3 0.3
 
 :rotm r000 0 0 0
 :place CsI 1 vac r000  0 0 0
-:place Teflon 2 vac r000 20 0 0
+:place Teflon 2 vac r000 0 0 20
 
 // optical properties of CsI
-#include ../CsI.tg
+#include ../../CsI.tg
 // optical properties of Teflon
 :prop G4_TEFLON
   photon_energies 2 2.5*eV 5.0*eV
@@ -25,20 +25,8 @@
 :surf CsI2Teflon CsI:1 Teflon:2
   type dielectric_dielectric
   model unified	
-  finish Polished
-  //sigma_alpha 20 
+  finish polished
   property photon_energies 2 2.5*eV 5.0*eV
-           REFLECTIVITY      0       0
-           TRANSMITTANCE	 0	      0
-           RINDEX            0.9	    0.9	
-
-
-
-
-         // SPECULARSPIKECONSTANT	1.0   1.0 
-         // SPECULARLOBECONSTANT  0.1   0.1
-          //BACKSCATTERCONSTANT   0.1   0.1
-           	
-           
-
+           REFLECTIVITY      0      0
+           TRANSMITTANCE     0      0
 
