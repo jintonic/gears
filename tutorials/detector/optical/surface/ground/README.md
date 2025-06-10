@@ -101,7 +101,8 @@ In this configuration, sigma_alpha is set to 0, resulting in a flat surface. The
 
 ## Relctivity = 1, sigma_alpha = 0, backscatterconstant = 1
 
-Much like the previous few configurations, this one also features sigma_alpha set to 0. The back‑scatter spike constant describes multiple reflections within a deep groove. However, since sigma_alpha is 0, the surface is flat, and such grooves do not form. Therefore, the photon trajectories show minimal variation in angle across different runs.
+Much like the previous few configurations, this one also features sigma_alpha set to 0. The back‑scatter spike constant describes multiple reflections within a deep groove. However, since sigma_alpha is 0, the surface is flat, and such grooves do not form.Therefore, the photon trajectories show minimal variation in angle across different runs.
+
 <img src="https://github.com/user-attachments/assets/105c4a4d-6b88-4abd-8756-9705f88cdeb9" width="400"/>
 
 
