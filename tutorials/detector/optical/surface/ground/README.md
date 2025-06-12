@@ -59,7 +59,7 @@ As mentioned earlier, a reflectivity value of 0 and a transmittance value of 0 m
 
 In this case, all of the optical photons are transmitted through the interface without any reflection or absorption. The image shows photons simply crossing the CsI–Teflon boundary.
 
-<img src="https://github.com/user-attachments/assets/8dfefd5f-7eec-42bb-a0c3-4dfe5aacfcd9" width="400"/>
+<img src="https://github.com/user-attachments/assets/52929e7a-67aa-47b4-a905-50018fb28d9c" width="400"/>
 
 ## Relctivity = 0.5 and Transmittance = 0.5
 

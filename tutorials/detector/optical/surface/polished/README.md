@@ -52,20 +52,21 @@ In this case, all of the optical photons are transmitted through the interface w
 
 Using the random number mechanism mentioned above, the simulation first determines that no absorption occurs. Given a reflectivity of 0.5 and a transmittance of 0.5, approximately half of the photons are transmitted, as indicated by the trajectories that continue straight through, maintaining the angle of incidence. The remaining photons undergo the usual scattering calculation. In this case, the simulation determines whether the photons are refracted, calculated using Snell’s law, or reflected. The refracted photons can be identified by their altered trajectories, which show a greater angle of refraction compared to those that were simply transmitted. The photons that undergo specular reflection are reflected back into the CsI volume, as shown by the sharply angled green lines
 
-<img src="https://github.com/user-attachments/assets/7d8c7063-ff2d-46be-a8a6-aecdfefec1e6" width="400"/>
+<img src="https://github.com/user-attachments/assets/685215b0-34ad-40ee-a2e2-bd70e1382700" width="400"/>
 
-## Reflectivity = 0.5 and Transmittance = 0.5
+## Reflectivity = 0.9 and Transmittance = 0.1
 
-Using the random number mechanism mentioned above, the simulation first determines that no absorption occurs. Given a reflectivity of 0.5 and a transmittance of 0.5, approximately half of the photons are transmitted, as indicated by the trajectories that continue straight through, maintaining the angle of incidence. The remaining photons undergo the usual scattering calculation. In this case, the simulation determines whether the photons are refracted, calculated using Snell’s law, or reflected. The refracted photons can be identified by their altered trajectories, which show a greater angle of refraction compared to those that were simply transmitted. The photons that undergo specular reflection are reflected back into the CsI volume, as shown by the sharply angled green lines
+Using the random number mechanism mentioned above, the simulation first determines that no absorption occurs. Given a reflectivity of 0.9 and a transmittance of 0.1, only some of the photons are transmitted, as indicated by the trajectories that continue straight through, maintaining the angle of incidence. The remaining photons undergo the usual scattering calculation. In this case, the simulation determines whether the photons are refracted, calculated using Snell’s law, or reflected. The refracted photons can be identified by their altered trajectories, which show a greater angle of refraction compared to those that were simply transmitted. The photons that undergo specular reflection are reflected back into the CsI volume, as shown by the sharply angled green lines
 
-<img src="https://github.com/user-attachments/assets/7d8c7063-ff2d-46be-a8a6-aecdfefec1e6" width="400"/>
+<img src="https://github.com/user-attachments/assets/82ff9d2f-c584-493f-be21-80e17217632d" width="400"/>
 
 
-## Reflectivity = 0.5 and Transmittance = 0.5
+## Reflectivity = 0.1 and Transmittance = 0.9
 
-Using the random number mechanism mentioned above, the simulation first determines that no absorption occurs. Given a reflectivity of 0.5 and a transmittance of 0.5, approximately half of the photons are transmitted, as indicated by the trajectories that continue straight through, maintaining the angle of incidence. The remaining photons undergo the usual scattering calculation. In this case, the simulation determines whether the photons are refracted, calculated using Snell’s law, or reflected. The refracted photons can be identified by their altered trajectories, which show a greater angle of refraction compared to those that were simply transmitted. The photons that undergo specular reflection are reflected back into the CsI volume, as shown by the sharply angled green lines
+This configuration causes only some of the photons to undergo the usual scattering calculation, while most are transmitted straight through.
 
-<img src="https://github.com/user-attachments/assets/7d8c7063-ff2d-46be-a8a6-aecdfefec1e6" width="400"/>
+
+<img src="https://github.com/user-attachments/assets/51661495-d3ef-44bd-98eb-9e051c381ace" width="400"/>
 
 
 ## Reflectivity = 1 and Transmittance = 0
