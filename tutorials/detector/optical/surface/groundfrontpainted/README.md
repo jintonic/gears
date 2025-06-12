@@ -38,25 +38,25 @@ Where R represents the reflectivity—the probability of the photon undergoing t
 
 Below are screenshots demonstrating different values for the various parameters
 
-## Relctivity = 0 and Transmittance = 0 
+## Reflectivity = 0 and Transmittance = 0 
 
 As mentioned earlier, a reflectivity value of 0 and a transmittance value of 0 mean that none of the photons are reflected or transmitted. Therefore, based on the random number mechanism previously described, the photon is determined to be absorbed. As shown in the image below, the photon emitted from the CsI is absorbed upon reaching the CsI–Teflon interface.
 
 <img src="https://github.com/user-attachments/assets/5fd1ddb5-a69b-4a81-8b4b-797dbfec878e" width="400"/>
 
-## Relctivity = 0 and Transmittance = 1 
+## Reflectivity = 0 and Transmittance = 1 
 
 In this case, all of the optical photons are transmitted through the interface without any reflection or absorption. The image shows photons freely crossing the CsI–Teflon boundary.
 
 <img src="https://github.com/user-attachments/assets/8b43542b-8da5-4da0-98ac-531a4b42a866" width="400"/>
 
-## Relctivity = 0.5 and Transmittance = 0.5
+## Reflectivity = 0.5 and Transmittance = 0.5
 
 With equal values of reflectivity and transmittance, each photon has a 50% chance of being reflected or transmitted. The image demonstrates both transmitted and reflected photon trajectories originating from the CsI surface. Recall that the reflectio in this case is Lambertian.
 
-<img src="https://github.com/user-attachments/assets/a95ea882-0cdb-4ce8-b239-b1f475b0f1a9" width="400"/>
+<img src="hhttps://github.com/user-attachments/assets/aef307a5-b081-48bc-ad03-d75275c3712e" width="400"/>
 
-## Relctivity = 1 and Transmittance = 0
+## Reflectivity = 1 and Transmittance = 0
 
 In this configuration, all photons are reflected at the interface. No transmission or absorption occurs, resulting in the Lambertian reflection of photons.
 

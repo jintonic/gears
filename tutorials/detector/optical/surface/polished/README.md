@@ -36,39 +36,39 @@ Where R represents the reflectivity—the probability of the photon undergoing t
 
 Below are screenshots demonstrating different values for the various parameters. The green lines represent the trajectories of the photons. The volume with the blue outline represents the CsI crystal. Photons are emitted from a thin strip along the middle of the CsI crystal and directed into the black-bordered volume, which is the Teflon.
 
-## Relctivity = 0 and Transmittance = 0 
+## Reflectivity = 0 and Transmittance = 0 
 
 As mentioned earlier, a reflectivity value of 0 and a transmittance value of 0 mean that none of the photons are reflected or transmitted. Therefore, based on the random number mechanism previously described, the photon is determined to be absorbed. As shown in the image below, the photon emitted from the CsI is absorbed upon reaching the CsI–Teflon interface.
 
 <img src="https://github.com/user-attachments/assets/b10cfb50-a935-4b22-8144-6cf04bf783ca" width="400"/>
 
-## Relctivity = 0 and Transmittance = 1 
+## Reflectivity = 0 and Transmittance = 1 
 
 In this case, all of the optical photons are transmitted through the interface without any reflection or absorption. The image shows photons simply crossing the CsI–Teflon boundary.
 
 <img src="https://github.com/user-attachments/assets/be2f4bc1-d141-44fa-8e8b-5d47ecbce1bd" width="400"/>
 
-## Relctivity = 0.5 and Transmittance = 0.5
+## Reflectivity = 0.5 and Transmittance = 0.5
 
 Using the random number mechanism mentioned above, the simulation first determines that no absorption occurs. Given a reflectivity of 0.5 and a transmittance of 0.5, approximately half of the photons are transmitted, as indicated by the trajectories that continue straight through, maintaining the angle of incidence. The remaining photons undergo the usual scattering calculation. In this case, the simulation determines whether the photons are refracted, calculated using Snell’s law, or reflected. The refracted photons can be identified by their altered trajectories, which show a greater angle of refraction compared to those that were simply transmitted. The photons that undergo specular reflection are reflected back into the CsI volume, as shown by the sharply angled green lines
 
 <img src="https://github.com/user-attachments/assets/7d8c7063-ff2d-46be-a8a6-aecdfefec1e6" width="400"/>
 
-## Relctivity = 0.5 and Transmittance = 0.5
-
-Using the random number mechanism mentioned above, the simulation first determines that no absorption occurs. Given a reflectivity of 0.5 and a transmittance of 0.5, approximately half of the photons are transmitted, as indicated by the trajectories that continue straight through, maintaining the angle of incidence. The remaining photons undergo the usual scattering calculation. In this case, the simulation determines whether the photons are refracted, calculated using Snell’s law, or reflected. The refracted photons can be identified by their altered trajectories, which show a greater angle of refraction compared to those that were simply transmitted. The photons that undergo specular reflection are reflected back into the CsI volume, as shown by the sharply angled green lines
-
-<img src="https://github.com/user-attachments/assets/7d8c7063-ff2d-46be-a8a6-aecdfefec1e6" width="400"/>
-
-
-## Relctivity = 0.5 and Transmittance = 0.5
+## Reflectivity = 0.5 and Transmittance = 0.5
 
 Using the random number mechanism mentioned above, the simulation first determines that no absorption occurs. Given a reflectivity of 0.5 and a transmittance of 0.5, approximately half of the photons are transmitted, as indicated by the trajectories that continue straight through, maintaining the angle of incidence. The remaining photons undergo the usual scattering calculation. In this case, the simulation determines whether the photons are refracted, calculated using Snell’s law, or reflected. The refracted photons can be identified by their altered trajectories, which show a greater angle of refraction compared to those that were simply transmitted. The photons that undergo specular reflection are reflected back into the CsI volume, as shown by the sharply angled green lines
 
 <img src="https://github.com/user-attachments/assets/7d8c7063-ff2d-46be-a8a6-aecdfefec1e6" width="400"/>
 
 
-## Relctivity = 1 and Transmittance = 0
+## Reflectivity = 0.5 and Transmittance = 0.5
+
+Using the random number mechanism mentioned above, the simulation first determines that no absorption occurs. Given a reflectivity of 0.5 and a transmittance of 0.5, approximately half of the photons are transmitted, as indicated by the trajectories that continue straight through, maintaining the angle of incidence. The remaining photons undergo the usual scattering calculation. In this case, the simulation determines whether the photons are refracted, calculated using Snell’s law, or reflected. The refracted photons can be identified by their altered trajectories, which show a greater angle of refraction compared to those that were simply transmitted. The photons that undergo specular reflection are reflected back into the CsI volume, as shown by the sharply angled green lines
+
+<img src="https://github.com/user-attachments/assets/7d8c7063-ff2d-46be-a8a6-aecdfefec1e6" width="400"/>
+
+
+## Reflectivity = 1 and Transmittance = 0
 
 In this configuration, none of the photons are absorbed and none are transmitted. Each photon undergoes a calculation to determine whether it undergoes reflection or refraction based on Snell's law. The photons are fired at an incident angle to demonstrate that they can undergo either reflection or refraction.
 

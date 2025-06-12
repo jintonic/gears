@@ -74,25 +74,25 @@ In this configuration, none of the photons are absorbed, and none are transmitte
 
 <img src="https://github.com/user-attachments/assets/3ed7db02-50bb-4907-9582-d7bdfdd7eac1" width="400"/>
 
-## Relctivity = 1, sigma_alpha = 0, specularspikeconstant = 1
+## Reflectivity = 1, sigma_alpha = 0, specularspikeconstant = 1
 
 Much like the previous configuration, the photons are not absorbed. In this case, not only is sigma alpha set to 0 (so the surface behaves like a polished surface), but the specular spike constant is also set to 1, meaning none of the other three reflection types are possible when a reflection occurs. The photon is fired at an angle. As shown in the image below, either the facet normal is sampled, resulting in refraction, or a simple specular spike reflection takes place.
 
 <img src="https://github.com/user-attachments/assets/e0ef3a44-f528-42eb-a7e1-07d14ebdae1c" width="400"/>
 
-## Relctivity = 1, sigma_alpha = 30, Transmittance  = 0
+## Reflectivity = 1, sigma_alpha = 30, Transmittance  = 0
 
 In this configuration the sigma_alpha is set to 30 resulting in quite a rough surface. As shown below this results in the photon trajectories being quite varied. When the photon aproaches the CsI teflon Boundary eitehr the facetnormal is samolled or it undergoes one of the four reflection types. Given the roughness of teh surface the reflections are quite varied adn so are teh trajectories afeter the calculation using snell's Law.
 
 <img src="https://github.com/user-attachments/assets/39c536a2-a8d2-4c3e-9a2a-f2eec144740a" width="400"/>
 
-## Relctivity = 1, sigma_alpha = 30, Transmittance  = 0
+## Reflectivity = 1, sigma_alpha = 30, Transmittance  = 0
 
 In this configuration the sigma_alpha is set to 30 resulting in quite a rough surface. As shown below this results in the photon trajectories being quite varied. When the photon aproaches the CsI teflon Boundary eitehr the facetnormal is samolled or it undergoes one of the four reflection types. Given the roughness of teh surface the reflections are quite varied adn so are teh trajectories afeter the calculation using snell's Law.
 
 <img src="https://github.com/user-attachments/assets/39c536a2-a8d2-4c3e-9a2a-f2eec144740a" width="400"/>
 
-## Relctivity = 1, sigma_alpha = 0, Specularlobeconstant  = 1
+## Reflectivity = 1, sigma_alpha = 0, Specularlobeconstant  = 1
 
 In this configuration, sigma_alpha is set to 0, resulting in a flat surface. The specular lobe constant represents the reflection probability around the normal of a micro-facet. However, since sigma_alpha is 0, the micro-facets exhibit minimal variation in angle relative to the average surface normal. Therefore, the photon trajectories resemble those in the previous configuration with sigma_alpha set to 0 and the specularspikeconstant set to 1.
 
@@ -101,13 +101,13 @@ In this configuration, sigma_alpha is set to 0, resulting in a flat surface. The
 <img src="https://github.com/user-attachments/assets/2f7a40dc-ec68-4356-95be-67682d6c0cbc" width="400"/>
 
 
-## Relctivity = 1, sigma_alpha = 0, Specularlobeconstant  = 0.1, specularspikeconstant = 0.1, backscatterconstant = 0.1
+## Reflectivity = 1, sigma_alpha = 0, Specularlobeconstant  = 0.1, specularspikeconstant = 0.1, backscatterconstant = 0.1
 
 In this configuration, sigma_alpha is set to 0, resulting in a flat surface. The three reflection-type constants are each set to 0.1, so the probability of Lambertian reflection—calculated as 1 minus the sum of the other three reflection probabilities—is quite high. Therefore, if a reflection occurs, it will most likely be Lambertian, as shown in the image below.
 
 <img src="https://github.com/user-attachments/assets/baad5976-0de0-47a3-9889-2fb980dffe65" width="400"/>
 
-## Relctivity = 1, sigma_alpha = 0, backscatterconstant = 1
+## Reflectivity = 1, sigma_alpha = 0, backscatterconstant = 1
 
 Much like the previous few configurations, this one also features sigma_alpha set to 0. The back‑scatter spike constant describes multiple reflections within a deep groove. As shown in the image below, several photons within the blue-bordered CsI volume have been backscattered. That is, after interacting with the surface, their trajectories reverse—they scatter straight back toward the source.
 
