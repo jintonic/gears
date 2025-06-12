@@ -28,6 +28,14 @@ t - transmittance
 
 Initially, a random number is generated. If the random number is greater than the sum of REFLECTIVITY and TRANSMITTANCE, the photon is absorbed. If the random number is not greater than the sum but is greater than REFLECTIVITY alone, the photon is transmitted. If the random number is not greater than REFLECTIVITY, the usual scattering calculation is performed.
 
+
+Essentially, the following equation is used to calculate the probability of a photon being absorbed, transmitted, or undergoing the usual scattering calculation:
+
+*R + A + T = 1*
+
+Where R represents the reflectivity—the probability of the photon undergoing the usual scattering calculation, A represents the probability of absorption, and T represents the probability of transmittance. *Note - Transmittance in this case allows for photons to be transmitted without any change in direction or polarization*
+
+
 Below are screenshots demonstrating different values for the various parameters
 
 ## Relctivity = 0 and Transmittance = 0 

@@ -37,6 +37,14 @@ r05t05 - Reflectivity = 0.5 Transmittance = 0.5
 
 Initially, a random number is generated. If the random number is greater than the sum of REFLECTIVITY and TRANSMITTANCE, the photon is absorbed. If it is not greater than the sum but is greater than REFLECTIVITY alone, the photon is transmitted. If the random number is not greater than REFLECTIVITY, the usual scattering calculation is performed, which in this case would result in either Snell's law being used to calculate the photon trajectory after sampling the facet normal, or one of the four reflection types mentioned above.
 
+
+Essentially, the following equation is used to calculate the probability of a photon being absorbed, transmitted, or undergoing the usual scattering calculation:
+
+*R + A + T = 1*
+
+Where R represents the reflectivity—the probability of the photon undergoing the usual scattering calculation, A represents the probability of absorption, and T represents the probability of transmittance. *Note - Transmittance in this case allows for photons to be transmitted without any change in direction or polarization*
+
+
 The specular lobe constant defines the probability of reflection around the normal of a micro-facet. The specular spike constant  represents the probability of reflection about the average surface normal. The diffuse lobe constant corresponds to the probability of internal Lambertian reflection. Finally, the backscatter spike constant accounts for multiple reflections within a deep groove, ultimately resulting in exact backscattering. These four probabilities must sum to one, with the diffuse lobe constant automatically calculated by the simulation based on the other three user-defined values.
 
 Below are screenshots demonstrating different values for the various parameters. The green lines represent the trajectories of the photons. The volume with the blue outline represents the CsI crystal. Photons are emitted from a thin strip along the middle of the CsI crystal and directed into the black-bordered volume, which is the Teflon.
@@ -101,7 +109,8 @@ In this configuration, sigma_alpha is set to 0, resulting in a flat surface. The
 
 ## Relctivity = 1, sigma_alpha = 0, backscatterconstant = 1
 
-Much like the previous few configurations, this one also features sigma_alpha set to 0. The back‑scatter spike constant describes multiple reflections within a deep groove. However, since sigma_alpha is 0, the surface is flat, and such grooves do not form.Therefore, the photon trajectories show minimal variation in angle across different runs.
+Much like the previous few configurations, this one also features sigma_alpha set to 0. The back‑scatter spike constant describes multiple reflections within a deep groove. As shown in the image below, several photons within the blue-bordered CsI volume have been backscattered. That is, after interacting with the surface, their trajectories reverse—they scatter straight back toward the source.
+
 
 <img src="https://github.com/user-attachments/assets/105c4a4d-6b88-4abd-8756-9705f88cdeb9" width="400"/>
 

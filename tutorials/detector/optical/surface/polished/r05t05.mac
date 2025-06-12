@@ -21,10 +21,10 @@
 /gps/particle opticalphoton
 /gps/energy 3.5 eV
 /gps/direction 0 1 1
-#/gps/pos/type Plane
-#/gps/pos/shape Rectangle
-#/gps/pos/halfx .1 mm
-#/gps/pos/halfy 18 mm
+/gps/pos/type Plane
+/gps/pos/shape Rectangle
+/gps/pos/halfx .1 mm
+/gps/pos/halfy 18 mm
 
 # visualize geometry and events for debugging
 /vis/open

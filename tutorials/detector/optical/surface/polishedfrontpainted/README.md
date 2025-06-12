@@ -15,47 +15,52 @@ r0t0 - Reflectivity = 0, Trasmittance = 0
 r05t05 - Reflectivity = 0.5 Transmittance = 0.5
 ## Example Parameters for r0t0.tg
 
-~~~cpp
-
+~~~cpp //no space here  
 // optical properties of the surface between CsI & Teflon
 :surf CsI2Teflon CsI:1 Teflon:2
   type dielectric_dielectric
-  model unified	
+  model unified	 
   finish polishedfrontpainted
   property photon_energies 2 2.5*eV 5.0*eV
            REFLECTIVITY      0      0
            TRANSMITTANCE     0      0
-
 ~~~
 
 Initially, a random number is generated. If the random number is greater than the sum of REFLECTIVITY and TRANSMITTANCE, the photon is absorbed. If it is not greater than the sum but is greater than REFLECTIVITY alone, the photon is transmitted. If the random number is not greater than REFLECTIVITY, the usual scattering calculation is performed, which in this case would be a specular spike reflection.
 
+Essentially, the following equation is used to calculate the probability of a photon being absorbed, transmitted, or undergoing the usual scattering calculation:
+
+*R + A + T = 1*
+
+Where R represents the reflectivity—the probability of the photon undergoing the usual scattering calculation, A represents the probability of absorption, and T represents the probability of transmittance. *Note - Transmittance in this case allows for photons to be transmitted without any change in direction or polarization*
+
+
 Below are screenshots demonstrating different values for the various parameters. The green lines represent the trajectories of the photons. The volume with the blue outline represents the CsI crystal. Photons are emitted from a thin strip along the middle of the CsI crystal and directed into the black-bordered volume, which is the Teflon.
 
-## Relctivity = 0 and Transmittance = 0 
+## Reflectivity = 0 and Transmittance = 0 
 
 As mentioned earlier, a reflectivity value of 0 and a transmittance value of 0 mean that none of the photons are reflected or transmitted. Therefore, based on the random number mechanism previously described, the photon is determined to be absorbed. As shown in the image below, the photon emitted from the CsI is absorbed upon reaching the CsI–Teflon interface.
 
 <img src="https://github.com/user-attachments/assets/a4d15050-51c9-4386-b79f-2acd6ef279de" width="400"/>
 
-## Relctivity = 0 and Transmittance = 1 
+## Reflectivity = 0 and Transmittance = 1 
 
 In this case, all of the optical photons are transmitted through the interface without any reflection or absorption. The image shows photons freely crossing the CsI–Teflon boundary.
 
 <img src="https://github.com/user-attachments/assets/24282ab8-aa50-4904-ad85-35be74f7a9ab" width="400"/>
 
-## Relctivity = 0.5 and Transmittance = 0.5
+## Reflectivity = 0.5 and Transmittance = 0.5
 
 With equal values of reflectivity and transmittance, each photon has a 50% chance of being reflected or transmitted. The image demonstrates both transmitted and reflected photon trajectories originating from the CsI surface. Recall that the reflection in this case is a specular spike reflection.
 
 <img src="https://github.com/user-attachments/assets/c307e37c-f345-4c40-8d94-2049ed1caa79" width="400"/>
 
-## Relctivity = 1 and Transmittance = 0
+## Reflectivity = 1 and Transmittance = 0
 
 In this configuration, all photons are reflected at the interface. No transmission or absorption occurs, resulting in the specular spike reflection of photons.
 
 
-<img src="https://github.com/user-attachments/assets/fe69e967-b2d7-4da9-845c-89dc7b8afb12" width="400"/>
+<img src="https://github.com/user-attachments/assets/37c6b653-aca6-497b-bfd9-0e8454ee8e52" width="400"/>
 
 
 

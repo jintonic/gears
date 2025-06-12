@@ -2,7 +2,7 @@
 /control/verbose 1
 
 # geometry must be specified before /run/initialize
-/geometry/source r1t1.tg
+/geometry/source r01t09.tg
 
 # turn on optical physics
 /physics_lists/factory/addOptical
@@ -20,7 +20,7 @@
 # generate primary particle with tiny energy
 /gps/particle opticalphoton
 /gps/energy 3.5 eV
-/gps/direction 0 0 1
+/gps/direction 0 1 1
 /gps/pos/type Plane
 /gps/pos/shape Rectangle
 /gps/pos/halfx .1 mm
@@ -34,6 +34,8 @@
 /vis/scene/add/trajectories
 /vis/scene/endOfEventAction accumulate
 
+/vis/viewer/zoomTo 1.5
+/vis/viewer/set/background black
 /vis/viewer/set/viewpointVector -1 0 0
 
 # dump a few events on screen for debugging
