@@ -246,6 +246,7 @@ G4bool LineProcessor::ProcessLine(const vector<G4String> &words)
         else if (value=="unified") bdr->optic->SetModel(unified);
         else G4cout<<"GERAS: Ignore unknown surface model "<<value<<G4endl;
       } else if (setting=="finish") {
+        G4cout<<"GERAS: Set surface finish to be "<<value<<G4endl;
         if (value=="polished") bdr->optic->SetFinish(polished);
         else if (value=="polishedfrontpainted")
           bdr->optic->SetFinish(polishedfrontpainted);
