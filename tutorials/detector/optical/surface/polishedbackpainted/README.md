@@ -63,7 +63,7 @@ In this case, the configuration is quite similar to the previous one, with a sig
 <img src="https://github.com/user-attachments/assets/cdc857ca-5991-4a20-bfa1-74f2bd02c53e" width="400"/>
 
 ## Reflectivity = 0 sigma_alpha = 0 Backscatterconstant = 1
-Using the random number mechanism mentioned above, the simulation first determines that no absorption occurs. Given a reflectivity of 0.5 and a transmittance of 0.5, approximately half of the photons are transmitted, as indicated by the trajectories that continue straight through. The remaining photons undergo the usual scattering calculation. For some of these, the simulation uses Snell's law with respect to the facet normal to determine how they propagate further into the Teflon. Others undergo reflection. Some undergo specular spike reflection, while others experience one of the four different types such as Lambertian reflection.
+This configuration simply features all reflected photons undergoing backscattering. The photons can either make it through to the paint and get absorbed or undergo backscattering, as shown by all the backscattered photon trajectories below.
 
 
 <img src="https://github.com/user-attachments/assets/f5ba0896-c8a9-4495-8d4b-a915357c0c8a" width="400"/>
