@@ -246,6 +246,7 @@ G4bool LineProcessor::ProcessLine(const vector<G4String> &words)
         else if (value=="unified") bdr->optic->SetModel(unified);
         else G4cout<<"GERAS: Ignore unknown surface model "<<value<<G4endl;
       } else if (setting=="finish") {
+        G4cout<<"GERAS: Set surface finish to be "<<value<<G4endl;
         if (value=="polished") bdr->optic->SetFinish(polished);
         else if (value=="polishedfrontpainted")
           bdr->optic->SetFinish(polishedfrontpainted);
@@ -256,7 +257,10 @@ G4bool LineProcessor::ProcessLine(const vector<G4String> &words)
           bdr->optic->SetFinish(groundfrontpainted);
         else if (value=="groundbackpainted")
           bdr->optic->SetFinish(groundbackpainted);
-        else G4cout<<"GERAS: Ignore unknown surface finish "<<value<<G4endl;
+        else {
+          G4cout<<"GERAS: Unknown surface finish: "<<value<<"!"<<G4endl;
+          abort();
+        }
       } else if (setting=="sigma_alpha") {
         bdr->optic->SetSigmaAlpha(G4UIcommand::ConvertToInt(value));
       } else
