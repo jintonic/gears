@@ -49,26 +49,26 @@ The specular lobe constant defines the probability of reflection around the norm
 
 Below are screenshots demonstrating different values for the various parameters. The green lines represent the trajectories of the photons. The volume with the blue outline represents the CsI crystal. Photons are emitted from a thin strip along the middle of the CsI crystal and directed into the black-bordered volume, which is the Teflon.
 
-## Relctivity = 0 and Transmittance = 0 
+## Reflectivity = 0 and Transmittance = 0 
 
 As mentioned earlier, a reflectivity value of 0 and a transmittance value of 0 mean that none of the photons are reflected or transmitted. Therefore, based on the random number mechanism previously described, the photon is determined to be absorbed. As shown in the image below, the photon emitted from the CsI is absorbed upon reaching the CsI–Teflon interface.
 
 <img src="https://github.com/user-attachments/assets/955f0461-820c-431c-90d8-6da28ec162a8" width="400"/>
 
-## Relctivity = 0 and Transmittance = 1 
+## Reflectivity = 0 and Transmittance = 1 
 
 In this case, all of the optical photons are transmitted through the interface without any reflection or absorption. The image shows photons simply crossing the CsI–Teflon boundary.
 
 <img src="https://github.com/user-attachments/assets/52929e7a-67aa-47b4-a905-50018fb28d9c" width="400"/>
 
-## Relctivity = 0.5 and Transmittance = 0.5
+## Reflectivity = 0.5 and Transmittance = 0.5
 
-UUsing the random number mechanism mentioned above, the simulation first determines that no absorption occurs. Given a reflectivity of 0.5 and a transmittance of 0.5, approximately half of the photons are transmitted, as indicated by the trajectories that continue straight through. The remaining photons undergo the usual scattering calculation. For some of these, the simulation uses Snell's law with respect to the facet normal to determine how they propagate further into the Teflon. Others undergo reflection. Some undergo specular spike reflection, while others experience one of the four different types such as Lambertian reflection.
+Using the random number mechanism mentioned above, the simulation first determines that no absorption occurs. Given a reflectivity of 0.5 and a transmittance of 0.5, approximately half of the photons are transmitted, as indicated by the trajectories that continue straight through. The remaining photons undergo the usual scattering calculation. For some of these, the simulation uses Snell's law with respect to the facet normal to determine how they propagate further into the Teflon. Others undergo reflection. Some undergo specular spike reflection, while others experience one of the four different types such as Lambertian reflection.
 
 
 <img src="https://github.com/user-attachments/assets/717e8d07-834b-47af-915d-07cb59ab2cf5" width="400"/>
 
-## Relctivity = 1, sigma_alpha = 0, Transmittance = 0
+## Reflectivity = 1, sigma_alpha = 0, Transmittance = 0
 
 In this configuration, none of the photons are absorbed, and none are transmitted. Each photon undergoes a calculation to determine whether it experiences one of the four types of reflection or whether Snell’s law is applied with respect to the facet normal. With a sigma alpha of 0, the surface is very flat and behaves much like a polished mirror. However, since four reflection types are possible, not all photons undergo specular spike reflection—some may be Lambertian. Therefore, the trajectories are not limited to straightforward refraction or specular spike reflection. Note that the photon is fired at an angle in the example below.
 
@@ -79,12 +79,6 @@ In this configuration, none of the photons are absorbed, and none are transmitte
 Much like the previous configuration, the photons are not absorbed. In this case, not only is sigma alpha set to 0 (so the surface behaves like a polished surface), but the specular spike constant is also set to 1, meaning none of the other three reflection types are possible when a reflection occurs. The photon is fired at an angle. As shown in the image below, either the facet normal is sampled, resulting in refraction, or a simple specular spike reflection takes place.
 
 <img src="https://github.com/user-attachments/assets/e0ef3a44-f528-42eb-a7e1-07d14ebdae1c" width="400"/>
-
-## Reflectivity = 1, sigma_alpha = 30, Transmittance  = 0
-
-In this configuration the sigma_alpha is set to 30 resulting in quite a rough surface. As shown below this results in the photon trajectories being quite varied. When the photon aproaches the CsI teflon Boundary eitehr the facetnormal is samolled or it undergoes one of the four reflection types. Given the roughness of teh surface the reflections are quite varied adn so are teh trajectories afeter the calculation using snell's Law.
-
-<img src="https://github.com/user-attachments/assets/39c536a2-a8d2-4c3e-9a2a-f2eec144740a" width="400"/>
 
 ## Reflectivity = 1, sigma_alpha = 30, Transmittance  = 0
 

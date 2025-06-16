@@ -2,7 +2,7 @@
 /control/verbose 1
 
 # geometry must be specified before /run/initialize
-/geometry/source r05t05.tg
+/geometry/source r1t0sa30.tg
 
 # turn on optical physics
 /physics_lists/factory/addOptical
@@ -21,13 +21,13 @@
 /gps/particle opticalphoton
 /gps/energy 3.5 eV
 /gps/direction 0 0 1
-/gps/pos/type Plane
-/gps/pos/shape Rectangle
-/gps/pos/halfx .1 mm
-/gps/pos/halfy 18 mm
+#/gps/pos/type Plane
+#/gps/pos/shape Rectangle
+#/gps/pos/halfx .1 mm
+#/gps/pos/halfy 18 mm
 
 # visualize geometry and events for debugging
-/vis/open HepRepFile
+/vis/open 
 /vis/drawVolume
 /vis/scene/add/gps
 /vis/scene/add/axes
@@ -39,4 +39,4 @@
 # dump a few events on screen for debugging
 /tracking/verbose 2
 /run/beamOn 50
-#/vis/viewer/rebuild
+/vis/viewer/rebuild

@@ -1,4 +1,4 @@
-// default unit of length is mm
+	// default unit of length is mm
 :volu vac BOX 50 50 50 G4_Galactic
 :vis vac OFF
 
@@ -25,10 +25,9 @@
 :surf CsI2Teflon CsI:1 Teflon:2
   type dielectric_dielectric
   model unified	
-  finish ground
-  sigma_alpha 20
+  finish polishedbackpainted 
+  sigma_alpha 0
   property photon_energies 2 2.5*eV 5.0*eV
-           REFLECTIVITY      1      1
-           TRANSMITTANCE     0      0
-           BACKSCATTERCONSTANT 1   1 
-
+           REFLECTIVITY      0      0
+           RINDEX            0.9   0.9
+           BACKSCATTERCONSTANT 1    1

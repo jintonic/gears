@@ -27,18 +27,16 @@
 /gps/pos/halfy 18 mm
 
 # visualize geometry and events for debugging
-/vis/open
+/vis/open HepRepFile
 /vis/drawVolume
 /vis/scene/add/gps
 /vis/scene/add/axes
 /vis/scene/add/trajectories
 /vis/scene/endOfEventAction accumulate
 
-/vis/viewer/zoomTo 1.5
-/vis/viewer/set/background black
 /vis/viewer/set/viewpointVector -1 0 0
 
 # dump a few events on screen for debugging
 /tracking/verbose 2
 /run/beamOn 50
-/vis/viewer/rebuild
+#/vis/viewer/rebuild

@@ -26,9 +26,9 @@
   type dielectric_dielectric
   model unified	
   finish ground
-  sigma_alpha 20
+  sigma_alpha 0
   property photon_energies 2 2.5*eV 5.0*eV
            REFLECTIVITY      1      1
            TRANSMITTANCE     0      0
-           BACKSCATTERCONSTANT 1   1 
+           SPECULARLOBECONSTANT 1   1 
 
