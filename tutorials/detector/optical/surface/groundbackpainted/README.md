@@ -54,7 +54,9 @@ Below are screenshots demonstrating different values for the various parameters.
 
 Reflectivity in this case corresponds to the probability of reflection off the wrapper/paint. Recall, however, that the photon must first pass through the crystal/volume, interact with the crystal–air interface, traverse the crystal–air gap, and only then confront the wrapper/paint. Note that the sigma alpha of 0 yields a smooth crystal surface.
 
-Therefore, some photons, before traversing the gap and reaching the paint, reflect off the crystal boundary itself and undergo Lambertian reflection.<img src="https://github.com/user-attachments/assets/0f00d663-9498-40d2-a625-e558410aeb30" width="400"/>
+Therefore, some photons, before traversing the gap and reaching the paint, reflect off the crystal boundary itself and undergo Lambertian reflection.
+
+<img src="https://github.com/user-attachments/assets/0f00d663-9498-40d2-a625-e558410aeb30" width="400"/>
 
 ## Reflectivity = 0 sigma_alpha = 0 Specularspikeconstant = 1
 
