@@ -84,15 +84,12 @@ In this case, the photon traverses the volume at an angle and, if reflected off 
 
 It can therefore be seen how the trajectories differ from the same configuration with the PolishedBackPainted finish. These differences arise because the reflection off the paint in this case is not a specular spike reflection, but rather a Lambertian reflection.
 
-<img src="https://github.com/user-attachments/assets/4ac08679-a7e5-42da-b660-386503089430" width="400"/>
+<img src="https://github.com/user-attachments/assets/45d2d0da-315b-4808-8bff-b32baa5177ae" width="400"/>
 
 ## Reflectivity = 1, sigma_alpha = 0, specularspikeconstant = 1, rindex = 0.9
-Much like the previous case, this configuration features a photon traversing the volume at an angle and undergoing a specular spike reflection off the crystal boundary. However, given an RINDEX of 0.9 for the crustal airgap, the phootons don't actually undergo refraction to traverse throuhg to the crystal air-gap and reflect off of the paint. Hence, the phtons sumply undergo specularspke reflection off of the crystal boundary.
+This configuration is quite similar to the previous one, with only the index of refraction of the crystal–air gap altered. However, notice that now the photon trajectories don't showcase photons undergoing one of the four different types of reflection, but rather those that traverse through to the reflective paint, undergo specular spike reflection, and refract back into the volume itself. This configuration mostly shows the changes that the Rindex of the crystal–air gap can bring forth.
 
-
-This configuration highlights how the RINDEX of the crystal–air gap plays an important role.
-
-<img src="https://github.com/user-attachments/assets/f4c63dd5-1a16-475c-9da0-bcbd08eba092" width="400"/>
+<img src="https://github.com/user-attachments/assets/18349257-8e03-4f88-83c5-dac95514808c" width="400"/>
 
 ## Reflectivity = 1, sigma_alpha = 30, rindex = 0.9 
 
