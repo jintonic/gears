@@ -29,6 +29,6 @@
   sigma_alpha 0
   property photon_energies 2 2.5*eV 5.0*eV
            REFLECTIVITY      1      1
-           RINDEX            2      2
-           SPECULARSPIKECONSTANT   1    1
+           RINDEX            1.8    1.8
+           SPECULARSPIKECONSTANT 1    1
       
