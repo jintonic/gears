@@ -2,7 +2,7 @@
 [![optical processes](https://img.shields.io/badge/optical-processes-blue?style=flat)](../../physics#optical-processes)
 
 The finish PolishedFrontPainted represents a volume with a painted surface. The reflectivity 
-𝑅 defines the probability that an optical photon is reflected by the painted surface. More specifically, it is defined as 1 minus the absorption coefficient. The optical photon may or may not be absorbed by the paint. The paint is modeled through surface properties. When not absorbed, the photon undergoes speculsar spike reflection. No refraction occurs.
+*R* defines the probability that an optical photon is reflected by the painted surface. More specifically, it is defined as 1 minus the absorption coefficient. The optical photon may or may not be absorbed by the paint. The paint is modeled through surface properties. When not absorbed, the photon undergoes speculsar spike reflection. No refraction occurs.
 
 
 ## Naming convention for example files
