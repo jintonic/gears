@@ -54,7 +54,7 @@ In this case, all of the optical photons are transmitted through the interface w
 
 With equal values of reflectivity and transmittance, each photon has a 50% chance of being reflected or transmitted. The image demonstrates both transmitted and reflected photon trajectories originating from the CsI surface. Recall that the reflectio in this case is Lambertian.
 
-<img src="hhttps://github.com/user-attachments/assets/aef307a5-b081-48bc-ad03-d75275c3712e" width="400"/>
+<img src="https://github.com/user-attachments/assets/aef307a5-b081-48bc-ad03-d75275c3712e" width="400"/>
 
 ## Reflectivity = 1 and Transmittance = 0
 
