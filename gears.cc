@@ -422,7 +422,7 @@ class Detector : public G4VUserDetectorConstruction, public G4UImessenger
     G4UIcmdWith3VectorAndUnit* fCmdSetB; ///< /geometry/setB
     G4UIcmdWithAString *fCmdSrc; ///< /geometry/source
     G4UIcmdWithAString *fCmdOut; ///< /geometry/export
-    G4UIcommand        *fCmdLmt; ///< /geometry/setStepLimit
+    G4UIcommand        *fCmdLmt; ///< /tracking/setStepLimit
     G4VPhysicalVolume  *fWorld;
 };
 //______________________________________________________________________________
@@ -443,7 +443,7 @@ Detector::Detector(): G4VUserDetectorConstruction(), G4UImessenger(), fWorld(0)
   fCmdSrc->SetParameterName("text geometry input",false);
   fCmdSrc->AvailableForStates(G4State_PreInit);
 
-  fCmdLmt = new G4UIcommand("/geometry/setStepLimit",this);
+  fCmdLmt = new G4UIcommand("/tracking/setStepLimit",this);
   fCmdLmt->SetGuidance("set max step length for a logical volume");
   fCmdLmt->AvailableForStates(G4State_Idle);
   G4UIparameter *p0 = new G4UIparameter("logical volume name", 's', false);
