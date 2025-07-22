@@ -1,0 +1,13 @@
+/vis/open
+/vis/drawVolume
+
+/vis/scene/add/axes
+/vis/scene/add/trajectories
+/vis/scene/endOfEventAction accumulate
+
+/vis/modeling/trajectories/create/drawByParticleID
+/vis/modeling/trajectories/drawByParticleID-0/default/setDrawStepPts true
+/vis/modeling/trajectories/drawByParticleID-0/default/setStepPtsColour yellow
+
+/run/beamOn 10
+

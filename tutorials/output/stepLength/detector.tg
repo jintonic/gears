@@ -1,0 +1,15 @@
+:volu hall BOX 40 40 40 G4_Galactic
+:volu body BOX 30 30 30 G4_WATER
+:volu bone BOX 10 30 30 G4_BONE_COMPACT_ICRU
+:volu fat  BOX 10 30 30 G4_ADIPOSE_TISSUE_ICRP
+
+:vis hall OFF
+:color body 0.1 0.2 0.8
+:color bone 0.3 0.3 0.3
+:color fat  0.7 0.3 0.1
+
+:rotm r000 0 0 0
+:place body 1 hall r000 0 0 0
+:place bone 2 body r000 15 0 0
+:place fat  3 body r000 -15 0 0
+
