@@ -420,9 +420,10 @@ class Detector : public G4VUserDetectorConstruction, public G4UImessenger
 
   private:
     G4UIcmdWith3VectorAndUnit* fCmdSetB; ///< /geometry/setB
-    G4UIcmdWithAString* fCmdSrc; ///< /geometry/source
-    G4UIcmdWithAString* fCmdOut; ///< /geometry/export
-    G4VPhysicalVolume * fWorld;
+    G4UIcmdWithAString *fCmdSrc; ///< /geometry/source
+    G4UIcmdWithAString *fCmdOut; ///< /geometry/export
+    G4UIcommand        *fCmdLmt; ///< /geometry/setStepLimit
+    G4VPhysicalVolume  *fWorld;
 };
 //______________________________________________________________________________
 //
@@ -442,6 +443,13 @@ Detector::Detector(): G4VUserDetectorConstruction(), G4UImessenger(), fWorld(0)
   fCmdSrc->SetParameterName("text geometry input",false);
   fCmdSrc->AvailableForStates(G4State_PreInit);
 
+  fCmdLmt = new G4UIcommand("/geometry/setStepLimit",this);
+  fCmdLmt->SetGuidance("set max step length for a logical volume");
+  fCmdLmt->AvailableForStates(G4State_Idle);
+  G4UIparameter *p0 = new G4UIparameter("logical volume name", 's', false);
+  G4UIparameter *p1 = new G4UIparameter("step length in mm", 'd', false);
+  fCmdLmt->SetParameter(p0); fCmdLmt->SetParameter(p1);
+
   fCmdSetB = new G4UIcmdWith3VectorAndUnit("/geometry/SetB",this);
   fCmdSetB->SetGuidance("Set uniform magnetic field value.");
   fCmdSetB->SetParameterName("Bx", "By", "Bz", false);
@@ -449,8 +457,10 @@ Detector::Detector(): G4VUserDetectorConstruction(), G4UImessenger(), fWorld(0)
 }
 //______________________________________________________________________________
 //
+#include <G4UserLimits.hh>
 #include <G4FieldManager.hh>
 #include <G4UniformMagField.hh>
+#include <G4LogicalVolumeStore.hh>
 #include <G4TransportationManager.hh>
 #ifdef hasGDML
 #include "G4GDMLParser.hh"
@@ -466,10 +476,17 @@ void Detector::SetNewValue(G4UIcommand* cmd, G4String value)
     mgr->CreateChordFinder(field);
     G4cout<<"GEARS: Magnetic field is set to "<<value<<G4endl;
 #ifdef hasGDML
-  } else if(cmd==fCmdOut) {
+  } else if (cmd==fCmdOut) {
     G4GDMLParser paser;
-    paser.Write(value,fWorld);
+    paser.Write(value, fWorld);
 #endif
+  } else if (cmd==fCmdLmt) {
+    istringstream iss(value); G4String vlm, limit; iss>>vlm>>limit;
+    auto v = G4LogicalVolumeStore::GetInstance()->GetVolume(vlm);
+    if (v) {
+      v->SetUserLimits(new G4UserLimits(stof(limit)));
+      G4cout<<"GEARS: max step length in "<<vlm<<": "<<limit<<" mm"<<G4endl;
+    }
   } else { // cmd==fCmdSrc
     if (value.substr(value.length()-4)!="gdml") { // text geometry input
       G4tgbVolumeMgr* mgr = G4tgbVolumeMgr::GetInstance();
@@ -621,6 +638,7 @@ class Action : public G4VUserActionInitialization
 };
 //______________________________________________________________________________
 //
+#include <G4StepLimiterPhysics.hh>
 #include <G4PhysListFactory.hh>
 #include <G4ScoringManager.hh>
 #include <G4VisExecutive.hh>
@@ -634,8 +652,9 @@ int main(int argc, char **argv)
   // inherit G4SteppingVerbose instead of G4UserSteppingAction to record data
   G4VSteppingVerbose::SetInstance(new Output); // must be before run manager
 	auto run=G4RunManagerFactory::CreateRunManager(G4RunManagerType::SerialOnly);
-	G4PhysListFactory factory;
-	run->SetUserInitialization(factory.ReferencePhysList()); // initialize physics
+	G4PhysListFactory factory; auto physics=factory.ReferencePhysList();
+  physics->RegisterPhysics(new G4StepLimiterPhysics());
+	run->SetUserInitialization(physics); // initialize physics
 	run->SetUserInitialization(new Detector); // initialize detector
 	run->SetUserInitialization(new Action); // initialize user actions
   G4ScoringManager::GetScoringManager(); // enable built-in scoring cmds
