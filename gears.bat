@@ -16,13 +16,15 @@ if not exist gears.exe (
 for /f "skip=2 tokens=1-2*" %%G in ('Reg Query HKCU\Environment /V PATH 2^>nul') do set user_path=%%I
 
 :: check if current folder is already in PATH
-echo !user_path! | findstr /i /c:"%~dp0" > nul
-
-if %errorlevel% equ 0 (
+echo %user_path% | findstr /i /c:%~dp0 > nul
+if %errorlevel% neq 0 (
   echo add "%~dp0" to user PATH
   setx path "%user_path%%~dp0;"
 ) else (
   echo %~dp0 & echo is already in your user PATH:
   echo %user_path:;=&echo.%
 )
+
 echo gears.exe can be executed anywhere now
+:: keep terminal open to show result if the script is run manually
+pause & exit /b
