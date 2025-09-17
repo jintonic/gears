@@ -1,4 +1,4 @@
-:: Add gears executable folder to user PATH
+:: Add gears folder to user PATH
 
 :: Disable printing commands on screen
 @echo OFF
@@ -15,7 +15,14 @@ if not exist gears.exe (
 :: https://stackoverflow.com/questions/14509652
 for /f "skip=2 tokens=1-2*" %%G in ('Reg Query HKCU\Environment /V PATH 2^>nul') do set user_path=%%I
 
-echo add "%~dp0" to user PATH
-:: setx won't create duplicated entries,
-:: the following command can be run multiple times
-setx path "%user_path%%~dp0"
+:: check if current folder is already in PATH
+echo !user_path! | findstr /i /c:"%~dp0" > nul
+
+if %errorlevel% equ 0 (
+  echo add "%~dp0" to user PATH
+  setx path "%user_path%%~dp0;"
+) else (
+  echo %~dp0 & echo is already in your user PATH:
+  echo %user_path:;=&echo.%
+)
+echo gears.exe can be executed anywhere now
