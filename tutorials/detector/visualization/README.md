@@ -7,6 +7,9 @@
 [![DAWNFILE](https://img.shields.io/badge/DAWN-FILE-cyan?style=flat)](#dawnfile)
 [![OpenGL](https://img.shields.io/badge/Open-GL-magenta?style=flat)](#opengl)
 
+> **Note**
+> Updates are available on <https://physino.xyz/geant4/vis>.
+
 ## Visualization of detector geometry
 
 The [visualization chapter](http://geant4-userdoc.web.cern.ch/geant4-userdoc/UsersGuides/ForApplicationDeveloper/html/Visualization/visualization.html) of the [Geant4 Book For Application Developers](http://geant4-userdoc.web.cern.ch/geant4-userdoc/UsersGuides/ForApplicationDeveloper/html) documents in detail how to visualize a detector using various tools.
