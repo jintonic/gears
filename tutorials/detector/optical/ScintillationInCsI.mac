@@ -1,5 +1,5 @@
 # print macro commands on screen
-/control/verbose 1
+/control/verbose
 
 # geometry must be specified before /run/initialize
 /geometry/source CsIinVacuum.tg
@@ -8,6 +8,8 @@
 /physics_lists/factory/addOptical
 # turn off unnecessary output
 /process/optical/verbose 0
+/process/had/verbose 0
+/process/em/verbose 0
 # must be run after the cmds above
 /run/initialize
 
@@ -21,11 +23,16 @@
 /gps/ang/type iso
 
 # visualize geometry and events for debugging
-/vis/open HepRepFile
+/control/ifInteractive /vis/open
 /vis/drawVolume
 /vis/scene/add/trajectories
 
-# dump a few events on screen for debugging
+# dump a event on screen for debugging
 /tracking/verbose 2
-/run/beamOn 5
+/run/beamOn
 
+/vis/disable
+/tracking/verbose 0
+/analysis/setFileName CsIinVacuum.root
+/run/verbose 2
+/run/beamOn 5000
