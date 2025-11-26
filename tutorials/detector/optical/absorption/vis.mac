@@ -1,0 +1,10 @@
+/vis/open
+/vis/drawVolume
+
+/vis/viewer/set/auxiliaryEdge
+/vis/viewer/set/viewpointVector
+
+/vis/scene/add/axes
+/vis/scene/add/trajectories
+/vis/scene/endOfEventAction accumulate
+
