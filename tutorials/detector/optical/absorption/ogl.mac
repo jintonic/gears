@@ -2,7 +2,9 @@
 /vis/drawVolume
 
 /vis/viewer/set/auxiliaryEdge
-/vis/viewer/set/viewpointVector
+/vis/viewer/set/lineSegmentsPerCircle 10
+/vis/viewer/set/viewpointVector 0.56 0.53 0.64
+/vis/viewer/set/background white
 
 /vis/scene/add/axes
 /vis/scene/add/trajectories
