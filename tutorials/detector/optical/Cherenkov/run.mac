@@ -1,34 +1,31 @@
-# print macro commands on screen
-/control/verbose 1
+/control/verbose
+/process/em/verbose 0
+/process/had/verbose 0
 
-# geometry must be specified before /run/initialize
 /geometry/source PMTwindow.tg
 
-# enable physics for optical processes
 /physics_lists/factory/addOptical
-# turn off unnecessary output
-/process/optical/verbose 0
-# turn off scintillation
-/process/optical/processActivation Scintillation false
-# must be run after the cmds above
+#/process/optical/processActivation Cerenkov false
+
 /run/initialize
 
-# check physics processes
-/process/list Electromagnetic
-/process/list Optical
+/geometry/test/run
 
-# generate primary particle with moderate energy
 /gps/particle e-
 /gps/energy 500 keV
-/gps/position 0 0 -2 mm
-/gps/direction 0 0 1
+/gps/position 0 0 1.01 mm
 
-# visualize geometry and events for debugging
-/vis/open HepRepFile
+/vis/open
 /vis/drawVolume
+
 /vis/scene/add/trajectories
 
-# dump a few events on screen for debugging
+/vis/viewer/zoomTo 50
+/vis/viewer/set/upVector 0 0 1
+/vis/viewer/set/viewpointVector 1 0 0
+/vis/viewer/set/background white
+/vis/viewer/set/globalLineWidthScale 5
+
 /tracking/verbose 2
-/run/beamOn 5
+/run/beamOn 8
 
