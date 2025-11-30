@@ -17,5 +17,5 @@
 
 /run/beamOn 10
 
-/vis/ogl/export absLength.png
+/vis/ogl/export absL.png
 

@@ -1,4 +1,7 @@
-#include ../CsI.tg
+:prop G4_CESIUM_IODIDE
+  photon_energies 2 2.5*eV 5*eV
+  Rindex 1.808 2.216
+  absLength 1000 1000
 
 // default unit of length is mm
 :volu vacuum TUBE 0 101 4000 G4_Galactic
