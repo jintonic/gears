@@ -1,0 +1,16 @@
+:prop G4_CESIUM_IODIDE
+  photon_energies 2 2.5*eV 5*eV
+  Rindex 1.808 2.216
+  Rayleigh 339 339
+
+// default unit of length is mm
+:volu vacuum TUBE 0 101 4000 G4_Galactic
+:vis vacuum OFF
+
+// a long CsI crystal tube
+:volu CsI(S) TUBE 0 100 2000 G4_CESIUM_IODIDE
+:color CsI(S) 0.2 0.4 0.8
+
+:rotm r000 0 0 0
+:place CsI(S) 1 vacuum r000 0 0 -1500
+

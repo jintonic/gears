@@ -1,0 +1,24 @@
+/control/verbose
+/process/em/verbose 0
+/process/had/verbose 0
+
+/geometry/source detector.tg
+/physics_lists/factory/addOptical
+
+/gps/particle opticalphoton
+/gps/energy 3.65 eV
+/gps/polarization 1 0 0
+
+/run/initialize
+
+/geometry/test/run
+
+/tracking/verbose 2
+/run/beamOn 2
+/tracking/verbose 0
+
+/control/ifInteractive ogl.mac
+
+/control/doifBatch /analysis/setFileName gears.root
+/control/doifBatch /run/beamOn 100000
+
