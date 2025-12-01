@@ -21,7 +21,7 @@
    ffast->SetParameters(2.5,4.3,0.1);
 
    // create graphs to check results
-   int N = 100; // number of data points
+   const int N = 100; // number of data points
    double e[N]; // photon energy [eV]
    double n[N]; // refractive index
    double slow[N]; // intensity of 3.7 eV band
@@ -50,19 +50,24 @@
    ofstream tg("CsI.tg");
    tg.precision(4);
    tg<<":prop G4_CESIUM_IODIDE"<<endl;
-   tg<<"  SCINTILLATIONYIELD 100./keV"<<endl;
-   tg<<"  RESOLUTIONSCALE 2."<<endl;
-   tg<<"  FASTTIMECONSTANT 2*ns"<<endl;
-   tg<<"  SLOWTIMECONSTANT 1*us"<<endl;
-   tg<<"  YIELDRATIO 0.05"<<endl;
+   tg<<"  ScintillationYield 100/keV"<<endl;
+   tg<<"  ResolutionScale 4.5"<<endl;
+   tg<<"  ScintillationYield1 2"<<endl;
+   tg<<"  ScintillationYield2 98"<<endl;
+   tg<<"  ScintillationTimeConstant1 2*ns"<<endl;
+   tg<<"  ScintillationTimeConstant2 1*us"<<endl;
    tg<<"  photon_energies "<<N;
    for (int i=0; i<N; i++) tg<<" "<<e[i]<<"*eV"; tg<<endl;
-   tg<<"  FASTCOMPONENT";
+   tg<<"  ScintillationComponent1";
    for (int i=0; i<N; i++) tg<<" "<<fast[i]; tg<<endl;
-   tg<<"  SLOWCOMPONENT";
+   tg<<"  ScintillationComponent2";
    for (int i=0; i<N; i++) tg<<" "<<slow[i]; tg<<endl;
-   tg<<"  RINDEX";
+   tg<<"  Rindex";
    for (int i=0; i<N; i++) tg<<" "<<n[i]; tg<<endl;
+   tg<<"  absLength";
+   for (int i=0; i<N; i++) tg<<" "<<"1*m"; tg<<endl;
+   tg<<"  Rayleigh";
+   for (int i=0; i<N; i++) tg<<" "<<"3390"; tg<<endl;
    tg.close();
 }
 // -*- c++ -*-
