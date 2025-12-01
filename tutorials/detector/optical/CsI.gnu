@@ -2,13 +2,13 @@
 # draw refractive index (n) of CsI
 # https://refractiveindex.info/?shelf=main&book=CsI&page=Rodney
 
-# n(wavelength[um])
+# n(wavelength[nm])
 nVSw(x) = sqrt(1 \
-      +0.34617251/(1-(0.0229567/x)**2) \
-      +1.0080886/(1-(0.1466/x)**2) \
-      +0.28551800/(1-(0.1810/x)**2) \
-      +0.39743178/(1-(0.2120/x)**2) \
-      +3.3605359/(1-(161.0/x)**2) \
+      +0.34617251/(1-(22.9567/x)**2) \
+      +1.0080886/(1-(146.6/x)**2) \
+      +0.28551800/(1-(181/x)**2) \
+      +0.39743178/(1-(212/x)**2) \
+      +3.3605359/(1-(161000/x)**2) \
       )
 
 # n(energy[eV])
@@ -23,11 +23,11 @@ h=4.135667662e-15 # [eV*s]
 c=2.99792458e14 # [um/s]
 
 # plot settings
-set xlabel "photon wavelength [um]"
+set xlabel "photon wavelength [nm]"
 set x2label "photon energy [eV]" # set top axis label
 set ylabel "n, refractive index of CsI"
-set xrange [0.25:50]
-set x2range [0.0248:4.18]
+set xrange [258.3:442.8]
+set x2range [2.8:4.8]
 set x2tics # turn on x2(top axis) tics
 set xtics nomirror # turn off x tics mirrored on top
 set grid x2 y
@@ -35,6 +35,7 @@ set grid x2 y
 # plot to a png file
 set terminal png giant
 set output 'CsI.png'
+set key center top
 plot nVSw(x) axes x1y1 title "n(wavelength)",\
         nVSe(x) axes x2y1 title "n(energy)"
 set output # close terminal
