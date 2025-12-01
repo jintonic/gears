@@ -3,19 +3,24 @@
 
 /vis/viewer/zoomTo 2
 /vis/viewer/set/auxiliaryEdge
-/vis/viewer/set/lineSegmentsPerCircle 6
-/vis/viewer/set/viewpointVector 0.75 0.66 0.12
-/vis/viewer/set/background white
+#/vis/viewer/set/lineSegmentsPerCircle 6
+/vis/viewer/set/viewpointVector 1 1 -1
+# this doesn't really create a transparent background
+/vis/viewer/set/background 1 1 1 0
+# use the following instead
+# magick Rayleigh_0000.png -transparent white Rayleigh.png
 
 /vis/modeling/trajectories/create/drawByParticleID
 /vis/modeling/trajectories/drawByParticleID-0/default/setLineWidth 5
 /vis/modeling/trajectories/drawByParticleID-0/setDefaultRGBA 0 0.78 0.55 1
 
+/vis/set/textSize 36
 /vis/scene/add/axes
 /vis/scene/add/trajectories
 /vis/scene/endOfEventAction accumulate
 
 /run/beamOn 10
 
-/vis/ogl/export scattering.png
+/gui/addMenu export Export
+/gui/addButton export png "/vis/ogl/export Rayleigh.png" 
 

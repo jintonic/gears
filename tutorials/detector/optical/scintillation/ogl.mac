@@ -10,6 +10,7 @@
 /vis/modeling/trajectories/drawByParticleID-0/default/setLineWidth 5
 /vis/modeling/trajectories/drawByParticleID-0/setDefaultRGBA 0 0.78 0.55 1
 
+/vis/set/textSize 36
 /vis/scene/add/axes
 /vis/scene/add/trajectories
 

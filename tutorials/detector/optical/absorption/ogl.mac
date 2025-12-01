@@ -3,14 +3,17 @@
 
 /vis/viewer/zoomTo 2
 /vis/viewer/set/auxiliaryEdge
-/vis/viewer/set/lineSegmentsPerCircle 10
 /vis/viewer/set/viewpointVector 0.56 0.53 0.64
-/vis/viewer/set/background white
+# this doesn't really create a transparent background
+/vis/viewer/set/background 1 1 1 0
+# use the following instead
+# magick absorption_0000.png -transparent white absorption.png
 
 /vis/modeling/trajectories/create/drawByParticleID
 /vis/modeling/trajectories/drawByParticleID-0/default/setLineWidth 5
 /vis/modeling/trajectories/drawByParticleID-0/setDefaultRGBA 0 0.78 0.55 1
 
+/vis/set/textSize 36
 /vis/scene/add/axes
 /vis/scene/add/trajectories
 /vis/scene/endOfEventAction accumulate
@@ -18,5 +21,5 @@
 /run/beamOn 10
 
 /gui/addMenu export Export
-/gui/addButton export png "/vis/ogl/export depth.png" 
+/gui/addButton export png "/vis/ogl/export absorption.png" 
 

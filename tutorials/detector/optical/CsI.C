@@ -13,22 +13,22 @@
          "+3.38229/(1-pow(161.29/4.135667662e-15/2.99792458e14*x,2)))", 0.0, 4.96);
 
    // intensity of 3.7 eV band, tau = 1*us [Nishimura95]
-   TF1 *fslow = new TF1("fslow", "gaus", 0.0185, 4.96);
-   fslow->SetParameters(2.5,3.67,0.2);
+   TF1 *fslow = new TF1("fslow", "gausn", 0.0185, 4.96);
+   fslow->SetParameters(1,3.67,0.2);
 
    // intensity of 4.2 eV band, tau = 2*ns [Nishimura95]
-   TF1 *ffast = new TF1("ffast", "gaus", 0.0185, 4.96);
-   ffast->SetParameters(2.5,4.3,0.1);
+   TF1 *ffast = new TF1("ffast", "gausn", 0.0185, 4.96);
+   ffast->SetParameters(1,4.3,0.1);
 
    // create graphs to check results
    const int N = 100; // number of data points
    double e[N]; // photon energy [eV]
    double n[N]; // refractive index
    double slow[N]; // intensity of 3.7 eV band
-   double fast[N]; // intensity of 4.e eV band
+   double fast[N]; // intensity of 4.3 eV band
 
    for (int i=0; i<N; i++) {
-      e[i]=2.5+(5.0-2.5)/N*i;
+      e[i]=2.7+(4.8-2.7)/N*i;
       n[i]=fn->Eval(e[i]);
       slow[i]=fslow->Eval(e[i]);
       fast[i]=ffast->Eval(e[i]);
@@ -40,11 +40,11 @@
    TGraph *gs = new TGraph(N,e,slow);
    TGraph *gf = new TGraph(N,e,fast);
    
-   gs->SetMarkerColor(kRed);
-   gf->SetMarkerColor(kBlue);
-   gs->Draw("pa");
-   gf->Draw("p");
-   gn->Draw("p");
+   gs->SetLineColor(kRed);
+   gf->SetLineColor(kBlue);
+   gf->Draw("la");
+   gs->Draw("l");
+   gn->Draw("l");
    
    // generate CsI.tg
    ofstream tg("CsI.tg");
@@ -52,8 +52,8 @@
    tg<<":prop G4_CESIUM_IODIDE"<<endl;
    tg<<"  ScintillationYield 100/keV"<<endl;
    tg<<"  ResolutionScale 4.5"<<endl;
-   tg<<"  ScintillationYield1 2"<<endl;
-   tg<<"  ScintillationYield2 98"<<endl;
+   tg<<"  ScintillationYield1 0.02"<<endl;
+   tg<<"  ScintillationYield2 0.98"<<endl;
    tg<<"  ScintillationTimeConstant1 2*ns"<<endl;
    tg<<"  ScintillationTimeConstant2 1*us"<<endl;
    tg<<"  photon_energies "<<N;

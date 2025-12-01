@@ -4,6 +4,8 @@
 	gStyle->SetPadTopMargin(0.01);
 	gStyle->SetPadLeftMargin(0.11);
 	gStyle->SetPadRightMargin(0.01);
+	TCanvas* c = new TCanvas;
+
 	TChain t("t");
 	t.Add("absorption.root");
 
@@ -13,16 +15,19 @@
 	h->Fit("expo");
 	TF1* f = h->GetFunction("expo");
 	f->SetLineColor(kRed);
+	f->SetLineWidth(1);
 
 	TLatex l1, l2;
 	l1.SetTextFont(22); l1.SetTextSize(0.06); l1.SetTextColor(kRed);
 	l2.SetTextFont(22); l2.SetTextSize(0.06);
 	l1.DrawLatex(-1.1, 800, "f(z)=A e^{z/#tau}");
-	l2.DrawLatex(-1.1, 500, Form("#tau = %.3f #pm 0.004", 1/f->GetParameter(1)));
+	l2.DrawLatex(-1.3, 500, Form("#tau = (%.3f #pm 0.004) m", 1/f->GetParameter(1)));
 
-	TImage *p = TImage::Open("depth.png");
-	TPad *l = new TPad("l","l",0.2,0.5,0.7,0.9);
-	l->Draw();
-	l->cd();
+	TPad *l = new TPad("l","l",0.02,0.17,0.96,1);
+	l->SetFillColorAlpha(kWhite, 0);
+	l->Draw(); l->cd();
+	TImage *p = TImage::Open("absorption.png");
 	p->Draw();
+
+	c->Print("depth.png");
 }

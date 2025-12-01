@@ -19,6 +19,6 @@
 
 /control/ifInteractive ogl.mac
 
-/control/doifBatch /analysis/setFileName gears.root
+/control/doifBatch /analysis/setFileName scattering.root
 /control/doifBatch /run/beamOn 100000
 
