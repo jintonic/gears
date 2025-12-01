@@ -1,38 +1,26 @@
-# print macro commands on screen
 /control/verbose
-
-# geometry must be specified before /run/initialize
-/geometry/source CsIinVacuum.tg
-
-# enable physics for optical processes
-/physics_lists/factory/addOptical
-# turn off unnecessary output
-/process/optical/verbose 0
-/process/had/verbose 0
 /process/em/verbose 0
-# must be run after the cmds above
+/process/had/verbose 0
+
+/geometry/source detector.tg
+
+/physics_lists/factory/addOptical
+
 /run/initialize
 
-# check physics processes
-/process/list Electromagnetic
-/process/list Optical
-
-# generate primary particle with tiny energy
 /gps/particle gamma
-/gps/energy 6 keV
+/gps/energy 1 keV
 /gps/ang/type iso
 
-# visualize geometry and events for debugging
-/control/ifInteractive /vis/open
-/vis/drawVolume
-/vis/scene/add/trajectories
 
-# dump a event on screen for debugging
+/control/ifInteractive ogl.mac
+
 /tracking/verbose 2
 /run/beamOn
-
-/vis/disable
 /tracking/verbose 0
-/analysis/setFileName CsIinVacuum.root
+
+/control/doifBatch /vis/disable
+/control/doifBatch /analysis/setFileName scintillation.root
 /run/verbose 2
-/run/beamOn 5000
+/control/doifBatch /run/beamOn 5000
+
