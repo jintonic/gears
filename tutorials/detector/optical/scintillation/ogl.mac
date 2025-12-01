@@ -1,0 +1,20 @@
+/vis/open OGL
+/vis/drawVolume
+
+/vis/viewer/zoomTo 1.5
+/vis/viewer/set/lineSegmentsPerCircle 60
+/vis/viewer/set/viewpointVector 0 0 1
+/vis/viewer/set/background white
+
+/vis/modeling/trajectories/create/drawByParticleID
+/vis/modeling/trajectories/drawByParticleID-0/default/setLineWidth 5
+/vis/modeling/trajectories/drawByParticleID-0/setDefaultRGBA 0 0.78 0.55 1
+
+/vis/scene/add/axes
+/vis/scene/add/trajectories
+
+/run/beamOn 2
+
+/gui/addMenu export Export
+/gui/addButton export png "/vis/ogl/export scintillation.png" 
+
