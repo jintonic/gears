@@ -17,5 +17,6 @@
 
 /run/beamOn 10
 
-/vis/ogl/export absL.png
+/gui/addMenu export Export
+/gui/addButton export png "/vis/ogl/export depth.png" 
 
