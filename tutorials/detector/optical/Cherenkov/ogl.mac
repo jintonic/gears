@@ -1,0 +1,14 @@
+/vis/open OGL
+/vis/drawVolume
+
+/vis/scene/add/trajectories
+
+/vis/viewer/zoomTo 50
+/vis/viewer/set/upVector 0 0 1
+/vis/viewer/set/viewpointVector 1 0 0
+/vis/viewer/set/background white
+/vis/viewer/set/globalLineWidthScale 3
+
+/gui/addMenu export Export
+/gui/addButton export png "/vis/ogl/export Cherenkov.png" 
+
