@@ -21,14 +21,14 @@
    ffast->SetParameters(1,4.3,0.1);
 
    // create graphs to check results
-   const int N = 100; // number of data points
+   const int N = 101; // number of data points
    double e[N]; // photon energy [eV]
    double n[N]; // refractive index
    double slow[N]; // intensity of 3.7 eV band
    double fast[N]; // intensity of 4.3 eV band
 
    for (int i=0; i<N; i++) {
-      e[i]=2.7+(4.8-2.7)/N*i;
+      e[i]=2.7+(4.8-2.7)/(N-1)*i;
       n[i]=fn->Eval(e[i]);
       slow[i]=fslow->Eval(e[i]);
       fast[i]=ffast->Eval(e[i]);
