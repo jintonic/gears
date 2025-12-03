@@ -1,32 +1,26 @@
-# print macro commands on screen
-/control/verbose 1
+/control/verbose
+/process/em/verbose 0
+/process/had/verbose 0
 
-# geometry must be specified before /run/initialize
 /geometry/source CsI2PMT.tg
 
-# enable physics for optical processes
 /physics_lists/factory/addOptical
-# turn off unnecessary output
-/process/optical/verbose 0
-# must be run after the cmds above
+
 /run/initialize
 
-# check physics processes
-/process/list Electromagnetic
-/process/list Optical
+/geometry/test/run
 
-# generate primary particle with tiny energy
 /gps/particle opticalphoton
 /gps/energy 3.5 eV
-/gps/ang/type iso
+/gps/polarization 0 1 0
+/gps/position 0 0 -2 cm
 
-# visualize geometry and events for debugging
-/vis/open HepRepFile
-/vis/drawVolume
-/vis/scene/add/trajectories
-/vis/scene/endOfEventAction accumulate
-
-# dump a few events on screen for debugging
 /tracking/verbose 2
-/run/beamOn 30
+/run/beamOn 2
+/tracking/verbose 0
+
+/control/ifInteractive ogl.mac
+
+/control/doifBatch /analysis/setFileName ideal.root
+/control/doifBatch /run/beamOn 5000
 

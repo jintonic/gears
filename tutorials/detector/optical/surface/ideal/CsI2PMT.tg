@@ -17,7 +17,7 @@
 :place PMT 3 vac r000 0 0  27
 
 // optical properties of CsI
-#include ../CsI.tg
+#include ../../CsI.tg
 // optical properties of PMT
-#include ../SiO2.tg
+#include ../../SiO2.tg
 
