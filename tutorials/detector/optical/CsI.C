@@ -65,7 +65,7 @@
    tg<<"  Rindex";
    for (int i=0; i<N; i++) tg<<" "<<n[i]; tg<<endl;
    tg<<"  absLength";
-   for (int i=0; i<N; i++) tg<<" "<<"1*m"; tg<<endl;
+   for (int i=0; i<N; i++) tg<<" "<<"300"; tg<<endl;
    tg<<"  Rayleigh";
    for (int i=0; i<N; i++) tg<<" "<<"3390"; tg<<endl;
    tg.close();
