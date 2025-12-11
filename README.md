@@ -1,7 +1,8 @@
 > **Note**
 > The latest [GEARS][] require [Geant4.11](https://geant4.web.cern.ch/support/download). If you are still using [Geant4.10](https://geant4.web.cern.ch/support/download_archive?page=1), please download [v1.5.1](https://github.com/jintonic/gears/releases/tag/v1.5.1) of [GEARS][] from the [Release](https://github.com/jintonic/gears/releases) page.
 
-[![Get GEARS](https://img.shields.io/badge/Get-GEARS-orange?style=flat)](INSTALL)
+[![Article](https://img.shields.io/badge/arXiv-2512.09246-orange?style=flat)](https://arxiv.org/abs/2512.09246)
+[![Get GEARS](https://img.shields.io/badge/Get-GEARS-cyan?style=flat)](INSTALL)
 [![Tutorials](https://img.shields.io/badge/Use-GEARS-blue?style=flat)](tutorials)
 [![YouTube](https://img.shields.io/badge/You-Tube-red?style=flat)](https://www.youtube.com/@physino)
 [![Doxygen](https://codedocs.xyz/jintonic/gears.svg)](https://codedocs.xyz/jintonic/gears/annotated.html)
@@ -97,7 +98,3 @@ Two spaces instead of a tab are used to indent a line in [gears.cc](gears.cc) to
 [Vim]: https://www.vim.org/
 [Emacs]: https://www.gnu.org/software/emacs/
 
-### To-do's
-
-- tutorials
-  - add tutorials to show how one can distribute source in a volume or surface
