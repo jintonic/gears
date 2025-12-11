@@ -240,13 +240,13 @@ G4bool LineProcessor::ProcessLine(const vector<G4String> &words)
           bdr->optic->SetType(dielectric_dielectric);
         else if (value=="firsov") bdr->optic->SetType(firsov);
         else if (value=="x_ray") bdr->optic->SetType(x_ray);
-        else G4cout<<"GERAS: Ignore unknown surface type "<<value<<G4endl;
+        else G4cout<<"GEARS: Ignore unknown surface type "<<value<<G4endl;
       } else if (setting=="model") {
         if (value=="glisur") bdr->optic->SetModel(glisur);
         else if (value=="unified") bdr->optic->SetModel(unified);
-        else G4cout<<"GERAS: Ignore unknown surface model "<<value<<G4endl;
+        else G4cout<<"GEARS: Ignore unknown surface model "<<value<<G4endl;
       } else if (setting=="finish") {
-        G4cout<<"GERAS: Set surface finish to be "<<value<<G4endl;
+        G4cout<<"GEARS: Set surface finish to be "<<value<<G4endl;
         if (value=="polished") bdr->optic->SetFinish(polished);
         else if (value=="polishedfrontpainted")
           bdr->optic->SetFinish(polishedfrontpainted);
@@ -258,13 +258,13 @@ G4bool LineProcessor::ProcessLine(const vector<G4String> &words)
         else if (value=="groundbackpainted")
           bdr->optic->SetFinish(groundbackpainted);
         else {
-          G4cout<<"GERAS: Unknown surface finish: "<<value<<"!"<<G4endl;
+          G4cout<<"GEARS: Unknown surface finish: "<<value<<"!"<<G4endl;
           abort();
         }
       } else if (setting=="sigma_alpha") {
         bdr->optic->SetSigmaAlpha(G4UIcommand::ConvertToInt(value));
       } else
-        G4cout<<"GERAS: Ignore unknown surface setting "<<value<<G4endl;
+        G4cout<<"GEARS: Ignore unknown surface setting "<<value<<G4endl;
       i+=2;
     }
     if (i<words.size()) { // break while loop because of "property"
