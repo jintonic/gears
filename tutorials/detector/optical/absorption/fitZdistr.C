@@ -22,7 +22,7 @@
 	l1.SetTextFont(22); l1.SetTextSize(0.06); l1.SetTextColor(kRed);
 	l2.SetTextFont(22); l2.SetTextSize(0.06);
 	l1.DrawLatex(-1.5, 10, "f(z)=A e^{z/#tau}");
-	l2.DrawLatex(-1.5, 2, Form("#tau = (%.3f #pm 0.004) m", 1/f->GetParameter(1)));
+	l2.DrawLatex(-1.5, 2, Form("#tau = (%.1f #pm 0.4) cm", 100/f->GetParameter(1)));
 
 	TPad *l = new TPad("l","l",0.02,0.17,0.96,1);
 	l->SetFillColorAlpha(kWhite, 0);
