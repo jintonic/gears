@@ -28,5 +28,5 @@ if(APPLE) # https://gitlab.kitware.com/cmake/community/-/wikis/doc/cmake/RPATH-h
 endif()  # set RPATH in executable on Mac (must be before add_executable(...))
 
 add_executable(${PROJECT_NAME} ${PROJECT_NAME}.cc)
-target_link_libraries(${PROJECT_NAME} ${Geant4_LIBRARIES})
+target_link_libraries(${PROJECT_NAME} ${Geant4_LIBRARIES} G4HepRep)
 install(TARGETS ${PROJECT_NAME}) # enable cmake --install

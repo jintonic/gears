@@ -643,6 +643,7 @@ class Action : public G4VUserActionInitialization
 #include <G4ScoringManager.hh>
 #include <G4VisExecutive.hh>
 #include <G4UIExecutive.hh>
+#include <G4HepRepFile.hh>
 #include <G4UImanager.hh> // needed for g4.10 and above
 /**
  * The main function that calls individual components.
@@ -661,6 +662,7 @@ int main(int argc, char **argv)
   G4UIExecutive* ui = nullptr; // assume batch mode
   if (argc==1) { ui = new G4UIExecutive(argc, argv); } // interactive mode
   auto vis = new G4VisExecutive("quiet"); // visualization
+  vis->RegisterGraphicsSystem(new G4HepRepFile);
   vis->Initialize(); // do this after ui mode is decided
   if (ui) { // interactive mode
 		ui->SessionStart(); // do this after vis
