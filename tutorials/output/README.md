@@ -6,23 +6,24 @@
 [![Detector hits](https://img.shields.io/badge/detector-hits-blue?style=flat)](#combine-step-points-to-hits-in-detector)
 
 ## Output
+
 Generally speaking, the [visualization](../detector/#detector-visualization) of [detector](../detector) [geometry](../detector/#detector-construction) and the [screen dump](#screen-dump) of a [Geant4][] application can be all regarded as output of a [Geant4][] simulation. Strictly speaking, the output of a [Geant4][] simulation includes [histograms][] and/or [ntuples][] of [data][] generated during the simulation, which can be used to reveal statistical distributions of, for example, positions and energy depositions of interactions.
 
 [GEARS][] utilizes [Geant4 analysis managers](http://geant4-userdoc.web.cern.ch/geant4-userdoc/UsersGuides/ForApplicationDeveloper/html/Analysis/managers.html) to provide four output formats: [ROOT][], [HDF5][], CSV, and [AIDA][] XML.
 
 The output file name can be chosen using the macro command:
 
-~~~
+```
 /analysis/setFileName gears.root
-~~~
+```
 
 One of the following suffix is needed to specify the output file format: `.root`, `.hdf5`, `.csv`, `.xml`. Note that the **output is disabled by default**. It will be enabled if the output file name is not empty. So this macro command also works as a switch. Without it, no output file will be created.
 
 [Geant4]: http://geant4.cern.ch
-[histograms]:https://www.khanacademy.org/math/ap-statistics/quantitative-data-ap/histograms-stem-leaf/v/histograms-intro
-[ntuples]:https://en.wikipedia.org/wiki/Tuple
-[data]:#step-point
-[ROOT]:https://root.cern.ch
+[histograms]: https://www.khanacademy.org/math/ap-statistics/quantitative-data-ap/histograms-stem-leaf/v/histograms-intro
+[ntuples]: https://en.wikipedia.org/wiki/Tuple
+[data]: #step-point
+[ROOT]: https://root.cern.ch
 [HDF5]: https://www.hdfgroup.org/downloads/hdf5/
 [AIDA]: http://aida.freehep.org/index.thtml
 [GEARS]: http://physino.xyz/gears
@@ -59,8 +60,8 @@ The [ROOT][] [TTree][] offers the following features that are desired for analyz
 - It compresses data to save disk space.
 - It provide [functions][] to create and analyze statistical distributions of data using multiple dimensional [histograms][].
 
-[TTree]:https://root.cern.ch/doc/master/classTTree.html
-[functions]:https://root.cern.ch/doc/master/classTTree.html#a8a2b55624f48451d7ab0fc3c70bfe8d7
+[TTree]: https://root.cern.ch/doc/master/classTTree.html
+[functions]: https://root.cern.ch/doc/master/classTTree.html#a8a2b55624f48451d7ab0fc3c70bfe8d7
 
 Here are some example codes that can be run in a ROOT interactive session to generate histograms:
 
@@ -163,7 +164,7 @@ If you are familiar with [ROOT][] and would like to migrate to [Python][] for an
     >>> import awkward as ak
     >>> import matplotlib.pyplot as plot
     >>> x = t.arrays(['x'], "vlm==1") # get all x in vlm 1
-    >>> plot.hist(ak.flatten(x, axis=None)), bins=100)
+    >>> plot.hist(ak.flatten(x, axis=None), bins=100)
     >>> plot.show()
     ```
     <https://awkward-array.org/doc/main/user-guide/how-to-restructure-flatten.html>
@@ -189,6 +190,7 @@ If you are familiar with [ROOT][] and would like to migrate to [Python][] for an
 [tutorial]: https://uproot.readthedocs.io/en/latest/basic.html
 
 ### Julia
+
 Utilizing <https://github.com/JuliaHEP/UpROOT.jl>, one can load simulation results in [ROOT][] format in [Julia][] as well:
 
 ```julia
@@ -212,26 +214,26 @@ julia> tree.x
 
 A step point in [GEARS][] contains the following information:
 
-* Track id (`trk` in short)
-* Step number, starting from 0  (`stp` in short)
-* Detector volume copy number (`vlm` in short)
-* [Process id](#process-id) (`pro` in short)
-* [Particle id](#particle-id) (`pdg` in short)
-* Track id of the parent particle (`pid` in short)
-* Local position `xx` [mm] (origin: center of the volume)
-* Local position `yy` [mm] (origin: center of the volume)
-* Local position `zz` [mm] (origin: center of the volume)
-* Local time `dt` [ns] (time elapsed from previous step point)
-* Energy deposited [keV] (`de` in short)
-* Step length [mm] (`dl` in short)
-* Trajectory length [mm] (`l` in short)
-* Global position `x` [mm] (origin: center of the world)
-* Global position `y` [mm] (origin: center of the world)
-* Global position `z` [mm] (origin: center of the world)
-* Global time `t` [ns] (time elapsed from the beginning of event)
-* Kinetic energy of the particle [keV] (`k` in short)
-* Momentum of the particle [keV] (`p` in short)
-* Charges (`q` in short)
+- Track id (`trk` in short)
+- Step number, starting from 0 (`stp` in short)
+- Detector volume copy number (`vlm` in short)
+- [Process id](#process-id) (`pro` in short)
+- [Particle id](#particle-id) (`pdg` in short)
+- Track id of the parent particle (`pid` in short)
+- Local position `xx` [mm] (origin: center of the volume)
+- Local position `yy` [mm] (origin: center of the volume)
+- Local position `zz` [mm] (origin: center of the volume)
+- Local time `dt` [ns] (time elapsed from previous step point)
+- Energy deposited [keV] (`de` in short)
+- Step length [mm] (`dl` in short)
+- Trajectory length [mm] (`l` in short)
+- Global position `x` [mm] (origin: center of the world)
+- Global position `y` [mm] (origin: center of the world)
+- Global position `z` [mm] (origin: center of the world)
+- Global time `t` [ns] (time elapsed from the beginning of event)
+- Kinetic energy of the particle [keV] (`k` in short)
+- Momentum of the particle [keV] (`p` in short)
+- Charges (`q` in short)
 
 They are saved in separated C++ vectors (arrays with various sizes). Such a flat data structure and very short variable names are chosen on purpose to make plotting of those variables in a [ROOT][] interactive session easy.
 
@@ -239,7 +241,7 @@ Notice that the variable `n` is the total number of step points recorded in each
 
 ### Process id
 
-The physics process generating each step point is saved in a variable `pro[i]`, where `i` is the index of the step point. It equals to (process type) * 1000 + (sub type). The Process types are defined in G4ProcessType.hh, sub types are defined in G4HadronicProcessType.hh, G4DecayProcessType.hh, G4EmProcessSubType.hh,  G4TransportationProcessType.hh, G4FastSimulationProcessType.hh, G4OpProcessSubType.hh, etc. They can be found in <http://www-geant4.kek.jp/lxr/find?string=Type.hh>.
+The physics process generating each step point is saved in a variable `pro[i]`, where `i` is the index of the step point. It equals to (process type) \* 1000 + (sub type). The Process types are defined in G4ProcessType.hh, sub types are defined in G4HadronicProcessType.hh, G4DecayProcessType.hh, G4EmProcessSubType.hh, G4TransportationProcessType.hh, G4FastSimulationProcessType.hh, G4OpProcessSubType.hh, etc. They can be found in <http://www-geant4.kek.jp/lxr/find?string=Type.hh>.
 
 - less than 1000: not defined
 - 1000 to 2000: [transportation](https://geant4.kek.jp/lxr/source//processes/transportation/include/G4TransportationProcessType.hh)
@@ -300,19 +302,19 @@ The type of particle related to a step point is saved in a variable `pdg`. It is
 
 One cannot get access to step 0 (initStep printed on screen if `/tracking/verbose` is set to be more than 0) through [G4UserSteppingAction][], which only provides access to step 1 and afterwards. However, step 0 contains some very important information that is constantly requested by the user. For example, the energy of a gamma ray from a radioactive decay is only available from step 0. Such information can be easily displayed using the following ROOT command with the Output ROOT tree, `t`:
 
-~~~cpp
+```cpp
   // draw kinetic energy, "k", of a gamma (pdg==22)
   // created by radioactive decay process (pro==6210)
   t->Draw("k","pro==6210 && pdg==22")
-~~~
+```
 
-This is achieved by using [G4SteppingVerbose][] instead of [G4UserSteppingAction][] for data recording. The former provides a function called [TrackingStarted][]() to print verbose information about step 0 on screen if `/tracking/verbose` is set to be more than 0. It also provides a function called [StepInfo][]() to print verbose information about steps after step 0 on screen if `/tracking/verbose` is more than 0. [G4SteppingVerbose][]::[StepInfo][]() is called right before [G4UserSteppingAction][]::[UserSteppingAction][]([G4Step][]*) is called in [G4SteppingManager][]::[Stepping][](), it hence can be used to fully replace the functionality of [G4UserSteppingAction][]::[UserSteppingAction][]([G4Step][]*).
+This is achieved by using [G4SteppingVerbose][] instead of [G4UserSteppingAction][] for data recording. The former provides a function called [TrackingStarted][]() to print verbose information about step 0 on screen if `/tracking/verbose` is set to be more than 0. It also provides a function called [StepInfo][]() to print verbose information about steps after step 0 on screen if `/tracking/verbose` is more than 0. [G4SteppingVerbose][]::[StepInfo][]() is called right before [G4UserSteppingAction][]::[UserSteppingAction][]([G4Step][]_) is called in [G4SteppingManager][]::[Stepping][](), it hence can be used to fully replace the functionality of [G4UserSteppingAction][]::[UserSteppingAction][]([G4Step][]_).
 
-In fact, [G4UserSteppingAction][]::[UserSteppingAction][]([G4Step][]*) is not used at all in [GEARS][]. The Output class inherits [TrackingStarted][]() and [StepInfo][]() from [G4SteppingVerbose][] to record data from all steps. There is another advantage of using [G4SteppingVerbose][] instead of [G4UserSteppingAction][] for recording, that is, [G4SteppingVerbose][] is provided as a globally available singleton, which can be easily accessed at different places in the codes using:
+In fact, [G4UserSteppingAction][]::[UserSteppingAction][]([G4Step][]\*) is not used at all in [GEARS][]. The Output class inherits [TrackingStarted][]() and [StepInfo][]() from [G4SteppingVerbose][] to record data from all steps. There is another advantage of using [G4SteppingVerbose][] instead of [G4UserSteppingAction][] for recording, that is, [G4SteppingVerbose][] is provided as a globally available singleton, which can be easily accessed at different places in the codes using:
 
-~~~cpp
+```cpp
   G4VSteppingVerbose::GetInstance()
-~~~
+```
 
 This is used in [G4UserRunAction][] to open and close a TFile, in [G4UserEventAction][] to fill a TTree.
 
@@ -320,8 +322,8 @@ The catch is that functions in [G4SteppingVerbose][] will not be called in [G4St
 
 [G4Track]: http://www-geant4.kek.jp/lxr/source/track/include/G4Track.hh
 [G4Step]: http://www-geant4.kek.jp/lxr/source/track/include/G4Step.hh
-[G4UserSteppingAction]:http://www-geant4.kek.jp/lxr/source/tracking/include/G4UserSteppingAction.hh
-[UserSteppingAction]:http://www-geant4.kek.jp/lxr/source/tracking/include/G4UserSteppingAction.hh
+[G4UserSteppingAction]: http://www-geant4.kek.jp/lxr/source/tracking/include/G4UserSteppingAction.hh
+[UserSteppingAction]: http://www-geant4.kek.jp/lxr/source/tracking/include/G4UserSteppingAction.hh
 [G4SteppingVerbose]: http://www-geant4.kek.jp/lxr/source/tracking/include/G4SteppingVerbose.hh
 [G4SteppingManager]: http://www-geant4.kek.jp/lxr/source/tracking/include/G4SteppingManager.hh
 [G4UserRunAction]: http://www-geant4.kek.jp/lxr/source/run/include/G4UserRunAction.hh
@@ -332,11 +334,13 @@ The catch is that functions in [G4SteppingVerbose][] will not be called in [G4St
 [TrackingStarted]: http://www-geant4.kek.jp/lxr/source/tracking/src/G4SteppingManager.cc#L360
 
 ## Total energy
+
 In addition to arrays of parameters of individual step points, a [GEARS][] output file also contains an array of the total energies deposited in the [sensitive volumes](../detector#sensitive-volume) of the simulated detector. The index of the array is the same as the copy numbers of those volumes. The name of the array is called `et`. Since the copy number of a [sensitive volume](../detector#sensitive-volume) has to start from 1, `et[0]` is used to store the total energy deposited in all sensitive volumes. You can use the following command to draw the total energy deposited in a sensitive volume with a copy number `1`:
 
 ```cpp
 root [] t->Draw("et[1]")
 ```
+
 ## Data analysis
 
 One can use the following command to generate `gears.root` in [GEARS][]/[tutorials](..)/[output](.)/:
@@ -370,7 +374,7 @@ root[] t->Draw("et[1]")
 
 ## Combine step points to hits in detector
 
-Many of the step points in a Geant4 simulation are very close to each other, especially those of charged particles, as they quickly lose energy through multiple scattering or ionizing surrounding atoms in a very small range.  The space resolution of a real-life detector is normally not enough to resolve these details. As seen by such a detector, all nearby step points act as a single hit, the energy of which is a sum of deposited energies from all these step points, the position of which is an energy-weighted average of all these step point positions. The modeling of detector response normally start with combined hits instead of the original step points directly from Geant4 to save computational power.
+Many of the step points in a Geant4 simulation are very close to each other, especially those of charged particles, as they quickly lose energy through multiple scattering or ionizing surrounding atoms in a very small range. The space resolution of a real-life detector is normally not enough to resolve these details. As seen by such a detector, all nearby step points act as a single hit, the energy of which is a sum of deposited energies from all these step points, the position of which is an energy-weighted average of all these step point positions. The modeling of detector response normally start with combined hits instead of the original step points directly from Geant4 to save computational power.
 
 A ROOT script [combineStepPointsToHits.C](combineStepPointsToHits.C), is provided to demonstrate the combining procedure. It takes the output from [GEARS][] and save the combined hits to another ROOT file `hits.root`. Another ROOT script, [drawHits.C](drawHits.C), is used to demonstrate the final result shown in the following plot.
 
@@ -384,4 +388,3 @@ $ root drawHits.C
 ```
 
 Note that they have to be run after you execute `gears radiate.mac`, since they need the Geant4 output as input.
-
