@@ -14,13 +14,13 @@
 2. [physics process][physics list]: model + cross section (how often it happens)
 3. [physics list][]: a list of processes for common particles
 4. [modular lists][]: lists of processes that can be used as building blocks to construct a more complex list
-6. [reference lists][]: official [modular lists][] shipped with [Geant4][]
-7. [factory][]: a [Geant4][] class that can be used to call [reference lists][] by their names
+5. [reference lists][]: official [modular lists][] shipped with [Geant4][]
+6. [factory][]: a [Geant4][] class that can be used to call [reference lists][] by their names
 
-[physics list]:http://geant4-userdoc.web.cern.ch/geant4-userdoc/UsersGuides/ForApplicationDeveloper/html/UserActions/mandatoryActions.html#physics-lists
-[modular lists]:http://geant4-userdoc.web.cern.ch/geant4-userdoc/UsersGuides/ForApplicationDeveloper/html/UserActions/mandatoryActions.html#building-physics-list-from-physics-builders
+[physics list]: http://geant4-userdoc.web.cern.ch/geant4-userdoc/UsersGuides/ForApplicationDeveloper/html/UserActions/mandatoryActions.html#physics-lists
+[modular lists]: http://geant4-userdoc.web.cern.ch/geant4-userdoc/UsersGuides/ForApplicationDeveloper/html/UserActions/mandatoryActions.html#building-physics-list-from-physics-builders
 [reference lists]: https://geant4.web.cern.ch/documentation/dev/plg_html/PhysicsListGuide/physicslistguide.html
-[factory]:https://geant4.kek.jp/lxr/source/physics_lists/lists/src/G4PhysListFactory.cc#L82
+[factory]: https://geant4.kek.jp/lxr/source/physics_lists/lists/src/G4PhysListFactory.cc#L82
 [Geant4]: http://geant4.cern.ch
 
 ## How to choose a physics list
@@ -51,7 +51,7 @@ where `/run/initialize` initializes physics based on the list, and `/run/beamOn`
 Available reference lists can be found in [G4PhysListFactory.cc][factory]. The naming scheme is introduced on page 24 in this [tutorial][]. A guidance on how to choose a proper physics list is also available in the [tutorial][].
 
 [GEARS]: http://physino.xyz/gears
-[tutorial]:https://www.slac.stanford.edu/xorg/geant4/SLACTutorial14/Physics1.pdf
+[tutorial]: https://www.slac.stanford.edu/xorg/geant4/SLACTutorial14/Physics1.pdf
 
 ## Physics processes
 
@@ -74,7 +74,7 @@ A unique [process id](../output#process-id) is assigned to each process in a [GE
 
 Run `/process/list` after `/run/initialize`, you will get something like this:
 
-~~~
+```
      Transportation,              Decay,   RadioactiveDecay,                msc
               hIoni,            ionIoni,             hBrems,          hPairProd
         CoulombScat,              eIoni,              eBrem,            annihil
@@ -87,11 +87,12 @@ anti_sigma-Inelastic,    sigma+Inelastic,anti_sigma+Inelastic,     xi-Inelastic
   anti_xi-Inelastic,       xi0Inelastic,  anti_xi0Inelastic,    omega-Inelastic
 anti_omega-Inelastic,anti_protonInelastic,anti_neutronInelastic,anti_deuteronInelastic
 anti_tritonInelastic,  anti_He3Inelastic,anti_alphaInelastic
-~~~
+```
 
 Now you can use, for example, `/process/inactivate nCapture` to disable neutron capture process in your simulation. And you can use, for example, `/process/setVerbose 20 RadioactiveDecay` to change the verbosity of the radioactive decay process.
 
 ### Radioactive decay
+
 [![YouTube](https://img.shields.io/badge/You-Tube-red?style=flat)](https://youtu.be/8dR0DQ5ypCw)
 
 Radioactive decay processes can be enabled before `run/initialize`:
@@ -105,12 +106,12 @@ Idle> /process/list Decay
 
 Detailed control of radioactive decay is provided by the /[grdm][]/ command, for example,
 
-~~~sh
+```sh
 /grdm/deselectVolume chamber # disabled radioactive decay in volume "chamber"
 /grdm/nucleusLimits 1 80 # enabled radioactive decay only when z in [1, 80]
-~~~
+```
 
-[grdm]:http://geant4-userdoc.web.cern.ch/geant4-userdoc/UsersGuides/ForApplicationDeveloper/html/Control/AllResources/Control/UIcommands/_grdm_.html
+[grdm]: http://geant4-userdoc.web.cern.ch/geant4-userdoc/UsersGuides/ForApplicationDeveloper/html/Control/AllResources/Control/UIcommands/_grdm_.html
 
 Here is an example to create [Pb210][] on the surface of a cylindrical CsI detector:
 
@@ -126,20 +127,20 @@ Here is an example to create [Pb210][] on the surface of a cylindrical CsI detec
  /gps/pos/halfz 2.5 cm
 ```
 
-[Pb210]:https://storage.googleapis.com/groundai-web-prod/media%2Fusers%2Fuser_92756%2Fproject_309275%2Fimages%2F210Pbdecaychain.png
+[Pb210]: https://storage.googleapis.com/groundai-web-prod/media%2Fusers%2Fuser_92756%2Fproject_309275%2Fimages%2F210Pbdecaychain.png
 
 #### Split decay chain
+
 Some [isotope][]s in a radioactive [decay chain][] have long [half live][]s. They decay long after the first decay on top of the chain. However, [Geant4][] simulate the whole chain in one event. It is the user's task to split different decays in the chain to different events based on the times when they happen.
 
-[isotope]:https://en.wikipedia.org/wiki/Isotope
-[decay chain]:https://en.wikipedia.org/wiki/Decay_chain
+[isotope]: https://en.wikipedia.org/wiki/Isotope
+[decay chain]: https://en.wikipedia.org/wiki/Decay_chain
 [half live]: https://en.wikipedia.org/wiki/Half-life
 
 [GEARS][] provides a macro command `/grdm/setTimeWindow` for you to split the chain based on a time window specified by you:
 
 ```sh
- # choose a reference physics list
- /physics_lists/select QGSP_BERT_EMV
+PHYSLIST=QGSP_BERT_EMV gears
  # cmd below becomes available only when the cmd above is used
  /physics_lists/factory/addRadioactiveDecay
  # must be run after the commands above
@@ -180,11 +181,11 @@ For people who want to understand how this is done, please check the [GEARS doxy
 For the impatient, new particles created after the specified time window in a decay process will be tagged as `fWaiting` in `G4UserStackingAction::ClassifyNewTrack()`. This postpones the tracking of them after the call of `G4UserStackingAction::NewStage()`. One can then save and reset the current event in the `NewStage()` function so that the postponed tracks will be saved in a separate event.
 
 #### Stop decay chain
+
 If the half life of a daughter nucleus is longer than a measurement duration, there is no need to simulate its decay anymore. In this case, instead of splitting its decay to another event, we should simply stop its radioactive decay completely. This is done using a Geant4 macro command `/grdm/nucleusLimits`, for example,
 
 ```sh
-# enable radioactive decay physics
-/physics_lists/select QGSP_BERT
+PHYSLIST=QGSP_BERT gears
 /physics_lists/factory/addRadioactiveDecay
 
 /run/initialize
@@ -200,6 +201,7 @@ If the half life of a daughter nucleus is longer than a measurement duration, th
 ```
 
 ### Optical processes
+
 [![YouTube](https://img.shields.io/badge/You-Tube-red?style=flat)](https://youtu.be/sgo-RPbDRcU)
 
 Optical processes can be enabled before `/run/initialize`:
@@ -223,7 +225,7 @@ Optical processes can be enabled before `/run/initialize`:
 
 Individual optical processes can be toggled by the following commands:
 
-~~~sh
+```sh
 /process/optical/processActivation Cerenkov true/false
 /process/optical/processActivation Scintillation true/false
 /process/optical/processActivation OpAbsorption true/false
@@ -231,7 +233,7 @@ Individual optical processes can be toggled by the following commands:
 /process/optical/processActivation OpMieHG true/false
 /process/optical/processActivation OpBoundary true/false
 /process/optical/processActivation OpWLS true/false
-~~~
+```
 
 More built-in commands related to optical processes can be found [here](http://geant4-userdoc.web.cern.ch/geant4-userdoc/UsersGuides/ForApplicationDeveloper/html/Control/AllResources/Control/UIcommands/_process_optical_.html). Example usages can be found [here](http://geant4-userdoc.web.cern.ch/geant4-userdoc/UsersGuides/ForApplicationDeveloper/html/Examples/ExtendedCodes.html#optical-photons).
 
@@ -239,7 +241,7 @@ It is useful to categorize the processes the following way:
 
 - Production of [optical photons][]:
   - [Cerenkov radiation](https://en.wikipedia.org/wiki/Cherenkov_radiation)
-  - [Scintillaiton](https://en.wikipedia.org/wiki/Scintillation_(physics))
+  - [Scintillaiton](<https://en.wikipedia.org/wiki/Scintillation_(physics)>)
 - Transportation of [optical photons][] inside certain material:
   - Absorption (OpAbsorption)
   - Scattering: [Rayleigh scattering](https://en.wikipedia.org/wiki/Rayleigh_scattering) (OpRayleigh), and [Mie scattering](https://en.wikipedia.org/wiki/Mie_scattering) (OpMieHG), etc.
@@ -250,6 +252,7 @@ It is useful to categorize the processes the following way:
 It is also important to understand that [optical photons][] are treated differently from gamma and x-rays in [Geant4][], since completely different physics processes are assigned to them.
 
 #### Optical properties of materials and surfaces
+
 To [generate Cerenkov light](http://geant4-userdoc.web.cern.ch/geant4-userdoc/UsersGuides/ForApplicationDeveloper/html/TrackingAndPhysics/physicsProcess.html#generation-of-photons-in-processes-electromagnetic-xrays-cerenkov-effect), one MUST specify the refractive index of the material where the light is generated. In [GEARS][], this is [done in the detector geometry description file](../detector/optical).
 
 At least two parameters need to be specified to [generate scintillation light](https://geant4-userdoc.web.cern.ch/UsersGuides/ForApplicationDeveloper/html/TrackingAndPhysics/physicsProcess.html#scintillation): the light yield, i.e., the number of photons per unit energy deposition (SCINTILLATIONYIELD), and the variation of the number of generated photons (RESOLUTIONSCALE). The parameters need to be attached to the material that scintillates, they are hence [specified in the detector geometry description file](../detector/optical) as well.
@@ -266,6 +269,6 @@ In an ideal optical interface, the transportation of [optical photons][] can be 
 - [groundFrontPainted.mac](../detector/optical/surface/groundFrontPainted.mac) and [CsI2Teflon.tg](../detector/optical/surface/CsI2Teflon.tg): optical photons shot to an unpolished surface between a CsI crystal and PTFE reflector without an air gap in between.
 
 [optical photons]: http://geant4-userdoc.web.cern.ch/geant4-userdoc/UsersGuides/ForApplicationDeveloper/html/TrackingAndPhysics/physicsProcess.html#optical-photon-processes
-[CsI]:../detector/optical/CsI.tg
-[TPB]:../detector/optical/TPB.tg
-[PMT]:../detector/optical/SiO2.tg
+[CsI]: ../detector/optical/CsI.tg
+[TPB]: ../detector/optical/TPB.tg
+[PMT]: ../detector/optical/SiO2.tg

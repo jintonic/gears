@@ -2,7 +2,6 @@
 
 /geometry/source liver.tg
 
-/physics_lists/select QGSP_BERT
 /physics_lists/factory/addRadioactiveDecay
 
 /run/initialize

@@ -1,7 +1,5 @@
 /geometry/source foil.tg
 
-# https://geant4.web.cern.ch/node/1620
-/physics_lists/select LBE_LIV
 # PIXE must be used to enable the creation of characteristic X-rays
 /process/em/pixe true
 /run/initialize

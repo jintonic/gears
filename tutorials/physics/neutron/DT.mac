@@ -3,9 +3,6 @@
 # geometry must be specified before /run/initialize
 /geometry/source concrete.tg
 
-# add physics lists 
-/physics_lists/select QGSP_BERT_HP_EMV
-
 #cmd below is availabe only after the cmd above is used
 #/physics_lists/factory/addRadioactiveDecay
 

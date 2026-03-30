@@ -4,7 +4,7 @@ The characteristic X-ray creation by ionizing particles in a material is demonst
 
 ```sh
 # working EM options: _LIV, _PEN, _EMY, _EMZ
-/physics_lists/select LBE_LIV
+PHYLIST=LBE_LIV gears fluorescence.mac
 # /process/em/ only exists with radioactive decay being enabled
 /physics_lists/factory/addRadioactiveDecay
 # PIXE must be used to enable the creation of characteristic X-rays

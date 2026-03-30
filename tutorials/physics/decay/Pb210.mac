@@ -2,8 +2,6 @@
 
 /geometry/source HPGe.tg
 
-/physics_lists/select QGSP_BERT
-# cmd below becomes available only when the cmd above is used
 /physics_lists/factory/addRadioactiveDecay
 # cmd below must be run after the cmds above
 /run/initialize

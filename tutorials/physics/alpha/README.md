@@ -2,6 +2,7 @@
 [![Bragg curve](https://img.shields.io/badge/Bragg-curve-red?style=flat)](#bragg-curve)
 [![Absorption range](https://img.shields.io/badge/Absorption-range-yellow?style=flat)](#range)
 [![Physics list](https://img.shields.io/badge/Physics-list-cyan?style=flat)](#impact-of-physics-list)
+
 ## Alpha interactions
 
 Alpha particles, or ions in general, are heavy (compared to elemental particles) electrically charged particles. According to Knoll's [Radiation Detection and Measurement](https://www.amazon.com/dp/0470131489), they interact with matter primarily through coulomb forces between their positive charge and the negative charge of the orbital electrons within the absorber atoms. Although interactions of the particle with nuclei (as in Rutherford scattering or alpha-particle-induced reactions) are also possible, such encounters occur only rarely and they are not normally significant in the response of radiation detectors.
@@ -46,7 +47,7 @@ root[] t->Draw("de/dl:l","trk==1 && de>15","colz")
 `air.root` can be created by
 
 ```sh
-$ gears BraggCurve.mac
+$ PHYSLIST=QGSP_BERT_EMV gears BraggCurve.mac
 ```
 
 In [BraggCurve.mac](BraggCurve.mac), 5.5 MeV alphas are shot to air. The simulated world is defined in [air.tg](air.tg)
@@ -75,8 +76,7 @@ In [range.mac](range.mac), 5.5 MeV alphas are shot to a CsI scintillation crysta
 ```sh
 # LBE: low background experiment (maximal step length: 1 um)
 # LIV: Livermore data based EM models
-# comment out the following line and run again to see the difference
-/physics_lists/select LBE_LIV
+PHYSLIST=LBE_LIV gears range.mac
 ```
 
-Run `gears range.mac` with and without this line and draw the alpha hits distributions to see the difference.
+Run `gears range.mac` with and without the specification of `PHYSLIST` and draw the alpha hits distributions to see the difference.

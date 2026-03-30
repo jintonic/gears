@@ -34,7 +34,9 @@ Example simulation and analysis codes can be found in <https://github.com/jinton
 
 ### A comprehensive example
 
-In [DT.mac](DT.mac), 14 MeV neutrons from a DT generator are shot to a concrete block defined in [concrete.tg](concrete.tg). Example analysis code:
+In [DT.mac](DT.mac), 14 MeV neutrons from a DT generator are shot to a concrete block defined in [concrete.tg](concrete.tg): `PHYSLIST=QGSP_BERT_HP_EMV gears DT.mac`.
+
+Example analysis code:
 
 ```cpp
 // check which interaction is dominant
@@ -48,4 +50,3 @@ root [] t->Draw("q")
 // draw isotopes involved
 root [] t->Draw("pdg", "pdg>10000")
 ```
-

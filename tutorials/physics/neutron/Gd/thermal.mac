@@ -1,8 +1,5 @@
 /geometry/source Gd.tg
 
-// HP (high precision) neutron model is needed
-/physics_lists/select QGSP_BERT_HP
-
 /run/initialize
 
 /process/list

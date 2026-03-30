@@ -1,7 +1,5 @@
 /geometry/source TUNL.tg
 
-/physics_lists/select LBE_LIV_HP
-
 /run/initialize
 
 /geometry/test/run
